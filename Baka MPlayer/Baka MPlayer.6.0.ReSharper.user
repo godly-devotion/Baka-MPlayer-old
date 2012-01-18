@@ -1,0 +1,284 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Controls/f:ButtonControl.Designer.cs" caret="0" fromTop="0" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/f:Program.cs" caret="0" fromTop="0" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:MainForm.Designer.cs" caret="66449" fromTop="47" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Controls/f:ButtonControl.cs" caret="221" fromTop="9" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Controls/f:PlaylistControl.cs" caret="4771" fromTop="53" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Controls/d:TabControl/f:ThemedColors.cs" caret="214" fromTop="7" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Controls/d:TabControl/f:TabStyleProvider.cs" caret="232" fromTop="9" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Controls/d:TabControl/f:TabStyle.cs" caret="142" fromTop="4" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Controls/d:TabControl/f:NativeMethods.cs" caret="1897" fromTop="45" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Controls/d:TabControl/f:CustomTabControl.cs" caret="39976" fromTop="45" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:MPlayer Code/f:PlayingFile.cs" caret="50" fromTop="2" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:MPlayer Code/f:MPlayer.cs" caret="0" fromTop="0" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:InfoForm.cs" caret="868" fromTop="24" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:JumpForm.Designer.cs" caret="0" fromTop="0" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Controls/f:ColorSlider.cs" caret="15924" fromTop="45" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:BlackForm.cs" caret="0" fromTop="0" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:SnapshotForm.cs" caret="148" fromTop="0" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:AboutForm.cs" caret="0" fromTop="0" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:JumpForm.cs" caret="0" fromTop="0" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:InputForm.cs" caret="0" fromTop="0" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Classes/f:Functions.cs" caret="0" fromTop="0" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="1407" fromTop="0" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:MainForm.cs" caret="2093" fromTop="27" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="4242" fromTop="22" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="4242" fromTop="22" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="4254" fromTop="22" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="4242" fromTop="22" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="209" fromTop="8" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="1035" fromTop="35" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="1012" fromTop="35" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="495" fromTop="18" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="884" fromTop="30" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="668" fromTop="24" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="327" fromTop="18" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="116" fromTop="9" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="2919" fromTop="39" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="4242" fromTop="29" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="4242" fromTop="40" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="2919" fromTop="24" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="4254" fromTop="45" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="2205" fromTop="18" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="2802" fromTop="32" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="3605" fromTop="32" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="3436" fromTop="26" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="2971" fromTop="8" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="4103" fromTop="40" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="3900" fromTop="35" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="3248" fromTop="18" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="2999" fromTop="10" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="3693" fromTop="23" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:WebForm.cs" caret="1407" fromTop="10" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:MainForm.cs" caret="1758" fromTop="27" />
+      <File id="3DD3A1F2-8DC4-41A9-AAD6-029758F3D936/d:Forms/f:MainForm.cs" caret="2093" fromTop="40" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="Button`0" priority="0" />
+      <Item value="private" priority="16" />
+      <Item value="bool" priority="6" />
+      <Item value="isDefault" priority="2" />
+      <Item value="void" priority="23" />
+      <Item value="if" priority="0" />
+      <Item value="else" priority="0" />
+      <Item value="public" priority="66" />
+      <Item value="enum" priority="0" />
+      <Item value="string" priority="29" />
+      <Item value="static" priority="37" />
+      <Item value="str" priority="4" />
+      <Item value="const" priority="0" />
+      <Item value="int" priority="14" />
+      <Item value="List" priority="0" />
+      <Item value="new" priority="0" />
+      <Item value="List&lt;string&gt;" priority="0" />
+      <Item value="class" priority="12" />
+      <Item value="PlayState`0" priority="0" />
+      <Item value="Unidentified" priority="1" />
+      <Item value="PlayStates`0" priority="0" />
+      <Item value="return" priority="3" />
+      <Item value="_album_artist" priority="1" />
+      <Item value="value" priority="0" />
+      <Item value="ClipInfo`0" priority="0" />
+      <Item value="using" priority="2" />
+      <Item value="Baka_MPlayer" priority="0" />
+      <Item value="Forms" priority="0" />
+      <Item value="MainForm`0" priority="9" />
+      <Item value="mainForm" priority="2" />
+      <Item value="_mainForm" priority="1" />
+      <Item value="readonly" priority="0" />
+      <Item value="MPlayer`0" priority="7" />
+      <Item value="System" priority="1" />
+      <Item value="Diagnostics" priority="1" />
+      <Item value="PlayingItem`0" priority="1" />
+      <Item value="mplayer" priority="5" />
+      <Item value="_mplayer" priority="0" />
+      <Item value="Process`0" priority="1" />
+      <Item value="mplayerClass" priority="0" />
+      <Item value="true" priority="2" />
+      <Item value="MPlayerParser`0" priority="1" />
+      <Item value="mplayerParser" priority="0" />
+      <Item value="_mplayerParser" priority="0" />
+      <Item value="namespace" priority="1" />
+      <Item value="Open`0" priority="1" />
+      <Item value="this" priority="2" />
+      <Item value="parent" priority="4" />
+      <Item value="PlayingFile`0" priority="1" />
+      <Item value="url" priority="0" />
+      <Item value="MediaEnded`0" priority="0" />
+      <Item value="invoke" priority="0" />
+      <Item value="Invoke`0" priority="0" />
+      <Item value="PlayStateChanged`0" priority="0" />
+      <Item value="FlatAppearance" priority="2" />
+      <Item value="Color`0" priority="3" />
+      <Item value="Refresh`0" priority="1" />
+      <Item value="refreshRequired" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="Empty" priority="6" />
+      <Item value="Format`0" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@PlayingItem+ClipInfo">
+      <Item value="Track" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@MPlayer">
+      <Item value="Controls`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@PlayingItem">
+      <Item value="ClipInfo`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MPlayer+Open">
+      <Item value="mplayer" priority="0" />
+      <Item value="parent" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:MPlayer">
+      <Item value="mplayer" priority="1" />
+      <Item value="mainForm" priority="1" />
+      <Item value="SendCommand`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@PlayingFile">
+      <Item value="ClipInfo`0" priority="0" />
+      <Item value="FileInfo`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@PlayingFile+FileInfo">
+      <Item value="URL" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Baka_MPlayer.Forms.MainForm">
+      <Item value="CallMediaOpened`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.FlatButtonAppearance">
+      <Item value="BorderColor" priority="0" />
+      <Item value="MouseDownBackColor" priority="0" />
+      <Item value="MouseOverBackColor" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Drawing.Color">
+      <Item value="DeepSkyBlue" priority="1" />
+      <Item value="DimGray" priority="0" />
+      <Item value="Gray" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="CSharpCodeCompletionContext">
+      <Item value="var" priority="30" />
+      <Item value="return" priority="123" />
+      <Item value="inputTextbox" priority="61" />
+      <Item value="this" priority="309" />
+      <Item value="okButton" priority="123" />
+      <Item value="private" priority="309" />
+      <Item value="int" priority="216" />
+      <Item value="public" priority="61" />
+      <Item value="currentTime" priority="30" />
+      <Item value="totalTime" priority="30" />
+      <Item value="void" priority="185" />
+      <Item value="object" priority="61" />
+      <Item value="EventArgs`0" priority="61" />
+      <Item value="CheckTimes_ValueChanged`0" priority="30" />
+      <Item value="sender" priority="30" />
+      <Item value="e" priority="30" />
+      <Item value="bool" priority="61" />
+      <Item value="allowJump" priority="92" />
+      <Item value="else" priority="61" />
+      <Item value="GetNewTime" priority="123" />
+      <Item value="checkPicbox" priority="123" />
+      <Item value="Properties" priority="185" />
+      <Item value="Resources`0" priority="161" />
+      <Item value="jumpButton" priority="30" />
+      <Item value="validEntry`0" priority="185" />
+      <Item value="true" priority="154" />
+      <Item value="false" priority="216" />
+      <Item value="CalculateTimeFromSeconds`0" priority="30" />
+      <Item value="totalSec" priority="30" />
+      <Item value="hour" priority="30" />
+      <Item value="min" priority="30" />
+      <Item value="sec" priority="30" />
+      <Item value="Bitmap`0" priority="30" />
+      <Item value="snapshotPicbox" priority="61" />
+      <Item value="value" priority="61" />
+      <Item value="string" priority="154" />
+      <Item value="location" priority="30" />
+      <Item value="demensionsLabel" priority="30" />
+      <Item value="bottomPanel" priority="61" />
+      <Item value="Bottom" priority="30" />
+      <Item value="image" priority="30" />
+      <Item value="using" priority="59" />
+      <Item value="System" priority="59" />
+      <Item value="IO" priority="54" />
+      <Item value="urlTextbox" priority="247" />
+      <Item value="url" priority="30" />
+      <Item value="#endregion" priority="30" />
+      <Item value="openFile`0" priority="30" />
+      <Item value="Path`0" priority="30" />
+      <Item value="URL" priority="30" />
+      <Item value="if" priority="61" />
+      <Item value="isValid" priority="123" />
+      <Item value="checkValid`0" priority="61" />
+      <Item value="fileTypeLabel" priority="30" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Baka_MPlayer.Controls.CustomTextBox">
+      <Item value="Text" priority="27" />
+      <Item value="TextLength" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Baka_MPlayer.Forms.InputForm">
+      <Item value="Close`0" priority="54" />
+      <Item value="Dispose`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Baka_MPlayer.Controls.ButtonControl">
+      <Item value="Enabled" priority="134" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Baka_MPlayer.Forms.JumpForm">
+      <Item value="currentTime" priority="27" />
+      <Item value="totalTime" priority="26" />
+      <Item value="Close`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.PictureBox">
+      <Item value="Image" priority="161" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Baka_MPlayer.Properties.Resources">
+      <Item value="exists" priority="80" />
+      <Item value="not_exists" priority="80" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Baka_MPlayer.Forms.SnapshotForm">
+      <Item value="location" priority="26" />
+      <Item value="Dispose`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.Label">
+      <Item value="Text" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Baka_MPlayer.Forms.AboutForm">
+      <Item value="Dispose`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Windows.Forms.TextBox">
+      <Item value="Text" priority="54" />
+      <Item value="SelectAll`0" priority="26" />
+      <Item value="Focus`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Baka_MPlayer.Forms.WebForm">
+      <Item value="URL" priority="26" />
+      <Item value="Close`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.IO.Path">
+      <Item value="GetFileName`0" priority="27" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+</Configuration>

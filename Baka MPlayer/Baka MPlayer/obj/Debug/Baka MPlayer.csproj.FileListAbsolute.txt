@@ -1,0 +1,38 @@
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\bin\Debug\Baka MPlayer.exe
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\bin\Debug\Baka MPlayer.pdb
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Properties.Resources.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.csproj.GenerateResource.Cache
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.exe
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.pdb
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Controls.ButtonControl.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.MainForm.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.OptionsForm.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Controls.PlaylistControl.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.WebForm.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.BlackForm.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.InputForm.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.JumpForm.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.SnapshotForm.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.InfoForm.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.AboutForm.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.exe
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.pdb
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Controls.ButtonControl.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Controls.PlaylistControl.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.AboutForm.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.BlackForm.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.InfoForm.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.InputForm.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.JumpForm.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.MainForm.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.OptionsForm.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.SnapshotForm.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.WebForm.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Properties.Resources.resources
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.csproj.GenerateResource.Cache
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\bin\Debug\Baka MPlayer.exe
+C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\bin\Debug\Baka MPlayer.pdb
+C:\Users\Joshua Park\Desktop\Files\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.exe
+C:\Users\Joshua Park\Desktop\Files\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.pdb
