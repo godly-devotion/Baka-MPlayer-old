@@ -28,7 +28,7 @@ namespace Baka_MPlayer.Forms
 
         private void saveImgLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var fileName = System.IO.Path.GetFileNameWithoutExtension(PlayingFile.FileName);
+            var fileName = System.IO.Path.GetFileNameWithoutExtension(Info.FileName);
             var sfd = new SaveFileDialog
             {
                 SupportMultiDottedExtensions = true,
@@ -77,13 +77,13 @@ namespace Baka_MPlayer.Forms
 
         private void setID3Tags()
         {
-            musicTitle.Text = PlayingFile.ID3Tags.Title;
-            musicArtist.Text = PlayingFile.ID3Tags.Artist;
-            musicAlbum.Text = PlayingFile.ID3Tags.Album;
-            musicYear.Text = PlayingFile.ID3Tags.Date;
-            musicTrack.Text = PlayingFile.ID3Tags.Track.ToString();
-            musicGenre.Text = PlayingFile.ID3Tags.Genre;
-            musicComment.Text = PlayingFile.ID3Tags.Comment;
+            musicTitle.Text = Info.ID3Tags.Title;
+            musicArtist.Text = Info.ID3Tags.Artist;
+            musicAlbum.Text = Info.ID3Tags.Album;
+            musicYear.Text = Info.ID3Tags.Date;
+            musicTrack.Text = Info.ID3Tags.Track.ToString();
+            musicGenre.Text = Info.ID3Tags.Genre;
+            musicComment.Text = Info.ID3Tags.Comment;
 
             // album art
         }

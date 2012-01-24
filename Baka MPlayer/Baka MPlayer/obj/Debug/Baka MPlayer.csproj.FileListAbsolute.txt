@@ -36,3 +36,13 @@ C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\bin\Deb
 C:\Users\Daniel\Dropbox\_data\MPlayer2 Project\Baka MPlayer\Baka MPlayer\bin\Debug\Baka MPlayer.pdb
 C:\Users\Joshua Park\Desktop\Files\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.exe
 C:\Users\Joshua Park\Desktop\Files\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.pdb
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\WinAPI Code Pack\Shell\Controls\CommandLinkWPF.baml
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowser.WPF.baml
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\WinAPI Code Pack\Shell\Controls\CommandLinkWPF.g.cs
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowser.WPF.g.cs
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer_Content.g.cs
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer_MarkupCompile.cache
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.g.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.WinAPI_Code_Pack.Core.Resources.LocalizedMessages.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.WinAPI_Code_Pack.Shell.Resources.LocalizedMessages.resources
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\bin\Debug\CustomTabControl.dll

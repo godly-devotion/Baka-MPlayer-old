@@ -26,6 +26,8 @@ namespace Baka_MPlayer.Controls
         {
             this.mainForm = mainForm;
             this.mplayer = mplayer;
+
+            playlistList.ContextMenu = fileContextMenu;
         }
 
 #endregion
@@ -43,14 +45,14 @@ namespace Baka_MPlayer.Controls
         public int GetTotalItems { get { return playlistList.Items.Count; } }
 
         /// <summary>
-        /// Gets the current files name
+        /// Gets the current file's name
         /// </summary>
         public string GetCurrentFile { get; private set; }
 
         /// <summary>
-        /// Gets the currently selected index
+        /// Gets or sets the currently selected index
         /// </summary>
-        public int GetSelectedIndex
+        public int SelectedIndex
         {//playlistList.SelectedIndices[0];
             get
             {
@@ -58,14 +60,13 @@ namespace Baka_MPlayer.Controls
                     return playlistList.FocusedItem.Index;
                 return -1;
             }
-        }
+            set
+            {
+                playlistList.SelectedItems.Clear();
 
-        /// <summary>
-        /// Sets the currently selected index
-        /// </summary>
-        public int SetSelectedIndex
-        {
-            set { playlistStatusStrip.Items[value].Select(); }
+                if (value > -1)
+                    playlistList.FocusedItem = playlistList.Items[value];               
+            }
         }
 
 #endregion
@@ -80,18 +81,17 @@ namespace Baka_MPlayer.Controls
         {
             playlistList.BeginUpdate();
 
-            if (File.Exists(PlayingFile.URL))
+            if (File.Exists(Info.URL))
             {
-                if (playlistList.Items.IndexOfKey(Path.GetFileName(PlayingFile.URL)).Equals(-1))
+                if (playlistList.Items.IndexOfKey(Path.GetFileName(Info.URL)).Equals(-1))
                     refreshRequired = true;
 
                 if (refreshRequired)
                     FillPlaylist();
 
-                SetSelectedIndex = playlistList.FindItemWithText(Path.GetFileName(PlayingFile.URL)).Index;
-
+                SelectedIndex = playlistList.FindItemWithText(Path.GetFileName(Info.URL)).Index;
                 mainForm.SetPlaylistButtonEnable(true);
-                mainForm.SetPlaylistVisibility(GetTotalItems > 1 ? true : false);
+                mainForm.SetPlaylistVisibility(GetTotalItems > 1);
             }
             else
             {
@@ -107,19 +107,19 @@ namespace Baka_MPlayer.Controls
                 mainForm.SetShuffleCheckState(false);
 
             // set playlist index
-            GetPlaylistIndex = GetSelectedIndex;
+            GetPlaylistIndex = SelectedIndex;
         }
 
         private void FillPlaylist()
         {
             playlistList.Items.Clear();
-            var dirInfo = new DirectoryInfo(Path.GetDirectoryName(PlayingFile.URL));
+            var dirInfo = new DirectoryInfo(Path.GetDirectoryName(Info.URL));
             FileInfo[] files;
             
             if (showAllFilesToolStripMenuItem.Checked)
                 files = dirInfo.GetFiles("*.*");
             else
-                files = dirInfo.GetFiles('*' + Path.GetExtension(PlayingFile.URL));
+                files = dirInfo.GetFiles('*' + Path.GetExtension(Info.URL));
 
             for (var i = 0; i <= files.Length - 1; i++)
             {
@@ -131,20 +131,20 @@ namespace Baka_MPlayer.Controls
 
         private void PlaySelectedItem()
         {
-            var newUrl = Path.GetDirectoryName(PlayingFile.URL) + "\\" + playlistList.Items[GetSelectedIndex];
-            if (GetSelectedIndex != -1 && File.Exists(newUrl) && GetSelectedIndex != GetPlaylistIndex)
+            var newUrl = Path.GetDirectoryName(Info.URL) + "\\" + playlistList.Items[SelectedIndex].Text;
+            if (SelectedIndex != -1 && File.Exists(newUrl) && SelectedIndex != GetPlaylistIndex)
                 OpenFile(newUrl);
         }
 
         public void PlayFile(int index)
         {
-            var currentDir = Path.GetDirectoryName(PlayingFile.URL);
+            var currentDir = Path.GetDirectoryName(Info.URL);
             mplayer.OpenFile(string.Format("{0}\\{1}", currentDir, playlistList.Items[index].Text));
         }
 
         public void PlayFile(string name)
         {
-            var currentDir = Path.GetDirectoryName(PlayingFile.URL);
+            var currentDir = Path.GetDirectoryName(Info.URL);
             var fileName = playlistList.FindItemWithText(name).Text;
             mplayer.OpenFile(string.Format("{0}\\{1}", currentDir, fileName));
         }
@@ -152,13 +152,13 @@ namespace Baka_MPlayer.Controls
         public void PlayPreviousFile()
         {
             if (GetPlaylistIndex > 0)
-                PlayFile(GetPlaylistIndex + 1);
+                PlayFile(GetPlaylistIndex - 1);
         }
 
         public void PlayNextFile()
         {
             if (GetPlaylistIndex < GetTotalItems - 1)
-                PlayFile(GetPlaylistIndex - 1);
+                PlayFile(GetPlaylistIndex + 1);
         }
 
         public void Shuffle()
@@ -168,7 +168,7 @@ namespace Baka_MPlayer.Controls
 
             playlistList.BeginUpdate();
             // make current file's index 0
-            playlistList.Items.RemoveAt(GetSelectedIndex);
+            playlistList.Items.RemoveAt(SelectedIndex);
             playlistList.Items.Insert(0, GetCurrentFile);
 
             for (int i = 1; i <= maxVal - 1; i++)
@@ -192,8 +192,8 @@ namespace Baka_MPlayer.Controls
 
         private void currentFileButton_Click(object sender, EventArgs e)
         {
-            SetSelectedIndex = -1;
-            SetSelectedIndex = GetPlaylistIndex;
+            SelectedIndex = -1;
+            SelectedIndex = GetPlaylistIndex;
         }
 
         private void currentFileLabel_MouseDown(object sender, MouseEventArgs e)
@@ -208,7 +208,7 @@ namespace Baka_MPlayer.Controls
                 int i; int.TryParse(inputBox.GetInputText, out i); --i;
                 if (i >= 0 && i < GetTotalItems)
                 {
-                    SetSelectedIndex = i;
+                    SelectedIndex = i;
                     PlaySelectedItem();
                 }
             }
@@ -251,8 +251,8 @@ namespace Baka_MPlayer.Controls
         {
             if (e.KeyCode != Keys.Enter || playlistList.Items.Count < 2) return;
 
-            var newURL = Path.GetDirectoryName(PlayingFile.URL) + '\\' + GetCurrentFile;
-            if (GetSelectedIndex != -1 && newURL != PlayingFile.URL)
+            var newURL = Path.GetDirectoryName(Info.URL) + '\\' + GetCurrentFile;
+            if (SelectedIndex != -1 && newURL != Info.URL)
             {
                 if (File.Exists(newURL))
                 {
@@ -321,8 +321,8 @@ namespace Baka_MPlayer.Controls
             {
                 var targetPoint = playlistList.PointToClient(new Point(e.X, e.Y));
                 var targetItem = playlistList.GetItemAt(targetPoint.X, targetPoint.Y);
-                var targetIndex = playlistList.Items.IndexOf(targetItem);
-                var fromIndex = playlistList.SelectedIndices[0];
+                var targetIndex = targetItem.Index;
+                var fromIndex = SelectedIndex; //playlistList.SelectedIndices[0];
 
                 if (fromIndex != targetIndex)
                 {
@@ -340,12 +340,12 @@ namespace Baka_MPlayer.Controls
         private void playlistList_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
-                playlistList.Items.RemoveAt(GetSelectedIndex);
+                playlistList.Items.RemoveAt(SelectedIndex);
         }
 
         private void playlistList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            currentFileLabel.Text = string.Format("File {0} of {1}", GetSelectedIndex, playlistList.Items.Count);
+            currentFileLabel.Text = string.Format("File {0} of {1}", SelectedIndex + 1, GetTotalItems);
         }
 
 #endregion

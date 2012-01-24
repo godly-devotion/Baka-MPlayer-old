@@ -58,11 +58,11 @@ namespace Baka_MPlayer.Forms
             set { urlTextbox.Text = value; }
         }
 
-        public WebForm(string url)
+        public WebForm()
         {
             InitializeComponent();
 
-            this.URL = url;
+            this.URL = Info.URL;
         }
 
         private void WebForm_Load(object sender, EventArgs e)

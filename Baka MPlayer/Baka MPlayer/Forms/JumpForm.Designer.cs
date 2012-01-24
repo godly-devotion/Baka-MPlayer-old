@@ -171,6 +171,7 @@
             // 
             // statusLabel
             // 
+            this.statusLabel.BackColor = System.Drawing.Color.Transparent;
             this.statusLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.statusLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusLabel.Location = new System.Drawing.Point(0, 0);

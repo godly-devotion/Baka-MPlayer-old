@@ -8,19 +8,17 @@ namespace Baka_MPlayer.Forms
 {
     public partial class SnapshotForm : Form
     {
-        private string location;
-
         private Image image
         {
             get { return snapshotPicbox.Image; }
             set { snapshotPicbox.Image = value; }
         }
 
-        public SnapshotForm(string location)
+        public SnapshotForm(Bitmap image)
         {
             InitializeComponent();
 
-            this.location = location;
+            this.image = image;
             demensionsLabel.Text = string.Format("Demensions: {0} x {1}", image.Width, image.Height);
         }
 
@@ -35,9 +33,9 @@ namespace Baka_MPlayer.Forms
         {
             // set file name
             var fileName = cleanNameCheckbox.Checked ?
-                cleanName(Path.GetFileNameWithoutExtension(location)) :
-                Path.GetFileNameWithoutExtension(location);
-            location = Path.GetDirectoryName(location);
+                cleanName(Path.GetFileNameWithoutExtension(Info.URL)) :
+                Path.GetFileNameWithoutExtension(Info.URL);
+            var location = Path.GetDirectoryName(Info.URL);
 
             var sfd = new SaveFileDialog();
             sfd.FileName = fileName + "_snapshot[1].png";

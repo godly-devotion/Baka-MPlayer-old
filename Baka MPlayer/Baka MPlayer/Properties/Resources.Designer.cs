@@ -67,6 +67,15 @@ namespace Baka_MPlayer.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to *.mp3; *.ogg; *.wav; *.wma; *.ac3; *.ra; *.ape; *.flac; *.thd.
+        /// </summary>
+        internal static string AudioFiles {
+            get {
+                return ResourceManager.GetString("AudioFiles", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap default_next {
             get {
                 object obj = ResourceManager.GetObject("default_next", resourceCulture);
@@ -242,6 +251,13 @@ namespace Baka_MPlayer.Properties {
             }
         }
         
+        internal static byte[] LCD {
+            get {
+                object obj = ResourceManager.GetObject("LCD", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Music_128 {
             get {
                 object obj = ResourceManager.GetObject("Music_128", resourceCulture);
@@ -267,6 +283,43 @@ namespace Baka_MPlayer.Properties {
             get {
                 object obj = ResourceManager.GetObject("shuffle", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon tool_next {
+            get {
+                object obj = ResourceManager.GetObject("tool_next", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon tool_pause {
+            get {
+                object obj = ResourceManager.GetObject("tool_pause", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon tool_play {
+            get {
+                object obj = ResourceManager.GetObject("tool_play", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Icon tool_previous {
+            get {
+                object obj = ResourceManager.GetObject("tool_previous", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *.avi; *.vfx; *.divx; *.mpg; *.mpeg; *.m1v; *.m2v; *.mpv; *.dv; *.3gp; *.mov; *.mp4; *.m4v; *.mqv; *.dat; *.vcd; *.ogg; *.ogm; *.ogv; *.asf; *.wmv; *.vob; *.mkv; *.nsv; *.ram; *.flv; *.rm; *.ts; *.rmvb; *.dvr-ms; *.m2t; *.m2ts; *.rec; *.f4v; *.hdmov; *.webm; *.vp8.
+        /// </summary>
+        internal static string VideoFiles {
+            get {
+                return ResourceManager.GetString("VideoFiles", resourceCulture);
             }
         }
         

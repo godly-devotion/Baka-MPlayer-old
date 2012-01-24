@@ -68,7 +68,6 @@
             this.customTabControl1.DisplayStyleProvider.BorderColorHot = System.Drawing.SystemColors.ControlDark;
             this.customTabControl1.DisplayStyleProvider.BorderColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(157)))), ((int)(((byte)(185)))));
             this.customTabControl1.DisplayStyleProvider.CloserColor = System.Drawing.Color.DarkGray;
-            this.customTabControl1.DisplayStyleProvider.FocusTrack = true;
             this.customTabControl1.DisplayStyleProvider.HotTrack = true;
             this.customTabControl1.DisplayStyleProvider.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.customTabControl1.DisplayStyleProvider.Opacity = 1F;

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlaylistControl));
             this.playlistList = new System.Windows.Forms.ListView();
             this.playlistHeader = new System.Windows.Forms.ColumnHeader();
@@ -39,7 +38,7 @@
             this.showAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchTextBox = new Baka_MPlayer.Controls.CustomTextBox();
-            this.fileContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.fileContextMenu = new System.Windows.Forms.ContextMenu();
             this.playlistStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +48,6 @@
             this.playlistList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.playlistList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.playlistHeader});
-            this.playlistList.ContextMenuStrip = this.fileContextMenu;
             this.playlistList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.playlistList.ForeColor = System.Drawing.Color.White;
             this.playlistList.FullRowSelect = true;
@@ -154,11 +152,6 @@
             this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
             this.searchTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.searchTextBox_KeyDown);
             // 
-            // fileContextMenu
-            // 
-            this.fileContextMenu.Name = "fileContextMenu";
-            this.fileContextMenu.Size = new System.Drawing.Size(61, 4);
-            // 
             // PlaylistControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -189,7 +182,7 @@
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem showAllFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshPlaylistToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip fileContextMenu;
         private System.Windows.Forms.ListView playlistList;
+        private System.Windows.Forms.ContextMenu fileContextMenu;
     }
 }

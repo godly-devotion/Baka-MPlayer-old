@@ -71,7 +71,7 @@ public static class Functions
         return System.Web.HttpUtility.UrlDecode(input);
     }
 
-    public static string RemoveZero(string toUse)
+    /*public static string RemoveZero(string toUse)
     {
         if (!toUse.StartsWith("00"))
         {
@@ -85,7 +85,7 @@ public static class Functions
             toUse = toUse.Remove(0, 1);
         }
         return toUse;
-    }
+    }*/
 
     public static string AutoEllipsis(int max, string toUse)
     {
@@ -101,14 +101,21 @@ public static class Functions
         sec = (time % 3600) % 60;
     }
 
-    public static string ConvertTime(int totalSec)
+    public static string ConvertTime(int hour, int min, int sec)
+    {
+        if (hour > 0)
+            return string.Format("{0}:{1}:{2}", hour.ToString("#0"), min.ToString("00"), sec.ToString("00"));
+        return string.Format("{0}:{1}", min.ToString("#0"), sec.ToString("00"));
+    }
+
+    public static string ConvertTimeFromSeconds(int totalSec)
     {
         int hour, min, sec;
         CalculateTimeFromSeconds(totalSec, out hour, out min, out sec);
 
         if (hour > 0)
-            return hour.ToString("#0") + ":" + min.ToString("00") + ":" + sec.ToString("00");
-        return min.ToString("#0") + ":" + sec.ToString("00");
+            return string.Format("{0}:{1}:{2}", hour.ToString("#0"), min.ToString("00"), sec.ToString("00"));
+        return string.Format("{0}:{1}", min.ToString("#0"), sec.ToString("00"));
     }
 
     public static int GetGCD(int x, int y)

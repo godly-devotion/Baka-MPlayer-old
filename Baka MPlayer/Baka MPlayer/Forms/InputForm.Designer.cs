@@ -61,7 +61,7 @@
             // 
             this.inputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.inputTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inputTextbox.CueText = "";
+            this.inputTextbox.CueText = Microsoft.WindowsAPICodePack.Resources.LocalizedMessages.TaskDialogDefaultMainInstruction;//global::Baka_MPlayer.WinAPI_Code_Pack.Core.Resources.LocalizedMessages.TaskDialogDefaultMainInstruction;
             this.inputTextbox.ForeColor = System.Drawing.Color.White;
             this.inputTextbox.Location = new System.Drawing.Point(62, 65);
             this.inputTextbox.Name = "inputTextbox";
@@ -73,6 +73,7 @@
             // 
             this.okButton.BackColor = System.Drawing.Color.Transparent;
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.okButton.Enabled = false;
             this.okButton.FlatAppearance.BorderColor = System.Drawing.Color.DeepSkyBlue;
             this.okButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.okButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
