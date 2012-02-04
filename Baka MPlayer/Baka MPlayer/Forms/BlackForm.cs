@@ -8,6 +8,11 @@ namespace Baka_MPlayer.Forms
     {
         private readonly MainForm mainForm;
 
+        public string SetTitle
+        {
+            set { titleLabel.Text = value; }
+        }
+
         public BlackForm(MainForm mainForm)
         {
             InitializeComponent();

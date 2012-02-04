@@ -17,7 +17,7 @@ namespace Baka_MPlayer.Forms
 
         private void pasteButton_Click(object sender, EventArgs e)
         {
-            urlTextbox.Text = Clipboard.GetText();
+            URL = Clipboard.GetText();
             urlTextbox.Focus();
         }
 
@@ -30,7 +30,7 @@ namespace Baka_MPlayer.Forms
 
         private void clearButton_Click(object sender, EventArgs e)
         {
-            urlTextbox.Text = string.Empty;
+            URL = string.Empty;
             urlTextbox.Focus();
         }
 
@@ -54,7 +54,7 @@ namespace Baka_MPlayer.Forms
 
         public string URL
         {
-            get { return urlTextbox.Text; }
+            get { return urlTextbox.Text.Replace("\"", ""); }
             set { urlTextbox.Text = value; }
         }
 
@@ -80,9 +80,9 @@ namespace Baka_MPlayer.Forms
 
         private void openFile()
         {
-            if (urlTextbox.Text.Equals(URL, StringComparison.OrdinalIgnoreCase))
+            if (URL.Equals(Info.URL, StringComparison.OrdinalIgnoreCase))
             {
-                if (MessageBox.Show(string.Format("\"{0}\" is already playing.\nDo you still want to open this file?", Path.GetFileName(URL)),
+                if (MessageBox.Show(string.Format("\"{0}\" is already playing.\nDo you still want to open this file?", Path.GetFileName(Info.URL)),
                     "Already Playing", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     this.Close();
@@ -98,13 +98,13 @@ namespace Baka_MPlayer.Forms
         {
             try
             {
-                if (string.IsNullOrEmpty(urlTextbox.Text))
+                if (string.IsNullOrEmpty(URL))
                 {
                     checkValid(false);
                     return;
                 }
 
-                if (File.Exists(urlTextbox.Text) || Functions.ValidateURL(urlTextbox.Text))
+                if (File.Exists(URL) || Functions.ValidateURL(URL))
                 {
                     // local file or web file
                     checkValid(true);
@@ -126,7 +126,7 @@ namespace Baka_MPlayer.Forms
         {
             if (isValid)
             {
-                string fileType = Path.GetExtension(urlTextbox.Text).ToUpper();
+                string fileType = Path.GetExtension(URL).ToUpper();
                 fileTypeLabel.Text = string.IsNullOrEmpty(fileType) ? "?" : fileType;
 
                 checkPicbox.Image = Properties.Resources.exists;

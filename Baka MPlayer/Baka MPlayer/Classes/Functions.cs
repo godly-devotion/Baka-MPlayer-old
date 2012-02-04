@@ -1,6 +1,6 @@
 ﻿/*****************************
 * Functions (by Joshua Park) *
-* updated 1/17/2012          *
+* updated 2/3/2012           *
 *****************************/
 using System;
 using System.Runtime.InteropServices;
@@ -112,10 +112,7 @@ public static class Functions
     {
         int hour, min, sec;
         CalculateTimeFromSeconds(totalSec, out hour, out min, out sec);
-
-        if (hour > 0)
-            return string.Format("{0}:{1}:{2}", hour.ToString("#0"), min.ToString("00"), sec.ToString("00"));
-        return string.Format("{0}:{1}", min.ToString("#0"), sec.ToString("00"));
+        return ConvertTime(hour, min, sec);
     }
 
     public static int GetGCD(int x, int y)

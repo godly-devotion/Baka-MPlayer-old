@@ -65,6 +65,8 @@
             // 
             // urlTextbox
             // 
+            this.urlTextbox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.urlTextbox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystem;
             this.urlTextbox.BackColor = System.Drawing.Color.Black;
             this.urlTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.urlTextbox.ForeColor = System.Drawing.Color.White;

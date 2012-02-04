@@ -50,36 +50,38 @@
             // subtractRadioButton
             // 
             this.subtractRadioButton.AutoSize = true;
-            this.subtractRadioButton.Location = new System.Drawing.Point(231, 44);
+            this.subtractRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.subtractRadioButton.Location = new System.Drawing.Point(231, 40);
             this.subtractRadioButton.Name = "subtractRadioButton";
             this.subtractRadioButton.Size = new System.Drawing.Size(150, 23);
             this.subtractRadioButton.TabIndex = 3;
             this.subtractRadioButton.Text = "Subtract from Time";
-            this.subtractRadioButton.UseVisualStyleBackColor = true;
+            this.subtractRadioButton.UseVisualStyleBackColor = false;
             this.subtractRadioButton.Click += new System.EventHandler(this.CheckTimes_ValueChanged);
             // 
             // addRadioButton
             // 
             this.addRadioButton.AutoSize = true;
-            this.addRadioButton.Location = new System.Drawing.Point(120, 44);
+            this.addRadioButton.BackColor = System.Drawing.Color.Transparent;
+            this.addRadioButton.Location = new System.Drawing.Point(120, 40);
             this.addRadioButton.Name = "addRadioButton";
             this.addRadioButton.Size = new System.Drawing.Size(105, 23);
             this.addRadioButton.TabIndex = 2;
             this.addRadioButton.Text = "Add to Time";
-            this.addRadioButton.UseVisualStyleBackColor = true;
+            this.addRadioButton.UseVisualStyleBackColor = false;
             this.addRadioButton.Click += new System.EventHandler(this.CheckTimes_ValueChanged);
             // 
             // goToRadioButton
             // 
-            this.goToRadioButton.AutoSize = true;
+            this.goToRadioButton.BackColor = System.Drawing.Color.Transparent;
             this.goToRadioButton.Checked = true;
-            this.goToRadioButton.Location = new System.Drawing.Point(14, 44);
+            this.goToRadioButton.Location = new System.Drawing.Point(14, 40);
             this.goToRadioButton.Name = "goToRadioButton";
             this.goToRadioButton.Size = new System.Drawing.Size(100, 23);
             this.goToRadioButton.TabIndex = 1;
             this.goToRadioButton.TabStop = true;
             this.goToRadioButton.Text = "Go To Time";
-            this.goToRadioButton.UseVisualStyleBackColor = true;
+            this.goToRadioButton.UseVisualStyleBackColor = false;
             this.goToRadioButton.Click += new System.EventHandler(this.CheckTimes_ValueChanged);
             // 
             // timePanel
@@ -199,10 +201,10 @@
             this.jumpButton.TabIndex = 5;
             this.jumpButton.Text = "&Jump";
             this.jumpButton.UseVisualStyleBackColor = true;
-            this.jumpButton.Click += new System.EventHandler(this.jumpButton_Click);
             // 
             // checkPicbox
             // 
+            this.checkPicbox.BackColor = System.Drawing.Color.Transparent;
             this.checkPicbox.Image = global::Baka_MPlayer.Properties.Resources.not_exists;
             this.checkPicbox.Location = new System.Drawing.Point(38, 75);
             this.checkPicbox.Name = "checkPicbox";

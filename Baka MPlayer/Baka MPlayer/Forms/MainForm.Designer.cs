@@ -190,7 +190,7 @@
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
             this.mainMenuStrip.Padding = new System.Windows.Forms.Padding(1, 0, 0, 0);
-            this.mainMenuStrip.Size = new System.Drawing.Size(584, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(584, 20);
             this.mainMenuStrip.TabIndex = 0;
             this.mainMenuStrip.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
@@ -214,7 +214,7 @@
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
             // newPlayerToolStripMenuItem
@@ -382,7 +382,7 @@
             this.jumpToTimeToolStripMenuItem});
             this.playbackToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.playbackToolStripMenuItem.Name = "playbackToolStripMenuItem";
-            this.playbackToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
+            this.playbackToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.playbackToolStripMenuItem.Text = "&Playback";
             // 
             // playToolStripMenuItem
@@ -513,7 +513,7 @@
             this.volumeToolStripTextBox});
             this.mediaToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.mediaToolStripMenuItem.Name = "mediaToolStripMenuItem";
-            this.mediaToolStripMenuItem.Size = new System.Drawing.Size(52, 24);
+            this.mediaToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.mediaToolStripMenuItem.Text = "&Media";
             // 
             // fullScreenToolStripMenuItem
@@ -625,7 +625,7 @@
             this.subtitleTrackToolStripMenuItem});
             this.subtitlesToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.subtitlesToolStripMenuItem.Name = "subtitlesToolStripMenuItem";
-            this.subtitlesToolStripMenuItem.Size = new System.Drawing.Size(64, 24);
+            this.subtitlesToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.subtitlesToolStripMenuItem.Text = "&Subtitles";
             // 
             // showSubtitlesToolStripMenuItem
@@ -701,7 +701,7 @@
             this.mediaInfoToolStripMenuItem});
             this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 24);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // showCommandLineToolStripMenuItem
@@ -756,7 +756,7 @@
             this.allOptionsToolStripMenuItem});
             this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 24);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
             // showPlaylistToolStripMenuItem
@@ -888,7 +888,7 @@
             this.aboutBakaMPlayerToolStripMenuItem});
             this.aboutToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(24, 24);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(24, 20);
             this.aboutToolStripMenuItem.Text = "&?";
             // 
             // mPlayersCommandsToolStripMenuItem
@@ -912,7 +912,7 @@
             this.folderToolStripMenuItem.Enabled = false;
             this.folderToolStripMenuItem.ForeColor = System.Drawing.Color.DarkGray;
             this.folderToolStripMenuItem.Name = "folderToolStripMenuItem";
-            this.folderToolStripMenuItem.Size = new System.Drawing.Size(82, 24);
+            this.folderToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
             this.folderToolStripMenuItem.Text = "Build 0.0.0.0";
             // 
             // controlPanel
@@ -1095,7 +1095,7 @@
             // 
             this.mplayerSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mplayerSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.mplayerSplitContainer.Location = new System.Drawing.Point(0, 24);
+            this.mplayerSplitContainer.Location = new System.Drawing.Point(0, 20);
             this.mplayerSplitContainer.Name = "mplayerSplitContainer";
             // 
             // mplayerSplitContainer.Panel1
@@ -1105,7 +1105,7 @@
             // mplayerSplitContainer.Panel2
             // 
             this.mplayerSplitContainer.Panel2.Controls.Add(this.playlist);
-            this.mplayerSplitContainer.Size = new System.Drawing.Size(584, 299);
+            this.mplayerSplitContainer.Size = new System.Drawing.Size(584, 303);
             this.mplayerSplitContainer.SplitterDistance = 435;
             this.mplayerSplitContainer.TabIndex = 3;
             // 
@@ -1129,8 +1129,8 @@
             // 
             this.bodySplitContainer.Panel2.Controls.Add(this.outputTextbox);
             this.bodySplitContainer.Panel2.Controls.Add(this.inputTextbox);
-            this.bodySplitContainer.Size = new System.Drawing.Size(435, 299);
-            this.bodySplitContainer.SplitterDistance = 200;
+            this.bodySplitContainer.Size = new System.Drawing.Size(435, 303);
+            this.bodySplitContainer.SplitterDistance = 204;
             this.bodySplitContainer.TabIndex = 0;
             // 
             // albumArtPicbox
@@ -1140,7 +1140,7 @@
             this.albumArtPicbox.Image = global::Baka_MPlayer.Properties.Resources.Music_128;
             this.albumArtPicbox.Location = new System.Drawing.Point(0, 0);
             this.albumArtPicbox.Name = "albumArtPicbox";
-            this.albumArtPicbox.Size = new System.Drawing.Size(435, 200);
+            this.albumArtPicbox.Size = new System.Drawing.Size(435, 204);
             this.albumArtPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.albumArtPicbox.TabIndex = 1;
             this.albumArtPicbox.TabStop = false;
@@ -1150,7 +1150,7 @@
             // 
             this.mplayerPanel.Location = new System.Drawing.Point(0, 0);
             this.mplayerPanel.Name = "mplayerPanel";
-            this.mplayerPanel.Size = new System.Drawing.Size(435, 200);
+            this.mplayerPanel.Size = new System.Drawing.Size(435, 204);
             this.mplayerPanel.TabIndex = 0;
             this.mplayerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
@@ -1297,7 +1297,7 @@
             this.playlist.Margin = new System.Windows.Forms.Padding(4);
             this.playlist.Name = "playlist";
             this.playlist.SelectedIndex = -1;
-            this.playlist.Size = new System.Drawing.Size(145, 299);
+            this.playlist.Size = new System.Drawing.Size(145, 303);
             this.playlist.TabIndex = 0;
             // 
             // seekBar
@@ -1334,7 +1334,7 @@
             // 
             this.volumeBar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.volumeBar.BackColor = System.Drawing.Color.Transparent;
-            this.volumeBar.BarInnerColor = System.Drawing.Color.DimGray;
+            this.volumeBar.BarInnerColor = System.Drawing.Color.Gray;
             this.volumeBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
             this.volumeBar.DrawSemitransparentThumb = false;
             this.volumeBar.LargeChange = ((uint)(5u));
@@ -1355,6 +1355,7 @@
             // 
             // MainForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -1374,6 +1375,8 @@
             this.Text = "Baka MPlayer";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.mainMenuStrip.ResumeLayout(false);

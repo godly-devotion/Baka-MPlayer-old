@@ -21,7 +21,7 @@ namespace Baka_MPlayer.Forms
 
         // global key hook
         public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
-        private HookProc myCallbackDelegate;
+        private readonly HookProc myCallbackDelegate;
         static IntPtr hHook;
 
         [DllImport("user32.dll")]
@@ -348,6 +348,31 @@ namespace Baka_MPlayer.Forms
             formGraphics.FillRectangle(gradientBrush, controlPanel.ClientRectangle);
         }
         #endregion
+        #region Drag & Drop Support
+
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            var fileDirs = (string[])e.Data.GetData(DataFormats.FileDrop);
+            string fileDir = fileDirs.GetValue(0).ToString();
+
+            if (File.Exists(fileDir))
+                mplayer.OpenFile(fileDir);
+            else
+            {
+                MessageBox.Show(string.Format("Error: \"{0}\" does not exist.", Path.GetFileName(fileDir)),
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MainForm_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        #endregion
         #region Win 7 Thumbnail Toolbars
 
         private void setThumbnailToolbars()
@@ -578,10 +603,16 @@ namespace Baka_MPlayer.Forms
                     mplayer.Mute(false);
                     break;
                 case "next file":
+                    playlist.PlayNextFile();
                     break;
                 case "previous file":
+                    playlist.PlayPreviousFile();
                     break;
                 case "hide":
+                    HidePlayer();
+                    break;
+                case "whats playing":
+                    Speech.SayMedia();
                     break;
             }
         }
@@ -599,7 +630,7 @@ namespace Baka_MPlayer.Forms
             if (!seekBar_IsMouseDown)
                 return;
 
-            int currentPos = seekBar.Value * Info.Current.TotalLength / seekBar.Maximum;
+            var currentPos = (int)((double)seekBar.Value * Info.Current.TotalLength / seekBar.Maximum);
 
             if (settings.GetBoolValue("ShowTimeRemaining"))
                 timeLeftLabel.Text = string.Format("-{0}", Functions.ConvertTimeFromSeconds(Info.Current.TotalLength - currentPos));
@@ -642,8 +673,9 @@ namespace Baka_MPlayer.Forms
                 case MouseButtons.Middle:
                     if (!string.IsNullOrEmpty(Info.URL))
                     {
-                        // set JumpTo
+                        mplayer.Pause(false);
                         var jumpForm = new JumpForm();
+
                         if (jumpForm.ShowDialog(this) == DialogResult.OK)
                         {
                             mplayer.Seek(jumpForm.GetNewTime);
@@ -1017,6 +1049,7 @@ namespace Baka_MPlayer.Forms
 
         private void jumpToTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            mplayer.Pause(false);
             var jumpForm = new JumpForm();
 
             if (jumpForm.ShowDialog(this) == DialogResult.OK)
@@ -1182,7 +1215,13 @@ namespace Baka_MPlayer.Forms
             if (blackForm == null)
                 blackForm = new BlackForm(this);
 
-            blackForm.Show(this);
+            if (dimLightsToolStripMenuItem.Checked)
+            {
+                blackForm.Show();
+                this.TopLevel = true;
+            }
+            else
+                blackForm.Hide();
         }
 
         private void showIconInTrayToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1299,22 +1338,7 @@ namespace Baka_MPlayer.Forms
         {
             if (e.KeyCode == Keys.Escape)
             {
-                if (seekBar_IsMouseDown)
-                { // stop mouse movement
-                    seekBar_IsMouseDown = false;
-                    return;
-                }
-
-                // boss mode
-                mplayer.Pause(false);
-                if (blackForm != null)
-                    blackForm.Visible = false;
-                this.Opacity = 0.0;
-                this.FormBorderStyle = FormBorderStyle.None;
-                this.WindowState = FormWindowState.Minimized;
-                this.FormBorderStyle = FormBorderStyle.Sizable;
-                this.Opacity = 1.0;
-                return;
+                HidePlayer();
             }
 
             // make sure its not focused on anything else
@@ -1394,6 +1418,8 @@ namespace Baka_MPlayer.Forms
             tempURL = Info.URL;
 
             this.Text = Path.GetFileName(Functions.DecodeURL(Info.URL));
+            if (blackForm != null)
+                blackForm.SetTitle = Path.GetFileNameWithoutExtension(Functions.DecodeURL(Info.URL));
 
             if (Info.VideoInfo.HasVideo)
             {
@@ -1416,10 +1442,7 @@ namespace Baka_MPlayer.Forms
                 takeSnapshotToolStripMenuItem.Enabled = false;
 
                 // show album art (if it exists);
-                if (Info.ID3Tags.AlbumArt != null)
-                    albumArtPicbox.Image = Info.ID3Tags.AlbumArt;
-                else
-                    albumArtPicbox.Image = Properties.Resources.Music_128;
+                albumArtPicbox.Image = Info.ID3Tags.AlbumArt ?? Properties.Resources.Music_128;
             }
             bodySplitContainer_Panel1_SizeChanged(null, null);
 
@@ -1564,6 +1587,25 @@ namespace Baka_MPlayer.Forms
                 mplayer.OpenFile(ofd.FileName);
                 ofd.Dispose();
             }
+        }
+
+        private void HidePlayer()
+        {
+            if (seekBar_IsMouseDown)
+            { // stop mouse movement
+                seekBar_IsMouseDown = false;
+                return;
+            }
+
+            // boss mode
+            mplayer.Pause(false);
+            if (blackForm != null)
+                blackForm.Hide();
+            this.Opacity = 0.0;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Minimized;
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.Opacity = 1.0;
         }
 
         private void enableControls()

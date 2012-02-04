@@ -1,6 +1,6 @@
 ﻿/************************************
 * mplayer (by Joshua Park & u8sand) *
-* updated 1/22/2012                 *
+* updated 2/3/2012                  *
 ************************************/
 using System;
 using System.Diagnostics;
@@ -53,6 +53,7 @@ public class MPlayer
             cmdArgs += " -nomouseinput";         		 			// disable mouse input events
             cmdArgs += " -ass";                  		 			// enable .ass subtitle support
             cmdArgs += " -nokeepaspect";         		 			// doesn't keep window aspect ratio when resizing windows
+            cmdArgs += " -framedrop";                               // enables soft framedrop
             cmdArgs += string.Format(" -volume {0}", Info.Current.Volume);       // retrieves last volume
             cmdArgs += string.Format(" -wid {0}", mainForm.mplayerPanel.Handle); // output handle
 
@@ -157,6 +158,7 @@ public class MPlayer
     {
         Info.Current.PlayState = PlayStates.Stopped;
         mainForm.CallPlayStateChanged();
+
         return SendCommand("pausing seek 0 2");
     }
     public bool Restart()

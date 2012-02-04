@@ -1,6 +1,6 @@
 ﻿/*************************
 * Voice (by Joshua Park) *
-* updated 1/19/2012      *
+* updated 2/3/2012       *
 *************************/
 using Baka_MPlayer.Forms;
 using System.Speech.Recognition;
@@ -33,7 +33,7 @@ public class Voice
         engine.SetInputToDefaultAudioDevice();
 
         var choice = new Choices(new[] {
-            "open", "play", "pause", "stop", "mute", "unmute", "next file", "previous file", "hide"
+            "open", "play", "pause", "stop", "mute", "unmute", "next file", "previous file", "hide", "whats playing"
         });
 
         var grammarBuilder = new GrammarBuilder(callName);

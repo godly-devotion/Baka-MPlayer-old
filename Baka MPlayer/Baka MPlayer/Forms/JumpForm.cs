@@ -15,20 +15,34 @@ namespace Baka_MPlayer.Forms
         public JumpForm()
         {
             InitializeComponent();
+            Init();
         }
-
-        private void jumpButton_Click(object sender, EventArgs e)
+        private void Init()
         {
-            this.Close();
+            int hour, min, sec;
+
+            // enable time inputs
+            Functions.CalculateTimeFromSeconds(Info.Current.TotalLength, out hour, out min, out sec);
+            hourBox.Enabled = hour > 0;
+            minBox.Enabled = min > 0;
+
+            // set default input
+            Functions.CalculateTimeFromSeconds(Info.Current.Duration, out hour, out min, out sec);
+            hourBox.Value = hour;
+            minBox.Value = min;
+            secBox.Value = sec;
         }
 
         private void CheckTimes_ValueChanged(object sender, EventArgs e)
         {
             // parse new times
-            int hour, min, sec;
+            /*int hour, min, sec;
             int.TryParse(hourBox.Value.ToString(), out hour);
             int.TryParse(minBox.Value.ToString(), out min);
-            int.TryParse(secBox.Value.ToString(), out sec);
+            int.TryParse(secBox.Value.ToString(), out sec);*/
+            int hour = Convert.ToInt32(hourBox.Value);
+            int min = Convert.ToInt32(minBox.Value);
+            int sec = Convert.ToInt32(secBox.Value);
             int calculatedTotal = (hour * 3600) + (min * 60) + sec;
 
             if (goToRadioButton.Checked)

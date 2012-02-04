@@ -37,8 +37,8 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.showAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchTextBox = new Baka_MPlayer.Controls.CustomTextBox();
             this.fileContextMenu = new System.Windows.Forms.ContextMenu();
+            this.searchTextBox = new Baka_MPlayer.Controls.CustomTextBox();
             this.playlistStatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
