@@ -1,1 +1,4 @@
 Baka MPlayer
+
+Note: mplayer2.exe is x86_64 so it wont run on 32-bit computers.
+If you computer is 32-bit, get the 32-bit version of mplayer2 here: http://mplayer2.srsfckn.biz/mplayer2-i686-latest.7z
