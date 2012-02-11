@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("controls/tabcontrol/customtabcontrol.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("winapi%20code%20pack/core/core.csproj")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("winapi%20code%20pack/core/customdictionary.xml")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("winapi%20code%20pack/shell/customdictionary.xml")]

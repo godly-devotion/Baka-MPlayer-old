@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InfoForm));
-            this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.durationLabel = new System.Windows.Forms.Label();
             this.infoList = new System.Windows.Forms.ListView();
@@ -59,44 +59,27 @@
             this.albumArtPicbox = new System.Windows.Forms.PictureBox();
             this.nameLabel = new System.Windows.Forms.Label();
             this.closeButton = new Baka_MPlayer.Controls.ButtonControl();
-            this.customTabControl1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.albumArtPicbox)).BeginInit();
             this.SuspendLayout();
             // 
-            // customTabControl1
+            // tabControl1
             // 
-            this.customTabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.customTabControl1.Controls.Add(this.tabPage1);
-            this.customTabControl1.Controls.Add(this.tabPage2);
-            // 
-            // 
-            // 
-            this.customTabControl1.DisplayStyleProvider.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.customTabControl1.DisplayStyleProvider.BorderColorHot = System.Drawing.SystemColors.ControlDark;
-            this.customTabControl1.DisplayStyleProvider.BorderColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(157)))), ((int)(((byte)(185)))));
-            this.customTabControl1.DisplayStyleProvider.CloserColor = System.Drawing.Color.DarkGray;
-            this.customTabControl1.DisplayStyleProvider.HotTrack = true;
-            this.customTabControl1.DisplayStyleProvider.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.customTabControl1.DisplayStyleProvider.Opacity = 1F;
-            this.customTabControl1.DisplayStyleProvider.Overlap = 0;
-            this.customTabControl1.DisplayStyleProvider.Padding = new System.Drawing.Point(6, 3);
-            this.customTabControl1.DisplayStyleProvider.Radius = 2;
-            this.customTabControl1.DisplayStyleProvider.ShowTabCloser = false;
-            this.customTabControl1.DisplayStyleProvider.TextColor = System.Drawing.SystemColors.ControlText;
-            this.customTabControl1.DisplayStyleProvider.TextColorDisabled = System.Drawing.SystemColors.ControlDark;
-            this.customTabControl1.DisplayStyleProvider.TextColorSelected = System.Drawing.SystemColors.ControlText;
-            this.customTabControl1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customTabControl1.HotTrack = true;
-            this.customTabControl1.Location = new System.Drawing.Point(12, 28);
-            this.customTabControl1.Name = "customTabControl1";
-            this.customTabControl1.SelectedIndex = 0;
-            this.customTabControl1.Size = new System.Drawing.Size(410, 337);
-            this.customTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.customTabControl1.TabIndex = 1;
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl1.HotTrack = true;
+            this.tabControl1.Location = new System.Drawing.Point(12, 28);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(410, 337);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
@@ -104,10 +87,10 @@
             this.tabPage1.Controls.Add(this.durationLabel);
             this.tabPage1.Controls.Add(this.infoList);
             this.tabPage1.Controls.Add(this.searchTextbox);
-            this.tabPage1.Location = new System.Drawing.Point(4, 30);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(402, 303);
+            this.tabPage1.Size = new System.Drawing.Size(402, 304);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Media Info";
             this.tabPage1.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPages_Paint);
@@ -117,7 +100,7 @@
             this.durationLabel.BackColor = System.Drawing.Color.Transparent;
             this.durationLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.durationLabel.ForeColor = System.Drawing.Color.White;
-            this.durationLabel.Location = new System.Drawing.Point(3, 280);
+            this.durationLabel.Location = new System.Drawing.Point(3, 281);
             this.durationLabel.Name = "durationLabel";
             this.durationLabel.Size = new System.Drawing.Size(396, 20);
             this.durationLabel.TabIndex = 2;
@@ -193,10 +176,10 @@
             this.tabPage2.Controls.Add(this.ArtistLabel);
             this.tabPage2.Controls.Add(this.TitleLabel);
             this.tabPage2.Controls.Add(this.albumArtPicbox);
-            this.tabPage2.Location = new System.Drawing.Point(4, 30);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(402, 303);
+            this.tabPage2.Size = new System.Drawing.Size(402, 304);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "ID3 Tags";
             this.tabPage2.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPages_Paint);
@@ -491,7 +474,7 @@
             this.closeButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.White;
             this.closeButton.IsDefaultButton = true;
-            this.closeButton.Location = new System.Drawing.Point(175, 372);
+            this.closeButton.Location = new System.Drawing.Point(175, 374);
             this.closeButton.Margin = new System.Windows.Forms.Padding(4);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(85, 30);
@@ -508,7 +491,7 @@
             this.ClientSize = new System.Drawing.Size(434, 412);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.nameLabel);
-            this.Controls.Add(this.customTabControl1);
+            this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -517,7 +500,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Media Info";
             this.Load += new System.EventHandler(this.InfoForm_Load);
-            this.customTabControl1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
@@ -529,7 +512,7 @@
 
         #endregion
 
-        private System.Windows.Forms.CustomTabControl customTabControl1;
+        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private Baka_MPlayer.Controls.CustomTextBox searchTextbox;

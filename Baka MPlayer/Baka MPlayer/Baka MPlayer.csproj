@@ -32,10 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CustomTabControl, Version=1.0.1.7, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Controls\TabControl\CustomTabControl.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -50,14 +46,7 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -553,7 +542,6 @@
     <None Include="Resources\MainForm\ToolBar Buttons\tool_previous.ico" />
     <None Include="Resources\MainForm\ToolBar Buttons\tool_pause.ico" />
     <None Include="Resources\MainForm\ToolBar Buttons\tool_play.ico" />
-    <Content Include="Controls\TabControl\CustomTabControl.dll" />
     <Content Include="WinAPI Code Pack\Core\Core.csproj" />
     <Content Include="WinAPI Code Pack\Core\CustomDictionary.xml" />
     <Content Include="WinAPI Code Pack\Shell\CustomDictionary.xml" />

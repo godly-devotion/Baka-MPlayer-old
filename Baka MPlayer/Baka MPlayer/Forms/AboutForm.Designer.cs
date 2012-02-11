@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
-            this.customTabControl1 = new System.Windows.Forms.CustomTabControl();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.versionLabel = new System.Windows.Forms.Label();
@@ -46,7 +46,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.closeButton = new Baka_MPlayer.Controls.ButtonControl();
-            this.customTabControl1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -55,36 +55,19 @@
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // customTabControl1
+            // tabControl1
             // 
-            this.customTabControl1.Controls.Add(this.tabPage1);
-            this.customTabControl1.Controls.Add(this.tabPage2);
-            this.customTabControl1.Controls.Add(this.tabPage3);
-            // 
-            // 
-            // 
-            this.customTabControl1.DisplayStyleProvider.BorderColor = System.Drawing.SystemColors.ControlDark;
-            this.customTabControl1.DisplayStyleProvider.BorderColorHot = System.Drawing.SystemColors.ControlDark;
-            this.customTabControl1.DisplayStyleProvider.BorderColorSelected = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(157)))), ((int)(((byte)(185)))));
-            this.customTabControl1.DisplayStyleProvider.CloserColor = System.Drawing.Color.DarkGray;
-            this.customTabControl1.DisplayStyleProvider.HotTrack = true;
-            this.customTabControl1.DisplayStyleProvider.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.customTabControl1.DisplayStyleProvider.Opacity = 1F;
-            this.customTabControl1.DisplayStyleProvider.Overlap = 0;
-            this.customTabControl1.DisplayStyleProvider.Padding = new System.Drawing.Point(6, 3);
-            this.customTabControl1.DisplayStyleProvider.Radius = 2;
-            this.customTabControl1.DisplayStyleProvider.ShowTabCloser = false;
-            this.customTabControl1.DisplayStyleProvider.TextColor = System.Drawing.SystemColors.ControlText;
-            this.customTabControl1.DisplayStyleProvider.TextColorDisabled = System.Drawing.SystemColors.ControlDark;
-            this.customTabControl1.DisplayStyleProvider.TextColorSelected = System.Drawing.SystemColors.ControlText;
-            this.customTabControl1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.customTabControl1.HotTrack = true;
-            this.customTabControl1.Location = new System.Drawing.Point(12, 12);
-            this.customTabControl1.Name = "customTabControl1";
-            this.customTabControl1.SelectedIndex = 0;
-            this.customTabControl1.Size = new System.Drawing.Size(380, 360);
-            this.customTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.customTabControl1.TabIndex = 0;
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabControl1.HotTrack = true;
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(380, 360);
+            this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
@@ -94,10 +77,10 @@
             this.tabPage1.Controls.Add(this.webLinkLabel);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage1.Location = new System.Drawing.Point(4, 30);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(372, 326);
+            this.tabPage1.Size = new System.Drawing.Size(372, 327);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "The Player";
             this.tabPage1.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPages_Paint);
@@ -129,12 +112,12 @@
             this.webLinkLabel.BackColor = System.Drawing.Color.Transparent;
             this.webLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.webLinkLabel.LinkColor = System.Drawing.Color.DeepSkyBlue;
-            this.webLinkLabel.Location = new System.Drawing.Point(122, 304);
+            this.webLinkLabel.Location = new System.Drawing.Point(170, 304);
             this.webLinkLabel.Name = "webLinkLabel";
-            this.webLinkLabel.Size = new System.Drawing.Size(244, 19);
+            this.webLinkLabel.Size = new System.Drawing.Size(196, 19);
             this.webLinkLabel.TabIndex = 2;
             this.webLinkLabel.TabStop = true;
-            this.webLinkLabel.Text = "http://bakamplayer.sourceforge.net/";
+            this.webLinkLabel.Text = "http://bakamplayer.netii.net/";
             this.webLinkLabel.VisitedLinkColor = System.Drawing.Color.DarkOrchid;
             this.webLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.webLinkLabel_LinkClicked);
             // 
@@ -171,10 +154,10 @@
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabPage2.ForeColor = System.Drawing.Color.White;
-            this.tabPage2.Location = new System.Drawing.Point(4, 30);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(372, 326);
+            this.tabPage2.Size = new System.Drawing.Size(372, 327);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "mplayer2";
             this.tabPage2.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPages_Paint);
@@ -225,10 +208,10 @@
             this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage3.Location = new System.Drawing.Point(4, 30);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(372, 326);
+            this.tabPage3.Size = new System.Drawing.Size(372, 327);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Help";
             this.tabPage3.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPages_Paint);
@@ -295,7 +278,7 @@
             this.closeButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.White;
             this.closeButton.IsDefaultButton = true;
-            this.closeButton.Location = new System.Drawing.Point(155, 381);
+            this.closeButton.Location = new System.Drawing.Point(155, 382);
             this.closeButton.Margin = new System.Windows.Forms.Padding(4);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(85, 30);
@@ -310,9 +293,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(404, 422);
+            this.ClientSize = new System.Drawing.Size(394, 422);
             this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.customTabControl1);
+            this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -323,7 +306,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "About Baka MPlayer";
-            this.customTabControl1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
@@ -338,7 +321,7 @@
 
         #endregion
 
-        private System.Windows.Forms.CustomTabControl customTabControl1;
+        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private Baka_MPlayer.Controls.ButtonControl closeButton;

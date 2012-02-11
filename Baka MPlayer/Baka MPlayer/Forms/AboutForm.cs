@@ -29,7 +29,7 @@ namespace Baka_MPlayer.Forms
 
         private void webLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://bakamplayer.sourceforge.net/");
+            System.Diagnostics.Process.Start("http://bakamplayer.netii.net/");
         }
 
         private void closeButton_Click(object sender, System.EventArgs e)
