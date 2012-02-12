@@ -481,6 +481,7 @@
             this.closeButton.TabIndex = 2;
             this.closeButton.Text = "&Close";
             this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
             // InfoForm
             // 

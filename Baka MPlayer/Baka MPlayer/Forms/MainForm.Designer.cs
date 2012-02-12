@@ -114,12 +114,13 @@
             this.hidePopupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.allOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mPlayersCommandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutBakaMPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlPanel = new System.Windows.Forms.Panel();
             this.speechButton = new System.Windows.Forms.PictureBox();
+            this.volumeBar = new Baka_MPlayer.Controls.ColorSlider();
             this.playlistButton = new System.Windows.Forms.PictureBox();
             this.quickButton = new System.Windows.Forms.PictureBox();
             this.rewindButton = new System.Windows.Forms.PictureBox();
@@ -127,6 +128,7 @@
             this.nextButton = new System.Windows.Forms.PictureBox();
             this.playButton = new System.Windows.Forms.PictureBox();
             this.seekPanel = new System.Windows.Forms.Panel();
+            this.seekBar = new Baka_MPlayer.Controls.ColorSlider();
             this.timeLeftLabel = new System.Windows.Forms.Label();
             this.durationLabel = new System.Windows.Forms.Label();
             this.mplayerSplitContainer = new System.Windows.Forms.SplitContainer();
@@ -134,6 +136,8 @@
             this.albumArtPicbox = new System.Windows.Forms.PictureBox();
             this.mplayerPanel = new System.Windows.Forms.Panel();
             this.outputTextbox = new System.Windows.Forms.RichTextBox();
+            this.inputTextbox = new Baka_MPlayer.Controls.CustomTextBox();
+            this.playlist = new Baka_MPlayer.Controls.PlaylistControl();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayContextMenu = new System.Windows.Forms.ContextMenu();
             this.showMenuItem = new System.Windows.Forms.MenuItem();
@@ -150,10 +154,6 @@
             this.menuItem12 = new System.Windows.Forms.MenuItem();
             this.exitMenuItem = new System.Windows.Forms.MenuItem();
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.inputTextbox = new Baka_MPlayer.Controls.CustomTextBox();
-            this.playlist = new Baka_MPlayer.Controls.PlaylistControl();
-            this.seekBar = new Baka_MPlayer.Controls.ColorSlider();
-            this.volumeBar = new Baka_MPlayer.Controls.ColorSlider();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.speechButton)).BeginInit();
@@ -185,7 +185,7 @@
             this.subtitlesToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.optionsToolStripMenuItem,
-            this.aboutToolStripMenuItem,
+            this.helpToolStripMenuItem,
             this.folderToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
@@ -520,7 +520,7 @@
             // 
             this.fullScreenToolStripMenuItem.Enabled = false;
             this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
-            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.fullScreenToolStripMenuItem.Text = "&Full Screen";
             this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
             // 
@@ -528,21 +528,21 @@
             // 
             this.fitToVideoToolStripMenuItem.Enabled = false;
             this.fitToVideoToolStripMenuItem.Name = "fitToVideoToolStripMenuItem";
-            this.fitToVideoToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.fitToVideoToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.fitToVideoToolStripMenuItem.Text = "Fit To &Video";
             this.fitToVideoToolStripMenuItem.Click += new System.EventHandler(this.fitToVideoToolStripMenuItem_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(162, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(227, 6);
             // 
             // audioTracksToolStripMenuItem
             // 
             this.audioTracksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainToolStripMenuItem});
             this.audioTracksToolStripMenuItem.Name = "audioTracksToolStripMenuItem";
-            this.audioTracksToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.audioTracksToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.audioTracksToolStripMenuItem.Text = "Audio &Tracks";
             // 
             // mainToolStripMenuItem
@@ -557,7 +557,7 @@
             this.chaptersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainToolStripMenuItem1});
             this.chaptersToolStripMenuItem.Name = "chaptersToolStripMenuItem";
-            this.chaptersToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.chaptersToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.chaptersToolStripMenuItem.Text = "&Chapters";
             // 
             // mainToolStripMenuItem1
@@ -570,40 +570,42 @@
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(162, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(227, 6);
             // 
             // monoAudioToolStripMenuItem
             // 
             this.monoAudioToolStripMenuItem.CheckOnClick = true;
             this.monoAudioToolStripMenuItem.Name = "monoAudioToolStripMenuItem";
-            this.monoAudioToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.monoAudioToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.monoAudioToolStripMenuItem.Text = "&Mono Audio";
             this.monoAudioToolStripMenuItem.Click += new System.EventHandler(this.monoAudioToolStripMenuItem_Click);
             // 
             // increaseVolumeToolStripMenuItem
             // 
             this.increaseVolumeToolStripMenuItem.Name = "increaseVolumeToolStripMenuItem";
-            this.increaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.increaseVolumeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
+            this.increaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.increaseVolumeToolStripMenuItem.Text = "&Increase Volume";
             this.increaseVolumeToolStripMenuItem.Click += new System.EventHandler(this.increaseVolumeToolStripMenuItem_Click);
             // 
             // decreaseVolumeToolStripMenuItem
             // 
             this.decreaseVolumeToolStripMenuItem.Name = "decreaseVolumeToolStripMenuItem";
-            this.decreaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.decreaseVolumeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
+            this.decreaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.decreaseVolumeToolStripMenuItem.Text = "&Decrease Volume";
             this.decreaseVolumeToolStripMenuItem.Click += new System.EventHandler(this.decreaseVolumeToolStripMenuItem_Click);
             // 
             // toolStripSeparator17
             // 
             this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(162, 6);
+            this.toolStripSeparator17.Size = new System.Drawing.Size(227, 6);
             // 
             // volumeToolStripMenuItem
             // 
             this.volumeToolStripMenuItem.Enabled = false;
             this.volumeToolStripMenuItem.Name = "volumeToolStripMenuItem";
-            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.volumeToolStripMenuItem.Text = "Volume:";
             // 
             // volumeToolStripTextBox
@@ -633,14 +635,14 @@
             this.showSubtitlesToolStripMenuItem.CheckOnClick = true;
             this.showSubtitlesToolStripMenuItem.Enabled = false;
             this.showSubtitlesToolStripMenuItem.Name = "showSubtitlesToolStripMenuItem";
-            this.showSubtitlesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.showSubtitlesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.showSubtitlesToolStripMenuItem.Text = "&Show Subtitles";
             this.showSubtitlesToolStripMenuItem.Click += new System.EventHandler(this.showSubtitlesToolStripMenuItem_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(148, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(149, 6);
             // 
             // fontSizeToolStripMenuItem
             // 
@@ -649,7 +651,7 @@
             this.sizeToolStripMenuItem1,
             this.resetSizeToolStripMenuItem});
             this.fontSizeToolStripMenuItem.Name = "fontSizeToolStripMenuItem";
-            this.fontSizeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.fontSizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fontSizeToolStripMenuItem.Text = "&Font Size";
             // 
             // sizeToolStripMenuItem
@@ -681,7 +683,7 @@
             this.subtitleTrackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.noneToolStripMenuItem});
             this.subtitleTrackToolStripMenuItem.Name = "subtitleTrackToolStripMenuItem";
-            this.subtitleTrackToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.subtitleTrackToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.subtitleTrackToolStripMenuItem.Text = "Subtitle &Track";
             // 
             // noneToolStripMenuItem
@@ -708,7 +710,8 @@
             // 
             this.showCommandLineToolStripMenuItem.CheckOnClick = true;
             this.showCommandLineToolStripMenuItem.Name = "showCommandLineToolStripMenuItem";
-            this.showCommandLineToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.showCommandLineToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.showCommandLineToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.showCommandLineToolStripMenuItem.Text = "Show &Command Line";
             this.showCommandLineToolStripMenuItem.Click += new System.EventHandler(this.showCommandLineToolStripMenuItem_Click);
             // 
@@ -716,7 +719,7 @@
             // 
             this.takeSnapshotToolStripMenuItem.Enabled = false;
             this.takeSnapshotToolStripMenuItem.Name = "takeSnapshotToolStripMenuItem";
-            this.takeSnapshotToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.takeSnapshotToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.takeSnapshotToolStripMenuItem.Text = "Take &Snapshot";
             this.takeSnapshotToolStripMenuItem.Click += new System.EventHandler(this.takeSnapshotToolStripMenuItem_Click);
             // 
@@ -725,21 +728,21 @@
             this.sayMediaNameToolStripMenuItem.Enabled = false;
             this.sayMediaNameToolStripMenuItem.Name = "sayMediaNameToolStripMenuItem";
             this.sayMediaNameToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.sayMediaNameToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.sayMediaNameToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.sayMediaNameToolStripMenuItem.Text = "Say &Media Name";
             this.sayMediaNameToolStripMenuItem.Click += new System.EventHandler(this.sayMediaNameToolStripMenuItem_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(205, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(227, 6);
             // 
             // mediaInfoToolStripMenuItem
             // 
             this.mediaInfoToolStripMenuItem.Enabled = false;
             this.mediaInfoToolStripMenuItem.Name = "mediaInfoToolStripMenuItem";
             this.mediaInfoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.mediaInfoToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.mediaInfoToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
             this.mediaInfoToolStripMenuItem.Text = "Media &Info...";
             this.mediaInfoToolStripMenuItem.Click += new System.EventHandler(this.mediaInfoToolStripMenuItem_Click);
             // 
@@ -881,15 +884,15 @@
             this.allOptionsToolStripMenuItem.Text = "&All Options...";
             this.allOptionsToolStripMenuItem.Click += new System.EventHandler(this.allOptionsToolStripMenuItem_Click);
             // 
-            // aboutToolStripMenuItem
+            // helpToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mPlayersCommandsToolStripMenuItem,
             this.aboutBakaMPlayerToolStripMenuItem});
-            this.aboutToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(24, 20);
-            this.aboutToolStripMenuItem.Text = "&?";
+            this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Text = "Help";
             // 
             // mPlayersCommandsToolStripMenuItem
             // 
@@ -948,6 +951,29 @@
             this.speechButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.speechButton_MouseClick);
             this.speechButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.speechButton_MouseDown);
             this.speechButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.speechButton_MouseUp);
+            // 
+            // volumeBar
+            // 
+            this.volumeBar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.volumeBar.BackColor = System.Drawing.Color.Transparent;
+            this.volumeBar.BarInnerColor = System.Drawing.Color.Gray;
+            this.volumeBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
+            this.volumeBar.DrawSemitransparentThumb = false;
+            this.volumeBar.LargeChange = ((uint)(5u));
+            this.volumeBar.Location = new System.Drawing.Point(363, 10);
+            this.volumeBar.MouseEffects = false;
+            this.volumeBar.Name = "volumeBar";
+            this.volumeBar.Size = new System.Drawing.Size(110, 25);
+            this.volumeBar.SmallChange = ((uint)(1u));
+            this.volumeBar.SolidBackground = true;
+            this.volumeBar.TabIndex = 0;
+            this.volumeBar.TabStop = false;
+            this.volumeBar.ThumbInnerColor = System.Drawing.Color.DarkGray;
+            this.volumeBar.ThumbOuterColor = System.Drawing.Color.Silver;
+            this.volumeBar.ThumbPenColor = System.Drawing.Color.Gray;
+            this.volumeBar.ThumbRoundRectSize = new System.Drawing.Size(14, 16);
+            this.volumeBar.ThumbSize = new System.Drawing.Size(16, 14);
+            this.volumeBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.volumeBar_Scroll);
             // 
             // playlistButton
             // 
@@ -1065,6 +1091,36 @@
             this.seekPanel.Size = new System.Drawing.Size(584, 18);
             this.seekPanel.TabIndex = 2;
             // 
+            // seekBar
+            // 
+            this.seekBar.BackColor = System.Drawing.Color.Transparent;
+            this.seekBar.BarInnerColor = System.Drawing.Color.SlateGray;
+            this.seekBar.BarOuterColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.seekBar.BarPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.seekBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
+            this.seekBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seekBar.ElapsedInnerColor = System.Drawing.Color.DodgerBlue;
+            this.seekBar.ElapsedOuterColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.seekBar.Enabled = false;
+            this.seekBar.LargeChange = ((uint)(5u));
+            this.seekBar.Location = new System.Drawing.Point(65, 0);
+            this.seekBar.Maximum = 1000000;
+            this.seekBar.MouseEffects = false;
+            this.seekBar.Name = "seekBar";
+            this.seekBar.Size = new System.Drawing.Size(449, 18);
+            this.seekBar.SmallChange = ((uint)(1u));
+            this.seekBar.TabIndex = 1;
+            this.seekBar.TabStop = false;
+            this.seekBar.ThumbInnerColor = System.Drawing.Color.DarkGray;
+            this.seekBar.ThumbOuterColor = System.Drawing.Color.Silver;
+            this.seekBar.ThumbPenColor = System.Drawing.Color.DarkGray;
+            this.seekBar.ThumbRoundRectSize = new System.Drawing.Size(10, 10);
+            this.seekBar.ThumbSize = new System.Drawing.Size(20, 10);
+            this.seekBar.Value = 0;
+            this.seekBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseDown);
+            this.seekBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseUp);
+            this.seekBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseMove);
+            // 
             // timeLeftLabel
             // 
             this.timeLeftLabel.BackColor = System.Drawing.Color.Transparent;
@@ -1168,6 +1224,33 @@
             this.outputTextbox.Size = new System.Drawing.Size(435, 72);
             this.outputTextbox.TabIndex = 0;
             this.outputTextbox.Text = "Baka MPlayer Loaded...";
+            // 
+            // inputTextbox
+            // 
+            this.inputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.inputTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inputTextbox.CueText = "> Insert command here";
+            this.inputTextbox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.inputTextbox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.inputTextbox.ForeColor = System.Drawing.Color.White;
+            this.inputTextbox.Location = new System.Drawing.Point(0, 72);
+            this.inputTextbox.Name = "inputTextbox";
+            this.inputTextbox.Size = new System.Drawing.Size(435, 23);
+            this.inputTextbox.TabIndex = 1;
+            this.inputTextbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputTextbox_KeyDown);
+            // 
+            // playlist
+            // 
+            this.playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.playlist.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playlist.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playlist.ForeColor = System.Drawing.Color.White;
+            this.playlist.Location = new System.Drawing.Point(0, 0);
+            this.playlist.Margin = new System.Windows.Forms.Padding(4);
+            this.playlist.Name = "playlist";
+            this.playlist.SelectedIndex = -1;
+            this.playlist.Size = new System.Drawing.Size(145, 303);
+            this.playlist.TabIndex = 0;
             // 
             // trayIcon
             // 
@@ -1273,86 +1356,6 @@
             this.exitMenuItem.Text = "E&xit";
             this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
             // 
-            // inputTextbox
-            // 
-            this.inputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.inputTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inputTextbox.CueText = "> Insert command here";
-            this.inputTextbox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.inputTextbox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.inputTextbox.ForeColor = System.Drawing.Color.White;
-            this.inputTextbox.Location = new System.Drawing.Point(0, 72);
-            this.inputTextbox.Name = "inputTextbox";
-            this.inputTextbox.Size = new System.Drawing.Size(435, 23);
-            this.inputTextbox.TabIndex = 1;
-            this.inputTextbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputTextbox_KeyDown);
-            // 
-            // playlist
-            // 
-            this.playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.playlist.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.playlist.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playlist.ForeColor = System.Drawing.Color.White;
-            this.playlist.Location = new System.Drawing.Point(0, 0);
-            this.playlist.Margin = new System.Windows.Forms.Padding(4);
-            this.playlist.Name = "playlist";
-            this.playlist.SelectedIndex = -1;
-            this.playlist.Size = new System.Drawing.Size(145, 303);
-            this.playlist.TabIndex = 0;
-            // 
-            // seekBar
-            // 
-            this.seekBar.BackColor = System.Drawing.Color.Transparent;
-            this.seekBar.BarInnerColor = System.Drawing.Color.SlateGray;
-            this.seekBar.BarOuterColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.seekBar.BarPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.seekBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
-            this.seekBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seekBar.ElapsedInnerColor = System.Drawing.Color.DodgerBlue;
-            this.seekBar.ElapsedOuterColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.seekBar.Enabled = false;
-            this.seekBar.LargeChange = ((uint)(5u));
-            this.seekBar.Location = new System.Drawing.Point(65, 0);
-            this.seekBar.Maximum = 1000000;
-            this.seekBar.MouseEffects = false;
-            this.seekBar.Name = "seekBar";
-            this.seekBar.Size = new System.Drawing.Size(449, 18);
-            this.seekBar.SmallChange = ((uint)(1u));
-            this.seekBar.TabIndex = 1;
-            this.seekBar.TabStop = false;
-            this.seekBar.ThumbInnerColor = System.Drawing.Color.DarkGray;
-            this.seekBar.ThumbOuterColor = System.Drawing.Color.Silver;
-            this.seekBar.ThumbPenColor = System.Drawing.Color.DarkGray;
-            this.seekBar.ThumbRoundRectSize = new System.Drawing.Size(10, 10);
-            this.seekBar.ThumbSize = new System.Drawing.Size(20, 10);
-            this.seekBar.Value = 0;
-            this.seekBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseDown);
-            this.seekBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseUp);
-            this.seekBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseMove);
-            // 
-            // volumeBar
-            // 
-            this.volumeBar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.volumeBar.BackColor = System.Drawing.Color.Transparent;
-            this.volumeBar.BarInnerColor = System.Drawing.Color.Gray;
-            this.volumeBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
-            this.volumeBar.DrawSemitransparentThumb = false;
-            this.volumeBar.LargeChange = ((uint)(5u));
-            this.volumeBar.Location = new System.Drawing.Point(363, 10);
-            this.volumeBar.MouseEffects = false;
-            this.volumeBar.Name = "volumeBar";
-            this.volumeBar.Size = new System.Drawing.Size(110, 25);
-            this.volumeBar.SmallChange = ((uint)(1u));
-            this.volumeBar.SolidBackground = true;
-            this.volumeBar.TabIndex = 0;
-            this.volumeBar.TabStop = false;
-            this.volumeBar.ThumbInnerColor = System.Drawing.Color.DarkGray;
-            this.volumeBar.ThumbOuterColor = System.Drawing.Color.Silver;
-            this.volumeBar.ThumbPenColor = System.Drawing.Color.Gray;
-            this.volumeBar.ThumbRoundRectSize = new System.Drawing.Size(14, 16);
-            this.volumeBar.ThumbSize = new System.Drawing.Size(16, 14);
-            this.volumeBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.volumeBar_Scroll);
-            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -1411,7 +1414,7 @@
         private System.Windows.Forms.ToolStripMenuItem subtitlesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem folderToolStripMenuItem;
         private System.Windows.Forms.Panel controlPanel;
         private System.Windows.Forms.Panel seekPanel;

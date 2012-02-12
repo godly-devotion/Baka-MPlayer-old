@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Baka_MPlayer.Forms
 {
@@ -28,7 +29,7 @@ namespace Baka_MPlayer.Forms
 
         private void saveImgLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var fileName = System.IO.Path.GetFileNameWithoutExtension(Info.FileName);
+            var fileName = Path.GetFileNameWithoutExtension(Info.FileName);
             var sfd = new SaveFileDialog
             {
                 SupportMultiDottedExtensions = true,
@@ -47,6 +48,11 @@ namespace Baka_MPlayer.Forms
                     MessageBox.Show(ex.Message, "Error in Saving Image", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
         }
 
         #region Paint Methods

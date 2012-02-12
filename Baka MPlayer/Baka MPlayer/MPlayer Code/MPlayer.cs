@@ -1,6 +1,6 @@
 ﻿/************************************
-* mplayer (by Joshua Park & u8sand) *
-* updated 2/3/2012                  *
+* MPlayer (by Joshua Park & u8sand) *
+* updated 2/11/2012                 *
 ************************************/
 using System;
 using System.Diagnostics;
@@ -44,7 +44,7 @@ public class MPlayer
                 return true;
             }
             // mplayer is not running, so start mplayer then load url
-            var cmdArgs = string.Format(" -vo {0} -ao {1}", "direct3d" /*directx, gl, gl2*/, "dsound" /*win32*/);
+            var cmdArgs = string.Format(" -vo {0} -ao {1}", "direct3d", "dsound");
             cmdArgs += " -slave";                		 			// switch on slave mode for frontend
             cmdArgs += " -idle";                 		 			// wait insead of quit
             cmdArgs += " -utf8";                 		 			// handles the subtitle file as UTF-8
@@ -113,7 +113,7 @@ public class MPlayer
         {
             if (mplayer == null || mplayer.HasExited)
                 throw new Exception();
-
+            
             byte[] buffer = System.Text.Encoding.UTF8.GetBytes(string.Format(command,value));
             mplayer.StandardInput.BaseStream.Write(buffer, 0, buffer.Length);
             mplayer.StandardInput.WriteLine();
@@ -122,6 +122,10 @@ public class MPlayer
         }
         catch (Exception) { return false; }
         return true;
+    }
+    public bool MPlayerIsRunning()
+    {
+        return mplayer != null;
     }
     public bool Close()
     {
@@ -399,6 +403,10 @@ public class MPlayer
         {
             Info.Current.PlayState = PlayStates.Paused;
             mainForm.CallPlayStateChanged();
+        }
+        else if (output.StartsWith("EOF code:")) //EOF code: 1
+        {
+            mainForm.CallMediaEnded();
         }
         else
         {

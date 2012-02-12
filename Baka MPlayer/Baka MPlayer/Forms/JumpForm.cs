@@ -84,6 +84,12 @@ namespace Baka_MPlayer.Forms
                     validEntry(false);
             }
         }
+        private void validEntry(bool allowJump)
+        {
+            checkPicbox.Image = allowJump ?
+                Properties.Resources.exists : Properties.Resources.not_exists;
+            jumpButton.Enabled = allowJump;
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -92,11 +98,15 @@ namespace Baka_MPlayer.Forms
             formGraphics.FillRectangle(gradientBrush, ClientRectangle);
         }
 
-        private void validEntry(bool allowJump)
+
+        private void JumpForm_KeyDown(object sender, KeyEventArgs e)
         {
-            checkPicbox.Image = allowJump ?
-                Properties.Resources.exists : Properties.Resources.not_exists;
-            jumpButton.Enabled = allowJump;
+            switch (e.KeyCode)
+            {
+                case Keys.Escape:
+                    this.Dispose();
+                    break;
+            }
         }
     }
 }

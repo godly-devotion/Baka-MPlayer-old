@@ -1088,12 +1088,18 @@ namespace Baka_MPlayer.Forms
 
         private void increaseVolumeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (Info.Current.Volume >= 95)
+                UpdateVolume(100);
+            else
+                UpdateVolume(Info.Current.Volume + 5);
         }
 
         private void decreaseVolumeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (Info.Current.Volume <= 5)
+                UpdateVolume(0);
+            else
+                UpdateVolume(Info.Current.Volume - 5);
         }
 
         private void volumeToolStripTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -1194,6 +1200,7 @@ namespace Baka_MPlayer.Forms
 
         private void mediaInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            infoForm = new InfoForm();
             infoForm.Show();
         }
 
@@ -1236,7 +1243,8 @@ namespace Baka_MPlayer.Forms
 
         private void allOptionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var optionsForm = new OptionsForm();
+            optionsForm.ShowDialog(this);
         }
 
         #endregion
@@ -1280,7 +1288,7 @@ namespace Baka_MPlayer.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             // check for mplayer2
-            if (!File.Exists("mplayer2.exe"))
+            if (!File.Exists(Application.StartupPath + @"\mplayer2.exe"))
             {
                 MessageBox.Show("Baka MPlayer cannot load without \"mplayer2.exe\"!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
@@ -1370,17 +1378,17 @@ namespace Baka_MPlayer.Forms
             if (e.Delta > 0)
             {
                 // scroll up (increase volume)
-                if (Info.Current.Volume > 95 && Info.Current.Volume < 100)
+                if (Info.Current.Volume >= 95)
                     UpdateVolume(100);
-                else if (Info.Current.Volume <= 95 || Info.Current.Volume.Equals(100))
+                else
                     UpdateVolume(Info.Current.Volume + 5);
             }
             else
             {
                 // scroll down (decrease volume)
-                if (Info.Current.Volume < 5 && Info.Current.Volume > 0)
+                if (Info.Current.Volume <= 5)
                     UpdateVolume(0);
-                else if (Info.Current.Volume >= 5 || Info.Current.Volume.Equals(0))
+                else
                     UpdateVolume(Info.Current.Volume - 5);
             }
         }
@@ -1417,7 +1425,10 @@ namespace Baka_MPlayer.Forms
             settings.SaveConfig();
             tempURL = Info.URL;
 
+            // set file name texts
             this.Text = Path.GetFileName(Functions.DecodeURL(Info.URL));
+            folderToolStripMenuItem.Text = File.Exists(Info.URL) ?
+                Functions.AutoEllipsis(32, Functions.GetFolderName(Info.URL)) : string.Empty;
             if (blackForm != null)
                 blackForm.SetTitle = Path.GetFileNameWithoutExtension(Functions.DecodeURL(Info.URL));
 
@@ -1725,12 +1736,14 @@ namespace Baka_MPlayer.Forms
             if (newVol < 0 || newVol > 100)
                 return;
 
-            mplayer.SetVolume(newVol);
+            if (mplayer.MPlayerIsRunning())
+                mplayer.SetVolume(newVol);
             settings.SetConfig(newVol, "Volume");
 
             if (newVol.Equals(0))
             { // mute
-                mplayer.Mute(true);
+                if (mplayer.MPlayerIsRunning())
+                    mplayer.Mute(true);
                 volumeToolStripTextBox.Text = "Mute";
 
                 volumeBar.ThumbInnerColor = Color.DimGray;
@@ -1740,7 +1753,8 @@ namespace Baka_MPlayer.Forms
             }
             else
             { // not mute
-                mplayer.Mute(false);
+                if (mplayer.MPlayerIsRunning())
+                    mplayer.Mute(false);
                 volumeToolStripTextBox.Text = newVol.ToString();
 
                 volumeBar.ThumbInnerColor = Color.DarkGray;

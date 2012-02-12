@@ -15,5 +15,29 @@ namespace Baka_MPlayer.Forms
         {
             InitializeComponent();
         }
+
+        private void OptionsForm_Load(object sender, EventArgs e)
+        {
+            // main
+            // voice
+            // mplayer
+            videoOutputbox.SelectedIndex = 0;
+            audioOutputbox.SelectedIndex = 0;
+        }
+
+        private void OptionsForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.KeyCode)
+            {
+                case Keys.Escape:
+                    this.Dispose();
+                    break;
+            }
+        }
+
+        private void closeButton_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
     }
 }

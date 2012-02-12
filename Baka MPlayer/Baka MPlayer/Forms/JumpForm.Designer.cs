@@ -229,6 +229,7 @@
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -237,6 +238,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Jump to Time";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.JumpForm_KeyDown);
             this.timePanel.ResumeLayout(false);
             this.timePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.secBox)).EndInit();
