@@ -95,8 +95,8 @@ public static class Info
 
     public static class Current
     {
-        public static int Duration { get; set; }
-        public static int TotalLength { get; set; }
+        public static double Duration { get; set; }
+        public static double TotalLength { get; set; }
 		public static int Volume { get; set; }
         public static PlayStates PlayState = PlayStates.Unidentified;
     }

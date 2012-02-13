@@ -38,7 +38,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             GCHandle handle = GCHandle.Alloc(settings.RecoveryData);
 
             HResult hr = AppRestartRecoveryNativeMethods.RegisterApplicationRecoveryCallback(
-                AppRestartRecoveryNativeMethods.InternalCallback, (IntPtr)handle, settings.PingInterval, (uint)0);
+                AppRestartRecoveryNativeMethods.InternalCallback, (IntPtr)handle, settings.PingInterval, 0);
 
             if (!CoreErrorHelper.Succeeded(hr))
             {

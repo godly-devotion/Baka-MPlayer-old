@@ -10,7 +10,7 @@ namespace Baka_MPlayer.Forms
         /// <summary>
         /// Gets the new time to set in seconds
         /// </summary>
-        public int GetNewTime { get; private set; }
+        public double GetNewTime { get; private set; }
 
         public JumpForm()
         {
@@ -43,7 +43,7 @@ namespace Baka_MPlayer.Forms
             int hour = Convert.ToInt32(hourBox.Value);
             int min = Convert.ToInt32(minBox.Value);
             int sec = Convert.ToInt32(secBox.Value);
-            int calculatedTotal = (hour * 3600) + (min * 60) + sec;
+            double calculatedTotal = (hour * 3600) + (min * 60) + sec;
 
             if (goToRadioButton.Checked)
             {
@@ -59,7 +59,7 @@ namespace Baka_MPlayer.Forms
             }
             else if (addRadioButton.Checked)
             {
-                int newTime = Info.Current.Duration + calculatedTotal;
+                double newTime = Info.Current.Duration + calculatedTotal;
                 statusLabel.Text = string.Format("Jumps To: " + Functions.ConvertTimeFromSeconds(newTime));
 
                 if (calculatedTotal > -1 && newTime < Info.Current.TotalLength)
@@ -72,7 +72,7 @@ namespace Baka_MPlayer.Forms
             }
             else if (subtractRadioButton.Checked)
             {
-                int newTime = Info.Current.Duration - calculatedTotal;
+                double newTime = Info.Current.Duration - calculatedTotal;
                 statusLabel.Text = string.Format("Jumps To: " + Functions.ConvertTimeFromSeconds(newTime));
 
                 if (calculatedTotal > -1 && newTime > -1)
@@ -97,7 +97,6 @@ namespace Baka_MPlayer.Forms
             var gradientBrush = new LinearGradientBrush(this.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical);
             formGraphics.FillRectangle(gradientBrush, ClientRectangle);
         }
-
 
         private void JumpForm_KeyDown(object sender, KeyEventArgs e)
         {

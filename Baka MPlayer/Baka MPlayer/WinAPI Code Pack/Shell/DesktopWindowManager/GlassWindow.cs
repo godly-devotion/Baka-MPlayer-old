@@ -68,14 +68,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
             if (AeroGlassCompositionEnabled && element != null)
             {
                 // calculate total size of window nonclient area
-                HwndSource hwndSource = PresentationSource.FromVisual(this) as HwndSource;
+                var hwndSource = PresentationSource.FromVisual(this) as HwndSource;
                 NativeRect windowRect;
                 NativeRect clientRect;
                 DesktopWindowManagerNativeMethods.GetWindowRect(hwndSource.Handle, out windowRect);
                 DesktopWindowManagerNativeMethods.GetClientRect(hwndSource.Handle, out clientRect);
-                Size nonClientSize = new Size(
-                        (double)(windowRect.Right - windowRect.Left) - (double)(clientRect.Right - clientRect.Left),
-                        (double)(windowRect.Bottom - windowRect.Top) - (double)(clientRect.Bottom - clientRect.Top));
+                var nonClientSize = new Size(
+                        (double)(windowRect.Right - windowRect.Left) - (clientRect.Right - clientRect.Left),
+                        (double)(windowRect.Bottom - windowRect.Top) - (clientRect.Bottom - clientRect.Top));
 
                 // calculate size of element relative to nonclient area
                 GeneralTransform transform = element.TransformToAncestor(this);
@@ -85,7 +85,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                             element.ActualHeight + nonClientSize.Height));
 
                 // Create a margin structure
-                Margins margins = new Margins();
+                var margins = new Margins();
                 margins.LeftWidth = (int)topLeftFrame.X;
                 margins.RightWidth = (int)(this.ActualWidth - bottomRightFrame.X);
                 margins.TopHeight = (int)(topLeftFrame.Y);
@@ -101,7 +101,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public void ResetAeroGlass()
         {
-            Margins margins = new Margins(true);
+            var margins = new Margins(true);
             DesktopWindowManagerNativeMethods.DwmExtendFrameIntoClientArea(windowHandle, ref margins);
         }
 

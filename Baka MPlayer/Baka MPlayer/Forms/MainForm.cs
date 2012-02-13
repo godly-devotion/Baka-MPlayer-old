@@ -172,7 +172,7 @@ namespace Baka_MPlayer.Forms
                     {
                         // mainForm minimize
                         if (blackForm != null)
-                            blackForm.Visible = false;
+                            blackForm.Hide();
                         dimLightsToolStripMenuItem.Checked = false;
                         if (minimizeToTrayToolStripMenuItem.Enabled && minimizeToTrayToolStripMenuItem.Checked)
                             ToggleToTaskbar(true);
@@ -630,7 +630,7 @@ namespace Baka_MPlayer.Forms
             if (!seekBar_IsMouseDown)
                 return;
 
-            var currentPos = (int)((double)seekBar.Value * Info.Current.TotalLength / seekBar.Maximum);
+            var currentPos = seekBar.Value * Info.Current.TotalLength / seekBar.Maximum;
 
             if (settings.GetBoolValue("ShowTimeRemaining"))
                 timeLeftLabel.Text = string.Format("-{0}", Functions.ConvertTimeFromSeconds(Info.Current.TotalLength - currentPos));
@@ -644,7 +644,7 @@ namespace Baka_MPlayer.Forms
         {
             if (seekBar_IsMouseDown)
             {
-                var newTime = (int)(((double)seekBar.Value * Info.Current.TotalLength) / seekBar.Maximum);
+                var newTime = (seekBar.Value * Info.Current.TotalLength) / seekBar.Maximum;
                 mplayer.Seek(newTime);
                 seekBar_IsMouseDown = false;
             }
@@ -657,6 +657,7 @@ namespace Baka_MPlayer.Forms
 
             var setting = !settings.GetBoolValue("ShowTimeRemaining");
             settings.SetConfig(setting, "ShowTimeRemaining");
+            settings.SaveConfig();
         }
 
         #endregion
@@ -1003,6 +1004,25 @@ namespace Baka_MPlayer.Forms
             else
                 MessageBox.Show("Possible Reasons:\n1. File is located on the internet.\n2. The file may have been moved or deleted.",
                     "Error Opening Folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void folderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(Info.URL))
+            {
+                var process = new Process
+                {
+                    StartInfo =
+                    {
+                        FileName = "explorer.exe",
+                        Arguments = string.Format("/select,\"{0}\"", Info.URL),
+                        WindowStyle = ProcessWindowStyle.Normal
+                    }
+                };
+                process.Start();
+            }
+            else
+                Process.Start(string.Format("http://{0}", new Uri(Info.URL).Host));
         }
 
         private void playNextFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1370,7 +1390,7 @@ namespace Baka_MPlayer.Forms
                 key -= 48;
                 if (key.Equals(0))
                     key = 10;
-                mplayer.Seek((int)(((double)Info.Current.TotalLength / 11) * key));
+                mplayer.Seek(((double)Info.Current.TotalLength / 11) * key);
             }
         }
         private void MainForm_MouseWheel(object sender, MouseEventArgs e)
@@ -1427,8 +1447,10 @@ namespace Baka_MPlayer.Forms
 
             // set file name texts
             this.Text = Path.GetFileName(Functions.DecodeURL(Info.URL));
+
             folderToolStripMenuItem.Text = File.Exists(Info.URL) ?
-                Functions.AutoEllipsis(32, Functions.GetFolderName(Info.URL)) : string.Empty;
+                Functions.AutoEllipsis(32, Functions.GetFolderName(Info.URL)) : new Uri(Info.URL).Host;
+
             if (blackForm != null)
                 blackForm.SetTitle = Path.GetFileNameWithoutExtension(Functions.DecodeURL(Info.URL));
 
@@ -1462,13 +1484,11 @@ namespace Baka_MPlayer.Forms
             {
                 saveMediaAsToolStripMenuItem.Enabled = false;
                 showInWindowsExplorerToolStripMenuItem.Enabled = true;
-                folderToolStripMenuItem.Enabled = true;
             }
             else
             {
                 saveMediaAsToolStripMenuItem.Enabled = true;
                 showInWindowsExplorerToolStripMenuItem.Enabled = false;
-                folderToolStripMenuItem.Enabled = false;
             }
 
             // call other methods
@@ -1568,7 +1588,7 @@ namespace Baka_MPlayer.Forms
             
             if (Info.Current.Duration > 0)
             {
-                seekBar.Value = Convert.ToInt32(((double)Info.Current.Duration * 1000000) / Info.Current.TotalLength); // %
+                seekBar.Value = Convert.ToInt32((Info.Current.Duration * 1000000) / Info.Current.TotalLength); // %
                 durationLabel.Text = Functions.ConvertTimeFromSeconds(Info.Current.Duration);
             }
 
@@ -1610,8 +1630,14 @@ namespace Baka_MPlayer.Forms
 
             // boss mode
             mplayer.Pause(false);
+
             if (blackForm != null)
                 blackForm.Hide();
+            dimLightsToolStripMenuItem.Checked = false;
+            if (minimizeToTrayToolStripMenuItem.Enabled && minimizeToTrayToolStripMenuItem.Checked)
+                ToggleToTaskbar(true);
+
+            // code required to bypass windows hide animation
             this.Opacity = 0.0;
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Minimized;
@@ -1641,6 +1667,8 @@ namespace Baka_MPlayer.Forms
 
             showPlaylistToolStripMenuItem.Enabled = true;
             hideAlbumArtToolStripMenuItem.Enabled = !Info.VideoInfo.HasVideo;
+
+            folderToolStripMenuItem.Enabled = true;
 
             // tray context menu
             showMenuItem.Enabled = true;

@@ -21,7 +21,6 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// Creates a new instance of this class.
         /// </summary>
         public CommonOpenFileDialog()
-            : base()
         {
             // For Open file dialog, allow read only files.
             base.EnsureReadOnly = true;

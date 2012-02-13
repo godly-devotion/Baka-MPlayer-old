@@ -68,7 +68,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             ShellNativeMethods.ShellFileGetAttributesOptions sfgao;
             int retCode = ShellNativeMethods.SHParseDisplayName(
-                name, IntPtr.Zero, out pidl, (ShellNativeMethods.ShellFileGetAttributesOptions)0,
+                name, IntPtr.Zero, out pidl, 0,
                 out sfgao);
 
             return (CoreErrorHelper.Succeeded(retCode) ? pidl : IntPtr.Zero);

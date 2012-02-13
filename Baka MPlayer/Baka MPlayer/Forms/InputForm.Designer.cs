@@ -61,7 +61,6 @@
             // 
             this.inputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.inputTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inputTextbox.CueText = Microsoft.WindowsAPICodePack.Resources.LocalizedMessages.TaskDialogDefaultMainInstruction;//global::Baka_MPlayer.WinAPI_Code_Pack.Core.Resources.LocalizedMessages.TaskDialogDefaultMainInstruction;
             this.inputTextbox.ForeColor = System.Drawing.Color.White;
             this.inputTextbox.Location = new System.Drawing.Point(62, 65);
             this.inputTextbox.Name = "inputTextbox";

@@ -70,7 +70,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 throw new InvalidOperationException(LocalizedMessages.DialogCollectionModifyShowingDialog);
             }
 
-            DialogControl control = (DialogControl)Items[index];
+            var control = (DialogControl)Items[index];
 
             // Unparent and remove.
             control.HostingDialog = null;

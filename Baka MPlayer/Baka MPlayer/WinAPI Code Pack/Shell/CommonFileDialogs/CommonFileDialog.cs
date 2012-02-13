@@ -361,7 +361,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
             for (uint filtersCounter = 0; filtersCounter < filters.Count; filtersCounter++)
             {
-                filter = (CommonFileDialogFilter)filters[(int)filtersCounter];
+                filter = filters[(int)filtersCounter];
 
                 if (filter.Extensions.Contains(DefaultExtension))
                 {
@@ -703,12 +703,12 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
             if (initialDirectoryShellContainer != null)
             {
-                dialog.SetFolder(((ShellObject)initialDirectoryShellContainer).NativeShellItem);
+                dialog.SetFolder(initialDirectoryShellContainer.NativeShellItem);
             }
 
             if (defaultDirectoryShellContainer != null)
             {
-                dialog.SetDefaultFolder(((ShellObject)defaultDirectoryShellContainer).NativeShellItem);
+                dialog.SetDefaultFolder(defaultDirectoryShellContainer.NativeShellItem);
             }
 
             if (!string.IsNullOrEmpty(initialDirectory))

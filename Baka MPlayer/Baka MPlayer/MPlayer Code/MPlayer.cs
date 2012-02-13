@@ -1,6 +1,6 @@
 ﻿/************************************
 * MPlayer (by Joshua Park & u8sand) *
-* updated 2/11/2012                 *
+* updated 2/12/2012                 *
 ************************************/
 using System;
 using System.Diagnostics;
@@ -181,9 +181,9 @@ public class MPlayer
     {
         return SendCommand("seek_chapter {0} 0", ahead ? 1 : -1);
     }
-    public bool Seek(int sec)
+    public bool Seek(double sec)
     {
-        return SendCommand("seek {0} 2", sec); // set position to time specified
+        return SendCommand("seek {0} 2", (int)sec); // set position to time specified
     }
     public bool SeekFrame(double frame)
     {
@@ -343,16 +343,19 @@ public class MPlayer
             case "ID_LENGTH":
                 double length;
                 double.TryParse(value, out length);
-                Info.Current.TotalLength = (int)length;
+                Info.Current.TotalLength = length;
                 break;
             default:
-                if (key.StartsWith("ID_CHAPTER_")) // Chapters
+				if (key.StartsWith("ID_CHAPTER_ID")) // Chapters
+                {
+                    Info.MiscInfo.Chapters.Add(new Chapter());
+                }
+                else if (key.StartsWith("ID_CHAPTER_")) // Chapters
                 {
                     if (key.Contains("_START"))
                     {
                         long frame;
                         long.TryParse(value, out frame);
-                        Info.MiscInfo.Chapters.Add(new Chapter());
                         Info.MiscInfo.Chapters[Info.MiscInfo.Chapters.Count - 1].StartFrame = frame;
                     }
                     else if (key.Contains("_NAME"))
@@ -361,11 +364,15 @@ public class MPlayer
                     }
                     return true;
                 }
-                if (key.StartsWith("ID_SID_")) // Subtitles
+				
+				else if (key.StartsWith("ID_SUBTITLE_ID")) // Subtitles
+                {
+                    Info.MiscInfo.Subs.Add(new Sub());
+                }
+                else if (key.StartsWith("ID_SID_")) // Subtitles
                 {
                     if (key.Contains("_NAME"))
                     {
-                        Info.MiscInfo.Subs.Add(new Sub());
                         Info.MiscInfo.Subs[Info.MiscInfo.Subs.Count - 1].Name = value;
                     }
                     else if (key.Contains("_LANG"))
@@ -375,11 +382,12 @@ public class MPlayer
                     }
                     return true;
                 }
-                if (key.StartsWith("ID_AUDIO_ID")) // Audio tracks
+                
+				else if (key.StartsWith("ID_AUDIO_ID")) // Audio tracks
                 {
                     Info.AudioInfo.AudioTracks.Add(new AudioTrack());
                 }
-                if (key.StartsWith("ID_AID_"))
+                else if (key.StartsWith("ID_AID_"))
                 {
                     if (key.Contains("_NAME"))
                     {

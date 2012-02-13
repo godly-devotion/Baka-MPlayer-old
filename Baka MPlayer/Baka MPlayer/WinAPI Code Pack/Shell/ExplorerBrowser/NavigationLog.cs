@@ -136,8 +136,8 @@ namespace Microsoft.WindowsAPICodePack.Controls
             // Hook navigation events from the parent to distinguish between
             // navigation log induced navigation, and other navigations.
             this.parent = parent;
-            this.parent.NavigationComplete += new EventHandler<NavigationCompleteEventArgs>(OnNavigationComplete);
-            this.parent.NavigationFailed += new EventHandler<NavigationFailedEventArgs>(OnNavigationFailed);
+            this.parent.NavigationComplete += OnNavigationComplete;
+            this.parent.NavigationFailed += OnNavigationFailed;
         }
 
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs args)
@@ -147,7 +147,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
 
         private void OnNavigationComplete(object sender, NavigationCompleteEventArgs args)
         {
-            NavigationLogEventArgs eventArgs = new NavigationLogEventArgs();
+            var eventArgs = new NavigationLogEventArgs();
             bool oldCanNavigateBackward = CanNavigateBackward;
             bool oldCanNavigateForward = CanNavigateForward;
 

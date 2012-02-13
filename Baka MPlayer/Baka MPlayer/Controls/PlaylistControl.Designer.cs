@@ -32,9 +32,9 @@
             this.playlistList = new System.Windows.Forms.ListView();
             this.playlistHeader = new System.Windows.Forms.ColumnHeader();
             this.playlistStatusStrip = new System.Windows.Forms.StatusStrip();
-            this.currentFileButton = new System.Windows.Forms.ToolStripSplitButton();
+            this.currentFileButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.currentFileLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.optionsDropDownButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.showAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileContextMenu = new System.Windows.Forms.ContextMenu();
@@ -57,7 +57,7 @@
             this.playlistList.MultiSelect = false;
             this.playlistList.Name = "playlistList";
             this.playlistList.ShowGroups = false;
-            this.playlistList.Size = new System.Drawing.Size(137, 246);
+            this.playlistList.Size = new System.Drawing.Size(170, 253);
             this.playlistList.TabIndex = 2;
             this.playlistList.TabStop = false;
             this.playlistList.UseCompatibleStateImageBehavior = false;
@@ -81,10 +81,10 @@
             this.playlistStatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.currentFileButton,
             this.currentFileLabel,
-            this.toolStripDropDownButton1});
-            this.playlistStatusStrip.Location = new System.Drawing.Point(0, 273);
+            this.optionsDropDownButton});
+            this.playlistStatusStrip.Location = new System.Drawing.Point(0, 280);
             this.playlistStatusStrip.Name = "playlistStatusStrip";
-            this.playlistStatusStrip.Size = new System.Drawing.Size(137, 23);
+            this.playlistStatusStrip.Size = new System.Drawing.Size(170, 23);
             this.playlistStatusStrip.SizingGrip = false;
             this.playlistStatusStrip.TabIndex = 3;
             // 
@@ -95,7 +95,8 @@
             this.currentFileButton.Image = ((System.Drawing.Image)(resources.GetObject("currentFileButton.Image")));
             this.currentFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.currentFileButton.Name = "currentFileButton";
-            this.currentFileButton.Size = new System.Drawing.Size(38, 21);
+            this.currentFileButton.ShowDropDownArrow = false;
+            this.currentFileButton.Size = new System.Drawing.Size(26, 21);
             this.currentFileButton.Text = "Ê";
             this.currentFileButton.ToolTipText = "Select current file";
             this.currentFileButton.Click += new System.EventHandler(this.currentFileButton_Click);
@@ -103,24 +104,24 @@
             // currentFileLabel
             // 
             this.currentFileLabel.Name = "currentFileLabel";
-            this.currentFileLabel.Size = new System.Drawing.Size(54, 18);
+            this.currentFileLabel.Size = new System.Drawing.Size(99, 18);
             this.currentFileLabel.Spring = true;
             this.currentFileLabel.Text = "File 0 of 0";
             this.currentFileLabel.ToolTipText = "Click here to choose the index of the file to play";
             this.currentFileLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.currentFileLabel_MouseDown);
             // 
-            // toolStripDropDownButton1
+            // optionsDropDownButton
             // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionsDropDownButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.optionsDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showAllFilesToolStripMenuItem,
             this.refreshPlaylistToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(30, 21);
-            this.toolStripDropDownButton1.Text = "▲";
-            this.toolStripDropDownButton1.ToolTipText = "Playlist options";
+            this.optionsDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("optionsDropDownButton.Image")));
+            this.optionsDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.optionsDropDownButton.Name = "optionsDropDownButton";
+            this.optionsDropDownButton.Size = new System.Drawing.Size(30, 21);
+            this.optionsDropDownButton.Text = "▲";
+            this.optionsDropDownButton.ToolTipText = "Playlist options";
             // 
             // showAllFilesToolStripMenuItem
             // 
@@ -146,7 +147,7 @@
             this.searchTextBox.ForeColor = System.Drawing.Color.White;
             this.searchTextBox.Location = new System.Drawing.Point(0, 0);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(137, 27);
+            this.searchTextBox.Size = new System.Drawing.Size(170, 27);
             this.searchTextBox.TabIndex = 0;
             this.searchTextBox.TabStop = false;
             this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
@@ -164,7 +165,7 @@
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PlaylistControl";
-            this.Size = new System.Drawing.Size(137, 296);
+            this.Size = new System.Drawing.Size(170, 303);
             this.playlistStatusStrip.ResumeLayout(false);
             this.playlistStatusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -177,12 +178,12 @@
         private System.Windows.Forms.ColumnHeader playlistHeader;
         public CustomTextBox searchTextBox;
         private System.Windows.Forms.StatusStrip playlistStatusStrip;
-        private System.Windows.Forms.ToolStripSplitButton currentFileButton;
         private System.Windows.Forms.ToolStripStatusLabel currentFileLabel;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripDropDownButton optionsDropDownButton;
         private System.Windows.Forms.ToolStripMenuItem showAllFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshPlaylistToolStripMenuItem;
         private System.Windows.Forms.ListView playlistList;
         private System.Windows.Forms.ContextMenu fileContextMenu;
+        private System.Windows.Forms.ToolStripDropDownButton currentFileButton;
     }
 }

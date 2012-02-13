@@ -1,6 +1,6 @@
 ﻿/*****************************
 * Functions (by Joshua Park) *
-* updated 2/3/2012           *
+* updated 2/12/2012          *
 *****************************/
 using System;
 using System.Runtime.InteropServices;
@@ -71,22 +71,6 @@ public static class Functions
         return System.Web.HttpUtility.UrlDecode(input);
     }
 
-    /*public static string RemoveZero(string toUse)
-    {
-        if (!toUse.StartsWith("00"))
-        {
-            while (toUse.StartsWith("0"))
-                toUse = toUse.Remove(0, 1);
-            while (toUse.StartsWith(":"))
-                toUse = toUse.Remove(0, 1);
-        }
-        else
-        {
-            toUse = toUse.Remove(0, 1);
-        }
-        return toUse;
-    }*/
-
     public static string AutoEllipsis(int max, string toUse)
     {
         if (max < toUse.Length)
@@ -94,11 +78,11 @@ public static class Functions
         return toUse;
     }
 
-    public static void CalculateTimeFromSeconds(int time, out int hour, out int min, out int sec)
+    public static void CalculateTimeFromSeconds(double time, out int hour, out int min, out int sec)
     {
-        hour = time / 3600;
-        min = (time % 3600) / 60;
-        sec = (time % 3600) % 60;
+        hour = (int)(time / 3600);
+        min = (int)((time % 3600) / 60);
+        sec = (int)((time % 3600) % 60);
     }
 
     public static string ConvertTime(int hour, int min, int sec)
@@ -108,7 +92,7 @@ public static class Functions
         return string.Format("{0}:{1}", min.ToString("#0"), sec.ToString("00"));
     }
 
-    public static string ConvertTimeFromSeconds(int totalSec)
+    public static string ConvertTimeFromSeconds(double totalSec)
     {
         int hour, min, sec;
         CalculateTimeFromSeconds(totalSec, out hour, out min, out sec);
