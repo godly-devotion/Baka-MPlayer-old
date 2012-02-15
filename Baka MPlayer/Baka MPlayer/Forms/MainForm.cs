@@ -95,7 +95,6 @@ namespace Baka_MPlayer.Forms
             {
                 if (value)
                 {
-
                     if (voice == null)
                         voice = new Voice(this, "baka");
                     voice.StartListening();
@@ -112,8 +111,22 @@ namespace Baka_MPlayer.Forms
         private bool ShowPlaylist
         {
             get { return !mplayerSplitContainer.Panel2Collapsed; }
-            set { mplayerSplitContainer.Panel2Collapsed = !value; }
+            set
+            {
+                mplayerSplitContainer.Panel2Collapsed = !value;
+                showPlaylistToolStripMenuItem.Checked = value;
+
+                if (!value)
+                    hideAlbumArtToolStripMenuItem.Checked = false;
+            }
         }
+
+        private bool HideAlbumArt
+        {
+            get { return mplayerSplitContainer.Panel1Collapsed; }
+            set { mplayerSplitContainer.Panel1Collapsed = value; }
+        }
+
         private bool ShowConsole
         {
             get { return !bodySplitContainer.Panel2Collapsed; }
@@ -1088,17 +1101,31 @@ namespace Baka_MPlayer.Forms
 
         private void fitToVideoToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (!Info.VideoInfo.HasVideo)
+            {
+                this.Size = this.MinimumSize;
+                return;
+            }
 
+            int playlistWidth = ShowPlaylist ?
+                mplayerSplitContainer.Width - mplayerSplitContainer.SplitterDistance : 0;
+            int consoleHeight = ShowConsole ?
+                bodySplitContainer.Height - bodySplitContainer.SplitterDistance : 0;
+
+            this.ClientSize = new Size(mplayerPanel.Width + playlistWidth,
+                mainMenuStrip.Height + mplayerPanel.Height + consoleHeight + seekPanel.Height + controlPanel.Height);
         }
 
         private void audioTracksMenuItem_Click(object sender, EventArgs e)
         {
             //sender
+
         }
 
         private void chaptersMenuItem_Click(object sender, EventArgs e)
         {
             //sender
+
         }
 
         private void monoAudioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1229,12 +1256,21 @@ namespace Baka_MPlayer.Forms
 
         private void showPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            ShowPlaylist = showPlaylistToolStripMenuItem.Checked;
         }
 
         private void hideAlbumArtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (hideAlbumArtToolStripMenuItem.Checked)
+            {
+                HideAlbumArt = true;
+                showPlaylistToolStripMenuItem.Checked = true;
+                showPlaylistToolStripMenuItem_Click(null, null);
+            }
+            else
+            {
+                HideAlbumArt = false;
+            }
         }
 
         private void dimLightsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1661,12 +1697,12 @@ namespace Baka_MPlayer.Forms
             jumpToTimeToolStripMenuItem.Enabled = true;
 
             fullScreenToolStripMenuItem.Enabled = Info.VideoInfo.HasVideo;
+            fitToVideoToolStripMenuItem.Enabled = true;
             takeSnapshotToolStripMenuItem.Enabled = Info.VideoInfo.HasVideo;
-            sayMediaNameToolStripMenuItem.Enabled = Info.VideoInfo.HasVideo;
-            mediaInfoToolStripMenuItem.Enabled = Info.VideoInfo.HasVideo;
+            sayMediaNameToolStripMenuItem.Enabled = true;
+            mediaInfoToolStripMenuItem.Enabled = true;
 
             showPlaylistToolStripMenuItem.Enabled = true;
-            hideAlbumArtToolStripMenuItem.Enabled = !Info.VideoInfo.HasVideo;
 
             folderToolStripMenuItem.Enabled = true;
 

@@ -65,7 +65,12 @@ namespace Baka_MPlayer.Controls
                 playlistList.SelectedItems.Clear();
 
                 if (value > -1)
-                    playlistList.FocusedItem = playlistList.Items[value];               
+                {
+                    playlistList.Items[value].Selected = true;
+                    playlistList.Items[value].Focused = true;
+                    playlistList_SelectedIndexChanged(null, null);
+                    //playlistList.FocusedItem = playlistList.Items[value];
+                }
             }
         }
 
@@ -201,7 +206,7 @@ namespace Baka_MPlayer.Controls
             var inputBox = new InputForm(
                 "Enter the file number you want to play:\nNote: Value must be between 1 - " + GetTotalItems,
                 "Enter File Number",
-                GetPlaylistIndex + 1.ToString());
+                (GetPlaylistIndex + 1).ToString());
 
             if (inputBox.ShowDialog(this) == DialogResult.OK)
             {

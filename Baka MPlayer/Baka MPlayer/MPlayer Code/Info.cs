@@ -156,6 +156,7 @@ public static class Info
         MiscInfo.OtherInfo = new List<ID_Info>();
 
         // VideoInfo
+        VideoInfo.HasVideo = true;
         VideoInfo.Width = 0;
         VideoInfo.Height = 0;
         VideoInfo.AspectRatio = 0;

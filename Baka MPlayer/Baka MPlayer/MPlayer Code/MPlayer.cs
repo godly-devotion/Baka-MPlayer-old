@@ -36,6 +36,8 @@ public class MPlayer
     {
         try
         {
+            Info.ResetInfo();
+
             if (mplayer != null)
             {
                 SendCommand("loadfile \"{0}\"", url.Replace("\\", "\\\\")); // open file
@@ -277,9 +279,6 @@ public class MPlayer
 
             if (e.Data.Equals("Starting playback..."))
             {
-                if (!Info.VideoInfo.HasVideo)
-                    Info.VideoInfo.HasVideo = true;
-
                 parsingHeader = false;
 
                 // tell mainform that new file was opened

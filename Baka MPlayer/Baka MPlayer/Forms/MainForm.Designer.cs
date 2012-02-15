@@ -520,7 +520,7 @@
             // 
             this.fullScreenToolStripMenuItem.Enabled = false;
             this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
-            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.fullScreenToolStripMenuItem.Text = "&Full Screen";
             this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
             // 
@@ -528,21 +528,23 @@
             // 
             this.fitToVideoToolStripMenuItem.Enabled = false;
             this.fitToVideoToolStripMenuItem.Name = "fitToVideoToolStripMenuItem";
-            this.fitToVideoToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.fitToVideoToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+` (Tilde key)";
+            this.fitToVideoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemtilde)));
+            this.fitToVideoToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.fitToVideoToolStripMenuItem.Text = "Fit To &Video";
             this.fitToVideoToolStripMenuItem.Click += new System.EventHandler(this.fitToVideoToolStripMenuItem_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(227, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(229, 6);
             // 
             // audioTracksToolStripMenuItem
             // 
             this.audioTracksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainToolStripMenuItem});
             this.audioTracksToolStripMenuItem.Name = "audioTracksToolStripMenuItem";
-            this.audioTracksToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.audioTracksToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.audioTracksToolStripMenuItem.Text = "Audio &Tracks";
             // 
             // mainToolStripMenuItem
@@ -557,7 +559,7 @@
             this.chaptersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainToolStripMenuItem1});
             this.chaptersToolStripMenuItem.Name = "chaptersToolStripMenuItem";
-            this.chaptersToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.chaptersToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.chaptersToolStripMenuItem.Text = "&Chapters";
             // 
             // mainToolStripMenuItem1
@@ -570,13 +572,13 @@
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(227, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(229, 6);
             // 
             // monoAudioToolStripMenuItem
             // 
             this.monoAudioToolStripMenuItem.CheckOnClick = true;
             this.monoAudioToolStripMenuItem.Name = "monoAudioToolStripMenuItem";
-            this.monoAudioToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.monoAudioToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.monoAudioToolStripMenuItem.Text = "&Mono Audio";
             this.monoAudioToolStripMenuItem.Click += new System.EventHandler(this.monoAudioToolStripMenuItem_Click);
             // 
@@ -584,7 +586,7 @@
             // 
             this.increaseVolumeToolStripMenuItem.Name = "increaseVolumeToolStripMenuItem";
             this.increaseVolumeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
-            this.increaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.increaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.increaseVolumeToolStripMenuItem.Text = "&Increase Volume";
             this.increaseVolumeToolStripMenuItem.Click += new System.EventHandler(this.increaseVolumeToolStripMenuItem_Click);
             // 
@@ -592,20 +594,20 @@
             // 
             this.decreaseVolumeToolStripMenuItem.Name = "decreaseVolumeToolStripMenuItem";
             this.decreaseVolumeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
-            this.decreaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.decreaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.decreaseVolumeToolStripMenuItem.Text = "&Decrease Volume";
             this.decreaseVolumeToolStripMenuItem.Click += new System.EventHandler(this.decreaseVolumeToolStripMenuItem_Click);
             // 
             // toolStripSeparator17
             // 
             this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(227, 6);
+            this.toolStripSeparator17.Size = new System.Drawing.Size(229, 6);
             // 
             // volumeToolStripMenuItem
             // 
             this.volumeToolStripMenuItem.Enabled = false;
             this.volumeToolStripMenuItem.Name = "volumeToolStripMenuItem";
-            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
+            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.volumeToolStripMenuItem.Text = "Volume:";
             // 
             // volumeToolStripTextBox
@@ -892,7 +894,7 @@
             this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Text = "&Help";
             // 
             // mPlayersCommandsToolStripMenuItem
             // 
