@@ -45,3 +45,4 @@ C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPl
 C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.csproj.GenerateResource.Cache
 C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.exe
 C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka MPlayer.pdb
+C:\Users\Joshua Park\Documents\Visual Studio 2008\Projects\Baka MPlayer\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.UpdateForm.resources

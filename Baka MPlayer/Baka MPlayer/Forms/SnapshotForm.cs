@@ -19,6 +19,12 @@ namespace Baka_MPlayer.Forms
             InitializeComponent();
 
             this.image = image;
+            snapshotPicbox_SizeChanged(null, null);
+        }
+
+        private void SnapshotForm_Load(object sender, EventArgs e)
+        {
+            this.MinimumSize = new Size(this.Width, 50);
             demensionsLabel.Text = string.Format("Demensions: {0} x {1}", image.Width, image.Height);
         }
 
@@ -65,11 +71,6 @@ namespace Baka_MPlayer.Forms
                 if (sfd.FilterIndex.Equals(4))
                     image.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Tiff);
             }
-        }
-
-        private void cancelButton_Click(object sender, EventArgs e)
-        {
-            this.Dispose();
         }
 
         private void snapshotPicbox_SizeChanged(object sender, EventArgs e)

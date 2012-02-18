@@ -79,11 +79,6 @@ namespace Baka_MPlayer.Forms
             Invoke((MethodInvoker)(() => playlistButton.Enabled = enable));
         }
 
-        public void SetPlaylistVisibility(bool show)
-        {
-            Invoke((MethodInvoker)(() => ShowPlaylist = show));
-        }
-
         #endregion
         #region Property's
 
@@ -108,16 +103,28 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private bool ShowPlaylist
+        public bool ShowPlaylist
         {
             get { return !mplayerSplitContainer.Panel2Collapsed; }
             set
             {
-                mplayerSplitContainer.Panel2Collapsed = !value;
-                showPlaylistToolStripMenuItem.Checked = value;
+                if (value)
+                {
+                    mplayerSplitContainer.Panel2Collapsed = false;
+                    showPlaylistToolStripMenuItem.Checked = true;
 
-                if (!value)
+                    playlist.DisableInteraction = false;
+                    mplayerSplitContainer.IsSplitterFixed = false;
+                }
+                else
+                {
+                    mplayerSplitContainer.Panel2Collapsed = true;
+                    showPlaylistToolStripMenuItem.Checked = false;
                     hideAlbumArtToolStripMenuItem.Checked = false;
+
+                    playlist.DisableInteraction = true;
+                    mplayerSplitContainer.IsSplitterFixed = true;
+                }
             }
         }
 
@@ -1276,7 +1283,10 @@ namespace Baka_MPlayer.Forms
         private void dimLightsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (blackForm == null)
+            {
                 blackForm = new BlackForm(this);
+                blackForm.SetTitle = Path.GetFileNameWithoutExtension(Functions.DecodeURL(Info.URL));
+            }
 
             if (dimLightsToolStripMenuItem.Checked)
             {
@@ -1309,6 +1319,12 @@ namespace Baka_MPlayer.Forms
         private void mPlayersCommandsToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var checker = new UpdateChecker();
+            checker.Check(false);
         }
 
         private void aboutBakaMPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1373,6 +1389,24 @@ namespace Baka_MPlayer.Forms
                     break;
                 }
             }
+
+            // check for updates
+            var checker = new UpdateChecker();
+            checker.Check(true);
+
+            /*if (settings.GetIntValue("LastUpdated") == -1)
+            {
+                settings.SetConfig((int)DateTime.Today.DayOfWeek, "LastUpdated");
+                settings.SaveConfig();
+            }
+            if ((int)DateTime.Today.DayOfWeek - 1 == settings.GetIntValue("LastUpdated"))
+            {
+                var checker = new UpdateChecker();
+                checker.Check(true);
+
+                settings.SetConfig((int)DateTime.Today.DayOfWeek, "LastUpdated");
+                settings.SaveConfig();
+            }*/
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
@@ -1401,9 +1435,7 @@ namespace Baka_MPlayer.Forms
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
-            {
                 HidePlayer();
-            }
 
             // make sure its not focused on anything else
             if (string.IsNullOrEmpty(Info.URL) || playlist.searchTextBox.Focused)
@@ -1802,6 +1834,7 @@ namespace Baka_MPlayer.Forms
 
             if (mplayer.MPlayerIsRunning())
                 mplayer.SetVolume(newVol);
+            Info.Current.Volume = newVol;
             settings.SetConfig(newVol, "Volume");
 
             if (newVol.Equals(0))

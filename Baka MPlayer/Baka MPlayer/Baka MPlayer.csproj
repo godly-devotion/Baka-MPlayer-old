@@ -61,6 +61,7 @@
     <Compile Include="Classes\Functions.cs" />
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="Classes\Speech.cs" />
+    <Compile Include="Classes\UpdateChecker.cs" />
     <Compile Include="Classes\Voice.cs" />
     <Compile Include="Controls\ButtonControl.cs">
       <SubType>Component</SubType>
@@ -134,6 +135,12 @@
     <Compile Include="Forms\SnapshotForm.Designer.cs">
       <DependentUpon>SnapshotForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\UpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UpdateForm.Designer.cs">
+      <DependentUpon>UpdateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\WebForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -181,6 +188,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SnapshotForm.resx">
       <DependentUpon>SnapshotForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UpdateForm.resx">
+      <DependentUpon>UpdateForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WebForm.resx">

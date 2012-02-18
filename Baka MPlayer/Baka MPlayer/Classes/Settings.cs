@@ -1,6 +1,6 @@
 /****************************
 * Settings (by Joshua Park) *
-* updated 1/18/2012         *
+* updated 2/18/2012         *
 ****************************/
 using System;
 using System.IO;
@@ -12,6 +12,12 @@ public class Setting
 {
     public string Name;
     public string Value;
+
+    public Setting(string name, string value)
+    {
+        this.Name = name;
+        this.Value = value;
+    }
 }
 
 public class Settings
@@ -29,7 +35,8 @@ public class Settings
             "Volume",
             "ShowTimeRemaining",
             "MinimizeToTray",
-            "HidePopup"
+            "HidePopup",
+            "LastUpdated"
         };
 
         // Values: settings[1].Add(/* Setting Value */);
@@ -40,7 +47,8 @@ public class Settings
             50,
             true,
             false,
-            false
+            false,
+            -1
         };
     }
 

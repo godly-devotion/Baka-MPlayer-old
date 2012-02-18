@@ -54,6 +54,7 @@
             // 
             // saveButton
             // 
+            this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.saveButton.BackColor = System.Drawing.Color.Transparent;
             this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.saveButton.FlatAppearance.BorderColor = System.Drawing.Color.DeepSkyBlue;
@@ -74,6 +75,7 @@
             // 
             // cancelButton
             // 
+            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.BackColor = System.Drawing.Color.Transparent;
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
@@ -90,7 +92,6 @@
             this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "&Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // cleanNameCheckbox
             // 
@@ -119,7 +120,6 @@
             this.snapshotPicbox.Location = new System.Drawing.Point(0, 0);
             this.snapshotPicbox.Name = "snapshotPicbox";
             this.snapshotPicbox.Size = new System.Drawing.Size(584, 372);
-            this.snapshotPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.snapshotPicbox.TabIndex = 1;
             this.snapshotPicbox.TabStop = false;
             this.snapshotPicbox.SizeChanged += new System.EventHandler(this.snapshotPicbox_SizeChanged);
@@ -143,6 +143,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Preview Snapshot";
+            this.Load += new System.EventHandler(this.SnapshotForm_Load);
             this.bottomPanel.ResumeLayout(false);
             this.bottomPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.snapshotPicbox)).EndInit();

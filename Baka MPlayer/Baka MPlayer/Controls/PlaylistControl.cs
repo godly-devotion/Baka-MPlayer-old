@@ -68,13 +68,23 @@ namespace Baka_MPlayer.Controls
                 {
                     playlistList.Items[value].Selected = true;
                     playlistList.Items[value].Focused = true;
+                    playlistList.TopItem = playlistList.Items[value];
                     playlistList_SelectedIndexChanged(null, null);
                     //playlistList.FocusedItem = playlistList.Items[value];
                 }
             }
         }
 
-#endregion
+        public bool DisableInteraction 
+        {
+            set
+            {
+                searchTextBox.Enabled = !value;
+                playlistList.Enabled = !value;
+            }
+        }
+
+        #endregion
 #region Methods
 
         private void OpenFile(string dirString)
@@ -88,20 +98,19 @@ namespace Baka_MPlayer.Controls
 
             if (File.Exists(Info.URL))
             {
-                if (playlistList.Items.IndexOfKey(Path.GetFileName(Info.URL)).Equals(-1))
-                    refreshRequired = true;
+                refreshRequired = playlistList.FindItemWithText(Path.GetFileName(Info.URL)) == null;
 
                 if (refreshRequired)
                     FillPlaylist();
 
                 SelectedIndex = playlistList.FindItemWithText(Path.GetFileName(Info.URL)).Index;
                 mainForm.SetPlaylistButtonEnable(true);
-                mainForm.SetPlaylistVisibility(GetTotalItems > 1);
+                mainForm.ShowPlaylist = (refreshRequired || mainForm.ShowPlaylist ) && GetTotalItems > 1;
             }
             else
             {
                 mainForm.SetPlaylistButtonEnable(false);
-                mainForm.SetPlaylistVisibility(false);
+                mainForm.ShowPlaylist = false;
                 playlistList.Items.Clear();
             }
 
@@ -189,7 +198,7 @@ namespace Baka_MPlayer.Controls
             playlistList.EndUpdate();
             refreshRequired = false;
             // current playing file is now first
-            playlistList.FocusedItem = playlistList.Items[0];
+            SelectedIndex = 0;
         }
 
         #endregion
@@ -244,12 +253,10 @@ namespace Baka_MPlayer.Controls
             {
                 var item = playlistList.FindItemWithText(searchTextBox.Text);
                 if (item != null)
-                    playlistList.FocusedItem = item;
+                    SelectedIndex = item.Index;
             }
             else
-            {
-                playlistList.FocusedItem = playlistList.Items[GetPlaylistIndex];
-            }
+                SelectedIndex = GetPlaylistIndex;
         }
 
         private void searchTextBox_KeyDown(object sender, KeyEventArgs e)

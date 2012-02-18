@@ -465,6 +465,7 @@
             // 
             // closeButton
             // 
+            this.closeButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.closeButton.BackColor = System.Drawing.Color.Transparent;
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.closeButton.FlatAppearance.BorderColor = System.Drawing.Color.DeepSkyBlue;

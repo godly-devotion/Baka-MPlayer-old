@@ -116,6 +116,8 @@
             this.allOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mPlayersCommandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutBakaMPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlPanel = new System.Windows.Forms.Panel();
@@ -890,6 +892,8 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mPlayersCommandsToolStripMenuItem,
+            this.checkForUpdatesToolStripMenuItem,
+            this.toolStripSeparator18,
             this.aboutBakaMPlayerToolStripMenuItem});
             this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
@@ -903,6 +907,18 @@
             this.mPlayersCommandsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
             this.mPlayersCommandsToolStripMenuItem.Text = "&MPlayer\'s Commands";
             this.mPlayersCommandsToolStripMenuItem.Click += new System.EventHandler(this.mPlayersCommandsToolStripMenuItem_Click);
+            // 
+            // checkForUpdatesToolStripMenuItem
+            // 
+            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.checkForUpdatesToolStripMenuItem.Text = "&Check for Updates";
+            this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator18
+            // 
+            this.toolStripSeparator18.Name = "toolStripSeparator18";
+            this.toolStripSeparator18.Size = new System.Drawing.Size(206, 6);
             // 
             // aboutBakaMPlayerToolStripMenuItem
             // 
@@ -1118,6 +1134,7 @@
             this.mplayerSplitContainer.Size = new System.Drawing.Size(584, 303);
             this.mplayerSplitContainer.SplitterDistance = 410;
             this.mplayerSplitContainer.TabIndex = 3;
+            this.mplayerSplitContainer.TabStop = false;
             // 
             // bodySplitContainer
             // 
@@ -1129,7 +1146,7 @@
             // 
             // bodySplitContainer.Panel1
             // 
-            this.bodySplitContainer.Panel1.BackColor = System.Drawing.Color.Black;
+            this.bodySplitContainer.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.bodySplitContainer.Panel1.Controls.Add(this.albumArtPicbox);
             this.bodySplitContainer.Panel1.Controls.Add(this.mplayerPanel);
             this.bodySplitContainer.Panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
@@ -1142,6 +1159,7 @@
             this.bodySplitContainer.Size = new System.Drawing.Size(410, 303);
             this.bodySplitContainer.SplitterDistance = 204;
             this.bodySplitContainer.TabIndex = 0;
+            this.bodySplitContainer.TabStop = false;
             // 
             // albumArtPicbox
             // 
@@ -1159,10 +1177,12 @@
             // 
             // mplayerPanel
             // 
+            this.mplayerPanel.BackColor = System.Drawing.Color.Black;
             this.mplayerPanel.Location = new System.Drawing.Point(0, 0);
             this.mplayerPanel.Name = "mplayerPanel";
-            this.mplayerPanel.Size = new System.Drawing.Size(435, 204);
+            this.mplayerPanel.Size = new System.Drawing.Size(410, 204);
             this.mplayerPanel.TabIndex = 0;
+            this.mplayerPanel.Visible = false;
             this.mplayerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
             // outputTextbox
@@ -1178,6 +1198,7 @@
             this.outputTextbox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.outputTextbox.Size = new System.Drawing.Size(410, 72);
             this.outputTextbox.TabIndex = 0;
+            this.outputTextbox.TabStop = false;
             this.outputTextbox.Text = "Baka MPlayer Loaded...";
             // 
             // trayIcon
@@ -1296,6 +1317,7 @@
             this.inputTextbox.Name = "inputTextbox";
             this.inputTextbox.Size = new System.Drawing.Size(410, 23);
             this.inputTextbox.TabIndex = 1;
+            this.inputTextbox.TabStop = false;
             this.inputTextbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputTextbox_KeyDown);
             // 
             // playlist
@@ -1310,6 +1332,7 @@
             this.playlist.SelectedIndex = -1;
             this.playlist.Size = new System.Drawing.Size(170, 303);
             this.playlist.TabIndex = 0;
+            this.playlist.TabStop = false;
             // 
             // seekBar
             // 
@@ -1539,6 +1562,8 @@
         private System.Windows.Forms.MenuItem menuItem12;
         private System.Windows.Forms.MenuItem exitMenuItem;
         private System.Windows.Forms.ToolTip xToolTip;
+        private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
     }
 }
 
