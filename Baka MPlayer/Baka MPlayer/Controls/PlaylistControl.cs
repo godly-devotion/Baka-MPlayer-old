@@ -122,6 +122,7 @@ namespace Baka_MPlayer.Controls
 
             // set playlist index
             GetPlaylistIndex = SelectedIndex;
+            mainForm.CallSetBackForwardControls();
         }
 
         private void FillPlaylist()

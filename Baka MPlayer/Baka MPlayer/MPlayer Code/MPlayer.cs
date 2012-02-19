@@ -1,6 +1,6 @@
 ﻿/************************************
 * MPlayer (by Joshua Park & u8sand) *
-* updated 2/12/2012                 *
+* updated 2/19/2012                 *
 ************************************/
 using System;
 using System.Diagnostics;
@@ -18,6 +18,7 @@ public class MPlayer
     private bool parsingClipInfo = false;
     private bool parsingSubsTrack = false;
     private bool parsingAudioTrack = false;
+    public bool ignoreUpdate = false;
 
     #endregion
 
@@ -150,7 +151,7 @@ public class MPlayer
 
     public bool Play()
     {
-        if (Info.Current.PlayState == PlayStates.Playing)
+        if (Info.Current.PlayState != PlayStates.Playing)
             return SendCommand("pause"); // pause command toggles between pause and play
         return false;
     }
@@ -298,16 +299,21 @@ public class MPlayer
 
     private void ProcessProgress(string time)
     {
+        if (ignoreUpdate)
+        {
+            ignoreUpdate = false;
+            return;
+        }
         if (Info.Current.PlayState != PlayStates.Playing)
         {
             Info.Current.PlayState = PlayStates.Playing;
             mainForm.CallPlayStateChanged();
         }
 
-        int sec;
-        int.TryParse(time.Substring(2, time.IndexOf('.') - 2).Trim(), out sec);
+        double sec;
+        double.TryParse(time.Substring(2, time.IndexOf('.')).Trim(), out sec);
         Info.Current.Duration = sec;
-
+        
         mainForm.CallDurationChanged();
     }
 
@@ -343,6 +349,8 @@ public class MPlayer
                 double length;
                 double.TryParse(value, out length);
                 Info.Current.TotalLength = length;
+
+                Debug.WriteLine(length);
                 break;
             default:
 				if (key.StartsWith("ID_CHAPTER_ID")) // Chapters

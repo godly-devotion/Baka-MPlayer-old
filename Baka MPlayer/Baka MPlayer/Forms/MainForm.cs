@@ -312,14 +312,20 @@ namespace Baka_MPlayer.Forms
                 case 37:
                     // left arrow key
                     if (Info.Current.Duration - 5 > -1)
+                    {
                         mplayer.Seek(Info.Current.Duration - 5);
+                        mplayer.ignoreUpdate = true;
+                    }
                     else //if (mplayer.currentPosition < 5)
                         mplayer.Seek(0);
                     break;
                 case 39:
                     // right arrow key
                     if (Info.Current.Duration + 5 < Info.Current.TotalLength)
+                    {
                         mplayer.Seek(Info.Current.Duration + 5);
+                        mplayer.ignoreUpdate = true;
+                    }
                     else
                         playlist.PlayNextFile();
                     break;
@@ -666,6 +672,7 @@ namespace Baka_MPlayer.Forms
             {
                 var newTime = (seekBar.Value * Info.Current.TotalLength) / seekBar.Maximum;
                 mplayer.Seek(newTime);
+                mplayer.ignoreUpdate = true;
                 seekBar_IsMouseDown = false;
             }
         }
@@ -1297,14 +1304,61 @@ namespace Baka_MPlayer.Forms
                 blackForm.Hide();
         }
 
+        private void alwaysToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            alwaysToolStripMenuItem.Checked = true;
+            whenPlayingToolStripMenuItem.Checked = false;
+            neverToolStripMenuItem.Checked = false;
+            setOnTop();
+        }
+
+        private void whenPlayingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            whenPlayingToolStripMenuItem.Checked = true;
+            alwaysToolStripMenuItem.Checked = false;
+            neverToolStripMenuItem.Checked = false;
+            setOnTop();
+        }
+
+        private void neverToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            neverToolStripMenuItem.Checked = true;
+            alwaysToolStripMenuItem.Checked = false;
+            whenPlayingToolStripMenuItem.Checked = false;
+            setOnTop();
+        }
+
+        private void setOnTop()
+        {
+            if (whenPlayingToolStripMenuItem.Checked)
+                this.TopMost = (Info.Current.PlayState == PlayStates.Playing);
+            else if (alwaysToolStripMenuItem.Checked)
+                this.TopMost = true;
+            else if (neverToolStripMenuItem.Checked)
+                this.TopMost = false;
+        }
+
         private void showIconInTrayToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (showIconInTrayToolStripMenuItem.Checked)
+            {
+                minimizeToTrayToolStripMenuItem.Enabled = true;
+                settings.SetConfig(true, "ShowIcon");
+                trayIcon.Visible = true;
+            }
+            else
+            {
+                minimizeToTrayToolStripMenuItem.Enabled = false;
+                settings.SetConfig(false, "ShowIcon");
+                trayIcon.Visible = false;
+            }
+            settings.SaveConfig();
         }
 
         private void minimizeToTrayToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            settings.SetConfig(minimizeToTrayToolStripMenuItem.Checked, "MinimizeToTray");
+            settings.SaveConfig();
         }
 
         private void allOptionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1606,6 +1660,8 @@ namespace Baka_MPlayer.Forms
         }
         private void PlayStateChanged()
         {
+            setOnTop();
+
             switch (Info.Current.PlayState)
             {
                 case PlayStates.Unidentified:
@@ -1861,6 +1917,10 @@ namespace Baka_MPlayer.Forms
             }
         }
 
+        public void CallSetBackForwardControls()
+        {
+            Invoke((MethodInvoker)SetBackForwardControls);
+        }
         private void SetBackForwardControls()
         {
             if (playlist.GetTotalItems > 1)

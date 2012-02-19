@@ -1,6 +1,6 @@
 ﻿/******************************************
 * UpdateChecker (by Joshua Park & u8sand) *
-* updated 2/18/2012                       *
+* updated 2/19/2012                       *
 ******************************************/
 using System;
 using System.IO;
@@ -47,17 +47,14 @@ public class UpdateChecker
             IPHostEntry host = Dns.GetHostEntry(website);
             foreach (IPAddress address in host.AddressList)
             {
-                try
-                {
-                    client = new Socket(address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                    var remoteEP = new IPEndPoint(address, 80);
-                    client.Connect(remoteEP);
-                    break;
-                }
-                catch (SocketException e)
-                { return; }
+                client = new Socket(address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                var remoteEP = new IPEndPoint(address, 80);
+                client.Connect(remoteEP);
+                break;
             }
-            client.Send(Encoding.ASCII.GetBytes("GET " + versionPath + " HTTP/1.0\r\nHost: " + website + "\r\nConnection: Close\r\n\r\n"));
+            client.Send(
+                Encoding.ASCII.GetBytes("GET " + versionPath + " HTTP/1.0\r\nHost: " + website +
+                                        "\r\nConnection: Close\r\n\r\n"));
 
             var recvd = new byte[1024];
             var data = new StringBuilder();
@@ -100,17 +97,19 @@ public class UpdateChecker
 
             if (!updateAvailable)
             {
-                if (!(bool)isSilent)
+                if (!(bool) isSilent)
                     MessageBox.Show("You have the latest version!", "No Updates Available",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                 return;
             }
 
             var form = new UpdateForm(new UpdateInfo(true, version, date, bugfixes));
             if (form.ShowDialog() == DialogResult.Cancel) { }
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            if (!(bool)isSilent && MessageBox.Show("We couldn't check for updates.\nDetails: " + e.Message,
+                "Cannot Check for Updates", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK) { }
         }
     }
 }
