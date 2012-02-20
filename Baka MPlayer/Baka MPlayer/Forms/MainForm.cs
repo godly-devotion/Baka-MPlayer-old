@@ -1470,12 +1470,18 @@ namespace Baka_MPlayer.Forms
         private void LoadSettings()
         {
             // load volume
-            Info.Current.Volume = settings.GetIntValue("Volume");
-            volumeToolStripTextBox.Text = Info.Current.Volume.ToString();
-            volumeBar.Value = Info.Current.Volume;
+            UpdateVolume(settings.GetIntValue("Volume"));
 
-            showIconInTrayToolStripMenuItem.Checked = settings.GetBoolValue("ShowIcon");
-            minimizeToTrayToolStripMenuItem.Checked = settings.GetBoolValue("MinimizeToTray");
+            if (!settings.GetBoolValue("ShowIcon"))
+            {
+                trayIcon.Visible = false;
+                showIconInTrayToolStripMenuItem.Checked = false;
+            }
+            if (settings.GetBoolValue("MinimizeToTray"))
+            {
+                minimizeToTrayToolStripMenuItem.Enabled = true;
+                minimizeToTrayToolStripMenuItem.Checked = true;
+            }
             hidePopupToolStripMenuItem.Checked = settings.GetBoolValue("HidePopup");
 
             // set previous file

@@ -163,6 +163,7 @@ public class MPlayer
     }
     public bool Stop()
     {
+        ignoreUpdate = true;
         Info.Current.PlayState = PlayStates.Stopped;
         mainForm.CallPlayStateChanged();
 
@@ -349,8 +350,6 @@ public class MPlayer
                 double length;
                 double.TryParse(value, out length);
                 Info.Current.TotalLength = length;
-
-                Debug.WriteLine(length);
                 break;
             default:
 				if (key.StartsWith("ID_CHAPTER_ID")) // Chapters

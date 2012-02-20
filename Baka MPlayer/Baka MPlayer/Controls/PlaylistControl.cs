@@ -98,7 +98,8 @@ namespace Baka_MPlayer.Controls
 
             if (File.Exists(Info.URL))
             {
-                refreshRequired = playlistList.FindItemWithText(Path.GetFileName(Info.URL)) == null;
+                if (!refreshRequired)
+                    refreshRequired = playlistList.FindItemWithText(Path.GetFileName(Info.URL)) == null;
 
                 if (refreshRequired)
                     FillPlaylist();
@@ -119,6 +120,7 @@ namespace Baka_MPlayer.Controls
 
             if (refreshRequired)
                 mainForm.SetShuffleCheckState(false);
+            refreshRequired = false; // Note: TESTING HERE **************************************************
 
             // set playlist index
             GetPlaylistIndex = SelectedIndex;
