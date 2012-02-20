@@ -135,6 +135,7 @@
             this.durationLabel = new System.Windows.Forms.Label();
             this.mplayerSplitContainer = new System.Windows.Forms.SplitContainer();
             this.bodySplitContainer = new System.Windows.Forms.SplitContainer();
+            this.statusLabel = new System.Windows.Forms.Label();
             this.albumArtPicbox = new System.Windows.Forms.PictureBox();
             this.mplayerPanel = new System.Windows.Forms.Panel();
             this.outputTextbox = new System.Windows.Forms.RichTextBox();
@@ -156,6 +157,7 @@
             this.menuItem12 = new System.Windows.Forms.MenuItem();
             this.exitMenuItem = new System.Windows.Forms.MenuItem();
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.speechButton)).BeginInit();
@@ -813,28 +815,28 @@
             // alwaysToolStripMenuItem
             // 
             this.alwaysToolStripMenuItem.Name = "alwaysToolStripMenuItem";
-            this.alwaysToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.alwaysToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.alwaysToolStripMenuItem.Text = "&Always";
             this.alwaysToolStripMenuItem.Click += new System.EventHandler(this.alwaysToolStripMenuItem_Click);
             // 
             // whenPlayingToolStripMenuItem
             // 
             this.whenPlayingToolStripMenuItem.Name = "whenPlayingToolStripMenuItem";
-            this.whenPlayingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.whenPlayingToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.whenPlayingToolStripMenuItem.Text = "When &Playing";
             this.whenPlayingToolStripMenuItem.Click += new System.EventHandler(this.whenPlayingToolStripMenuItem_Click);
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator16.Size = new System.Drawing.Size(144, 6);
             // 
             // neverToolStripMenuItem
             // 
             this.neverToolStripMenuItem.Checked = true;
             this.neverToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.neverToolStripMenuItem.Name = "neverToolStripMenuItem";
-            this.neverToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.neverToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.neverToolStripMenuItem.Text = "&Never";
             this.neverToolStripMenuItem.Click += new System.EventHandler(this.neverToolStripMenuItem_Click);
             // 
@@ -1203,6 +1205,7 @@
             // bodySplitContainer.Panel1
             // 
             this.bodySplitContainer.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.bodySplitContainer.Panel1.Controls.Add(this.statusLabel);
             this.bodySplitContainer.Panel1.Controls.Add(this.albumArtPicbox);
             this.bodySplitContainer.Panel1.Controls.Add(this.mplayerPanel);
             this.bodySplitContainer.Panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
@@ -1216,6 +1219,20 @@
             this.bodySplitContainer.SplitterDistance = 204;
             this.bodySplitContainer.TabIndex = 0;
             this.bodySplitContainer.TabStop = false;
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.AutoSize = true;
+            this.statusLabel.BackColor = System.Drawing.Color.Black;
+            this.statusLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.statusLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.statusLabel.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.statusLabel.Location = new System.Drawing.Point(3, 4);
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(219, 25);
+            this.statusLabel.TabIndex = 0;
+            this.statusLabel.Text = "Open a file to begin playing";
+            this.statusLabel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.statusLabel_MouseClick);
             // 
             // albumArtPicbox
             // 
@@ -1390,6 +1407,12 @@
             this.exitMenuItem.Text = "E&xit";
             this.exitMenuItem.Click += new System.EventHandler(this.exitMenuItem_Click);
             // 
+            // statusTimer
+            // 
+            this.statusTimer.Enabled = true;
+            this.statusTimer.Interval = 6000;
+            this.statusTimer.Tick += new System.EventHandler(this.statusTimer_Tick);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -1431,6 +1454,7 @@
             this.mplayerSplitContainer.Panel2.ResumeLayout(false);
             this.mplayerSplitContainer.ResumeLayout(false);
             this.bodySplitContainer.Panel1.ResumeLayout(false);
+            this.bodySplitContainer.Panel1.PerformLayout();
             this.bodySplitContainer.Panel2.ResumeLayout(false);
             this.bodySplitContainer.Panel2.PerformLayout();
             this.bodySplitContainer.ResumeLayout(false);
@@ -1567,6 +1591,8 @@
         private System.Windows.Forms.ToolTip xToolTip;
         private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
+        private System.Windows.Forms.Label statusLabel;
+        private System.Windows.Forms.Timer statusTimer;
     }
 }
 

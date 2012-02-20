@@ -45,7 +45,6 @@ namespace Baka_MPlayer.Forms
         // SaveSnapshot form
         // Web form
 
-
         // class instances
         private MPlayer mplayer;
         private Voice voice;
@@ -530,6 +529,39 @@ namespace Baka_MPlayer.Forms
             // release mainNotifyIcon's resources
             trayIcon.Visible = false;
             trayIcon.Dispose();
+        }
+
+        #endregion
+        #region Set Status
+
+        public void CallSetStatus(string status, bool noAutoHide)
+        {
+            Invoke((MethodInvoker)(() => SetStatus(status, noAutoHide)));
+        }
+        private void SetStatus(string status, bool noAutoHide)
+        {
+            statusLabel.Text = status;
+            statusLabel.Show();
+            if (!noAutoHide)
+                statusTimer.Enabled = true;
+        }
+        public void CallHideStatusLabel()
+        {
+            Invoke((MethodInvoker)HideStatusLabel);
+        }
+        private void HideStatusLabel()
+        {
+            statusLabel.Hide();
+            statusTimer.Enabled = false;
+        }
+
+        private void statusLabel_MouseClick(object sender, MouseEventArgs e)
+        {
+            HideStatusLabel();
+        }
+        private void statusTimer_Tick(object sender, EventArgs e)
+        {
+            HideStatusLabel();
         }
 
         #endregion

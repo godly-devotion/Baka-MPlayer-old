@@ -1,10 +1,11 @@
 ﻿/************************************
 * MPlayer (by Joshua Park & u8sand) *
-* updated 2/19/2012                 *
+* updated 2/20/2012                 *
 ************************************/
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using Baka_MPlayer.Forms;
 
@@ -18,6 +19,7 @@ public class MPlayer
     private bool parsingClipInfo = false;
     private bool parsingSubsTrack = false;
     private bool parsingAudioTrack = false;
+	private bool cachingFonts = false;
     public bool ignoreUpdate = false;
 
     #endregion
@@ -38,6 +40,7 @@ public class MPlayer
         try
         {
             Info.ResetInfo();
+            mainForm.CallSetStatus("Loading file...", true);
 
             if (mplayer != null)
             {
@@ -66,17 +69,16 @@ public class MPlayer
                 {
                     FileName = "mplayer2.exe",
                     UseShellExecute = false,
+                    CreateNoWindow = true,
                     RedirectStandardInput = true,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
-                    CreateNoWindow = true,
-                    
+                    StandardOutputEncoding = Encoding.UTF8,
                     Arguments = cmdArgs + string.Format(" \"{0}\"", url)
                 }
             };
             parsingHeader = true;
             mplayer.Start();
-
             mplayer.EnableRaisingEvents = true;
 
             mplayer.OutputDataReceived += OutputDataReceived;
@@ -98,7 +100,7 @@ public class MPlayer
             if (mplayer == null || mplayer.HasExited)
                 throw new Exception();
 
-            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(command);
+            byte[] buffer = Encoding.UTF8.GetBytes(command);
             mplayer.StandardInput.BaseStream.Write(buffer, 0, buffer.Length);
             mplayer.StandardInput.WriteLine();
             //mplayer.StandardInput.WriteLine(command);
@@ -117,7 +119,7 @@ public class MPlayer
             if (mplayer == null || mplayer.HasExited)
                 throw new Exception();
             
-            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(string.Format(command,value));
+            byte[] buffer = Encoding.UTF8.GetBytes(string.Format(command,value));
             mplayer.StandardInput.BaseStream.Write(buffer, 0, buffer.Length);
             mplayer.StandardInput.WriteLine();
             //mplayer.StandardInput.WriteLine(command, value);
@@ -225,7 +227,28 @@ public class MPlayer
 
     private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
     {
-        //Debug.WriteLine(e.Data);
+		if (!cachingFonts && (e.Data.StartsWith("[") && e.Data.Contains("/")))
+		{
+            cachingFonts = true;
+            mainForm.CallSetStatus("Caching fonts...", true);
+		}
+		
+		if (cachingFonts)
+		{
+		    mainForm.CallSetStatus("Caching fonts: " + e.Data, true);
+            int current, total;
+            int pos1 = e.Data.IndexOf('/');
+            int pos2 = e.Data.IndexOf(']');
+
+            int.TryParse(e.Data.Substring(1, pos1-1), out current);
+            int.TryParse(e.Data.Substring(pos1+1, pos2 - pos1 - 1), out total);
+
+            if (current.Equals(total))
+            {
+                cachingFonts = false;
+                mainForm.CallSetStatus("Fonts finished caching", false);
+            }
+		}
     }
 
     private void OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -282,6 +305,7 @@ public class MPlayer
             if (e.Data.Equals("Starting playback..."))
             {
                 parsingHeader = false;
+                mainForm.CallHideStatusLabel();
 
                 // tell mainform that new file was opened
                 mainForm.CallMediaOpened();
