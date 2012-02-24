@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3DD3A1F2-8DC4-41A9-AAD6-029758F3D936}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Baka_MPlayer</RootNamespace>
+    <AssemblyName>Baka MPlayer</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Speech">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsFormsIntegration">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Functions.cs" />
+    <Compile Include="Classes\Settings.cs" />
+    <Compile Include="Classes\Speech.cs" />
+    <Compile Include="Classes\UpdateChecker.cs" />
+    <Compile Include="Classes\Voice.cs" />
+    <Compile Include="Controls\ButtonControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ButtonControl.Designer.cs">
+      <DependentUpon>ButtonControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ColorSlider.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorSlider.Designer.cs">
+      <DependentUpon>ColorSlider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CustomTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CustomTextBox.Designer.cs">
+      <DependentUpon>CustomTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PlaylistControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\PlaylistControl.Designer.cs">
+      <DependentUpon>PlaylistControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BlackForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BlackForm.Designer.cs">
+      <DependentUpon>BlackForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InfoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InfoForm.Designer.cs">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InputForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InputForm.Designer.cs">
+      <DependentUpon>InputForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\JumpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\JumpForm.Designer.cs">
+      <DependentUpon>JumpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OptionsForm.Designer.cs">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SnapshotForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SnapshotForm.Designer.cs">
+      <DependentUpon>SnapshotForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UpdateForm.Designer.cs">
+      <DependentUpon>UpdateForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WebForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\WebForm.Designer.cs">
+      <DependentUpon>WebForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MPlayer Code\MPlayer.cs" />
+    <Compile Include="MPlayer Code\Info.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\ButtonControl.resx">
+      <DependentUpon>ButtonControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\PlaylistControl.resx">
+      <DependentUpon>PlaylistControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BlackForm.resx">
+      <DependentUpon>BlackForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InfoForm.resx">
+      <DependentUpon>InfoForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InputForm.resx">
+      <DependentUpon>InputForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\JumpForm.resx">
+      <DependentUpon>JumpForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OptionsForm.resx">
+      <DependentUpon>OptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SnapshotForm.resx">
+      <DependentUpon>SnapshotForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UpdateForm.resx">
+      <DependentUpon>UpdateForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\WebForm.resx">
+      <DependentUpon>WebForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinAPI Code Pack\Core\Resources\LocalizedMessages.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WinAPI Code Pack\Shell\Resources\LocalizedMessages.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="WinAPI Code Pack\Core\AppRestartRecovery\ApplicationRecoveryException.cs" />
+    <Compile Include="WinAPI Code Pack\Core\AppRestartRecovery\ApplicationRestartRecoveryManager.cs" />
+    <Compile Include="WinAPI Code Pack\Core\AppRestartRecovery\RecoveryData.cs" />
+    <Compile Include="WinAPI Code Pack\Core\AppRestartRecovery\RecoverySettings.cs" />
+    <Compile Include="WinAPI Code Pack\Core\AppRestartRecovery\RestartRestrictions.cs" />
+    <Compile Include="WinAPI Code Pack\Core\AppRestartRecovery\RestartSettings.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\Common\DialogControl.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\Common\DialogControlCollection.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\Common\DialogsDefaults.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\Common\IDialogControlHost.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialog.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogBar.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogButton.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogButtonBase.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogClosingEventArgs.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogCommandLink.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogControl.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogDefaults.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogExpandedInfoMode.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogHyperlinkClickedEventArgs.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogProgressBar.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogProgressBarState.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogRadioButton.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogResult.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogStandardButton.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogStandardIcon.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogStartupLocation.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Dialogs\TaskDialogs\TaskDialogTickEventArgs.cs" />
+    <Compile Include="WinAPI Code Pack\Core\GlobalSuppressions.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\AppRestartRecovery\AppRestartRecoveryNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\CoreErrorHelper.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\CoreHelpers.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\CoreNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\Dialogs\DialogShowState.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\NetworkList\INetwork.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\NetworkList\INetworkConnection.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\NetworkList\INetworkListManager.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\NetworkList\NetworkListManagerClass.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\PowerManagement\PowerManagementNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\TaskDialogs\NativeTaskDialog.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\TaskDialogs\NativeTaskDialogSettings.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\TaskDialogs\TaskDialogNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Interop\WindowMessage.cs" />
+    <Compile Include="WinAPI Code Pack\Core\NetworkList\Network.cs" />
+    <Compile Include="WinAPI Code Pack\Core\NetworkList\NetworkCollection.cs" />
+    <Compile Include="WinAPI Code Pack\Core\NetworkList\NetworkConnection.cs" />
+    <Compile Include="WinAPI Code Pack\Core\NetworkList\NetworkConnectionCollection.cs" />
+    <Compile Include="WinAPI Code Pack\Core\NetworkList\NetworkListEnums.cs" />
+    <Compile Include="WinAPI Code Pack\Core\NetworkList\NetworkListManager.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PowerManagement\BatteryState.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PowerManagement\EventManager.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PowerManagement\ExecutionState.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PowerManagement\MessageManager.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PowerManagement\PersonalityGuids.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PowerManagement\Power.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PowerManagement\PowerManager.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PowerManagement\PowerManagerException.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PowerManagement\PowerPersonality.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PowerManagement\PowerSource.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PropertySystem\PropertyKey.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PropertySystem\PropVariant.cs" />
+    <Compile Include="WinAPI Code Pack\Core\PropertySystem\PropVariantNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Core\Resources\LocalizedMessages.Designer.cs" />
+    <Compile Include="WinAPI Code Pack\Core\SafeHandles\SafeIconHandle.cs" />
+    <Compile Include="WinAPI Code Pack\Core\SafeHandles\SafeRegionHandle.cs" />
+    <Compile Include="WinAPI Code Pack\Core\SafeHandles\SafeWindowHandle.cs" />
+    <Compile Include="WinAPI Code Pack\Core\SafeHandles\ZeroInvalidHandle.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialog.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogButton.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogCheckBox.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogComboBox.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogControl.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogControlCollection.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogFilter.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogFilterCollection.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogFolderChangeEventArgs.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogGroupBox.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogLabel.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogMenu.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogProminentControl.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogRadioButtonList.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogResult.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogSeperator.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogStandardFilters.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonFileDialogTextBox.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonOpenFileDialog.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\CommonSaveFileDialog.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\CommonFileDialogs\ICommonFileDialogIndexedControls.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\DefaultShellImageSizes.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\EnumUnknown.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\EventHandlerExtensionMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\IconReference.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\NativePoint.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\NativeRect.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\SearchCondition.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\SearchConditionFactory.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellEnums.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellException.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellFile.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellFileSystemFolder.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellFolder.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellFolderItems.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellHelper.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellItemArray.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellLibrary.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellLink.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellNonFileSystemFolder.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellNonFileSystemItem.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellObject.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellObjectCollection.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellObjectContainer.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellObjectFactory.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellSavedSearchCollection.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellSearchCollection.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellSearchConnector.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellSearchFolder.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellThumbnail.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\ShellThumbnailEnums.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Common\SortColumn.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Controls\CommandLinkWinforms.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinAPI Code Pack\Shell\Controls\CommandLinkWPF.xaml.cs">
+      <DependentUpon>CommandLinkWPF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WinAPI Code Pack\Shell\DesktopWindowManager\DesktopWindowManagerNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\DesktopWindowManager\GlassEvents.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\DesktopWindowManager\GlassForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinAPI Code Pack\Shell\DesktopWindowManager\GlassWindow.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ExplorerBrowser\CommonControlException.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowser.WPF.xaml.cs">
+      <DependentUpon>ExplorerBrowser.WPF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowserContentOptions.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowserEnums.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowserEvents.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowserPaneVisibility.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowserViewEvents.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ExplorerBrowser\NavigationLog.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ExplorerBrowser\NavigationLogEnums.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ExplorerBrowser\NavigationLogEvents.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ExplorerBrowser\NavigationOptions.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\GlobalSuppressions.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\Common\IntPtrExtensions.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\Common\ShellCOMClasses.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\Common\ShellCOMGuids.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\Common\ShellCOMInterfaces.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\Common\ShellNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\Common\ShellNativeStructs.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\Common\WindowUtilities.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\Dialogs\DialogsCOMClasses.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\Dialogs\DialogsCOMInterfaces.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\ExplorerBrowser\ExplorerBrowserCOMGuids.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\ExplorerBrowser\ExplorerBrowserCOMInterfaces.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\ExplorerBrowser\ExplorerBrowserNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\KnownFolders\KnownFoldersCOMGuids.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\KnownFolders\KnownFoldersCOMInterfaces.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\KnownFolders\KnownFoldersNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\PropertySystem\PropertySystemCOMInterfaces.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\PropertySystem\PropertySystemNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\ShellExtensions\HandlerNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\ShellObjectWatcher\ShellObjectWatcherNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\StockIcons\StockIconsNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\Taskbar\TabbedThumbnailNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\Taskbar\TaskbarCOMInterfaces.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Interop\Taskbar\TaskbarNativeMethods.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\DefinitionOptions.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\FileSystemKnownFolder.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\FolderCategory.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\FolderProperties.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\FoldersIdentifiers.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\FolderTypes.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\IKnownFolder.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\KnownFolderHelper.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\KnownFolders.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\KnownFolderSettings.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\NonFileSystemKnownFolder.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\RedirectionCapabilities.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\KnownFolders\RetrievalOptions.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\IShellProperty.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\PropertySystemException.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\ShellProperties.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\ShellProperty.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\ShellPropertyCollection.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\ShellPropertyDescription.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\ShellPropertyDescriptionsCache.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\ShellPropertyEnums.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\ShellPropertyEnumType.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\ShellPropertyFactory.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\ShellPropertyWriter.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\StronglyTypedProperties.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\SystemProperties.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\PropertySystem\WindowProperties.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Resources\LocalizedMessages.Designer.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ShellObjectWatcher\ChangeNotifyEventManager.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ShellObjectWatcher\ChangeNotifyLock.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ShellObjectWatcher\MessageListener.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ShellObjectWatcher\MessageListenerFilter.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ShellObjectWatcher\ShellObjectNotificationEventArgs.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ShellObjectWatcher\ShellObjectWatcher.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\ShellObjectWatcher\ShellObjectWatcherEnums.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\StockIcons\StockIcon.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\StockIcons\StockIconEnums.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\StockIcons\StockIcons.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\JumpList.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\JumpListCustomCategory.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\JumpListCustomCategoryCollection.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\JumpListItem.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\JumpListItemCollection.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\JumpListLink.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\JumpListSeparator.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TabbedThumbnail.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TabbedThumbnailBitmapRequestedEventArgs.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TabbedThumbnailClosedEventArgs.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TabbedThumbnailEventArgs.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TabbedThumbnailManager.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TabbedThumbnailProxyWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TabbedThumbnailScreenCapture.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TaskbarEnums.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TaskbarInterfaces.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TaskbarList.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TaskbarManager.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TaskbarWindow.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\TaskbarWindowManager.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\ThumbnailButton.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\ThumbnailButtonClickedEventArgs.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\ThumbnailToolbarManager.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\ThumbnailToolbarProxyWindow.cs" />
+    <Compile Include="WinAPI Code Pack\Shell\Taskbar\UserRemovedJumpListItemsEventArg.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\pauseButton\default_pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\pauseButton\down_pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\pauseButton\disabled_pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\playButton\default_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\playButton\down_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\playButton\disabled_play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\previousButton\default_previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\previousButton\down_previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\previousButton\disabled_previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\nextButton\default_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\nextButton\down_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\nextButton\disabled_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\openButton\ajax_loader.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\openButton\down_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\openButton\default_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\music image\Music_128.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\playback images\repeat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\playback images\shuffle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\playlistButton\default_playlist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\playlistButton\disabled_playlist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\playlistButton\down_playlist.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\reverseButton\default_reverse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\reverseButton\disabled_reverse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\reverseButton\down_reverse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shared\check images\exists.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shared\check images\not_exists.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InputBox\warning_blue-48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\mic image\disabled_mic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\mic image\enabled_mic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LCD.ttf" />
+    <None Include="Resources\MainForm\mic image\down_mic.png" />
+    <None Include="WinAPI Code Pack\Shell\Design\ShellObjects.cd" />
+    <None Include="WinAPI Code Pack\Shell\Design\ShellThumbnailClassDiagram.cd" />
+    <None Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowserDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainForm\ToolBar Buttons\tool_next.ico" />
+    <None Include="Resources\MainForm\ToolBar Buttons\tool_previous.ico" />
+    <None Include="Resources\MainForm\ToolBar Buttons\tool_pause.ico" />
+    <None Include="Resources\MainForm\ToolBar Buttons\tool_play.ico" />
+    <Content Include="WinAPI Code Pack\Core\Core.csproj" />
+    <Content Include="WinAPI Code Pack\Core\CustomDictionary.xml" />
+    <Content Include="WinAPI Code Pack\Shell\CustomDictionary.xml" />
+    <Content Include="WinAPI Code Pack\Shell\Shell.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="WinAPI Code Pack\Shell\Controls\CommandLinkWPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowser.WPF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

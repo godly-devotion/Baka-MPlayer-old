@@ -1,0 +1,10 @@
+# Updated 2/23/2012
+
+# ReSharper meta output
+_ReSharper.Baka MPlayer/
+
+# Debug output
+Baka MPlayer/bin/Debug/*.vshost.exe*
+#Baka MPlayer/bin/Debug/*.pdb
+Baka MPlayer/bin/Debug/*.xml
+Baka MPlayer/bin/Debug/*.ttf
