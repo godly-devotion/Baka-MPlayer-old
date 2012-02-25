@@ -1,6 +1,6 @@
 ﻿/*********************************************
 * Info for mplayer (by Joshua Park & u8sand) *
-* updated 1/19/2012                          *
+* updated 2/24/2012                          *
 *********************************************/
 using System.Collections.Generic;
 using System.Drawing;
@@ -26,6 +26,10 @@ public class Sub
     public string Lang; // language (jpn, eng, ...)
 	
     public Sub() { }
+    public Sub(string trackID)
+    {
+        this.TrackID = trackID;
+    }
 	public Sub(string trackID, string name, string lang)
 	{
 		this.TrackID = trackID;
@@ -76,6 +80,10 @@ public class AudioTrack
 	public string Lang;
 	
     public AudioTrack() { }
+    public AudioTrack(string ID)
+    {
+        this.ID = ID;
+    }
 	public AudioTrack(string ID, string name, string lang)
 	{
 		this.ID = ID;

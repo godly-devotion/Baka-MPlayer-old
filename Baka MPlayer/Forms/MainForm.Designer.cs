@@ -74,7 +74,7 @@
             this.audioTracksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chaptersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.noneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.monoAudioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.increaseVolumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,12 +85,12 @@
             this.subtitlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showSubtitlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.subtitleTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fontSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sizeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.resetSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.subtitleTrackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.noneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showCommandLineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.takeSnapshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -115,7 +115,7 @@
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.allOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mPlayersCommandsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bakaMPlayerHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutBakaMPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -561,17 +561,17 @@
             // chaptersToolStripMenuItem
             // 
             this.chaptersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mainToolStripMenuItem1});
+            this.noneToolStripMenuItem1});
             this.chaptersToolStripMenuItem.Name = "chaptersToolStripMenuItem";
             this.chaptersToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
             this.chaptersToolStripMenuItem.Text = "&Chapters";
             // 
-            // mainToolStripMenuItem1
+            // noneToolStripMenuItem1
             // 
-            this.mainToolStripMenuItem1.Enabled = false;
-            this.mainToolStripMenuItem1.Name = "mainToolStripMenuItem1";
-            this.mainToolStripMenuItem1.Size = new System.Drawing.Size(127, 22);
-            this.mainToolStripMenuItem1.Text = "0: [ main ]";
+            this.noneToolStripMenuItem1.Enabled = false;
+            this.noneToolStripMenuItem1.Name = "noneToolStripMenuItem1";
+            this.noneToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.noneToolStripMenuItem1.Text = "[ none ]";
             // 
             // toolStripSeparator10
             // 
@@ -650,6 +650,21 @@
             this.toolStripSeparator11.Name = "toolStripSeparator11";
             this.toolStripSeparator11.Size = new System.Drawing.Size(149, 6);
             // 
+            // subtitleTrackToolStripMenuItem
+            // 
+            this.subtitleTrackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.noneToolStripMenuItem});
+            this.subtitleTrackToolStripMenuItem.Name = "subtitleTrackToolStripMenuItem";
+            this.subtitleTrackToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.subtitleTrackToolStripMenuItem.Text = "Subtitle &Track";
+            // 
+            // noneToolStripMenuItem
+            // 
+            this.noneToolStripMenuItem.Enabled = false;
+            this.noneToolStripMenuItem.Name = "noneToolStripMenuItem";
+            this.noneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.noneToolStripMenuItem.Text = "[ none ]";
+            // 
             // fontSizeToolStripMenuItem
             // 
             this.fontSizeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -683,21 +698,6 @@
             this.resetSizeToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.resetSizeToolStripMenuItem.Text = "&Reset Size";
             this.resetSizeToolStripMenuItem.Click += new System.EventHandler(this.resetSizeToolStripMenuItem_Click);
-            // 
-            // subtitleTrackToolStripMenuItem
-            // 
-            this.subtitleTrackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.noneToolStripMenuItem});
-            this.subtitleTrackToolStripMenuItem.Name = "subtitleTrackToolStripMenuItem";
-            this.subtitleTrackToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.subtitleTrackToolStripMenuItem.Text = "Subtitle &Track";
-            // 
-            // noneToolStripMenuItem
-            // 
-            this.noneToolStripMenuItem.Enabled = false;
-            this.noneToolStripMenuItem.Name = "noneToolStripMenuItem";
-            this.noneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.noneToolStripMenuItem.Text = "[ none ]";
             // 
             // toolsToolStripMenuItem
             // 
@@ -896,7 +896,7 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mPlayersCommandsToolStripMenuItem,
+            this.bakaMPlayerHelpToolStripMenuItem,
             this.checkForUpdatesToolStripMenuItem,
             this.toolStripSeparator18,
             this.aboutBakaMPlayerToolStripMenuItem});
@@ -905,30 +905,30 @@
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
-            // mPlayersCommandsToolStripMenuItem
+            // bakaMPlayerHelpToolStripMenuItem
             // 
-            this.mPlayersCommandsToolStripMenuItem.Name = "mPlayersCommandsToolStripMenuItem";
-            this.mPlayersCommandsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.mPlayersCommandsToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
-            this.mPlayersCommandsToolStripMenuItem.Text = "&MPlayer\'s Commands";
-            this.mPlayersCommandsToolStripMenuItem.Click += new System.EventHandler(this.mPlayersCommandsToolStripMenuItem_Click);
+            this.bakaMPlayerHelpToolStripMenuItem.Name = "bakaMPlayerHelpToolStripMenuItem";
+            this.bakaMPlayerHelpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.bakaMPlayerHelpToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.bakaMPlayerHelpToolStripMenuItem.Text = "Baka MPlayer &Help";
+            this.bakaMPlayerHelpToolStripMenuItem.Click += new System.EventHandler(this.bakaMPlayerHelpToolStripMenuItem_Click);
             // 
             // checkForUpdatesToolStripMenuItem
             // 
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.checkForUpdatesToolStripMenuItem.Text = "&Check for Updates";
             this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // toolStripSeparator18
             // 
             this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(206, 6);
+            this.toolStripSeparator18.Size = new System.Drawing.Size(189, 6);
             // 
             // aboutBakaMPlayerToolStripMenuItem
             // 
             this.aboutBakaMPlayerToolStripMenuItem.Name = "aboutBakaMPlayerToolStripMenuItem";
-            this.aboutBakaMPlayerToolStripMenuItem.Size = new System.Drawing.Size(209, 22);
+            this.aboutBakaMPlayerToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.aboutBakaMPlayerToolStripMenuItem.Text = "&About Baka MPlayer";
             this.aboutBakaMPlayerToolStripMenuItem.Click += new System.EventHandler(this.aboutBakaMPlayerToolStripMenuItem_Click);
             // 
@@ -1549,7 +1549,7 @@
         private System.Windows.Forms.ToolStripMenuItem allOptionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem neverToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mPlayersCommandsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bakaMPlayerHelpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutBakaMPlayerToolStripMenuItem;
         private System.Windows.Forms.PictureBox speechButton;
         private System.Windows.Forms.ToolStripMenuItem monoAudioToolStripMenuItem;
@@ -1568,7 +1568,7 @@
         private System.Windows.Forms.ToolStripMenuItem hidePopupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fitToVideoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem chaptersToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mainToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem fullScreenToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;

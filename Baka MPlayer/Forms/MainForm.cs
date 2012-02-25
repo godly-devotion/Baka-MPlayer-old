@@ -475,12 +475,36 @@ namespace Baka_MPlayer.Forms
 
         private void trayIcon_MouseClick(object sender, MouseEventArgs e)
         {
+            if (e.Button != MouseButtons.Left || string.IsNullOrEmpty(Info.URL))
+                return;
 
+            mplayer.Pause(true);
+
+            switch (Info.Current.PlayState)
+            {
+                case PlayStates.Playing:
+                    trayIcon.ShowBalloonTip(4000, "Paused", this.Text, ToolTipIcon.None);
+                    break;
+                case PlayStates.Paused:
+                    trayIcon.ShowBalloonTip(4000, "Playing", this.Text, ToolTipIcon.None);
+                    break;
+                case PlayStates.Stopped:
+                    trayIcon.ShowBalloonTip(4000, "Playing", this.Text, ToolTipIcon.None);
+                    break;
+            }
         }
 
         private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-
+            if (this.Visible)
+            {
+                this.WindowState = FormWindowState.Normal;
+                this.Focus();
+            }
+            else
+            {
+                ToggleToTaskbar(false);
+            }
         }
 
         // notification tray code
@@ -1253,27 +1277,74 @@ namespace Baka_MPlayer.Forms
 
         private void showSubtitlesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            mplayer.SetSubs(showSubtitlesToolStripMenuItem.Checked ? 0 : -1);
         }
 
         private void sizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            // increase size
+            mplayer.SendCommand("sub_scale +.1 0");
         }
 
         private void sizeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
+            // decrease size
+            mplayer.SendCommand("sub_scale -.1 0");
         }
 
         private void resetSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            mplayer.SendCommand("sub_scale 1 1");
         }
 
         private void subtitleMenuItem_Click(object sender, EventArgs e)
         {
-            //sender
+            /*var name = ((ToolStripMenuItem)sender).Text;
+            name = name.Substring(0, name.IndexOf(':'));
+            int index;
+            int.TryParse(name, out index);*/
+            var item = sender as ToolStripMenuItem;
+            if (item != null)
+            {
+                int index = (item.OwnerItem as ToolStripMenuItem).DropDownItems.IndexOf(item);
+                mplayer.SetSubs(index);
+            }
+        }
+
+        private void SetSubs()
+        {
+            subtitleTrackToolStripMenuItem.DropDownItems.Clear();
+
+            if (Info.MiscInfo.Subs.Count > 0)
+            {
+                showSubtitlesToolStripMenuItem.Enabled = true;
+                showSubtitlesToolStripMenuItem.Checked = true;
+                
+                sizeToolStripMenuItem.Enabled = true;
+                sizeToolStripMenuItem1.Enabled = true;
+                resetSizeToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+                showSubtitlesToolStripMenuItem.Enabled = false;
+                showSubtitlesToolStripMenuItem.Checked = false;
+
+                sizeToolStripMenuItem.Enabled = false;
+                sizeToolStripMenuItem1.Enabled = false;
+                resetSizeToolStripMenuItem.Enabled = false;
+
+                var item = new ToolStripMenuItem("[ none ]", null);
+                item.Enabled = false;
+                subtitleTrackToolStripMenuItem.DropDownItems.Add(item);
+                return;
+            }
+
+            foreach (Sub sub in Info.MiscInfo.Subs)
+            {
+                var text = string.Format("{0}: {1} ({2})", sub.TrackID, sub.Name, sub.Lang);
+                var item = new ToolStripMenuItem(text, null, subtitleMenuItem_Click);
+                subtitleTrackToolStripMenuItem.DropDownItems.Add(item);
+            }
         }
 
         #endregion
@@ -1419,9 +1490,10 @@ namespace Baka_MPlayer.Forms
         #endregion
         #region Help
 
-        private void mPlayersCommandsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void bakaMPlayerHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            var helpForm = new HelpForm();
+            helpForm.Show();
         }
 
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1638,7 +1710,7 @@ namespace Baka_MPlayer.Forms
                 mplayerPanel.Visible = true;
 
                 hideAlbumArtToolStripMenuItem.Checked = false;
-                hideAlbumArtToolStripMenuItem.PerformClick();
+                hideAlbumArtToolStripMenuItem_Click(null, null);
                 hideAlbumArtToolStripMenuItem.Enabled = false;
                 takeSnapshotToolStripMenuItem.Enabled = true;
             }
@@ -1667,12 +1739,17 @@ namespace Baka_MPlayer.Forms
                 saveMediaAsToolStripMenuItem.Enabled = true;
                 showInWindowsExplorerToolStripMenuItem.Enabled = false;
             }
+            // set previous volume (output drivers fault)
+            UpdateVolume(Info.Current.Volume);
 
             // call other methods
             playlist.SetPlaylist();
             SetSystemTray();
             enableControls();
             SetBackForwardControls();
+
+            // create menu items
+            SetSubs();
         }
 
         public void CallMediaEnded()
@@ -1765,7 +1842,7 @@ namespace Baka_MPlayer.Forms
             if (seekBar_IsMouseDown)
                 return;
             
-            if (Info.Current.Duration > 0)
+            if (Info.Current.TotalLength > 0)
             {
                 seekBar.Value = Convert.ToInt32((Info.Current.Duration * 1000000) / Info.Current.TotalLength); // %
                 durationLabel.Text = Functions.ConvertTimeFromSeconds(Info.Current.Duration);

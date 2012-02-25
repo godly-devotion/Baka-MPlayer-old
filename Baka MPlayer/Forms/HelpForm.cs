@@ -4,12 +4,11 @@ using System.Windows.Forms;
 
 namespace Baka_MPlayer.Forms
 {
-    public partial class AboutForm : Form
+    public partial class HelpForm : Form
     {
-        public AboutForm()
+        public HelpForm()
         {
             InitializeComponent();
-            versionLabel.Text = "Version: " + Application.ProductVersion;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -17,11 +16,6 @@ namespace Baka_MPlayer.Forms
             var formGraphics = e.Graphics;
             var gradientBrush = new LinearGradientBrush(this.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical);
             formGraphics.FillRectangle(gradientBrush, ClientRectangle);
-        }
-
-        private void webLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://bakamplayer.netii.net/");
         }
 
         private void closeButton_Click(object sender, System.EventArgs e)

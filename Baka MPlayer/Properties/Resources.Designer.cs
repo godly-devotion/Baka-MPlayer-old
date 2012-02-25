@@ -251,6 +251,13 @@ namespace Baka_MPlayer.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap icon_64 {
+            get {
+                object obj = ResourceManager.GetObject("icon_64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static byte[] LCD {
             get {
                 object obj = ResourceManager.GetObject("LCD", resourceCulture);

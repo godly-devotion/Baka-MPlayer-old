@@ -53,7 +53,7 @@ namespace Baka_MPlayer.Controls
         /// Gets or sets the currently selected index
         /// </summary>
         public int SelectedIndex
-        {//playlistList.SelectedIndices[0];
+        {
             get
             {
                 if (playlistList.FocusedItem != null)
@@ -84,7 +84,7 @@ namespace Baka_MPlayer.Controls
             }
         }
 
-        #endregion
+#endregion
 #region Methods
 
         private void OpenFile(string dirString)
@@ -337,7 +337,7 @@ namespace Baka_MPlayer.Controls
                 var targetPoint = playlistList.PointToClient(new Point(e.X, e.Y));
                 var targetItem = playlistList.GetItemAt(targetPoint.X, targetPoint.Y);
                 var targetIndex = targetItem.Index;
-                var fromIndex = SelectedIndex; //playlistList.SelectedIndices[0];
+                var fromIndex = SelectedIndex;
 
                 if (fromIndex != targetIndex)
                 {

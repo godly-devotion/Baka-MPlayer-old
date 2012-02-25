@@ -1,6 +1,6 @@
 ﻿/************************************
 * MPlayer (by Joshua Park & u8sand) *
-* updated 2/20/2012                 *
+* updated 2/24/2012                 *
 ************************************/
 using System;
 using System.Diagnostics;
@@ -17,8 +17,6 @@ public class MPlayer
     private readonly MainForm mainForm;
     private bool parsingHeader;
     private bool parsingClipInfo = false;
-    private bool parsingSubsTrack = false;
-    private bool parsingAudioTrack = false;
 	private bool cachingFonts = false;
     public bool ignoreUpdate = false;
 
@@ -209,9 +207,9 @@ public class MPlayer
     /// <summary>
     /// Set to -1 to hide subs.
     /// </summary>
-    public bool SetSubs(int stream)
+    public bool SetSubs(int index)
     {
-        return SendCommand("sub {0}", stream); //sub_visibility [value]
+        return SendCommand("sub_select {0}", index); //sub_visibility [value]
     }
 
     /// <summary>
@@ -273,19 +271,6 @@ public class MPlayer
                 return;
             }
 
-            if (parsingSubsTrack)
-            {
-                Info.MiscInfo.Subs[Info.MiscInfo.Subs.Count - 1].TrackID = e.Data;
-                parsingSubsTrack = false;
-                return;
-            }
-            if (parsingAudioTrack)
-            {
-                Info.AudioInfo.AudioTracks[Info.AudioInfo.AudioTracks.Count - 1].ID = e.Data;
-                parsingAudioTrack = false;
-                return;
-            }
-
             if (e.Data.StartsWith("ID_"))
             {
                 // Parsing "ID_*"
@@ -340,7 +325,8 @@ public class MPlayer
         double.TryParse(time.Substring(2, time.IndexOf('.')).Trim(), out sec);
         Info.Current.Duration = sec;
         
-        mainForm.CallDurationChanged();
+        if (!mainForm.IsDisposed)
+            mainForm.CallDurationChanged();
     }
 
     private bool ProcessDetails(string key, string value)
@@ -398,7 +384,7 @@ public class MPlayer
 				
 				else if (key.StartsWith("ID_SUBTITLE_ID")) // Subtitles
                 {
-                    Info.MiscInfo.Subs.Add(new Sub());
+                    Info.MiscInfo.Subs.Add(new Sub(value));
                 }
                 else if (key.StartsWith("ID_SID_")) // Subtitles
                 {
@@ -409,14 +395,13 @@ public class MPlayer
                     else if (key.Contains("_LANG"))
                     {
                         Info.MiscInfo.Subs[Info.MiscInfo.Subs.Count - 1].Lang = value;
-                        parsingSubsTrack = true;
                     }
                     return true;
                 }
                 
 				else if (key.StartsWith("ID_AUDIO_ID")) // Audio tracks
                 {
-                    Info.AudioInfo.AudioTracks.Add(new AudioTrack());
+                    Info.AudioInfo.AudioTracks.Add(new AudioTrack(value));
                 }
                 else if (key.StartsWith("ID_AID_"))
                 {
@@ -427,7 +412,6 @@ public class MPlayer
                     else if (key.Contains("_LANG"))
                     {
                         Info.AudioInfo.AudioTracks[Info.AudioInfo.AudioTracks.Count - 1].Lang = value;
-                        parsingAudioTrack = true;
                     }
                     return true;
                 }
@@ -443,7 +427,7 @@ public class MPlayer
             Info.Current.PlayState = PlayStates.Paused;
             mainForm.CallPlayStateChanged();
         }
-        else if (output.StartsWith("EOF code:")) //EOF code: 1
+        else if (output.StartsWith("EOF code: 1")) //EOF code: 4 ??
         {
             mainForm.CallMediaEnded();
         }
