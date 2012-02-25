@@ -1,5 +1,8 @@
 # Updated 2/23/2012
 
+# Project files
+*.suo
+
 # ReSharper meta output
 _ReSharper.Baka MPlayer/
 
