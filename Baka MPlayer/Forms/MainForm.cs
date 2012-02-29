@@ -37,18 +37,11 @@ namespace Baka_MPlayer.Forms
         #endregion
         #region Global Variables
 
-        // About form
         private BlackForm blackForm;
-        // Download form
-        // JumpTo form
-        private InfoForm infoForm;
-        // SaveSnapshot form
-        // Web form
-
         // class instances
         private MPlayer mplayer;
         private Voice voice;
-        private Settings settings = new Settings();
+        private readonly Settings settings = new Settings();
 
         // Win 7 thumbnail toolbar buttons
         private ThumbnailToolBarButton previousToolButton =
@@ -1206,13 +1199,37 @@ namespace Baka_MPlayer.Forms
         private void audioTracksMenuItem_Click(object sender, EventArgs e)
         {
             //sender
-
         }
 
         private void chaptersMenuItem_Click(object sender, EventArgs e)
         {
-            //sender
+            var item = sender as ToolStripMenuItem;
+            if (item != null)
+            {
+                int index = (item.OwnerItem as ToolStripMenuItem).DropDownItems.IndexOf(item);
+                mplayer.SetChapter(index);
+            }
+        }
 
+        private void SetChapters()
+        {
+            chaptersToolStripMenuItem.DropDownItems.Clear();
+
+            if (Info.MiscInfo.Chapters.Count.Equals(0))
+            {
+                var item = new ToolStripMenuItem("[ none ]", null);
+                item.Enabled = false;
+                chaptersToolStripMenuItem.DropDownItems.Add(item);
+                return;
+            }
+
+            for (int i = 0; i < Info.MiscInfo.Chapters.Count; i++)
+            {
+                var text = string.Format("{0}: {1}", i, Info.MiscInfo.Chapters[i].ChapterName);
+                var item = new ToolStripMenuItem(text, null, chaptersMenuItem_Click);
+                item.ShortcutKeys = Keys.Control | KeysClass.GetNumKey(i + 1);
+                chaptersToolStripMenuItem.DropDownItems.Add(item);
+            }
         }
 
         private void monoAudioToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1299,10 +1316,6 @@ namespace Baka_MPlayer.Forms
 
         private void subtitleMenuItem_Click(object sender, EventArgs e)
         {
-            /*var name = ((ToolStripMenuItem)sender).Text;
-            name = name.Substring(0, name.IndexOf(':'));
-            int index;
-            int.TryParse(name, out index);*/
             var item = sender as ToolStripMenuItem;
             if (item != null)
             {
@@ -1357,12 +1370,14 @@ namespace Baka_MPlayer.Forms
 
         private void takeSnapshotToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //fitToVideoToolStripMenuItem_Click(null, null);
             // hide osd
+            HideStatusLabel();
             mplayer.ShowStatus(string.Empty);
 
             // get which screen the player is on
             //Screen scrn = Screen.FromControl(this);
-            var bmpSnapshot = new Bitmap(Info.VideoInfo.Width, Info.VideoInfo.Height, PixelFormat.Format32bppArgb);
+            var bmpSnapshot = new Bitmap(mplayerPanel.Width, mplayerPanel.Height, PixelFormat.Format32bppArgb);
 
             // Create a graphics object from the bitmap
             var gfxScreenshot = Graphics.FromImage(bmpSnapshot);
@@ -1381,7 +1396,7 @@ namespace Baka_MPlayer.Forms
 
         private void mediaInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            infoForm = new InfoForm();
+            var infoForm = new InfoForm();
             infoForm.Show();
         }
 
@@ -1478,6 +1493,12 @@ namespace Baka_MPlayer.Forms
         private void minimizeToTrayToolStripMenuItem_Click(object sender, EventArgs e)
         {
             settings.SetConfig(minimizeToTrayToolStripMenuItem.Checked, "MinimizeToTray");
+            settings.SaveConfig();
+        }
+
+        private void hidePopupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            settings.SetConfig(hidePopupToolStripMenuItem.Checked, "HidePopup");
             settings.SaveConfig();
         }
 
@@ -1631,16 +1652,6 @@ namespace Baka_MPlayer.Forms
                     fullScreenToolStripMenuItem.PerformClick();
                     break;
             }
-            return;
-            // relative seek
-            if (e.KeyCode < Keys.D0 || e.KeyCode > Keys.D9)
-            {
-                var key = e.KeyValue;
-                key -= 48;
-                if (key.Equals(0))
-                    key = 10;
-                mplayer.Seek(((double)Info.Current.TotalLength / 11) * key);
-            }
         }
         private void MainForm_MouseWheel(object sender, MouseEventArgs e)
         {
@@ -1665,9 +1676,10 @@ namespace Baka_MPlayer.Forms
         {
             // unhook windows keyboard hook
             UnhookWindowsHookEx(hHook);
-
             UnloadTray();
 
+            // save LastFile
+            settings.SetConfig(Info.URL, "LastFile");
             settings.SaveConfig();
             mplayer.Close();
         }
@@ -1678,18 +1690,18 @@ namespace Baka_MPlayer.Forms
         }
         private void MediaOpened()
         {
-            if (!firstFile)
+            if (firstFile)
+            {
+                firstFile = false;
+                playlist.refreshRequired = true;
+                settings.SetConfig(Info.URL, "LastFile");
+            }
+            else
             {
                 settings.SetConfig(tempURL, "LastFile");
                 openLastFileToolStripMenuItem.ToolTipText = Path.GetFileName(tempURL);
                 openLastFileToolStripMenuItem.Enabled = true;
                 playlist.refreshRequired = Path.GetDirectoryName(tempURL) != Path.GetDirectoryName(Info.URL);
-            }
-            else
-            {
-                firstFile = false;
-                playlist.refreshRequired = true;
-                settings.SetConfig(Info.URL, "LastFile");
             }
             settings.SaveConfig();
             tempURL = Info.URL;
@@ -1749,6 +1761,7 @@ namespace Baka_MPlayer.Forms
             SetBackForwardControls();
 
             // create menu items
+            SetChapters();
             SetSubs();
         }
 
@@ -1842,7 +1855,7 @@ namespace Baka_MPlayer.Forms
             if (seekBar_IsMouseDown)
                 return;
             
-            if (Info.Current.TotalLength > 0)
+            if (Info.Current.Duration > 0 && Info.Current.TotalLength > 0)
             {
                 seekBar.Value = Convert.ToInt32((Info.Current.Duration * 1000000) / Info.Current.TotalLength); // %
                 durationLabel.Text = Functions.ConvertTimeFromSeconds(Info.Current.Duration);
@@ -1936,6 +1949,26 @@ namespace Baka_MPlayer.Forms
             playToolButton.Enabled = true;
         }
 
+        private void albumArtPicbox_SizeChanged(object sender, EventArgs e)
+        {
+            if (!albumArtPicbox.Visible) return;
+
+            if (Info.ID3Tags.AlbumArt != null)
+            {
+                if (albumArtPicbox.Width < albumArtPicbox.Image.Width || albumArtPicbox.Height < albumArtPicbox.Image.Height)
+                    albumArtPicbox.SizeMode = PictureBoxSizeMode.Zoom;
+                else
+                    albumArtPicbox.SizeMode = PictureBoxSizeMode.CenterImage;
+            }
+            else
+            {
+                if (albumArtPicbox.Width < 128 || albumArtPicbox.Height < 128)
+                    albumArtPicbox.SizeMode = PictureBoxSizeMode.Zoom;
+                else
+                    albumArtPicbox.SizeMode = PictureBoxSizeMode.CenterImage;
+            }
+        }
+
         private void bodySplitContainer_Panel1_SizeChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Info.URL))
@@ -1946,7 +1979,6 @@ namespace Baka_MPlayer.Forms
 
             if (Info.VideoInfo.HasVideo)
             {
-                // video file
                 var now_aspect = (double)bodySplitContainer.Panel1.Width / bodySplitContainer.Panel1.Height;
                 int newWid, newHei;
 
@@ -1975,24 +2007,6 @@ namespace Baka_MPlayer.Forms
 
                 if (mplayerPanel.Left != newWid || mplayerPanel.Top != newHei)
                     mplayerPanel.Location = new Point(newWid, newHei);
-            }
-            else
-            {
-                // music file
-                if (Info.ID3Tags.AlbumArt != null)
-                {
-                    if (albumArtPicbox.Width < albumArtPicbox.Image.Width || albumArtPicbox.Height < albumArtPicbox.Image.Height)
-                        albumArtPicbox.SizeMode = PictureBoxSizeMode.Zoom;
-                    else
-                        albumArtPicbox.SizeMode = PictureBoxSizeMode.CenterImage;
-                }
-                else
-                {
-                    if (albumArtPicbox.Width < 128 || albumArtPicbox.Height < 128)
-                        albumArtPicbox.SizeMode = PictureBoxSizeMode.Zoom;
-                    else
-                        albumArtPicbox.SizeMode = PictureBoxSizeMode.CenterImage;
-                }
             }
         }
 
@@ -2096,6 +2110,22 @@ namespace Baka_MPlayer.Forms
                     previousMenuItem.Enabled = true;
                     nextMenuItem.Enabled = true;
                 }
+            }
+            else
+            {
+                previousButton.Enabled = false;
+                nextButton.Enabled = false;
+                previousButton.Refresh();
+                nextButton.Refresh();
+                playPreviousFileToolStripMenuItem.Enabled = false;
+                playNextFileToolStripMenuItem.Enabled = false;
+                // ThumbnailButtons
+                previousToolButton.Enabled = false;
+                nextToolButton.Enabled = false;
+                // notification area
+                previousMenuItem.Enabled = false;
+                nextMenuItem.Enabled = false;
+                return;
             }
             previousButton.Refresh();
             nextButton.Refresh();

@@ -15,8 +15,8 @@ namespace Baka_MPlayer.Forms
 
         private void InfoForm_Load(object sender, EventArgs e)
         {
-            // set min size
             this.MinimumSize = this.Size;
+            infoList.ContextMenu = infoContextMenu;
 
             setInfoList();
             setID3Tags();
@@ -49,6 +49,61 @@ namespace Baka_MPlayer.Forms
         {
             this.Dispose();
         }
+
+        #region InfoList Code
+
+        /// <summary>
+        /// Gets or sets the currently selected index
+        /// </summary>
+        public int SelectedIndex
+        {
+            get
+            {
+                if (infoList.FocusedItem != null)
+                    return infoList.FocusedItem.Index;
+                return -1;
+            }
+            set
+            {
+                infoList.SelectedItems.Clear();
+
+                if (value > -1)
+                {
+                    infoList.Items[value].Selected = true;
+                    infoList.Items[value].Focused = true;
+                }
+            }
+        }
+
+        private void searchTextbox_TextChanged(object sender, EventArgs e)
+        {
+            if (searchTextbox.TextLength < 1)
+            {
+                SelectedIndex = -1;
+                return;
+            }
+
+            foreach (ListViewItem item in infoList.Items)
+            {
+                if (item.Name.Contains(searchTextbox.Text) || item.Name.Contains(searchTextbox.Text))
+                {
+                    SelectedIndex = item.Index;
+                    break;
+                }
+            }
+        }
+
+        private void menuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuItem2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
 
         #region Paint Methods
 
@@ -87,6 +142,7 @@ namespace Baka_MPlayer.Forms
             musicComment.Text = Info.ID3Tags.Comment;
 
             // album art
+
         }
 
         private Image AlbumArt

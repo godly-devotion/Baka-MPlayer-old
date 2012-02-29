@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InfoForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.durationLabel = new System.Windows.Forms.Label();
+            this.mplayerProcessLabel = new System.Windows.Forms.Label();
             this.infoList = new System.Windows.Forms.ListView();
             this.infoColumnHeader = new System.Windows.Forms.ColumnHeader();
             this.valueColumnHeader = new System.Windows.Forms.ColumnHeader();
@@ -59,6 +59,9 @@
             this.albumArtPicbox = new System.Windows.Forms.PictureBox();
             this.nameLabel = new System.Windows.Forms.Label();
             this.closeButton = new Baka_MPlayer.Controls.ButtonControl();
+            this.infoContextMenu = new System.Windows.Forms.ContextMenu();
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -84,7 +87,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Black;
-            this.tabPage1.Controls.Add(this.durationLabel);
+            this.tabPage1.Controls.Add(this.mplayerProcessLabel);
             this.tabPage1.Controls.Add(this.infoList);
             this.tabPage1.Controls.Add(this.searchTextbox);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
@@ -95,17 +98,17 @@
             this.tabPage1.Text = "Media Info";
             this.tabPage1.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPages_Paint);
             // 
-            // durationLabel
+            // mplayerProcessLabel
             // 
-            this.durationLabel.BackColor = System.Drawing.Color.Transparent;
-            this.durationLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.durationLabel.ForeColor = System.Drawing.Color.White;
-            this.durationLabel.Location = new System.Drawing.Point(3, 281);
-            this.durationLabel.Name = "durationLabel";
-            this.durationLabel.Size = new System.Drawing.Size(396, 20);
-            this.durationLabel.TabIndex = 2;
-            this.durationLabel.Text = "Duration: 0:00:00 / 0:00:00 (00.0%)";
-            this.durationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mplayerProcessLabel.BackColor = System.Drawing.Color.Transparent;
+            this.mplayerProcessLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.mplayerProcessLabel.ForeColor = System.Drawing.Color.White;
+            this.mplayerProcessLabel.Location = new System.Drawing.Point(3, 281);
+            this.mplayerProcessLabel.Name = "mplayerProcessLabel";
+            this.mplayerProcessLabel.Size = new System.Drawing.Size(396, 20);
+            this.mplayerProcessLabel.TabIndex = 2;
+            this.mplayerProcessLabel.Text = "Baka MPlayer";
+            this.mplayerProcessLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // infoList
             // 
@@ -152,6 +155,7 @@
             this.searchTextbox.Name = "searchTextbox";
             this.searchTextbox.Size = new System.Drawing.Size(390, 27);
             this.searchTextbox.TabIndex = 0;
+            this.searchTextbox.TextChanged += new System.EventHandler(this.searchTextbox_TextChanged);
             // 
             // tabPage2
             // 
@@ -484,6 +488,26 @@
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
+            // infoContextMenu
+            // 
+            this.infoContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem1,
+            this.menuItem2});
+            // 
+            // menuItem1
+            // 
+            this.menuItem1.Enabled = false;
+            this.menuItem1.Index = 0;
+            this.menuItem1.Text = "Copy &Info Type";
+            this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Enabled = false;
+            this.menuItem2.Index = 1;
+            this.menuItem2.Text = "Copy &Value";
+            this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
+            // 
             // InfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -522,7 +546,7 @@
         private System.Windows.Forms.ListView infoList;
         private System.Windows.Forms.ColumnHeader infoColumnHeader;
         private System.Windows.Forms.ColumnHeader valueColumnHeader;
-        private System.Windows.Forms.Label durationLabel;
+        private System.Windows.Forms.Label mplayerProcessLabel;
         private Baka_MPlayer.Controls.ButtonControl closeButton;
         private System.Windows.Forms.TextBox imgTypeTextBox;
         private System.Windows.Forms.Label imgLabel;
@@ -544,6 +568,9 @@
         private System.Windows.Forms.Label ArtistLabel;
         private System.Windows.Forms.Label TitleLabel;
         private System.Windows.Forms.PictureBox albumArtPicbox;
+        private System.Windows.Forms.ContextMenu infoContextMenu;
+        private System.Windows.Forms.MenuItem menuItem1;
+        private System.Windows.Forms.MenuItem menuItem2;
 
     }
 }

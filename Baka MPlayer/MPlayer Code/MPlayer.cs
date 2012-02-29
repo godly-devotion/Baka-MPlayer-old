@@ -1,6 +1,6 @@
 ﻿/************************************
 * MPlayer (by Joshua Park & u8sand) *
-* updated 2/24/2012                 *
+* updated 2/28/2012                 *
 ************************************/
 using System;
 using System.Diagnostics;
@@ -127,10 +127,17 @@ public class MPlayer
         catch (Exception) { return false; }
         return true;
     }
+
     public bool MPlayerIsRunning()
     {
         return mplayer != null;
     }
+    public string GetMPlayerInfo()
+    {
+        string strResp = mplayer.Responding ? "" : " - Not Responding";
+        return string.Format("MPlayer's ID: {0}{1}", mplayer.Id, strResp);
+    }
+
     public bool Close()
     {
         try
@@ -209,9 +216,18 @@ public class MPlayer
     /// </summary>
     public bool SetSubs(int index)
     {
-        return SendCommand("sub_select {0}", index); //sub_visibility [value]
+        // sub_visibility [value]
+        return SendCommand("sub_select {0}", index);
     }
-
+    /// <summary>
+    /// Sets chapter
+    /// </summary>
+    /// <param name="index">Based on zero index</param>
+    public bool SetChapter(int index)
+    {
+        //seek_chapter <value> [type]
+        return SendCommand("seek_chapter {0} 1", index);
+    }
     /// <summary>
     /// Shows [text] on the OSD (on screen display)
     /// </summary>
