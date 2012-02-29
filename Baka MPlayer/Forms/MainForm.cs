@@ -1679,7 +1679,8 @@ namespace Baka_MPlayer.Forms
             UnloadTray();
 
             // save LastFile
-            settings.SetConfig(Info.URL, "LastFile");
+            if (!string.IsNullOrEmpty(Info.URL))
+                settings.SetConfig(Info.URL, "LastFile");
             settings.SaveConfig();
             mplayer.Close();
         }
