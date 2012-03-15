@@ -42,7 +42,7 @@ public class MPlayer
 
             if (mplayer != null)
             {
-                SendCommand("loadfile \"{0}\"", url.Replace("\\", "/")); // open file
+                SendCommand("loadfile \"{0}\"", url.Replace("\\", "\\\\")); // open file
                 parsingHeader = true;
                 mainForm.ClearOutput();
                 return true;
