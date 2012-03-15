@@ -1,7 +1,7 @@
-﻿/*********************************************
-* Info for mplayer (by Joshua Park & u8sand) *
-* updated 2/24/2012                          *
-*********************************************/
+﻿/*********************************
+* Info (by Joshua Park & u8sand) *
+* updated 3/15/2012              *
+*********************************/
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -13,7 +13,8 @@ public enum PlayStates
     Unidentified = 0,
     Playing = 1,
     Paused = 2,
-    Stopped = 3
+    Stopped = 3,
+    Ended = 4
 }
 
 /// <summary>

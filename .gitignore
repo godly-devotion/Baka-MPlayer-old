@@ -1,4 +1,4 @@
-# Updated 2/23/2012
+# Updated 3/15/2012
 
 # Project files
 *.suo
@@ -7,7 +7,4 @@
 _ReSharper.Baka MPlayer/
 
 # Debug output
-Baka MPlayer/bin/Debug/*.vshost.exe*
-#Baka MPlayer/bin/Debug/*.pdb
-Baka MPlayer/bin/Debug/*.xml
-Baka MPlayer/bin/Debug/*.ttf
+Baka MPlayer/bin/Debug/

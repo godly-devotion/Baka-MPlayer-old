@@ -8,9 +8,11 @@ namespace Baka_MPlayer.Forms
 {
     public partial class InfoForm : Form
     {
-        public InfoForm()
+        public InfoForm(string resp)
         {
             InitializeComponent();
+
+            mplayerProcessLabel.Text = resp;
         }
 
         private void InfoForm_Load(object sender, EventArgs e)
@@ -18,6 +20,11 @@ namespace Baka_MPlayer.Forms
             this.MinimumSize = this.Size;
             infoList.ContextMenu = infoContextMenu;
 
+            RefreshInfo();
+        }
+
+        public void RefreshInfo()
+        {
             setInfoList();
             setID3Tags();
         }
@@ -47,7 +54,7 @@ namespace Baka_MPlayer.Forms
 
         private void closeButton_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            this.Close();
         }
 
         #region InfoList Code
@@ -85,22 +92,39 @@ namespace Baka_MPlayer.Forms
 
             foreach (ListViewItem item in infoList.Items)
             {
-                if (item.Name.Contains(searchTextbox.Text) || item.Name.Contains(searchTextbox.Text))
+                if (item.Text.Contains(searchTextbox.Text.ToUpper()))
                 {
                     SelectedIndex = item.Index;
+                    infoList.TopItem = item;
                     break;
                 }
             }
         }
 
+        private void infoContextMenu_Popup(object sender, EventArgs e)
+        {
+            if (SelectedIndex > -1)
+            {
+                menuItem1.Enabled = true;
+                menuItem2.Enabled = true;
+            }
+            else
+            {
+                menuItem1.Enabled = false;
+                menuItem2.Enabled = false;
+            }
+        }
+
         private void menuItem1_Click(object sender, EventArgs e)
         {
-
+            // Copy Info Type
+            Clipboard.SetText(infoList.Items[SelectedIndex].Text, TextDataFormat.UnicodeText);
         }
 
         private void menuItem2_Click(object sender, EventArgs e)
         {
-
+            // Copy Info Value
+            Clipboard.SetText(infoList.Items[SelectedIndex].SubItems[1].Text, TextDataFormat.UnicodeText);
         }
 
         #endregion
@@ -128,7 +152,13 @@ namespace Baka_MPlayer.Forms
 
         private void setInfoList()
         {
+            infoList.Items.Clear();
 
+            foreach (ID_Info info in Info.MiscInfo.OtherInfo)
+            {
+                infoList.Items.Add(info.ID).SubItems.Add(info.Value);
+            }
+            infoList.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         private void setID3Tags()

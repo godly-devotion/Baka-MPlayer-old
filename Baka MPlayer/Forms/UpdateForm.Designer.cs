@@ -33,8 +33,8 @@
             this.downloadButton = new Baka_MPlayer.Controls.ButtonControl();
             this.statusLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.newLabel = new System.Windows.Forms.Label();
             this.versionLabel = new System.Windows.Forms.Label();
+            this.newLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +54,7 @@
             this.closeButton.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(85, 30);
-            this.closeButton.TabIndex = 0;
+            this.closeButton.TabIndex = 1;
             this.closeButton.Text = "&Close";
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
@@ -76,7 +76,7 @@
             this.downloadButton.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.downloadButton.Name = "downloadButton";
             this.downloadButton.Size = new System.Drawing.Size(95, 30);
-            this.downloadButton.TabIndex = 1;
+            this.downloadButton.TabIndex = 0;
             this.downloadButton.Text = "&Download";
             this.downloadButton.UseVisualStyleBackColor = true;
             this.downloadButton.Click += new System.EventHandler(this.downloadButton_Click);
@@ -106,20 +106,9 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 73);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(350, 185);
-            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "What\'s New?";
-            // 
-            // newLabel
-            // 
-            this.newLabel.AutoEllipsis = true;
-            this.newLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.newLabel.Location = new System.Drawing.Point(3, 23);
-            this.newLabel.Name = "newLabel";
-            this.newLabel.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.newLabel.Size = new System.Drawing.Size(344, 159);
-            this.newLabel.TabIndex = 1;
-            this.newLabel.Text = "Checking for updates...";
             // 
             // versionLabel
             // 
@@ -129,8 +118,18 @@
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Padding = new System.Windows.Forms.Padding(20, 2, 20, 0);
             this.versionLabel.Size = new System.Drawing.Size(374, 40);
-            this.versionLabel.TabIndex = 4;
+            this.versionLabel.TabIndex = 3;
             this.versionLabel.Text = "Check for updates...";
+            // 
+            // newLabel
+            // 
+            this.newLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.newLabel.Location = new System.Drawing.Point(3, 23);
+            this.newLabel.Name = "newLabel";
+            this.newLabel.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.newLabel.Size = new System.Drawing.Size(344, 159);
+            this.newLabel.TabIndex = 0;
+            this.newLabel.Text = "Checking for updates...";
             // 
             // UpdateForm
             // 
@@ -147,7 +146,6 @@
             this.Controls.Add(this.closeButton);
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
@@ -155,6 +153,7 @@
             this.Name = "UpdateForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Check For Updates";
+            this.Load += new System.EventHandler(this.UpdateForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 

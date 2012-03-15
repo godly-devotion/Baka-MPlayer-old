@@ -15,7 +15,7 @@ namespace Baka_MPlayer.Controls
         // (directory change, file deleted/added, etc)
         public bool refreshRequired;
 
-#region Constructor
+        #region Constructor
 
         public PlaylistControl()
         {
@@ -30,9 +30,9 @@ namespace Baka_MPlayer.Controls
             playlistList.ContextMenu = fileContextMenu;
         }
 
-#endregion
+        #endregion
 
-#region Accessors
+        #region Accessors
 
         /// <summary>
         /// Gets current file's index in the playlist
@@ -70,7 +70,6 @@ namespace Baka_MPlayer.Controls
                     playlistList.Items[value].Focused = true;
                     playlistList.TopItem = playlistList.Items[value];
                     playlistList_SelectedIndexChanged(null, null);
-                    //playlistList.FocusedItem = playlistList.Items[value];
                 }
             }
         }
@@ -84,8 +83,8 @@ namespace Baka_MPlayer.Controls
             }
         }
 
-#endregion
-#region Methods
+        #endregion
+        #region Methods
 
         private void OpenFile(string dirString)
         {
@@ -115,7 +114,7 @@ namespace Baka_MPlayer.Controls
                 playlistList.Items.Clear();
             }
 
-			playlistList.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+		    playlistList.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
             playlistList.EndUpdate();
 
             if (refreshRequired)
@@ -204,8 +203,28 @@ namespace Baka_MPlayer.Controls
             SelectedIndex = 0;
         }
 
+        public void RemoveAt(int index)
+        {
+            if (GetPlaylistIndex == index)
+            {
+                if (SelectedIndex+1 >= GetTotalItems)
+                    mplayer.Stop();
+                else
+                    PlayNextFile();
+            }
+            playlistList.Items.RemoveAt(index);
+
+            playlistList_SelectedIndexChanged(null, null);
+        }
+
+        public void RefreshPlaylist()
+        {
+            refreshRequired = true;
+            SetPlaylist();
+        }
+
         #endregion
-#region Playlist Options
+        #region Playlist Options
 
         private void currentFileButton_Click(object sender, EventArgs e)
         {
@@ -233,19 +252,46 @@ namespace Baka_MPlayer.Controls
 
         private void showAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            refreshRequired = true;
-            SetPlaylist();
+            RefreshPlaylist();
         }
 
         private void refreshPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            refreshRequired = true;
-            SetPlaylist();
+            RefreshPlaylist();
         }
 
-#endregion
+        #endregion
+        #region Context Menu
 
-#region searchTextBox Events
+        private void fileContextMenu_Popup(object sender, EventArgs e)
+        {
+            if (SelectedIndex != -1)
+            {
+                menuItem1.Enabled = true;
+                menuItem2.Enabled = true;
+            }
+            else
+            {
+                menuItem1.Enabled = false;
+                menuItem2.Enabled = false;
+            }
+        }
+
+        private void menuItem1_Click(object sender, EventArgs e)
+        {
+            // Remove from Playlist
+            RemoveAt(SelectedIndex);
+        }
+
+        private void menuItem2_Click(object sender, EventArgs e)
+        {
+            // Refresh
+            RefreshPlaylist();
+        }
+
+        #endregion
+
+        #region searchTextBox Events
 
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -254,9 +300,17 @@ namespace Baka_MPlayer.Controls
 
             if (searchTextBox.TextLength > 0)
             {
-                var item = playlistList.FindItemWithText(searchTextBox.Text);
+                /*var item = playlistList.FindItemWithText(searchTextBox.Text);
                 if (item != null)
-                    SelectedIndex = item.Index;
+                    SelectedIndex = item.Index;*/
+                foreach (ListViewItem item in playlistList.Items)
+                {
+                    if (item.Text.ToLower().Contains(searchTextBox.Text.ToLower()))
+                    {
+                        SelectedIndex = item.Index;
+                        return;
+                    }
+                }
             }
             else
                 SelectedIndex = GetPlaylistIndex;
@@ -283,8 +337,8 @@ namespace Baka_MPlayer.Controls
             }
         }
 
-#endregion
-#region PlaylistList Events
+        #endregion
+        #region PlaylistList Events
 
         private void playlistList_DoubleClick(object sender, EventArgs e)
         {
@@ -355,7 +409,7 @@ namespace Baka_MPlayer.Controls
         private void playlistList_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
-                playlistList.Items.RemoveAt(SelectedIndex);
+                RemoveAt(SelectedIndex);
         }
 
         private void playlistList_SelectedIndexChanged(object sender, EventArgs e)
@@ -363,7 +417,7 @@ namespace Baka_MPlayer.Controls
             currentFileLabel.Text = string.Format("File {0} of {1}", SelectedIndex + 1, GetTotalItems);
         }
 
-#endregion
+        #endregion
 
     }
 }

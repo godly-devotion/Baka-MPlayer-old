@@ -124,6 +124,7 @@
             this.infoList.ForeColor = System.Drawing.Color.White;
             this.infoList.FullRowSelect = true;
             this.infoList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.infoList.HideSelection = false;
             this.infoList.Location = new System.Drawing.Point(6, 39);
             this.infoList.MultiSelect = false;
             this.infoList.Name = "infoList";
@@ -471,7 +472,6 @@
             // 
             this.closeButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.closeButton.BackColor = System.Drawing.Color.Transparent;
-            this.closeButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.closeButton.FlatAppearance.BorderColor = System.Drawing.Color.DeepSkyBlue;
             this.closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
@@ -493,6 +493,7 @@
             this.infoContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem1,
             this.menuItem2});
+            this.infoContextMenu.Popup += new System.EventHandler(this.infoContextMenu_Popup);
             // 
             // menuItem1
             // 

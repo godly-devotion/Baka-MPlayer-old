@@ -38,6 +38,7 @@ namespace Baka_MPlayer.Forms
         #region Global Variables
 
         private BlackForm blackForm;
+        private InfoForm infoForm;
         // class instances
         private MPlayer mplayer;
         private Voice voice;
@@ -59,369 +60,6 @@ namespace Baka_MPlayer.Forms
 
         #endregion
 
-        #region Accessors
-
-        public void SetShuffleCheckState(bool check)
-        {
-            Invoke((MethodInvoker)(() => shuffleToolStripMenuItem.Checked = check));
-        }
-
-        public void SetPlaylistButtonEnable(bool enable)
-        {
-            Invoke((MethodInvoker)(() => playlistButton.Enabled = enable));
-        }
-
-        #endregion
-        #region Property's
-
-        private bool _voiceEnabled;
-        private bool VoiceEnabled
-        {
-            get { return _voiceEnabled; }
-            set
-            {
-                if (value)
-                {
-                    if (voice == null)
-                        voice = new Voice(this, "baka");
-                    voice.StartListening();
-                    _voiceEnabled = true;
-                }
-                else
-                {
-                    voice.StopListening();
-                    _voiceEnabled = false;
-                }
-            }
-        }
-
-        public bool ShowPlaylist
-        {
-            get { return !mplayerSplitContainer.Panel2Collapsed; }
-            set
-            {
-                if (value)
-                {
-                    mplayerSplitContainer.Panel2Collapsed = false;
-                    showPlaylistToolStripMenuItem.Checked = true;
-
-                    playlist.DisableInteraction = false;
-                    mplayerSplitContainer.IsSplitterFixed = false;
-                }
-                else
-                {
-                    mplayerSplitContainer.Panel2Collapsed = true;
-                    showPlaylistToolStripMenuItem.Checked = false;
-                    hideAlbumArtToolStripMenuItem.Checked = false;
-
-                    playlist.DisableInteraction = true;
-                    mplayerSplitContainer.IsSplitterFixed = true;
-                }
-            }
-        }
-
-        private bool HideAlbumArt
-        {
-            get { return mplayerSplitContainer.Panel1Collapsed; }
-            set { mplayerSplitContainer.Panel1Collapsed = value; }
-        }
-
-        private bool ShowConsole
-        {
-            get { return !bodySplitContainer.Panel2Collapsed; }
-            set { bodySplitContainer.Panel2Collapsed = !value; }
-        }
-
-        #endregion
-        #region Snap-to-Border + Minimize to Tray
-
-        private const int SnapOffset = 10; // pixels
-        private const int WM_WINDOWPOSCHANGING = 0x46;
-        // minimize to notification area constants
-        private const Int32 WM_SYSCOMMAND = 0x112;
-        private const Int32 SC_MINIMIZE = 0xf020;
-        //const Int32 SC_RESTORE = 0xf120;
-
-        // snap to border constants
-        public struct WINDOWPOS
-        {
-            public IntPtr hwnd; public IntPtr hwndInsertAfter;
-            public int x; public int y; public int cx; public int cy; public SWP flags;
-        }
-
-        [Flags]
-        public enum SWP
-        {
-            Normal = 0,
-            NoSize = 0x1,
-            NoMove = 0x2,
-            NoZOrder = 0x4,
-            NoRedraw = 0x8,
-            NoActivate = 0x10,
-            FrameChanged = 0x20,
-            ShowWindow = 0x40,
-            HideWindow = 0x80,
-            NoCopyBits = 0x100,
-            NoOwnerZOrder = 0x200,
-            NoSendChanging = 0x400,
-            DrawFrame = FrameChanged,
-            NoReposition = NoOwnerZOrder,
-            DeferErase = 0x2000,
-            AsyncWindowPos = 0x4000
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            // Listen for operating system messages
-            switch (m.Msg)
-            {
-                case WM_WINDOWPOSCHANGING:
-                    // Snap to desktop border
-                    SnapToDesktopBorder(m.LParam);
-                    break;
-                case WM_SYSCOMMAND:
-                    if (m.WParam.ToInt32() == SC_MINIMIZE)
-                    {
-                        // mainForm minimize
-                        if (blackForm != null)
-                            blackForm.Hide();
-                        dimLightsToolStripMenuItem.Checked = false;
-                        if (minimizeToTrayToolStripMenuItem.Enabled && minimizeToTrayToolStripMenuItem.Checked)
-                            ToggleToTaskbar(true);
-                    }
-                    break;
-            }
-            base.WndProc(ref m);
-        }
-
-        private void SnapToDesktopBorder(IntPtr LParam)
-        {
-            // Snap client to the top, left, bottom or right desktop border
-            // as the form is moved near that border.
-
-            // Marshal the LPARAM value which is a WINDOWPOS struct
-            var WPNewPosition = (WINDOWPOS)Marshal.PtrToStructure(LParam, typeof(WINDOWPOS));
-
-            if ((WPNewPosition.flags & SWP.NoSize) == 0 || (WPNewPosition.flags & SWP.NoMove) == 0)
-            {
-                var RWorking = Screen.FromControl(this).WorkingArea;
-                var Changed = false;
-
-                if (Math.Abs(WPNewPosition.x - RWorking.X) <= SnapOffset)
-                {
-                    WPNewPosition.x = RWorking.X;
-                    Changed = true;
-                }
-                else if (Math.Abs(WPNewPosition.x + WPNewPosition.cx - RWorking.Right) <= SnapOffset)
-                {
-                    WPNewPosition.x = RWorking.Right - WPNewPosition.cx;
-                    Changed = true;
-                }
-
-                if (Math.Abs(WPNewPosition.y - RWorking.Y) <= SnapOffset)
-                {
-                    WPNewPosition.y = RWorking.Y;
-                    Changed = true;
-                }
-                else if (Math.Abs(WPNewPosition.y + WPNewPosition.cy - RWorking.Bottom) <= SnapOffset)
-                {
-                    WPNewPosition.y = RWorking.Bottom - WPNewPosition.cy;
-                    Changed = true;
-                }
-
-                // Marshal it back
-                if (Changed) Marshal.StructureToPtr(WPNewPosition, LParam, true);
-            }
-        }
-
-        #endregion
-        #region Embbed Font
-
-        private static System.Drawing.Text.PrivateFontCollection fonts;
-        private static FontFamily NewFont_FF;
-
-        private static Font CreateFont(string name, FontStyle style, float size, GraphicsUnit unit)
-        {
-            // create a new font collection
-            fonts = new System.Drawing.Text.PrivateFontCollection();
-            // add the font file to the new font
-            // "name" is the qualified path to your font file
-            fonts.AddFontFile(name);
-            // retrieve your new font
-            NewFont_FF = fonts.Families[0];
-
-            return new Font(NewFont_FF, size, style, unit);
-        }
-
-        private void setLCDFont()
-        {
-            var fontFile = Application.StartupPath + @"\LCD.ttf";
-
-            if (!File.Exists(fontFile))
-                File.WriteAllBytes(fontFile, Properties.Resources.LCD);
-
-            var fontLCD = CreateFont(fontFile, FontStyle.Bold, 11.25f, GraphicsUnit.Point);
-
-            // set fonts
-            durationLabel.Font = fontLCD;
-            timeLeftLabel.Font = fontLCD;
-        }
-
-        #endregion
-        #region Draggable Form
-
-        private void DraggableWindow_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                var control = (Control)sender;
-                control.Capture = false;
-                // Create and send a WM_NCLBUTTONDOWN message.
-                const int WM_NCLBUTTONDOWN = 0xa1;
-                const int HTCAPTION = 2;
-                var msg = Message.Create(this.Handle, WM_NCLBUTTONDOWN, new IntPtr(HTCAPTION), IntPtr.Zero);
-                this.DefWndProc(ref msg);
-            }
-        }
-
-        #endregion
-        #region Keyboard Hook
-
-        private int callbackFunction_KeyboardHook(int code, IntPtr wParam, IntPtr lParam)
-        {
-            if (!(code.Equals(3) && Convert.ToString(lParam.ToInt64(), 2).StartsWith("10"))
-                || playlist.searchTextBox.Focused || string.IsNullOrEmpty(Info.URL) || code < 0)
-            {
-                // you need to call CallNextHookEx without further processing
-                // and return the value returned by CallNextHookEx
-                return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
-            }
-
-            // Note: the values are shown in hex, must convert to int
-            // http://msdn.microsoft.com/en-us/library/dd375731(v=vs.85).aspx
-            switch (wParam.ToInt32())
-            {
-                case 37:
-                    // left arrow key
-                    if (Info.Current.Duration - 5 > -1)
-                    {
-                        mplayer.Seek(Info.Current.Duration - 5);
-                        mplayer.ignoreUpdate = true;
-                    }
-                    else //if (mplayer.currentPosition < 5)
-                        mplayer.Seek(0);
-                    break;
-                case 39:
-                    // right arrow key
-                    if (Info.Current.Duration + 5 < Info.Current.TotalLength)
-                    {
-                        mplayer.Seek(Info.Current.Duration + 5);
-                        mplayer.ignoreUpdate = true;
-                    }
-                    else
-                        playlist.PlayNextFile();
-                    break;
-                case 161:
-                    // RShiftKey - VoiceOver
-                    Speech.SayMedia();
-                    break;
-                case 176:
-                    // media next button
-                    playlist.PlayNextFile();
-                    break;
-                case 177:
-                    // media previous button
-                    playlist.PlayPreviousFile();
-                    break;
-                case 178:
-                    // media stop button
-                    mplayer.Stop();
-                    break;
-                case 179:
-                    // media play pause button
-                    switch (Info.Current.PlayState)
-                    {
-                        case PlayStates.Playing:
-                            mplayer.Pause(false);
-                            break;
-                        case PlayStates.Paused:
-                        case PlayStates.Stopped:
-                            mplayer.Pause(true);
-                            break;
-                    }
-                    return -1;
-            }
-
-            // return the value returned by CallNextHookEx
-            return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
-        }
-
-        #endregion
-        #region Gradient Paint
-        private void controlPanel_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics formGraphics = e.Graphics;
-            var gradientBrush = new LinearGradientBrush(controlPanel.ClientRectangle,
-                Color.FromArgb(255, 30, 30, 30), Color.Black, LinearGradientMode.Vertical);
-            formGraphics.FillRectangle(gradientBrush, controlPanel.ClientRectangle);
-        }
-        #endregion
-        #region Drag & Drop Support
-
-        private void MainForm_DragDrop(object sender, DragEventArgs e)
-        {
-            var fileDirs = (string[])e.Data.GetData(DataFormats.FileDrop);
-            string fileDir = fileDirs.GetValue(0).ToString();
-
-            if (File.Exists(fileDir))
-                mplayer.OpenFile(fileDir);
-            else
-            {
-                MessageBox.Show(string.Format("Error: \"{0}\" does not exist.", Path.GetFileName(fileDir)),
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void MainForm_DragEnter(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.Copy;
-            else
-                e.Effect = DragDropEffects.None;
-        }
-
-        #endregion
-        #region Win 7 Thumbnail Toolbars
-
-        private void setThumbnailToolbars()
-        {
-            playToolButton = new ThumbnailToolBarButton(Properties.Resources.tool_play, "Play") { Enabled = false };
-            playToolButton.Click += playToolButton_Click;
-
-            nextToolButton = new ThumbnailToolBarButton(Properties.Resources.tool_next, "Next file") { Enabled = false };
-            nextToolButton.Click += nextToolButton_Click;
-
-            previousToolButton = new ThumbnailToolBarButton(Properties.Resources.tool_previous, "Previous file") { Enabled = false };
-            previousToolButton.Click += previousToolButton_Click;
-            TaskbarManager.Instance.ThumbnailToolBars.AddButtons(this.Handle, previousToolButton, playToolButton, nextToolButton);
-        }
-
-        private void playToolButton_Click(Object sender, EventArgs e)
-        {
-            mplayer.Pause(true);
-        }
-
-        private void nextToolButton_Click(Object sender, EventArgs e)
-        {
-            playlist.PlayNextFile();
-        }
-
-        private void previousToolButton_Click(Object sender, EventArgs e)
-        {
-            playlist.PlayPreviousFile();
-        }
-
-        #endregion
         #region Tray Icon
 
         // Right click context menu
@@ -592,7 +230,6 @@ namespace Baka_MPlayer.Forms
         }
 
         #endregion
-
         #region CLI Code
 
         private void inputTextbox_KeyDown(object sender, KeyEventArgs e)
@@ -637,6 +274,363 @@ namespace Baka_MPlayer.Forms
             {
                 outputTextbox.Text = string.Empty;
             });
+        }
+
+        #endregion
+        #region Snap-to-Border + Minimize to Tray
+
+        private const int SnapOffset = 10; // pixels
+        private const int WM_WINDOWPOSCHANGING = 0x46;
+        // minimize to notification area constants
+        private const Int32 WM_SYSCOMMAND = 0x112;
+        private const Int32 SC_MINIMIZE = 0xf020;
+        //const Int32 SC_RESTORE = 0xf120;
+
+        // snap to border constants
+        public struct WINDOWPOS
+        {
+            public IntPtr hwnd; public IntPtr hwndInsertAfter;
+            public int x; public int y; public int cx; public int cy; public SWP flags;
+        }
+
+        [Flags]
+        public enum SWP
+        {
+            Normal = 0,
+            NoSize = 0x1,
+            NoMove = 0x2,
+            NoZOrder = 0x4,
+            NoRedraw = 0x8,
+            NoActivate = 0x10,
+            FrameChanged = 0x20,
+            ShowWindow = 0x40,
+            HideWindow = 0x80,
+            NoCopyBits = 0x100,
+            NoOwnerZOrder = 0x200,
+            NoSendChanging = 0x400,
+            DrawFrame = FrameChanged,
+            NoReposition = NoOwnerZOrder,
+            DeferErase = 0x2000,
+            AsyncWindowPos = 0x4000
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            // Listen for operating system messages
+            switch (m.Msg)
+            {
+                case WM_WINDOWPOSCHANGING:
+                    // Snap to desktop border
+                    SnapToDesktopBorder(m.LParam);
+                    break;
+                case WM_SYSCOMMAND:
+                    if (m.WParam.ToInt32() == SC_MINIMIZE)
+                    {
+                        // mainForm minimize
+                        if (blackForm != null)
+                            blackForm.Hide();
+                        dimLightsToolStripMenuItem.Checked = false;
+                        if (minimizeToTrayToolStripMenuItem.Enabled && minimizeToTrayToolStripMenuItem.Checked)
+                            ToggleToTaskbar(true);
+                    }
+                    break;
+            }
+            base.WndProc(ref m);
+        }
+
+        private void SnapToDesktopBorder(IntPtr LParam)
+        {
+            // Snap client to the top, left, bottom or right desktop border
+            // as the form is moved near that border.
+
+            // Marshal the LPARAM value which is a WINDOWPOS struct
+            var WPNewPosition = (WINDOWPOS)Marshal.PtrToStructure(LParam, typeof(WINDOWPOS));
+
+            if ((WPNewPosition.flags & SWP.NoSize) == 0 || (WPNewPosition.flags & SWP.NoMove) == 0)
+            {
+                var RWorking = Screen.FromControl(this).WorkingArea;
+                var Changed = false;
+
+                if (Math.Abs(WPNewPosition.x - RWorking.X) <= SnapOffset)
+                {
+                    WPNewPosition.x = RWorking.X;
+                    Changed = true;
+                }
+                else if (Math.Abs(WPNewPosition.x + WPNewPosition.cx - RWorking.Right) <= SnapOffset)
+                {
+                    WPNewPosition.x = RWorking.Right - WPNewPosition.cx;
+                    Changed = true;
+                }
+
+                if (Math.Abs(WPNewPosition.y - RWorking.Y) <= SnapOffset)
+                {
+                    WPNewPosition.y = RWorking.Y;
+                    Changed = true;
+                }
+                else if (Math.Abs(WPNewPosition.y + WPNewPosition.cy - RWorking.Bottom) <= SnapOffset)
+                {
+                    WPNewPosition.y = RWorking.Bottom - WPNewPosition.cy;
+                    Changed = true;
+                }
+
+                // Marshal it back
+                if (Changed) Marshal.StructureToPtr(WPNewPosition, LParam, true);
+            }
+        }
+
+        #endregion
+        #region Embbed Font
+
+        private static System.Drawing.Text.PrivateFontCollection fonts;
+
+        private static Font CreateFont()
+        {
+            fonts = new System.Drawing.Text.PrivateFontCollection();
+            byte[] fontData = Properties.Resources.LCD;
+            IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
+            Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+            fonts.AddMemoryFont(fontPtr, fontData.Length);
+            Marshal.FreeCoTaskMem(fontPtr);
+
+            return new Font(fonts.Families[0], 11.25f, FontStyle.Bold, GraphicsUnit.Point);
+        }
+
+        private void SetLCDFont()
+        {            
+            var fontLCD = CreateFont();
+
+            // set fonts
+            durationLabel.Font = fontLCD;
+            timeLeftLabel.Font = fontLCD;
+        }
+
+        #endregion
+        #region Draggable Form
+
+        private void DraggableWindow_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && !FullScreen)
+            {
+                var control = (Control)sender;
+                control.Capture = false;
+                // Create and send a WM_NCLBUTTONDOWN message.
+                const int WM_NCLBUTTONDOWN = 0xa1;
+                const int HTCAPTION = 2;
+                var msg = Message.Create(this.Handle, WM_NCLBUTTONDOWN, new IntPtr(HTCAPTION), IntPtr.Zero);
+                this.DefWndProc(ref msg);
+            }
+        }
+
+        #endregion
+        #region Keyboard Hook
+
+        private int callbackFunction_KeyboardHook(int code, IntPtr wParam, IntPtr lParam)
+        {
+            if (!(code.Equals(3) && Convert.ToString(lParam.ToInt64(), 2).StartsWith("10"))
+                || playlist.searchTextBox.Focused || string.IsNullOrEmpty(Info.URL) || code < 0)
+            {
+                // you need to call CallNextHookEx without further processing
+                // and return the value returned by CallNextHookEx
+                return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
+            }
+
+            // Note: the values are shown in hex, must convert to int
+            // http://msdn.microsoft.com/en-us/library/dd375731(v=vs.85).aspx
+            switch (wParam.ToInt32())
+            {
+                case 37:
+                    // left arrow key
+                    if (Info.Current.Duration - 5 > -1)
+                    {
+                        mplayer.Seek(Info.Current.Duration - 5);
+                        mplayer.ignoreUpdate = true;
+                    }
+                    else //if (mplayer.currentPosition < 5)
+                        mplayer.Seek(0);
+                    break;
+                case 39:
+                    // right arrow key
+                    if (Info.Current.Duration + 5 < Info.Current.TotalLength)
+                    {
+                        mplayer.Seek(Info.Current.Duration + 5);
+                        mplayer.ignoreUpdate = true;
+                    }
+                    else
+                        playlist.PlayNextFile();
+                    break;
+                case 161:
+                    // RShiftKey - VoiceOver
+                    Speech.SayMedia();
+                    break;
+                case 176:
+                    // media next button
+                    playlist.PlayNextFile();
+                    break;
+                case 177:
+                    // media previous button
+                    playlist.PlayPreviousFile();
+                    break;
+                case 178:
+                    // media stop button
+                    mplayer.Stop();
+                    break;
+                case 179:
+                    // media play pause button
+                    switch (Info.Current.PlayState)
+                    {
+                        case PlayStates.Playing:
+                            mplayer.Pause(false);
+                            break;
+                        case PlayStates.Paused:
+                        case PlayStates.Stopped:
+                            mplayer.Pause(true);
+                            break;
+                    }
+                    return -1;
+            }
+
+            // return the value returned by CallNextHookEx
+            return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
+        }
+
+        #endregion
+        #region Gradient Paint
+        private void controlPanel_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics formGraphics = e.Graphics;
+            var gradientBrush = new LinearGradientBrush(controlPanel.ClientRectangle,
+                Color.FromArgb(255, 30, 30, 30), Color.Black, LinearGradientMode.Vertical);
+            formGraphics.FillRectangle(gradientBrush, controlPanel.ClientRectangle);
+        }
+        #endregion
+        #region Drag & Drop Support
+
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            var fileDirs = (string[])e.Data.GetData(DataFormats.FileDrop);
+            string fileDir = fileDirs.GetValue(0).ToString();
+
+            if (File.Exists(fileDir))
+                mplayer.OpenFile(fileDir);
+            else
+            {
+                MessageBox.Show(string.Format("Error: \"{0}\" does not exist.", Path.GetFileName(fileDir)),
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MainForm_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.Copy;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        #endregion
+        #region Win 7 Thumbnail Toolbars
+
+        private void setThumbnailToolbars()
+        {
+            playToolButton = new ThumbnailToolBarButton(Properties.Resources.tool_play, "Play") { Enabled = false };
+            playToolButton.Click += playToolButton_Click;
+
+            nextToolButton = new ThumbnailToolBarButton(Properties.Resources.tool_next, "Next file") { Enabled = false };
+            nextToolButton.Click += nextToolButton_Click;
+
+            previousToolButton = new ThumbnailToolBarButton(Properties.Resources.tool_previous, "Previous file") { Enabled = false };
+            previousToolButton.Click += previousToolButton_Click;
+            TaskbarManager.Instance.ThumbnailToolBars.AddButtons(this.Handle, previousToolButton, playToolButton, nextToolButton);
+        }
+
+        private void playToolButton_Click(Object sender, EventArgs e)
+        {
+            mplayer.Pause(true);
+        }
+
+        private void nextToolButton_Click(Object sender, EventArgs e)
+        {
+            playlist.PlayNextFile();
+        }
+
+        private void previousToolButton_Click(Object sender, EventArgs e)
+        {
+            playlist.PlayPreviousFile();
+        }
+
+        #endregion
+
+        #region Accessors
+
+        public void SetShuffleCheckState(bool check)
+        {
+            Invoke((MethodInvoker)(() => shuffleToolStripMenuItem.Checked = check));
+        }
+
+        public void SetPlaylistButtonEnable(bool enable)
+        {
+            Invoke((MethodInvoker)(() => playlistButton.Enabled = enable));
+        }
+
+        #endregion
+        #region Property's
+
+        private bool _voiceEnabled;
+        private bool VoiceEnabled
+        {
+            get { return _voiceEnabled; }
+            set
+            {
+                if (value)
+                {
+                    if (voice == null)
+                        voice = new Voice(this, "baka");
+                    voice.StartListening();
+                    _voiceEnabled = true;
+                }
+                else
+                {
+                    voice.StopListening();
+                    _voiceEnabled = false;
+                }
+            }
+        }
+
+        public bool ShowPlaylist
+        {
+            get { return !mplayerSplitContainer.Panel2Collapsed; }
+            set
+            {
+                if (value)
+                {
+                    mplayerSplitContainer.Panel2Collapsed = false;
+                    showPlaylistToolStripMenuItem.Checked = true;
+
+                    playlist.DisableInteraction = false;
+                    mplayerSplitContainer.IsSplitterFixed = false;
+                }
+                else
+                {
+                    mplayerSplitContainer.Panel2Collapsed = true;
+                    showPlaylistToolStripMenuItem.Checked = false;
+                    hideAlbumArtToolStripMenuItem.Checked = false;
+
+                    playlist.DisableInteraction = true;
+                    mplayerSplitContainer.IsSplitterFixed = true;
+                }
+            }
+        }
+
+        private bool HideAlbumArt
+        {
+            get { return mplayerSplitContainer.Panel1Collapsed; }
+            set { mplayerSplitContainer.Panel1Collapsed = value; }
+        }
+
+        private bool ShowConsole
+        {
+            get { return !bodySplitContainer.Panel2Collapsed; }
+            set { bodySplitContainer.Panel2Collapsed = !value; }
         }
 
         #endregion
@@ -826,6 +820,8 @@ namespace Baka_MPlayer.Forms
                 mplayer.Stop();
             else if (Info.Current.PlayState == PlayStates.Playing)
                 mplayer.Rewind();
+            else if (Info.Current.PlayState == PlayStates.Ended)
+                mplayer.OpenFile(Info.URL);
             else
                 mplayer.Stop();
         }
@@ -986,6 +982,93 @@ namespace Baka_MPlayer.Forms
         private void volumeBar_Scroll(object sender, ScrollEventArgs e)
         {
             UpdateVolume(volumeBar.Value);
+        }
+
+        #endregion
+        #region Full Screen Mode
+
+        private bool FullScreen
+        {
+            get
+            {
+                return fullScreenToolStripMenuItem.Checked;
+            }
+            set
+            {
+                if (value)
+                {
+                    // hide controls
+                    ShowPlaylist = false;
+                    ShowConsole = false;
+                    mainMenuStrip.Hide();
+                    playlistButton.Hide();
+                    seekPanel.Hide();
+                    controlPanel.Hide();
+
+                    this.ControlBox = false;
+                    this.FormBorderStyle = FormBorderStyle.None;
+                    this.WindowState = FormWindowState.Maximized;
+                    this.TopMost = true;
+                }
+                else
+                {
+                    // show controls
+                    mainMenuStrip.Show();
+                    playlistButton.Show();
+                    seekPanel.Show();
+                    controlPanel.Show();
+
+                    this.ControlBox = true;
+                    this.FormBorderStyle = FormBorderStyle.Sizable;
+                    this.WindowState = FormWindowState.Normal;
+                    this.TopMost = false;
+                }
+            }
+        }
+
+        private bool IsCursorShown = true;
+        private bool CursorShown
+        {
+            get { return IsCursorShown; }
+            set
+            {
+                if (value != IsCursorShown)
+                {
+                    IsCursorShown = value;
+                    if (value)
+                        Cursor.Show();
+                    else
+                        Cursor.Hide();
+                }
+            }
+        }
+
+        private void MouseMoved()
+        {
+            if (FullScreen)
+            {
+                var scrn = Screen.FromControl(this);
+
+                CursorShown = true;
+                cursorTimer.Start();
+
+                if (Cursor.Position.Y > scrn.Bounds.Height - (seekPanel.Height + controlPanel.Height + 10))
+                {
+                    seekPanel.Show();
+                    controlPanel.Show();
+                }
+                else
+                {
+                    seekPanel.Hide();
+                    controlPanel.Hide();
+                }
+            }
+        }
+
+        private void cursorTimer_Tick(object sender, EventArgs e)
+        {
+            CursorShown = false;
+            cursorTimer.Stop();
         }
 
         #endregion
@@ -1176,7 +1259,7 @@ namespace Baka_MPlayer.Forms
 
         private void fullScreenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            FullScreen = fullScreenToolStripMenuItem.Checked;
         }
 
         private void fitToVideoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1225,7 +1308,7 @@ namespace Baka_MPlayer.Forms
 
             for (int i = 0; i < Info.MiscInfo.Chapters.Count; i++)
             {
-                var text = string.Format("{0}: {1}", i, Info.MiscInfo.Chapters[i].ChapterName);
+                var text = string.Format("{0}: {1}", i+1, Info.MiscInfo.Chapters[i].ChapterName);
                 var item = new ToolStripMenuItem(text, null, chaptersMenuItem_Click);
                 item.ShortcutKeys = Keys.Control | KeysClass.GetNumKey(i + 1);
                 chaptersToolStripMenuItem.DropDownItems.Add(item);
@@ -1396,7 +1479,8 @@ namespace Baka_MPlayer.Forms
 
         private void mediaInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var infoForm = new InfoForm();
+            if (infoForm == null || infoForm.IsDisposed)
+                infoForm = new InfoForm(mplayer.GetMPlayerInfo());
             infoForm.Show();
         }
 
@@ -1531,13 +1615,20 @@ namespace Baka_MPlayer.Forms
 
         #endregion
 
+        #region MainForm Code
+
         public MainForm()
         {
-            // Set Windows keyboard hook
+            // set keyboard hook
             //  initialize our delegate
             this.myCallbackDelegate = this.callbackFunction_KeyboardHook;
             //  setup a keyboard hook
             hHook = SetWindowsHookEx(2, this.myCallbackDelegate, IntPtr.Zero, AppDomain.GetCurrentThreadId());
+
+            // set mouse hook
+            var mouseHandler = new GlobalMouseHandler();
+            mouseHandler.TheMouseMoved += MouseMoved;
+            Application.AddMessageFilter(mouseHandler);
 
             InitializeComponent();
 
@@ -1547,7 +1638,7 @@ namespace Baka_MPlayer.Forms
 
             folderToolStripMenuItem.Text = "Build " + Application.ProductVersion;
             trayIcon.ContextMenu = trayContextMenu;
-            setLCDFont(); // Embbeding Font (LCD)
+            SetLCDFont(); // Embbeding Font (LCD)
             ShowConsole = false;
             ShowPlaylist = false;
 
@@ -1589,20 +1680,6 @@ namespace Baka_MPlayer.Forms
             // check for updates
             var checker = new UpdateChecker();
             checker.Check(true);
-
-            /*if (settings.GetIntValue("LastUpdated") == -1)
-            {
-                settings.SetConfig((int)DateTime.Today.DayOfWeek, "LastUpdated");
-                settings.SaveConfig();
-            }
-            if ((int)DateTime.Today.DayOfWeek - 1 == settings.GetIntValue("LastUpdated"))
-            {
-                var checker = new UpdateChecker();
-                checker.Check(true);
-
-                settings.SetConfig((int)DateTime.Today.DayOfWeek, "LastUpdated");
-                settings.SaveConfig();
-            }*/
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
@@ -1648,9 +1725,6 @@ namespace Baka_MPlayer.Forms
                 case Keys.Space: // play or pause
                     mplayer.Pause(true);
                     break;
-                case Keys.Enter: // full screen
-                    fullScreenToolStripMenuItem.PerformClick();
-                    break;
             }
         }
         private void MainForm_MouseWheel(object sender, MouseEventArgs e)
@@ -1685,6 +1759,10 @@ namespace Baka_MPlayer.Forms
             mplayer.Close();
         }
 
+        #endregion
+
+        #region Media Opened
+
         public void CallMediaOpened()
         {
             Invoke((MethodInvoker)MediaOpened);
@@ -1715,6 +1793,9 @@ namespace Baka_MPlayer.Forms
 
             if (blackForm != null)
                 blackForm.SetTitle = Path.GetFileNameWithoutExtension(Functions.DecodeURL(Info.URL));
+
+            if (infoForm != null && !infoForm.IsDisposed)
+                infoForm.RefreshInfo();
 
             if (Info.VideoInfo.HasVideo)
             {
@@ -1764,7 +1845,14 @@ namespace Baka_MPlayer.Forms
             // create menu items
             SetChapters();
             SetSubs();
+
+            // play video
+            mplayer.SendCommand("pausing get_property pause");
+            mplayer.Play();
         }
+
+        #endregion
+        #region Media Ended
 
         public void CallMediaEnded()
         {
@@ -1799,6 +1887,9 @@ namespace Baka_MPlayer.Forms
                 playlist.PlayNextFile();
             }
         }
+
+        #endregion
+        #region PlayState Changed
 
         public void CallPlayStateChanged()
         {
@@ -1845,9 +1936,19 @@ namespace Baka_MPlayer.Forms
             }
         }
 
+        #endregion
+        #region Duration Changed
+
         public void CallDurationChanged()
         {
-            Invoke((MethodInvoker)DurationChanged);
+            try
+            {
+                Invoke((MethodInvoker)DurationChanged);
+            }
+            catch (ObjectDisposedException ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
         private void DurationChanged()
         {
@@ -1856,7 +1957,7 @@ namespace Baka_MPlayer.Forms
             if (seekBar_IsMouseDown)
                 return;
             
-            if (Info.Current.Duration > 0 && Info.Current.TotalLength > 0)
+            if (Info.Current.TotalLength > 0)
             {
                 seekBar.Value = Convert.ToInt32((Info.Current.Duration * 1000000) / Info.Current.TotalLength); // %
                 durationLabel.Text = Functions.ConvertTimeFromSeconds(Info.Current.Duration);
@@ -1867,6 +1968,8 @@ namespace Baka_MPlayer.Forms
             else
                 timeLeftLabel.Text = Functions.ConvertTimeFromSeconds(Info.Current.TotalLength);
         }
+
+        #endregion
 
         private void OpenFile()
         {
@@ -1901,6 +2004,8 @@ namespace Baka_MPlayer.Forms
             // boss mode
             mplayer.Pause(false);
 
+            if (FullScreen)
+                fullScreenToolStripMenuItem.PerformClick();
             if (blackForm != null)
                 blackForm.Hide();
             dimLightsToolStripMenuItem.Checked = false;
@@ -1954,20 +2059,11 @@ namespace Baka_MPlayer.Forms
         {
             if (!albumArtPicbox.Visible) return;
 
-            if (Info.ID3Tags.AlbumArt != null)
-            {
-                if (albumArtPicbox.Width < albumArtPicbox.Image.Width || albumArtPicbox.Height < albumArtPicbox.Image.Height)
-                    albumArtPicbox.SizeMode = PictureBoxSizeMode.Zoom;
-                else
-                    albumArtPicbox.SizeMode = PictureBoxSizeMode.CenterImage;
-            }
+            if (albumArtPicbox.Width < albumArtPicbox.Image.Width ||
+                albumArtPicbox.Height < albumArtPicbox.Image.Height)
+                albumArtPicbox.SizeMode = PictureBoxSizeMode.Zoom;
             else
-            {
-                if (albumArtPicbox.Width < 128 || albumArtPicbox.Height < 128)
-                    albumArtPicbox.SizeMode = PictureBoxSizeMode.Zoom;
-                else
-                    albumArtPicbox.SizeMode = PictureBoxSizeMode.CenterImage;
-            }
+                albumArtPicbox.SizeMode = PictureBoxSizeMode.CenterImage;
         }
 
         private void bodySplitContainer_Panel1_SizeChanged(object sender, EventArgs e)

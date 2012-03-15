@@ -1,6 +1,6 @@
 ﻿/*****************************
 * Functions (by Joshua Park) *
-* updated 2/12/2012          *
+* updated 3/8/2012           *
 *****************************/
 using System;
 using System.Runtime.InteropServices;
@@ -110,4 +110,21 @@ public static class Functions
         }
         return x;
     }
+
+	#region C# wrappers for WinUser.h
+
+    public static int GET_X_LPARAM(int lparam)
+	{ return LowWord(lparam); }
+
+    public static int GET_Y_LPARAM(int lparam)
+	{ return HighWord(lparam); }
+
+	public static int LowWord(int word)
+	{ return word & 0xFFFF; }
+
+	public static int HighWord(int word)
+	{ return word >> 16; }
+	
+	#endregion
+
 }

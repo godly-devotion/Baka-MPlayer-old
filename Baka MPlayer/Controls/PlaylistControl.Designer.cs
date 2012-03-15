@@ -38,6 +38,8 @@
             this.showAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileContextMenu = new System.Windows.Forms.ContextMenu();
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.searchTextBox = new Baka_MPlayer.Controls.CustomTextBox();
             this.playlistStatusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -138,6 +140,25 @@
             this.refreshPlaylistToolStripMenuItem.Text = "&Refresh Playlist";
             this.refreshPlaylistToolStripMenuItem.Click += new System.EventHandler(this.refreshPlaylistToolStripMenuItem_Click);
             // 
+            // fileContextMenu
+            // 
+            this.fileContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.menuItem1,
+            this.menuItem2});
+            this.fileContextMenu.Popup += new System.EventHandler(this.fileContextMenu_Popup);
+            // 
+            // menuItem1
+            // 
+            this.menuItem1.Index = 0;
+            this.menuItem1.Text = "&Remove from Playlist";
+            this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
+            // 
+            // menuItem2
+            // 
+            this.menuItem2.Index = 1;
+            this.menuItem2.Text = "&Refresh";
+            this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
+            // 
             // searchTextBox
             // 
             this.searchTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
@@ -185,5 +206,7 @@
         private System.Windows.Forms.ListView playlistList;
         private System.Windows.Forms.ContextMenu fileContextMenu;
         private System.Windows.Forms.ToolStripDropDownButton currentFileButton;
+        private System.Windows.Forms.MenuItem menuItem1;
+        private System.Windows.Forms.MenuItem menuItem2;
     }
 }

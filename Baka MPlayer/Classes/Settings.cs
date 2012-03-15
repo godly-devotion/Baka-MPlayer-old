@@ -1,19 +1,19 @@
 /****************************
 * Settings (by Joshua Park) *
-* updated 2/18/2012         *
+* updated 3/8/2012          *
 ****************************/
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Data;
-using System.Collections;
 using System.Windows.Forms;
 
 public class Setting
 {
     public string Name;
-    public string Value;
+    public object Value;
 
-    public Setting(string name, string value)
+    public Setting(string name, object value)
     {
         this.Name = name;
         this.Value = value;
@@ -27,38 +27,19 @@ public class Settings
     /// </summary>
     private void defaultSettings()
     {
-        // Names: settings[0].Add(/* Setting Name */);
-        settings[0] = new ArrayList
-        {
-            "LastFile",
-            "ShowIcon",
-            "Volume",
-            "ShowTimeRemaining",
-            "MinimizeToTray",
-            "HidePopup",
-            "LastUpdated"
-        };
-
-        // Values: settings[1].Add(/* Setting Value */);
-        settings[1] = new ArrayList
-        {
-            "",
-            true,
-            50,
-            true,
-            false,
-            false,
-            -1
-        };
+        settings.Clear();
+        settings.Add(new Setting("LastFile", ""));
+        settings.Add(new Setting("ShowIcon", true));
+        settings.Add(new Setting("Volume", 50));
+        settings.Add(new Setting("ShowTimeRemaining", true));
+        settings.Add(new Setting("MinimizeToTray", false));
+        settings.Add(new Setting("HidePopup", false));
     }
 
     #region Global Objects
 
-    // 2D array of ArrayList of settings
-    //   string   object
-    // [   0   ][    1   ]
-    // [ names ][ values ]
-    private ArrayList[] settings = new ArrayList[2];
+    // Array of Settings
+    private readonly List<Setting> settings = new List<Setting>();
 
     // Appends to the end of the file to create the xml config file name.
     private const string xmlExtention = ".xml";
@@ -100,11 +81,8 @@ public class Settings
         configDataTable = new DataTable("ConfigDataTable");
         configDataSet = new DataSet();
 
-        /*IEnumerator enmName = settings[0].GetEnumerator();
-        while (enmName.MoveNext())
-            configDataTable.Columns.Add((string)enmName.Current, enmName.Current.GetType());*/
-        for (int i = 0; i < settings[0].Count; i++)
-            configDataTable.Columns.Add((string)settings[0][i], settings[1][i].GetType());
+        foreach (Setting s in settings)
+            configDataTable.Columns.Add(s.Name, s.Value.GetType());
 
         configDataSet.Tables.Add(this.configDataTable);
     }
@@ -123,14 +101,13 @@ public class Settings
         {
             try
             {
-                // clear all settings
-                settings[1].Clear();
+                defaultSettings();
                 configDataSet = new DataSet();
                 configDataSet.ReadXml(AppPath + xmlExtention);
                 DataRow r = configDataSet.Tables[0].Rows[0];
 
-                for (int i = 0; i < settings[0].Count; i++)
-                    settings[1].Add(r[i]);
+                for (int i = 0; i < settings.Count; i++)
+                    settings[i].Value = r[i];
 
                 configDataSet.Dispose();
             }
@@ -149,10 +126,7 @@ public class Settings
     /// </summary>
     public string GetStringValue(string name)
     {
-        int index = settings[0].IndexOf(name);
-        if (index.Equals(-1))
-            throw new Exception(string.Format("\"{0}\" is not a valid setting!", name));
-        return settings[1][index].ToString();
+        return (string)settings.Find(item => item.Name.Equals(name)).Value;
     }
 
     /// <summary>
@@ -160,10 +134,7 @@ public class Settings
     /// </summary>
     public int GetIntValue(string name)
     {
-        int index = settings[0].IndexOf(name);
-        if (index.Equals(-1))
-            throw new Exception(string.Format("\"{0}\" is not a valid setting!", name));
-        return Convert.ToInt32(settings[1][index]);
+        return Convert.ToInt32(settings.Find(item => item.Name.Equals(name)).Value);
     }
 
     /// <summary>
@@ -171,10 +142,7 @@ public class Settings
     /// </summary>
     public bool GetBoolValue(string name)
     {
-        int index = settings[0].IndexOf(name);
-        if (index.Equals(-1))
-            throw new Exception(string.Format("\"{0}\" is not a valid setting!", name));
-        return Convert.ToBoolean(settings[1][index]);
+        return Convert.ToBoolean(settings.Find(item => item.Name.Equals(name)).Value);
     }
 
     /// <summary>
@@ -182,7 +150,7 @@ public class Settings
     /// </summary>
     public void SetConfig(object value, string name)
     {
-        settings[1][settings[0].IndexOf(name)] = Convert.ChangeType(value, value.GetType());
+        settings.Find(item => item.Name.Equals(name)).Value = Convert.ChangeType(value, value.GetType());
     }
 
     /// <summary>
@@ -194,8 +162,8 @@ public class Settings
         BuildSchema();
         DataRow r = configDataSet.Tables[0].NewRow();
 
-        for (int i = 0; i < settings[0].Count; i++)
-            r[(string)settings[0][i]] = Convert.ChangeType(settings[1][i], settings[1][i].GetType());
+        foreach (Setting item in settings)
+            r[item.Name] = Convert.ChangeType(item.Value, item.Value.GetType());
 
         configDataSet.Tables["ConfigDataTable"].Rows.Add(r);
         configDataSet.WriteXml(AppPath + xmlExtention);

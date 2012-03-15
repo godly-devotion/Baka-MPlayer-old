@@ -1,6 +1,6 @@
 ﻿/************************************
 * MPlayer (by Joshua Park & u8sand) *
-* updated 2/28/2012                 *
+* updated 3/15/2012                 *
 ************************************/
 using System;
 using System.Diagnostics;
@@ -42,7 +42,7 @@ public class MPlayer
 
             if (mplayer != null)
             {
-                SendCommand("loadfile \"{0}\"", url.Replace("\\", "\\\\")); // open file
+                SendCommand("loadfile \"{0}\"", url.Replace("\\", "/")); // open file
                 parsingHeader = true;
                 mainForm.ClearOutput();
                 return true;
@@ -135,7 +135,17 @@ public class MPlayer
     public string GetMPlayerInfo()
     {
         string strResp = mplayer.Responding ? "" : " - Not Responding";
-        return string.Format("MPlayer's ID: {0}{1}", mplayer.Id, strResp);
+        return string.Format("MPlayer's Process ID: {0}{1}", mplayer.Id, strResp);
+    }
+
+    private void SetPlayState(PlayStates newState, bool callPlayStateChanged)
+    {
+        if (Info.Current.PlayState == newState)
+            return;
+
+        Info.Current.PlayState = newState;
+        if (callPlayStateChanged)
+            mainForm.CallPlayStateChanged();
     }
 
     public bool Close()
@@ -172,8 +182,7 @@ public class MPlayer
     public bool Stop()
     {
         ignoreUpdate = true;
-        Info.Current.PlayState = PlayStates.Stopped;
-        mainForm.CallPlayStateChanged();
+        SetPlayState(PlayStates.Stopped, true);
 
         return SendCommand("pausing seek 0 2");
     }
@@ -242,27 +251,21 @@ public class MPlayer
 
     private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
     {
-		if (!cachingFonts && (e.Data.StartsWith("[") && e.Data.Contains("/")))
+        //[fontconfig] Scanning dir C:/Windows/Fonts
+        if (!cachingFonts && e.Data.StartsWith("[fontconfig]"))
 		{
             cachingFonts = true;
             mainForm.CallSetStatus("Caching fonts...", true);
 		}
-		
-		if (cachingFonts)
+		else if (cachingFonts && e.Data.StartsWith("["))
 		{
-		    mainForm.CallSetStatus("Caching fonts: " + e.Data, true);
-            int current, total;
-            int pos1 = e.Data.IndexOf('/');
-            int pos2 = e.Data.IndexOf(']');
-
-            int.TryParse(e.Data.Substring(1, pos1-1), out current);
-            int.TryParse(e.Data.Substring(pos1+1, pos2 - pos1 - 1), out total);
-
-            if (current.Equals(total))
+            if (e.Data.StartsWith("[fontconfig]"))
             {
                 cachingFonts = false;
                 mainForm.CallSetStatus("Fonts finished caching", false);
             }
+            else
+                mainForm.CallSetStatus("Caching fonts: " + e.Data, true);
 		}
     }
 
@@ -333,16 +336,18 @@ public class MPlayer
         }
         if (Info.Current.PlayState != PlayStates.Playing)
         {
-            Info.Current.PlayState = PlayStates.Playing;
-            mainForm.CallPlayStateChanged();
+            // check current playstate
+            SendCommand("get_property pause");
         }
 
         double sec;
         double.TryParse(time.Substring(2, time.IndexOf('.')).Trim(), out sec);
-        Info.Current.Duration = sec;
-        
-        if (!mainForm.IsDisposed)
+
+        if (sec > 0.0)
+        {
+            Info.Current.Duration = sec;
             mainForm.CallDurationChanged();
+        }
     }
 
     private bool ProcessDetails(string key, string value)
@@ -438,13 +443,17 @@ public class MPlayer
 
     private void ProcessOther(string output)
     {
-        if (output.StartsWith("ID_PAUSED"))
+        if (output.StartsWith("ID_PAUSED") || output.StartsWith("ANS_pause=yes"))
         {
-            Info.Current.PlayState = PlayStates.Paused;
-            mainForm.CallPlayStateChanged();
+            SetPlayState(PlayStates.Paused, true);
+        }
+        else if (output.StartsWith("ANS_pause=no"))
+        {
+            SetPlayState(PlayStates.Playing, true);
         }
         else if (output.StartsWith("EOF code: 1")) //EOF code: 4 ??
         {
+            Info.Current.PlayState = PlayStates.Ended;
             mainForm.CallMediaEnded();
         }
         else
@@ -454,31 +463,31 @@ public class MPlayer
     }
     private void ParseClipInfo(string data)
     {
-        if (data.StartsWith(" album_artist:"))
+        if (data.StartsWith("album_artist:"))
             Info.ID3Tags.Album_Artist = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith(" encoder:"))
+        else if (data.StartsWith("encoder:"))
             Info.ID3Tags.Encoder = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith(" artist:"))
+        else if (data.StartsWith("artist:"))
             Info.ID3Tags.Artist = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith(" genre:"))
+        else if (data.StartsWith("genre:"))
             Info.ID3Tags.Genre = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith(" track:"))
+        else if (data.StartsWith("track:"))
         {
             int track;
             int.TryParse(data.Substring(data.IndexOf(": ") + 1), out track);
             Info.ID3Tags.Track = track;
         }
-        else if (data.StartsWith(" disk:"))
+        else if (data.StartsWith("disk:"))
         {
             int disk;
             int.TryParse(data.Substring(data.IndexOf(": ") + 1), out disk);
             Info.ID3Tags.Disc = disk;
         }
-        else if (data.StartsWith(" title:"))
+        else if (data.StartsWith("title:"))
             Info.ID3Tags.Title = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith(" album:"))
+        else if (data.StartsWith("album:"))
             Info.ID3Tags.Album = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith(" date:"))
+        else if (data.StartsWith("date:"))
             Info.ID3Tags.Date = data.Substring(data.IndexOf(": ") + 1);
         else if (data.StartsWith("ID_CLIP_INFO_N"))
             parsingClipInfo = false;

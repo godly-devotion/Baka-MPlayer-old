@@ -15,6 +15,10 @@ namespace Baka_MPlayer.Forms
 
             Display(info);
         }
+        private void UpdateForm_Load(object sender, System.EventArgs e)
+        {
+            this.MinimumSize = this.Size;
+        }
 
         private void Display(UpdateInfo info)
         {
