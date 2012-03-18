@@ -382,22 +382,29 @@ namespace Baka_MPlayer.Forms
         #region Embbed Font
 
         private static System.Drawing.Text.PrivateFontCollection fonts;
+        private static FontFamily NewFont_FF;
 
-        private static Font CreateFont()
+        private static Font CreateFont(string name, FontStyle style, float size, GraphicsUnit unit)
         {
+            // create a new font collection
             fonts = new System.Drawing.Text.PrivateFontCollection();
-            byte[] fontData = Properties.Resources.LCD;
-            IntPtr fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
-            Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
-            fonts.AddMemoryFont(fontPtr, fontData.Length);
-            Marshal.FreeCoTaskMem(fontPtr);
+            // add the font file to the new font
+            // "name" is the qualified path to your font file
+            fonts.AddFontFile(name);
+            // retrieve your new font
+            NewFont_FF = fonts.Families[0];
 
-            return new Font(fonts.Families[0], 11.25f, FontStyle.Bold, GraphicsUnit.Point);
+            return new Font(NewFont_FF, size, style, unit);
         }
 
         private void SetLCDFont()
-        {            
-            var fontLCD = CreateFont();
+        {
+            var fontFile = Application.StartupPath + @"\LCD.ttf";
+
+            if (!File.Exists(fontFile))
+                File.WriteAllBytes(fontFile, Properties.Resources.LCD);
+
+            var fontLCD = CreateFont(fontFile, FontStyle.Bold, 11.25f, GraphicsUnit.Point);
 
             // set fonts
             durationLabel.Font = fontLCD;
