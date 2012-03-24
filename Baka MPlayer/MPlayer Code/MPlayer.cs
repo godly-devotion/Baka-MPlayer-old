@@ -1,6 +1,6 @@
 ﻿/************************************
 * MPlayer (by Joshua Park & u8sand) *
-* updated 3/15/2012                 *
+* updated 3/24/2012                 *
 ************************************/
 using System;
 using System.Diagnostics;
@@ -238,6 +238,14 @@ public class MPlayer
         return SendCommand("seek_chapter {0} 1", index);
     }
     /// <summary>
+    /// Switches the audio track to the index specified
+    /// </summary>
+    /// <param name="index">Based on zero index</param>
+    public bool SetAudioTrack(int index)
+    {
+        return SendCommand("switch_audio {0}", index);
+    }
+    /// <summary>
     /// Shows [text] on the OSD (on screen display)
     /// </summary>
     public bool ShowStatus(string text)
@@ -290,7 +298,7 @@ public class MPlayer
                 return;
             }
 
-            if (e.Data.StartsWith("ID_"))
+            if (e.Data.StartsWith("ID_") && !e.Data.StartsWith("ID_PAUSED"))
             {
                 // Parsing "ID_*"
                 var key = e.Data.Substring(0, e.Data.IndexOf('='));
