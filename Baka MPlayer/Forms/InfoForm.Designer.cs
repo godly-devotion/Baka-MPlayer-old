@@ -325,7 +325,6 @@
             this.musicTrack.ReadOnly = true;
             this.musicTrack.Size = new System.Drawing.Size(174, 23);
             this.musicTrack.TabIndex = 9;
-            this.musicTrack.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // TrackLabel
             // 
@@ -472,6 +471,7 @@
             // 
             this.closeButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.closeButton.BackColor = System.Drawing.Color.Transparent;
+            this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.closeButton.FlatAppearance.BorderColor = System.Drawing.Color.DeepSkyBlue;
             this.closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
             this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;

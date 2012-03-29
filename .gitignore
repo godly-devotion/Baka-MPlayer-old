@@ -1,4 +1,4 @@
-# Updated 3/18/2012
+# Updated 3/29/2012
 
 # Project files
 *.suo
@@ -9,3 +9,6 @@ _ReSharper.Baka MPlayer/
 # Debug output
 Baka MPlayer/bin/Debug/Baka MPlayer*
 Baka MPlayer/bin/Debug/*.ttf
+
+# Release output
+Baka MPlayer/bin/Release/

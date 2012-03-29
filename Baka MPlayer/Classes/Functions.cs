@@ -1,6 +1,6 @@
 ﻿/*****************************
 * Functions (by Joshua Park) *
-* updated 3/8/2012           *
+* updated 3/27/2012          *
 *****************************/
 using System;
 using System.Runtime.InteropServices;
@@ -64,6 +64,11 @@ public static class Functions
         {
             return ex.Message;
         }
+    }
+
+    public static string ToTitleCase(string input)
+    {
+        return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(input);
     }
 
     public static string DecodeURL(string input)

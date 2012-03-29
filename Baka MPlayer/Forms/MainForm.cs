@@ -174,7 +174,11 @@ namespace Baka_MPlayer.Forms
 
         private void SetNotifyIconText(string text)
         {
-            if (text.Length >= 128) throw new ArgumentOutOfRangeException("Text limited to 127 characters");
+            if (text.Length > 127)
+            {
+                //throw new ArgumentOutOfRangeException("Text limited to 127 characters");
+                text = text.Substring(0, 127);
+            }
             var t = typeof(NotifyIcon);
             const BindingFlags hidden = BindingFlags.NonPublic | BindingFlags.Instance;
             t.GetField("text", hidden).SetValue(trayIcon, text);
@@ -668,6 +672,8 @@ namespace Baka_MPlayer.Forms
         }
         private void takeAction(string speechCommand)
         {
+            SetStatus("Voice Command: " + Functions.ToTitleCase(speechCommand), false);
+
             switch (speechCommand)
             {
                 case "open":
@@ -763,9 +769,7 @@ namespace Baka_MPlayer.Forms
                 case MouseButtons.Middle:
                     if (!string.IsNullOrEmpty(Info.URL))
                     {
-                        mplayer.Pause(false);
                         var jumpForm = new JumpForm();
-
                         if (jumpForm.ShowDialog(this) == DialogResult.OK)
                         {
                             mplayer.Seek(jumpForm.GetNewTime);
@@ -1269,11 +1273,14 @@ namespace Baka_MPlayer.Forms
             playlistToolStripMenuItem.Checked = false;
         }
 
+        private void frameStepToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mplayer.SendCommand("frame_step");
+        }
+
         private void jumpToTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.Pause(false);
             var jumpForm = new JumpForm();
-
             if (jumpForm.ShowDialog(this) == DialogResult.OK)
             {
                 mplayer.Seek(jumpForm.GetNewTime);
@@ -1855,6 +1862,8 @@ namespace Baka_MPlayer.Forms
                 albumArtPicbox.Visible = false;
                 mplayerPanel.Visible = true;
 
+                frameStepToolStripMenuItem.Enabled = true;
+                fullScreenToolStripMenuItem.Enabled = true;
                 hideAlbumArtToolStripMenuItem.Checked = false;
                 hideAlbumArtToolStripMenuItem_Click(null, null);
                 hideAlbumArtToolStripMenuItem.Enabled = false;
@@ -1866,6 +1875,8 @@ namespace Baka_MPlayer.Forms
                 mplayerPanel.Visible = false;
                 albumArtPicbox.Visible = true;
 
+                frameStepToolStripMenuItem.Enabled = false;
+                fullScreenToolStripMenuItem.Enabled = false;
                 hideAlbumArtToolStripMenuItem.Enabled = true;
                 takeSnapshotToolStripMenuItem.Enabled = false;
 
@@ -2102,9 +2113,7 @@ namespace Baka_MPlayer.Forms
             restartToolStripMenuItem.Enabled = true;
             jumpToTimeToolStripMenuItem.Enabled = true;
 
-            fullScreenToolStripMenuItem.Enabled = Info.VideoInfo.HasVideo;
             fitToVideoToolStripMenuItem.Enabled = true;
-            takeSnapshotToolStripMenuItem.Enabled = Info.VideoInfo.HasVideo;
             sayMediaNameToolStripMenuItem.Enabled = true;
             mediaInfoToolStripMenuItem.Enabled = true;
 

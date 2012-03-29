@@ -25,6 +25,7 @@ namespace Baka_MPlayer.Forms
 
         public void RefreshInfo()
         {
+            nameLabel.Text = Path.GetFileNameWithoutExtension(Info.URL);
             setInfoList();
             setID3Tags();
         }
@@ -56,6 +57,25 @@ namespace Baka_MPlayer.Forms
         {
             this.Close();
         }
+
+        #region Paint Methods
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            var formGraphics = e.Graphics;
+            var gradientBrush = new LinearGradientBrush(this.ClientRectangle, Color.FromArgb(255, 30, 30, 30), Color.Black, LinearGradientMode.Vertical);
+            formGraphics.FillRectangle(gradientBrush, this.ClientRectangle);
+        }
+
+        private void tabPages_Paint(object sender, PaintEventArgs e)
+        {
+            var tab = (TabPage)sender;
+            var formGraphics = e.Graphics;
+            var gradientBrush = new LinearGradientBrush(tab.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical);
+            formGraphics.FillRectangle(gradientBrush, ClientRectangle);
+        }
+
+        #endregion
 
         #region InfoList Code
 
@@ -129,25 +149,6 @@ namespace Baka_MPlayer.Forms
 
         #endregion
 
-        #region Paint Methods
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            var formGraphics = e.Graphics;
-            var gradientBrush = new LinearGradientBrush(this.ClientRectangle, Color.FromArgb(255, 30, 30, 30), Color.Black, LinearGradientMode.Vertical);
-            formGraphics.FillRectangle(gradientBrush, this.ClientRectangle);
-        }
-
-        private void tabPages_Paint(object sender, PaintEventArgs e)
-        {
-            var tab = (TabPage)sender;
-            var formGraphics = e.Graphics;
-            var gradientBrush = new LinearGradientBrush(tab.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical);
-            formGraphics.FillRectangle(gradientBrush, ClientRectangle);
-        }
-
-        #endregion
-
         #region Set Data
 
         private void setInfoList()
@@ -158,7 +159,7 @@ namespace Baka_MPlayer.Forms
             {
                 infoList.Items.Add(info.ID).SubItems.Add(info.Value);
             }
-            infoList.AutoResizeColumn(1, ColumnHeaderAutoResizeStyle.ColumnContent);
+            infoList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         private void setID3Tags()
@@ -170,9 +171,18 @@ namespace Baka_MPlayer.Forms
             musicTrack.Text = Info.ID3Tags.Track.ToString();
             musicGenre.Text = Info.ID3Tags.Genre;
             musicComment.Text = Info.ID3Tags.Comment;
-
+            
             // album art
-
+            if (Info.ID3Tags.AlbumArt == null)
+            {
+                saveImgLabel.Enabled = false;
+                AlbumArt = null;
+            }
+            else
+            {
+                saveImgLabel.Enabled = true;
+                AlbumArt = Info.ID3Tags.AlbumArt;
+            }
         }
 
         private Image AlbumArt

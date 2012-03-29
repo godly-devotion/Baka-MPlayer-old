@@ -1,6 +1,6 @@
 ﻿/************************************
 * MPlayer (by Joshua Park & u8sand) *
-* updated 3/24/2012                 *
+* updated 3/27/2012                 *
 ************************************/
 using System;
 using System.Diagnostics;
@@ -471,34 +471,45 @@ public class MPlayer
     }
     private void ParseClipInfo(string data)
     {
-        if (data.StartsWith("album_artist:"))
-            Info.ID3Tags.Album_Artist = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith("encoder:"))
-            Info.ID3Tags.Encoder = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith("artist:"))
-            Info.ID3Tags.Artist = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith("genre:"))
-            Info.ID3Tags.Genre = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith("track:"))
+        data = data.Trim();
+
+        var i = data.IndexOf(": ");
+
+        if (i < 1)
+        {
+            if (data.StartsWith("ID_CLIP_INFO_N="))
+                parsingClipInfo = false;
+            return;
+        }
+
+        var s = data.Substring(i+2);
+
+        if (data.ToLower().StartsWith("album_artist:"))
+            Info.ID3Tags.Album_Artist = s;
+        else if (data.ToLower().StartsWith("encoder:"))
+            Info.ID3Tags.Encoder = s;
+        else if (data.ToLower().StartsWith("artist:"))
+            Info.ID3Tags.Artist = s;
+        else if (data.ToLower().StartsWith("genre:"))
+            Info.ID3Tags.Genre = s;
+        else if (data.ToLower().StartsWith("track:"))
         {
             int track;
-            int.TryParse(data.Substring(data.IndexOf(": ") + 1), out track);
+            int.TryParse(s, out track);
             Info.ID3Tags.Track = track;
         }
-        else if (data.StartsWith("disk:"))
+        else if (data.ToLower().StartsWith("disk:"))
         {
             int disk;
-            int.TryParse(data.Substring(data.IndexOf(": ") + 1), out disk);
+            int.TryParse(s, out disk);
             Info.ID3Tags.Disc = disk;
         }
-        else if (data.StartsWith("title:"))
-            Info.ID3Tags.Title = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith("album:"))
-            Info.ID3Tags.Album = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith("date:"))
-            Info.ID3Tags.Date = data.Substring(data.IndexOf(": ") + 1);
-        else if (data.StartsWith("ID_CLIP_INFO_N"))
-            parsingClipInfo = false;
+        else if (data.ToLower().StartsWith("title:"))
+            Info.ID3Tags.Title = s;
+        else if (data.ToLower().StartsWith("album:"))
+            Info.ID3Tags.Album = s;
+        else if (data.ToLower().StartsWith("date:"))
+            Info.ID3Tags.Date = s;
     }
     private void Exited(object sender, EventArgs e)
     {

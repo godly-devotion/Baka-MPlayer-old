@@ -159,6 +159,7 @@
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
+            this.frameStepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.speechButton)).BeginInit();
@@ -384,6 +385,7 @@
             this.repeatToolStripMenuItem,
             this.stopAftercurrentToolStripMenuItem,
             this.toolStripSeparator7,
+            this.frameStepToolStripMenuItem,
             this.jumpToTimeToolStripMenuItem});
             this.playbackToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.playbackToolStripMenuItem.Name = "playbackToolStripMenuItem";
@@ -439,7 +441,7 @@
             this.shuffleToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.shuffleToolStripMenuItem.Name = "shuffleToolStripMenuItem";
             this.shuffleToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.shuffleToolStripMenuItem.Text = "Shu&ffle";
+            this.shuffleToolStripMenuItem.Text = "Shuff&le";
             this.shuffleToolStripMenuItem.Click += new System.EventHandler(this.shuffleToolStripMenuItem_Click);
             // 
             // repeatToolStripMenuItem
@@ -460,26 +462,26 @@
             this.offToolStripMenuItem.Checked = true;
             this.offToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-            this.offToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.offToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.offToolStripMenuItem.Text = "&Off";
             this.offToolStripMenuItem.Click += new System.EventHandler(this.offToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(114, 6);
             // 
             // playlistToolStripMenuItem
             // 
             this.playlistToolStripMenuItem.Name = "playlistToolStripMenuItem";
-            this.playlistToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.playlistToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.playlistToolStripMenuItem.Text = "&Playlist";
             this.playlistToolStripMenuItem.Click += new System.EventHandler(this.playlistToolStripMenuItem_Click);
             // 
             // thisFileToolStripMenuItem
             // 
             this.thisFileToolStripMenuItem.Name = "thisFileToolStripMenuItem";
-            this.thisFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.thisFileToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
             this.thisFileToolStripMenuItem.Text = "&This File";
             this.thisFileToolStripMenuItem.Click += new System.EventHandler(this.thisFileToolStripMenuItem_Click);
             // 
@@ -1428,6 +1430,15 @@
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
             // 
+            // frameStepToolStripMenuItem
+            // 
+            this.frameStepToolStripMenuItem.Enabled = false;
+            this.frameStepToolStripMenuItem.Name = "frameStepToolStripMenuItem";
+            this.frameStepToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.frameStepToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.frameStepToolStripMenuItem.Text = "&Frame Step";
+            this.frameStepToolStripMenuItem.Click += new System.EventHandler(this.frameStepToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -1609,6 +1620,7 @@
         private System.Windows.Forms.ToolStripMenuItem specifyBlurayDriveLetterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem playDVDToolStripMenuItem;
         private System.Windows.Forms.Timer cursorTimer;
+        private System.Windows.Forms.ToolStripMenuItem frameStepToolStripMenuItem;
     }
 }
 
