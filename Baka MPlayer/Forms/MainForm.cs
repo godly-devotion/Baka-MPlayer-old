@@ -1249,7 +1249,16 @@ namespace Baka_MPlayer.Forms
 
         private void shuffleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (shuffleToolStripMenuItem.Checked)
+            {
+                playlist.Shuffle();
+                SetBackForwardControls();
+            }
+            else
+            {
+                playlist.refreshRequired = true;
+                playlist.SetPlaylist();
+            }
         }
 
         private void offToolStripMenuItem_Click(object sender, EventArgs e)

@@ -40,26 +40,28 @@
             this.fileContextMenu = new System.Windows.Forms.ContextMenu();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this.seperatorBox = new System.Windows.Forms.PictureBox();
             this.searchTextBox = new Baka_MPlayer.Controls.CustomTextBox();
             this.playlistStatusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.seperatorBox)).BeginInit();
             this.SuspendLayout();
             // 
             // playlistList
             // 
+            this.playlistList.AllowDrop = true;
             this.playlistList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.playlistList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.playlistList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.playlistHeader});
             this.playlistList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.playlistList.ForeColor = System.Drawing.Color.White;
-            this.playlistList.FullRowSelect = true;
             this.playlistList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.playlistList.HideSelection = false;
-            this.playlistList.Location = new System.Drawing.Point(0, 27);
+            this.playlistList.Location = new System.Drawing.Point(0, 22);
             this.playlistList.MultiSelect = false;
             this.playlistList.Name = "playlistList";
             this.playlistList.ShowGroups = false;
-            this.playlistList.Size = new System.Drawing.Size(170, 253);
+            this.playlistList.Size = new System.Drawing.Size(170, 258);
             this.playlistList.TabIndex = 2;
             this.playlistList.TabStop = false;
             this.playlistList.UseCompatibleStateImageBehavior = false;
@@ -159,16 +161,26 @@
             this.menuItem2.Text = "&Refresh";
             this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
             // 
+            // seperatorBox
+            // 
+            this.seperatorBox.BackColor = System.Drawing.Color.SteelBlue;
+            this.seperatorBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.seperatorBox.Location = new System.Drawing.Point(0, 20);
+            this.seperatorBox.Name = "seperatorBox";
+            this.seperatorBox.Size = new System.Drawing.Size(170, 2);
+            this.seperatorBox.TabIndex = 4;
+            this.seperatorBox.TabStop = false;
+            // 
             // searchTextBox
             // 
             this.searchTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.searchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.searchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.searchTextBox.CueText = "Search Playlist";
             this.searchTextBox.Dock = System.Windows.Forms.DockStyle.Top;
             this.searchTextBox.ForeColor = System.Drawing.Color.White;
             this.searchTextBox.Location = new System.Drawing.Point(0, 0);
             this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.Size = new System.Drawing.Size(170, 27);
+            this.searchTextBox.Size = new System.Drawing.Size(170, 20);
             this.searchTextBox.TabIndex = 0;
             this.searchTextBox.TabStop = false;
             this.searchTextBox.TextChanged += new System.EventHandler(this.searchTextBox_TextChanged);
@@ -180,6 +192,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.Controls.Add(this.playlistList);
+            this.Controls.Add(this.seperatorBox);
             this.Controls.Add(this.playlistStatusStrip);
             this.Controls.Add(this.searchTextBox);
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -189,6 +202,7 @@
             this.Size = new System.Drawing.Size(170, 303);
             this.playlistStatusStrip.ResumeLayout(false);
             this.playlistStatusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.seperatorBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,5 +222,6 @@
         private System.Windows.Forms.ToolStripDropDownButton currentFileButton;
         private System.Windows.Forms.MenuItem menuItem1;
         private System.Windows.Forms.MenuItem menuItem2;
+        private System.Windows.Forms.PictureBox seperatorBox;
     }
 }

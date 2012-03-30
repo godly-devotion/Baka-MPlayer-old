@@ -119,7 +119,7 @@ namespace Baka_MPlayer.Controls
 
             if (refreshRequired)
                 mainForm.SetShuffleCheckState(false);
-            refreshRequired = false; // Note: TESTING HERE **************************************************
+            refreshRequired = false;
 
             // set playlist index
             GetPlaylistIndex = SelectedIndex;
@@ -143,6 +143,32 @@ namespace Baka_MPlayer.Controls
                 if (files[i].Name.EndsWith(".db") == false)
                     playlistList.Items.Add(files[i].Name);
             }
+        }
+
+        public void Shuffle()
+        {
+            var randomGen = new Random();
+            var maxVal = playlistList.Items.Count;
+
+            playlistList.BeginUpdate();
+            // make current file's index 0
+            var curItem = playlistList.Items[GetPlaylistIndex];
+            playlistList.Items.RemoveAt(curItem.Index);
+            playlistList.Items.Insert(0, curItem);
+
+            for (int i = 1; i <= maxVal - 1; i++)
+            {
+                // generate random number
+                var index = randomGen.Next(1, maxVal);
+                var item = playlistList.Items[i];
+                playlistList.Items.RemoveAt(item.Index);
+                playlistList.Items.Insert(index, item);
+            }
+            playlistList.EndUpdate();
+            refreshRequired = false;
+            // current playing file is now first
+            SelectedIndex = 0;
+            GetPlaylistIndex = 0;
         }
 
         private void PlaySelectedItem()
@@ -175,32 +201,6 @@ namespace Baka_MPlayer.Controls
         {
             if (GetPlaylistIndex < GetTotalItems - 1)
                 PlayFile(GetPlaylistIndex + 1);
-        }
-
-        public void Shuffle()
-        {
-            var randomGen = new Random();
-            var maxVal = playlistList.Items.Count;
-
-            playlistList.BeginUpdate();
-            // make current file's index 0
-            playlistList.Items.RemoveAt(SelectedIndex);
-            playlistList.Items.Insert(0, GetCurrentFile);
-
-            for (int i = 1; i <= maxVal - 1; i++)
-            {
-                // generate two random numbers
-                var index1 = randomGen.Next(1, maxVal);
-                var index2 = randomGen.Next(1, maxVal);
-                // swap the two items
-                var temp = playlistList.Items[index1];
-                playlistList.Items[index1] = playlistList.Items[index2];
-                playlistList.Items[index2] = temp;
-            }
-            playlistList.EndUpdate();
-            refreshRequired = false;
-            // current playing file is now first
-            SelectedIndex = 0;
         }
 
         public void RemoveAt(int index)
@@ -358,10 +358,8 @@ namespace Baka_MPlayer.Controls
                 var targetIndex = playlistList.Items.IndexOf(targetItem);
     
                 // If the insertion mark is not visible, exit the method.
-                if (targetIndex == -1)
-                {
+                if (targetIndex.Equals(-1))
                     return;
-                }
 
                 // Retrieve the dragged item.
                 var draggedItem = (ListViewItem)e.Data.GetData(typeof(ListViewItem));
@@ -390,6 +388,8 @@ namespace Baka_MPlayer.Controls
             {
                 var targetPoint = playlistList.PointToClient(new Point(e.X, e.Y));
                 var targetItem = playlistList.GetItemAt(targetPoint.X, targetPoint.Y);
+                if (targetItem == null)
+                    return;
                 var targetIndex = targetItem.Index;
                 var fromIndex = SelectedIndex;
 
