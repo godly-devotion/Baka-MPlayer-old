@@ -55,6 +55,7 @@
             this.playlistHeader});
             this.playlistList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.playlistList.ForeColor = System.Drawing.Color.White;
+            this.playlistList.FullRowSelect = true;
             this.playlistList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.playlistList.HideSelection = false;
             this.playlistList.Location = new System.Drawing.Point(0, 22);

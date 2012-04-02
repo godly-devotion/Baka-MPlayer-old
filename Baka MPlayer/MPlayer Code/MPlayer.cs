@@ -1,6 +1,6 @@
 ﻿/************************************
 * MPlayer (by Joshua Park & u8sand) *
-* updated 3/27/2012                 *
+* updated 4/1/2012                  *
 ************************************/
 using System;
 using System.Diagnostics;
@@ -484,32 +484,36 @@ public class MPlayer
 
         var s = data.Substring(i+2);
 
-        if (data.ToLower().StartsWith("album_artist:"))
-            Info.ID3Tags.Album_Artist = s;
-        else if (data.ToLower().StartsWith("encoder:"))
-            Info.ID3Tags.Encoder = s;
+        if (data.ToLower().StartsWith("title:"))
+            Info.ID3Tags.Title = s;
         else if (data.ToLower().StartsWith("artist:"))
             Info.ID3Tags.Artist = s;
-        else if (data.ToLower().StartsWith("genre:"))
-            Info.ID3Tags.Genre = s;
+        else if (data.ToLower().StartsWith("album:"))
+            Info.ID3Tags.Album = s;
+        else if (data.ToLower().StartsWith("date:"))
+            Info.ID3Tags.Date = s;
         else if (data.ToLower().StartsWith("track:"))
         {
             int track;
             int.TryParse(s, out track);
             Info.ID3Tags.Track = track;
         }
+        else if (data.ToLower().StartsWith("genre:"))
+            Info.ID3Tags.Genre = s;
+        else if (data.ToLower().StartsWith("description:"))
+            Info.ID3Tags.Description = s;
+        else if (data.ToLower().StartsWith("comment:"))
+            Info.ID3Tags.Comment = s;
+        else if (data.ToLower().StartsWith("album_artist:"))
+            Info.ID3Tags.Album_Artist = s;
+        else if (data.ToLower().StartsWith("encoder:"))
+            Info.ID3Tags.Encoder = s;
         else if (data.ToLower().StartsWith("disk:"))
         {
             int disk;
             int.TryParse(s, out disk);
             Info.ID3Tags.Disc = disk;
         }
-        else if (data.ToLower().StartsWith("title:"))
-            Info.ID3Tags.Title = s;
-        else if (data.ToLower().StartsWith("album:"))
-            Info.ID3Tags.Album = s;
-        else if (data.ToLower().StartsWith("date:"))
-            Info.ID3Tags.Date = s;
     }
     private void Exited(object sender, EventArgs e)
     {

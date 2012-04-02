@@ -66,6 +66,7 @@
             this.thisFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopAftercurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.frameStepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jumpToTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mediaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -159,7 +160,6 @@
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
-            this.frameStepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.speechButton)).BeginInit();
@@ -496,6 +496,15 @@
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
             this.toolStripSeparator7.Size = new System.Drawing.Size(196, 6);
+            // 
+            // frameStepToolStripMenuItem
+            // 
+            this.frameStepToolStripMenuItem.Enabled = false;
+            this.frameStepToolStripMenuItem.Name = "frameStepToolStripMenuItem";
+            this.frameStepToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
+            this.frameStepToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.frameStepToolStripMenuItem.Text = "&Frame Step";
+            this.frameStepToolStripMenuItem.Click += new System.EventHandler(this.frameStepToolStripMenuItem_Click);
             // 
             // jumpToTimeToolStripMenuItem
             // 
@@ -894,12 +903,14 @@
             // 
             this.toolStripSeparator14.Name = "toolStripSeparator14";
             this.toolStripSeparator14.Size = new System.Drawing.Size(181, 6);
+            this.toolStripSeparator14.Visible = false;
             // 
             // allOptionsToolStripMenuItem
             // 
             this.allOptionsToolStripMenuItem.Name = "allOptionsToolStripMenuItem";
             this.allOptionsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.allOptionsToolStripMenuItem.Text = "&All Options...";
+            this.allOptionsToolStripMenuItem.Visible = false;
             this.allOptionsToolStripMenuItem.Click += new System.EventHandler(this.allOptionsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -1429,15 +1440,6 @@
             // 
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
-            // 
-            // frameStepToolStripMenuItem
-            // 
-            this.frameStepToolStripMenuItem.Enabled = false;
-            this.frameStepToolStripMenuItem.Name = "frameStepToolStripMenuItem";
-            this.frameStepToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.frameStepToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.frameStepToolStripMenuItem.Text = "&Frame Step";
-            this.frameStepToolStripMenuItem.Click += new System.EventHandler(this.frameStepToolStripMenuItem_Click);
             // 
             // MainForm
             // 

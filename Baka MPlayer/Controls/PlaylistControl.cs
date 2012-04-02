@@ -93,17 +93,20 @@ namespace Baka_MPlayer.Controls
 
         public void SetPlaylist()
         {
+            // Set GetCurrentFile
+            GetCurrentFile = Path.GetFileName(Info.URL);
+            
             playlistList.BeginUpdate();
 
             if (File.Exists(Info.URL))
             {
                 if (!refreshRequired)
-                    refreshRequired = playlistList.FindItemWithText(Path.GetFileName(Info.URL)) == null;
+                    refreshRequired = playlistList.FindItemWithText(GetCurrentFile) == null;
 
                 if (refreshRequired)
                     FillPlaylist();
 
-                SelectedIndex = playlistList.FindItemWithText(Path.GetFileName(Info.URL)).Index;
+                SelectedIndex = playlistList.FindItemWithText(GetCurrentFile).Index;
                 mainForm.SetPlaylistButtonEnable(true);
                 mainForm.ShowPlaylist = (refreshRequired || mainForm.ShowPlaylist ) && GetTotalItems > 1;
             }
@@ -118,14 +121,15 @@ namespace Baka_MPlayer.Controls
             playlistList.EndUpdate();
 
             if (refreshRequired)
+            {
                 mainForm.SetShuffleCheckState(false);
-            refreshRequired = false;
+                refreshRequired = false;
+            }
 
             // set playlist index
             GetPlaylistIndex = SelectedIndex;
             mainForm.CallSetBackForwardControls();
         }
-
         private void FillPlaylist()
         {
             playlistList.Items.Clear();
@@ -153,22 +157,29 @@ namespace Baka_MPlayer.Controls
             playlistList.BeginUpdate();
             // make current file's index 0
             var curItem = playlistList.Items[GetPlaylistIndex];
-            playlistList.Items.RemoveAt(curItem.Index);
-            playlistList.Items.Insert(0, curItem);
+            playlistList.Items.Insert(0, (ListViewItem)curItem.Clone());
+            playlistList.Items.Remove(curItem);
 
             for (int i = 1; i <= maxVal - 1; i++)
             {
                 // generate random number
                 var index = randomGen.Next(1, maxVal);
                 var item = playlistList.Items[i];
-                playlistList.Items.RemoveAt(item.Index);
-                playlistList.Items.Insert(index, item);
+                playlistList.Items.Insert(index, (ListViewItem)item.Clone());
+                playlistList.Items.Remove(item);
             }
             playlistList.EndUpdate();
             refreshRequired = false;
             // current playing file is now first
             SelectedIndex = 0;
             GetPlaylistIndex = 0;
+        }
+
+        private void UpdatePlaylist()
+        {
+            GetPlaylistIndex = playlistList.FindItemWithText(GetCurrentFile).Index;
+            playlistList_SelectedIndexChanged(null, null);
+            mainForm.CallSetBackForwardControls();
         }
 
         private void PlaySelectedItem()
@@ -183,7 +194,6 @@ namespace Baka_MPlayer.Controls
             var currentDir = Path.GetDirectoryName(Info.URL);
             mplayer.OpenFile(string.Format("{0}\\{1}", currentDir, playlistList.Items[index].Text));
         }
-
         public void PlayFile(string name)
         {
             var currentDir = Path.GetDirectoryName(Info.URL);
@@ -196,7 +206,6 @@ namespace Baka_MPlayer.Controls
             if (GetPlaylistIndex > 0)
                 PlayFile(GetPlaylistIndex - 1);
         }
-
         public void PlayNextFile()
         {
             if (GetPlaylistIndex < GetTotalItems - 1)
@@ -213,8 +222,7 @@ namespace Baka_MPlayer.Controls
                     PlayNextFile();
             }
             playlistList.Items.RemoveAt(index);
-
-            playlistList_SelectedIndexChanged(null, null);
+            UpdatePlaylist();
         }
 
         public void RefreshPlaylist()
@@ -296,13 +304,10 @@ namespace Baka_MPlayer.Controls
         private void searchTextBox_TextChanged(object sender, EventArgs e)
         {
             // only one item, nothing to search
-            if (playlistList.Items.Count < 2) return;
+            if (GetTotalItems < 2) return;
 
             if (searchTextBox.TextLength > 0)
             {
-                /*var item = playlistList.FindItemWithText(searchTextBox.Text);
-                if (item != null)
-                    SelectedIndex = item.Index;*/
                 foreach (ListViewItem item in playlistList.Items)
                 {
                     if (item.Text.ToLower().Contains(searchTextBox.Text.ToLower()))
@@ -318,7 +323,7 @@ namespace Baka_MPlayer.Controls
 
         private void searchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Enter || playlistList.Items.Count < 2) return;
+            if (e.KeyCode != Keys.Enter || GetTotalItems < 2) return;
 
             var newURL = Path.GetDirectoryName(Info.URL) + '\\' + GetCurrentFile;
             if (SelectedIndex != -1 && newURL != Info.URL)
@@ -371,6 +376,8 @@ namespace Baka_MPlayer.Controls
 
                 // Remove the original copy of the dragged item.
                 playlistList.Items.Remove(draggedItem);
+
+                UpdatePlaylist();
             }
         }
 

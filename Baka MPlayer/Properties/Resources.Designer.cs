@@ -68,7 +68,7 @@ namespace Baka_MPlayer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *.mp3; *.ogg; *.wav; *.wma; *.ac3; *.ra; *.ape; *.flac; *.thd.
+        ///   Looks up a localized string similar to *.mp3; *.ogg; *.wav; *.wma; *.ac3; *.ape; *.flac; *.cue; *.thd; *.ra.
         /// </summary>
         internal static string AudioFiles {
             get {

@@ -19,6 +19,7 @@ namespace Baka_MPlayer.Forms
         {
             this.MinimumSize = this.Size;
             infoList.ContextMenu = infoContextMenu;
+            tagList.ContextMenu = tagContextMenu;
 
             RefreshInfo();
         }
@@ -79,10 +80,7 @@ namespace Baka_MPlayer.Forms
 
         #region InfoList Code
 
-        /// <summary>
-        /// Gets or sets the currently selected index
-        /// </summary>
-        public int SelectedIndex
+        public int infoList_SelectedIndex
         {
             get
             {
@@ -101,12 +99,11 @@ namespace Baka_MPlayer.Forms
                 }
             }
         }
-
         private void searchTextbox_TextChanged(object sender, EventArgs e)
         {
             if (searchTextbox.TextLength < 1)
             {
-                SelectedIndex = -1;
+                infoList_SelectedIndex = -1;
                 return;
             }
 
@@ -114,16 +111,15 @@ namespace Baka_MPlayer.Forms
             {
                 if (item.Text.Contains(searchTextbox.Text.ToUpper()))
                 {
-                    SelectedIndex = item.Index;
+                    infoList_SelectedIndex = item.Index;
                     infoList.TopItem = item;
                     break;
                 }
             }
         }
-
         private void infoContextMenu_Popup(object sender, EventArgs e)
         {
-            if (SelectedIndex > -1)
+            if (infoList_SelectedIndex > -1)
             {
                 menuItem1.Enabled = true;
                 menuItem2.Enabled = true;
@@ -134,17 +130,62 @@ namespace Baka_MPlayer.Forms
                 menuItem2.Enabled = false;
             }
         }
-
         private void menuItem1_Click(object sender, EventArgs e)
         {
             // Copy Info Type
-            Clipboard.SetText(infoList.Items[SelectedIndex].Text, TextDataFormat.UnicodeText);
+            Clipboard.SetText(infoList.Items[infoList_SelectedIndex].Text, TextDataFormat.UnicodeText);
         }
-
         private void menuItem2_Click(object sender, EventArgs e)
         {
             // Copy Info Value
-            Clipboard.SetText(infoList.Items[SelectedIndex].SubItems[1].Text, TextDataFormat.UnicodeText);
+            Clipboard.SetText(infoList.Items[infoList_SelectedIndex].SubItems[1].Text, TextDataFormat.UnicodeText);
+        }
+
+        #endregion
+
+        #region TagList Code
+
+        public int tagList_SelectedIndex
+        {
+            get
+            {
+                if (tagList.FocusedItem != null)
+                    return tagList.FocusedItem.Index;
+                return -1;
+            }
+            set
+            {
+                tagList.SelectedItems.Clear();
+
+                if (value > -1)
+                {
+                    tagList.Items[value].Selected = true;
+                    tagList.Items[value].Focused = true;
+                }
+            }
+        }
+        private void tagContextMenu_Popup(object sender, EventArgs e)
+        {
+            if (tagList_SelectedIndex > -1)
+            {
+                menuItem3.Enabled = true;
+                menuItem4.Enabled = true;
+            }
+            else
+            {
+                menuItem3.Enabled = false;
+                menuItem4.Enabled = false;
+            }
+        }
+        private void menuItem3_Click(object sender, EventArgs e)
+        {
+            // Copy Tag
+            Clipboard.SetText(tagList.Items[tagList_SelectedIndex].Text, TextDataFormat.UnicodeText);
+        }
+        private void menuItem4_Click(object sender, EventArgs e)
+        {
+            // Copy Tag Value
+            Clipboard.SetText(tagList.Items[tagList_SelectedIndex].SubItems[1].Text, TextDataFormat.UnicodeText);
         }
 
         #endregion
@@ -164,14 +205,19 @@ namespace Baka_MPlayer.Forms
 
         private void setID3Tags()
         {
-            musicTitle.Text = Info.ID3Tags.Title;
-            musicArtist.Text = Info.ID3Tags.Artist;
-            musicAlbum.Text = Info.ID3Tags.Album;
-            musicYear.Text = Info.ID3Tags.Date;
-            musicTrack.Text = Info.ID3Tags.Track.ToString();
-            musicGenre.Text = Info.ID3Tags.Genre;
-            musicComment.Text = Info.ID3Tags.Comment;
-            
+            tagList.Items.Clear();
+
+            addTagItem("Title", Info.ID3Tags.Title);
+            addTagItem("Artist", Info.ID3Tags.Artist);
+            addTagItem("Album", Info.ID3Tags.Album);
+            addTagItem("Year", Info.ID3Tags.Date);
+            addTagItem("Track", Info.ID3Tags.Track > 0 ?
+                Info.ID3Tags.Track.ToString() : string.Empty);
+            addTagItem("Genre", Info.ID3Tags.Genre);
+            addTagItem("Description", Info.ID3Tags.Description);
+            addTagItem("Comment", Info.ID3Tags.Comment);
+            tagList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
             // album art
             if (Info.ID3Tags.AlbumArt == null)
             {
@@ -185,6 +231,11 @@ namespace Baka_MPlayer.Forms
             }
         }
 
+        private void addTagItem(string tagName, string tagValue)
+        {
+            tagList.Items.Add(tagName).SubItems.Add(tagValue);
+        }
+
         private Image AlbumArt
         {
             set { albumArtPicbox.Image = value; }
@@ -192,5 +243,6 @@ namespace Baka_MPlayer.Forms
         }
 
         #endregion
+
     }
 }

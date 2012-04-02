@@ -1,6 +1,6 @@
 ﻿/*********************************
 * Info (by Joshua Park & u8sand) *
-* updated 3/15/2012              *
+* updated 4/1/2012               *
 *********************************/
 using System.Collections.Generic;
 using System.Drawing;
@@ -144,6 +144,7 @@ public static class Info
         public static string Album { get; set; }
         public static string Date { get; set; }
 		public static string Comment { get; set; }
+        public static string Description { get; set; }
 
         // Album Art image
         public static Bitmap AlbumArt { get; set; }
@@ -184,6 +185,8 @@ public static class Info
 		ID3Tags.Title = string.Empty;
 		ID3Tags.Album = string.Empty;
 		ID3Tags.Date = string.Empty;
+        ID3Tags.Comment = string.Empty;
+        ID3Tags.Description = string.Empty;
         // album art image
         ID3Tags.AlbumArt = null;
     }
