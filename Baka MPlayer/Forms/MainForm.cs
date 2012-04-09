@@ -1072,6 +1072,8 @@ namespace Baka_MPlayer.Forms
                     controlPanel.Hide();
                 }
             }
+            else
+                CursorShown = true;
         }
 
         private void cursorTimer_Tick(object sender, EventArgs e)

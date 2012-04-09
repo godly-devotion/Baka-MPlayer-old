@@ -1,9 +1,11 @@
 ﻿/*****************************
 * Functions (by Joshua Park) *
-* updated 3/27/2012          *
+* updated 4/5/2012           *
 *****************************/
 using System;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 public static class Functions
 {
@@ -81,6 +83,12 @@ public static class Functions
         if (max < toUse.Length)
             return toUse.Remove(max, toUse.Length - max) + "...";
         return toUse;
+    }
+
+    public static bool IsAlphanumeric(string text)
+    {
+        var r = new Regex("[a-zA-Z0-9]");
+        return r.IsMatch(text);
     }
 
     public static void CalculateTimeFromSeconds(double time, out int hour, out int min, out int sec)

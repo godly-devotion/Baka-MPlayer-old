@@ -138,7 +138,7 @@ public static class Info
         public static string Encoder { get; set; }
         public static string Artist { get; set; }
         public static string Genre { get; set; }
-        public static int Track { get; set; }
+        public static string Track { get; set; }
         public static int Disc { get; set; }
         public static string Title { get; set; }
         public static string Album { get; set; }
@@ -180,7 +180,7 @@ public static class Info
 		ID3Tags.Encoder = string.Empty;
 		ID3Tags.Artist = string.Empty;
 		ID3Tags.Genre = string.Empty;
-		ID3Tags.Track = 0;
+		ID3Tags.Track = string.Empty;
 		ID3Tags.Disc = 0;
 		ID3Tags.Title = string.Empty;
 		ID3Tags.Album = string.Empty;

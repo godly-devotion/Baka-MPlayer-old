@@ -71,6 +71,7 @@
             this.playlistList.DoubleClick += new System.EventHandler(this.playlistList_DoubleClick);
             this.playlistList.DragDrop += new System.Windows.Forms.DragEventHandler(this.playlistList_DragDrop);
             this.playlistList.DragEnter += new System.Windows.Forms.DragEventHandler(this.playlistList_DragEnter);
+            this.playlistList.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.playlistList_KeyPress);
             this.playlistList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.playlistList_KeyDown);
             this.playlistList.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.playlistList_ItemDrag);
             this.playlistList.DragOver += new System.Windows.Forms.DragEventHandler(this.playlistList_DragOver);

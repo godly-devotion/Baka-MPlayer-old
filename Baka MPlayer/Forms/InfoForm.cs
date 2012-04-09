@@ -211,8 +211,7 @@ namespace Baka_MPlayer.Forms
             addTagItem("Artist", Info.ID3Tags.Artist);
             addTagItem("Album", Info.ID3Tags.Album);
             addTagItem("Year", Info.ID3Tags.Date);
-            addTagItem("Track", Info.ID3Tags.Track > 0 ?
-                Info.ID3Tags.Track.ToString() : string.Empty);
+            addTagItem("Track", Info.ID3Tags.Track);
             addTagItem("Genre", Info.ID3Tags.Genre);
             addTagItem("Description", Info.ID3Tags.Description);
             addTagItem("Comment", Info.ID3Tags.Comment);

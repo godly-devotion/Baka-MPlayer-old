@@ -119,7 +119,7 @@
   </resheader>
   <data name="richTextBox4.Text" xml:space="preserve">
     <value>(Note: list does not include menu controls)
-~ Playback Controls ~
+- Playback Controls -
 [Spacebar] Play/Pause
 [Left Key] -5 seconds
 [Right Key] +5 seconds
@@ -128,15 +128,15 @@
 [Enter] Full Screen
 [Alt+Enter] Exit Full Screen
 
-~ Next/Previous File ~
+- Next/Previous File -
 [Ctrl+Left] Play Previous File
 [Ctrl+Right] Play Next File
 
-~ Volume ~
+- Volume -
 [Ctrl+Up] Increase Volume
 [Ctrl+Down] Decrease Volume
 
-~ Quick Action Controls ~
+- Quick Action Controls -
 [Shift Key] Say Media Name ("[Title] by [Artist]" or "[File Name]")</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />

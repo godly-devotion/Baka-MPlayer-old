@@ -493,11 +493,7 @@ public class MPlayer
         else if (data.ToLower().StartsWith("date:"))
             Info.ID3Tags.Date = s;
         else if (data.ToLower().StartsWith("track:"))
-        {
-            int track;
-            int.TryParse(s, out track);
-            Info.ID3Tags.Track = track;
-        }
+            Info.ID3Tags.Track = s;
         else if (data.ToLower().StartsWith("genre:"))
             Info.ID3Tags.Genre = s;
         else if (data.ToLower().StartsWith("description:"))

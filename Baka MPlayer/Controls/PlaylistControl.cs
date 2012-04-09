@@ -175,7 +175,7 @@ namespace Baka_MPlayer.Controls
             GetPlaylistIndex = 0;
         }
 
-        private void UpdatePlaylist()
+        private void UpdateUI()
         {
             GetPlaylistIndex = playlistList.FindItemWithText(GetCurrentFile).Index;
             playlistList_SelectedIndexChanged(null, null);
@@ -222,7 +222,7 @@ namespace Baka_MPlayer.Controls
                     PlayNextFile();
             }
             playlistList.Items.RemoveAt(index);
-            UpdatePlaylist();
+            UpdateUI();
         }
 
         public void RefreshPlaylist()
@@ -323,15 +323,16 @@ namespace Baka_MPlayer.Controls
 
         private void searchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Enter || GetTotalItems < 2) return;
+            if (e.KeyCode != Keys.Enter || SelectedIndex.Equals(-1)) return;
 
-            var newURL = Path.GetDirectoryName(Info.URL) + '\\' + GetCurrentFile;
-            if (SelectedIndex != -1 && newURL != Info.URL)
+            var newURL = Path.GetDirectoryName(Info.URL) + '\\' + playlistList.Items[SelectedIndex].Text;
+            if (newURL != Info.URL)
             {
                 if (File.Exists(newURL))
                 {
                     OpenFile(newURL);
                     searchTextBox.Text = string.Empty;
+                    playlistList.Focus();
                 }
                 else
                 {
@@ -377,7 +378,7 @@ namespace Baka_MPlayer.Controls
                 // Remove the original copy of the dragged item.
                 playlistList.Items.Remove(draggedItem);
 
-                UpdatePlaylist();
+                UpdateUI();
             }
         }
 
@@ -411,6 +412,15 @@ namespace Baka_MPlayer.Controls
         private void playlistList_ItemDrag(object sender, ItemDragEventArgs e)
         {
             playlistList.DoDragDrop(e.Item, DragDropEffects.Move);
+        }
+
+        private void playlistList_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (char.IsLetterOrDigit(e.KeyChar))
+            {
+                searchTextBox.AppendText(e.KeyChar.ToString());
+                searchTextBox.Focus();
+            }
         }
 
         private void playlistList_KeyDown(object sender, KeyEventArgs e)
