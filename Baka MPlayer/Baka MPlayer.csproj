@@ -561,11 +561,11 @@
     <None Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowserDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MainForm\ToolBar Buttons\tool_next.ico" />
-    <None Include="Resources\MainForm\ToolBar Buttons\tool_previous.ico" />
-    <None Include="Resources\MainForm\ToolBar Buttons\tool_pause.ico" />
-    <None Include="Resources\MainForm\ToolBar Buttons\tool_play.ico" />
     <None Include="Resources\icon-64.png" />
+    <None Include="Resources\MainForm\ToolBar Buttons\tool-next.ico" />
+    <None Include="Resources\MainForm\ToolBar Buttons\tool-previous.ico" />
+    <None Include="Resources\MainForm\ToolBar Buttons\tool-pause.ico" />
+    <None Include="Resources\MainForm\ToolBar Buttons\tool-play.ico" />
     <Content Include="WinAPI Code Pack\Core\Core.csproj" />
     <Content Include="WinAPI Code Pack\Core\CustomDictionary.xml" />
     <Content Include="WinAPI Code Pack\Shell\CustomDictionary.xml" />
