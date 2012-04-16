@@ -15,6 +15,7 @@ public class MPlayer
 
     private Process mplayer;
     private readonly MainForm mainForm;
+    private ID3Tag id3Tag = new ID3Tag();
     private bool parsingHeader;
     private bool parsingClipInfo = false;
 	private bool cachingFonts = false;
@@ -319,6 +320,12 @@ public class MPlayer
             {
                 parsingHeader = false;
                 mainForm.CallHideStatusLabel();
+
+                // get album picture tag
+                id3Tag.Read(Info.URL);
+                Info.ID3Tags.AlbumArtTag = id3Tag.GetAlbumPictureTag();
+                if (Info.ID3Tags.AlbumArtTag.AlbumArt != null)
+                    Info.VideoInfo.HasVideo = false;
 
                 // tell mainform that new file was opened
                 mainForm.CallMediaOpened();

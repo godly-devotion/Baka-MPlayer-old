@@ -1892,7 +1892,8 @@ namespace Baka_MPlayer.Forms
                 takeSnapshotToolStripMenuItem.Enabled = false;
 
                 // show album art (if it exists);
-                albumArtPicbox.Image = Info.ID3Tags.AlbumArt ?? Properties.Resources.Music_128;
+                albumArtPicbox.Image = Info.ID3Tags.AlbumArtTag.AlbumArt ?? Properties.Resources.Music_128;
+                albumArtPicbox_SizeChanged(null, null);
             }
             bodySplitContainer_Panel1_SizeChanged(null, null);
 

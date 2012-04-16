@@ -1,0 +1,36 @@
+UltraID3Lib: MP3 ID3 Tag Editor and MPEG Info Reader Library
+Copyright (c) 2002 - 2010 Hundred Miles Software
+
+
+This License Agreement is a legal agreement between you (either an individual or a single entity) and Hundred Miles Software ("Mitchell S. Honnert"). This Agreement does NOT govern any later release or update of the SOFTWARE PRODUCT ("UltraID3Lib: MP3 ID3 Tag Editor").
+
+All title and copyrights in and to the SOFTWARE PRODUCT (including but not limited to any images, documentation, media, online documentation, text, and any copies of the SOFTWARE PRODUCT are owned solely by Hundred Miles Software. As a licensee, you own the media on which the SOFTWARE PRODUCT is recorded, but Hundred Miles Software retains title and ownership to the SOFTWARE PRODUCT recorded on the media and all copyright and other intellectual property rights therein. This license is not a sale of the software or any copy. Except as may be required under applicable law, you agree not to alter, decompile, disassemble, or reverse engineer the SOFTWARE PRODUCT, in whole or in part, whether for error correction or otherwise. The SOFTWARE PRODUCT is protected by copyright laws and international treaty provisions. 
+
+You agree not to alter, remove or obscure any copyright notices or other proprietary notices on and in the software. 
+
+NO WARRANTIES.  Hundred Miles Software EXPRESSLY DISCLAIMS ANY WARRANTY for the SOFTWARE PRODUCT. The SOFTWARE PRODUCT and any related documentation is provided "as is" without warranty of any kind, either express or implied, including, without limitation, the implied warranties or merchantability, fitness for a particular purpose, or noninfringement. The entire risk arising out of use or performance of the SOFTWARE PRODUCT remains with you.
+
+NO LIABILITY FOR DAMAGES. In no event shall Hundred Miles Software or its suppliers be liable for any damages whatsoever (including, without limitation, damages for loss of business profits, business interruption, loss of business information, or any other pecuniary loss) arising out of the use of or inability to use this SOFTWARE PRODUCT, EVEN IF HUNDRED MILES SOFTWARE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. THE USER MUST ASSUME THE ENTIRE RISK OF USING THIS PROGRAM.
+
+
+USAGE REQUIREMENT.  ULtraID3Lib can be used free-of-charge in any commercial or non-commercial application or web page, so long as the usage is noted in one or more of the following locations (in order of preference).
+
+   About screen (or any place the referencing application or web page notes its copyright or ownership information)
+   Help file
+   Readme file
+   User manual/instructions
+   Any location, as appropriate to the application, where the user might reasonably be expected to see the notation
+
+
+Usage notation format (when hyperlinking is available):
+
+   [Insert your product name here] uses <a href="www.UltraID3Lib.com">UltraID3Lib</a>, an MP3 ID3 Tag Editor and MPEG Info Reader Library
+   Copyright 2002 - 2010 <a href="www.HundredMilesSoftware.com">Hundred Miles Software</a> (Mitchell S. Honnert)
+
+
+Usage notation format (when hyperlinking is not available):
+
+   [Insert your product name here] uses UltraID3Lib, an MP3 ID3 Tag Editor and MPEG Info Reader Library
+   Copyright 2002 - 2010 Hundred Miles Software (Mitchell S. Honnert)
+   www.UltraID3Lib.com, www.HundredMilesSoftware.com
+

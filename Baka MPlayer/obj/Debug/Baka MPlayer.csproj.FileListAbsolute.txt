@@ -75,3 +75,4 @@ C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.WinAPI_Code_Pack.Shell.Resources.LocalizedMessages.resources
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.csproj.GenerateResource.Cache
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.HelpForm.resources
+C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\bin\Debug\UltraID3Lib.dll

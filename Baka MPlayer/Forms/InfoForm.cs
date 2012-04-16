@@ -37,8 +37,8 @@ namespace Baka_MPlayer.Forms
             var sfd = new SaveFileDialog
             {
                 SupportMultiDottedExtensions = true,
-                FileName = string.Format("{0} (Album Art).{1}", fileName, AlbumArt.RawFormat),
-                Filter = string.Format("Image File (*.{0})|*.{0}", fileName)
+                FileName = string.Format("{0} (Album Art).{1}", fileName, Info.ID3Tags.AlbumArtTag.GetPictureExt()),
+                Filter = string.Format("Image File (*.{0})|*.{0}", Info.ID3Tags.AlbumArtTag.GetPictureExt())
             };
 
             if (sfd.ShowDialog() == DialogResult.OK && sfd.FileName.Length > 0)
@@ -218,7 +218,7 @@ namespace Baka_MPlayer.Forms
             tagList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 
             // album art
-            if (Info.ID3Tags.AlbumArt == null)
+            if (Info.ID3Tags.AlbumArtTag.AlbumArt == null)
             {
                 saveImgLabel.Enabled = false;
                 AlbumArt = null;
@@ -226,7 +226,10 @@ namespace Baka_MPlayer.Forms
             else
             {
                 saveImgLabel.Enabled = true;
-                AlbumArt = Info.ID3Tags.AlbumArt;
+                AlbumArt = Info.ID3Tags.AlbumArtTag.AlbumArt;
+
+                imgTypeTextBox.Text = Info.ID3Tags.AlbumArtTag.Type;
+                demTextBox.Text = string.Format("{0} x {1}", AlbumArt.Width, AlbumArt.Height);
             }
         }
 
