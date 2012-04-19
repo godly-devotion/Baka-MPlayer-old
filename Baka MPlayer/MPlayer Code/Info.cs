@@ -3,7 +3,6 @@
 * updated 4/15/2012              *
 *********************************/
 using System.Collections.Generic;
-using System.Drawing;
 
 /// <summary>
 /// Enum for mplayer's current playStates

@@ -16,8 +16,8 @@ namespace Baka_MPlayer.Forms
         #region DLL Import
 
         // used to get the virtual keys
-        [DllImport("user32.dll")]
-        private static extern short GetAsyncKeyState(Keys vKey);
+        /*[DllImport("user32.dll")]
+        private static extern short GetAsyncKeyState(Keys vKey);*/
 
         // global key hook
         public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
@@ -40,9 +40,9 @@ namespace Baka_MPlayer.Forms
         private BlackForm blackForm;
         private InfoForm infoForm;
         // class instances
-        private MPlayer mplayer;
-        private Voice voice;
+        private readonly MPlayer mplayer;
         private readonly Settings settings = new Settings();
+        private Voice voice;
 
         // Win 7 thumbnail toolbar buttons
         private ThumbnailToolBarButton previousToolButton =
@@ -1387,7 +1387,8 @@ namespace Baka_MPlayer.Forms
 
         private void monoAudioToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            // af_cmdline
+            // -af channels=1
         }
 
         private void increaseVolumeToolStripMenuItem_Click(object sender, EventArgs e)

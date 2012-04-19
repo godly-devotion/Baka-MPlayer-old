@@ -215,6 +215,7 @@
             this.imgTypeTextBox.ReadOnly = true;
             this.imgTypeTextBox.Size = new System.Drawing.Size(100, 22);
             this.imgTypeTextBox.TabIndex = 16;
+            this.imgTypeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // imgLabel
             // 
@@ -242,6 +243,7 @@
             this.demTextBox.ReadOnly = true;
             this.demTextBox.Size = new System.Drawing.Size(100, 22);
             this.demTextBox.TabIndex = 18;
+            this.demTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // demLabel
             // 
@@ -297,6 +299,7 @@
             this.nameLabel.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.nameLabel.Location = new System.Drawing.Point(0, 0);
             this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.nameLabel.Size = new System.Drawing.Size(434, 25);
             this.nameLabel.TabIndex = 0;
             this.nameLabel.Text = "Baka MPlayer";

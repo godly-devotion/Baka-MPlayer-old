@@ -62,7 +62,7 @@
             this.playlistList.MultiSelect = false;
             this.playlistList.Name = "playlistList";
             this.playlistList.ShowGroups = false;
-            this.playlistList.Size = new System.Drawing.Size(170, 258);
+            this.playlistList.Size = new System.Drawing.Size(170, 278);
             this.playlistList.TabIndex = 2;
             this.playlistList.TabStop = false;
             this.playlistList.UseCompatibleStateImageBehavior = false;
@@ -88,7 +88,7 @@
             this.currentFileButton,
             this.currentFileLabel,
             this.optionsDropDownButton});
-            this.playlistStatusStrip.Location = new System.Drawing.Point(0, 280);
+            this.playlistStatusStrip.Location = new System.Drawing.Point(0, 300);
             this.playlistStatusStrip.Name = "playlistStatusStrip";
             this.playlistStatusStrip.Size = new System.Drawing.Size(170, 23);
             this.playlistStatusStrip.SizingGrip = false;
@@ -194,14 +194,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.Controls.Add(this.playlistList);
-            this.Controls.Add(this.seperatorBox);
             this.Controls.Add(this.playlistStatusStrip);
+            this.Controls.Add(this.seperatorBox);
             this.Controls.Add(this.searchTextBox);
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PlaylistControl";
-            this.Size = new System.Drawing.Size(170, 303);
+            this.Size = new System.Drawing.Size(170, 323);
             this.playlistStatusStrip.ResumeLayout(false);
             this.playlistStatusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seperatorBox)).EndInit();

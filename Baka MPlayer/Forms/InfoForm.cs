@@ -26,7 +26,7 @@ namespace Baka_MPlayer.Forms
 
         public void RefreshInfo()
         {
-            nameLabel.Text = Path.GetFileNameWithoutExtension(Info.URL);
+            nameLabel.Text = Path.GetFileNameWithoutExtension(Info.FileName);
             setInfoList();
             setID3Tags();
         }

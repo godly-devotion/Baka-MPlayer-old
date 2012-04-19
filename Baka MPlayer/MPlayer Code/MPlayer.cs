@@ -15,7 +15,7 @@ public class MPlayer
 
     private Process mplayer;
     private readonly MainForm mainForm;
-    private ID3Tag id3Tag = new ID3Tag();
+    private readonly ID3Tag id3Tag = new ID3Tag();
     private bool parsingHeader;
     private bool parsingClipInfo = false;
 	private bool cachingFonts = false;
@@ -59,6 +59,7 @@ public class MPlayer
             cmdArgs += " -ass";                  		 			// enable .ass subtitle support
             cmdArgs += " -nokeepaspect";         		 			// doesn't keep window aspect ratio when resizing windows
             cmdArgs += " -framedrop";                               // enables soft framedrop
+            //cmdArgs += " -dr"; // turns on direct rendering (WARNING: May cause OSD/SUB corruption!)
             cmdArgs += string.Format(" -volume {0}", Info.Current.Volume);       // retrieves last volume
             cmdArgs += string.Format(" -wid {0}", mainForm.mplayerPanel.Handle); // output handle
 

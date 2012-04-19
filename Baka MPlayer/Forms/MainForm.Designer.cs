@@ -123,7 +123,6 @@
             this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlPanel = new System.Windows.Forms.Panel();
             this.speechButton = new System.Windows.Forms.PictureBox();
-            this.volumeBar = new Baka_MPlayer.Controls.ColorSlider();
             this.playlistButton = new System.Windows.Forms.PictureBox();
             this.quickButton = new System.Windows.Forms.PictureBox();
             this.rewindButton = new System.Windows.Forms.PictureBox();
@@ -131,7 +130,6 @@
             this.nextButton = new System.Windows.Forms.PictureBox();
             this.playButton = new System.Windows.Forms.PictureBox();
             this.seekPanel = new System.Windows.Forms.Panel();
-            this.seekBar = new Baka_MPlayer.Controls.ColorSlider();
             this.timeLeftLabel = new System.Windows.Forms.Label();
             this.durationLabel = new System.Windows.Forms.Label();
             this.mplayerSplitContainer = new System.Windows.Forms.SplitContainer();
@@ -140,8 +138,6 @@
             this.albumArtPicbox = new System.Windows.Forms.PictureBox();
             this.mplayerPanel = new System.Windows.Forms.Panel();
             this.outputTextbox = new System.Windows.Forms.RichTextBox();
-            this.inputTextbox = new Baka_MPlayer.Controls.CustomTextBox();
-            this.playlist = new Baka_MPlayer.Controls.PlaylistControl();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayContextMenu = new System.Windows.Forms.ContextMenu();
             this.showMenuItem = new System.Windows.Forms.MenuItem();
@@ -160,6 +156,10 @@
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
+            this.inputTextbox = new Baka_MPlayer.Controls.CustomTextBox();
+            this.playlist = new Baka_MPlayer.Controls.PlaylistControl();
+            this.seekBar = new Baka_MPlayer.Controls.ColorSlider();
+            this.volumeBar = new Baka_MPlayer.Controls.ColorSlider();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.speechButton)).BeginInit();
@@ -183,6 +183,7 @@
             // 
             this.mainMenuStrip.AutoSize = false;
             this.mainMenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.mainMenuStrip.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainMenuStrip.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 0);
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
@@ -227,20 +228,20 @@
             // 
             this.newPlayerToolStripMenuItem.Name = "newPlayerToolStripMenuItem";
             this.newPlayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newPlayerToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.newPlayerToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.newPlayerToolStripMenuItem.Text = "&New Player";
             this.newPlayerToolStripMenuItem.Click += new System.EventHandler(this.newPlayerToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(274, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(268, 6);
             // 
             // openFileToolStripMenuItem
             // 
             this.openFileToolStripMenuItem.Name = "openFileToolStripMenuItem";
             this.openFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.openFileToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.openFileToolStripMenuItem.Text = "&Open File";
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
             // 
@@ -248,7 +249,7 @@
             // 
             this.openURLToolStripMenuItem.Name = "openURLToolStripMenuItem";
             this.openURLToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.openURLToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.openURLToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.openURLToolStripMenuItem.Text = "Open &URL";
             this.openURLToolStripMenuItem.Click += new System.EventHandler(this.openURLToolStripMenuItem_Click);
             // 
@@ -261,39 +262,39 @@
             this.toolStripSeparator19,
             this.specifyBlurayDriveLetterToolStripMenuItem});
             this.openDiscToolStripMenuItem.Name = "openDiscToolStripMenuItem";
-            this.openDiscToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.openDiscToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.openDiscToolStripMenuItem.Text = "Open Disc";
             // 
             // playDVDToolStripMenuItem
             // 
             this.playDVDToolStripMenuItem.Name = "playDVDToolStripMenuItem";
-            this.playDVDToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.playDVDToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.playDVDToolStripMenuItem.Text = "Play &DVD";
             this.playDVDToolStripMenuItem.Click += new System.EventHandler(this.playDVDToolStripMenuItem_Click);
             // 
             // cDDVDISOToolStripMenuItem
             // 
             this.cDDVDISOToolStripMenuItem.Name = "cDDVDISOToolStripMenuItem";
-            this.cDDVDISOToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.cDDVDISOToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.cDDVDISOToolStripMenuItem.Text = "CD/DVD &ISO";
             this.cDDVDISOToolStripMenuItem.Click += new System.EventHandler(this.cDDVDISOToolStripMenuItem_Click);
             // 
             // specifyDriveLetterToolStripMenuItem
             // 
             this.specifyDriveLetterToolStripMenuItem.Name = "specifyDriveLetterToolStripMenuItem";
-            this.specifyDriveLetterToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.specifyDriveLetterToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.specifyDriveLetterToolStripMenuItem.Text = "&Specify DVD Drive Letter...";
             this.specifyDriveLetterToolStripMenuItem.Click += new System.EventHandler(this.specifyDriveLetterToolStripMenuItem_Click);
             // 
             // toolStripSeparator19
             // 
             this.toolStripSeparator19.Name = "toolStripSeparator19";
-            this.toolStripSeparator19.Size = new System.Drawing.Size(222, 6);
+            this.toolStripSeparator19.Size = new System.Drawing.Size(216, 6);
             // 
             // specifyBlurayDriveLetterToolStripMenuItem
             // 
             this.specifyBlurayDriveLetterToolStripMenuItem.Name = "specifyBlurayDriveLetterToolStripMenuItem";
-            this.specifyBlurayDriveLetterToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.specifyBlurayDriveLetterToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.specifyBlurayDriveLetterToolStripMenuItem.Text = "S&pecify Blu-ray Drive Letter...";
             this.specifyBlurayDriveLetterToolStripMenuItem.Click += new System.EventHandler(this.specifyBlurayDriveLetterToolStripMenuItem_Click);
             // 
@@ -301,7 +302,7 @@
             // 
             this.openLocationFromClipboardToolStripMenuItem.Name = "openLocationFromClipboardToolStripMenuItem";
             this.openLocationFromClipboardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.openLocationFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.openLocationFromClipboardToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.openLocationFromClipboardToolStripMenuItem.Text = "Open Location from &Clipboard";
             this.openLocationFromClipboardToolStripMenuItem.Click += new System.EventHandler(this.openLocationFromClipboardToolStripMenuItem_Click);
             // 
@@ -310,14 +311,14 @@
             this.openLastFileToolStripMenuItem.Enabled = false;
             this.openLastFileToolStripMenuItem.Name = "openLastFileToolStripMenuItem";
             this.openLastFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.openLastFileToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.openLastFileToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.openLastFileToolStripMenuItem.Text = "Open &Last File";
             this.openLastFileToolStripMenuItem.Click += new System.EventHandler(this.openLastFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(274, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(268, 6);
             // 
             // saveMediaAsToolStripMenuItem
             // 
@@ -325,7 +326,7 @@
             this.saveMediaAsToolStripMenuItem.Name = "saveMediaAsToolStripMenuItem";
             this.saveMediaAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.S)));
-            this.saveMediaAsToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.saveMediaAsToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.saveMediaAsToolStripMenuItem.Text = "&Save Media As...";
             this.saveMediaAsToolStripMenuItem.Click += new System.EventHandler(this.saveMediaAsToolStripMenuItem_Click);
             // 
@@ -333,21 +334,21 @@
             // 
             this.showInWindowsExplorerToolStripMenuItem.Enabled = false;
             this.showInWindowsExplorerToolStripMenuItem.Name = "showInWindowsExplorerToolStripMenuItem";
-            this.showInWindowsExplorerToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.showInWindowsExplorerToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.showInWindowsExplorerToolStripMenuItem.Text = "Show in &Windows Explorer";
             this.showInWindowsExplorerToolStripMenuItem.Click += new System.EventHandler(this.showInWindowsExplorerToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(274, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(268, 6);
             // 
             // playNextFileToolStripMenuItem
             // 
             this.playNextFileToolStripMenuItem.Enabled = false;
             this.playNextFileToolStripMenuItem.Name = "playNextFileToolStripMenuItem";
             this.playNextFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Right)));
-            this.playNextFileToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.playNextFileToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.playNextFileToolStripMenuItem.Text = "Pla&y Next File";
             this.playNextFileToolStripMenuItem.Click += new System.EventHandler(this.playNextFileToolStripMenuItem_Click);
             // 
@@ -356,20 +357,20 @@
             this.playPreviousFileToolStripMenuItem.Enabled = false;
             this.playPreviousFileToolStripMenuItem.Name = "playPreviousFileToolStripMenuItem";
             this.playPreviousFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Left)));
-            this.playPreviousFileToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.playPreviousFileToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.playPreviousFileToolStripMenuItem.Text = "Play &Previous File";
             this.playPreviousFileToolStripMenuItem.Click += new System.EventHandler(this.playPreviousFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(274, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(268, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(277, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -389,7 +390,7 @@
             this.jumpToTimeToolStripMenuItem});
             this.playbackToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.playbackToolStripMenuItem.Name = "playbackToolStripMenuItem";
-            this.playbackToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.playbackToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.playbackToolStripMenuItem.Text = "&Playback";
             // 
             // playToolStripMenuItem
@@ -397,7 +398,7 @@
             this.playToolStripMenuItem.Enabled = false;
             this.playToolStripMenuItem.Name = "playToolStripMenuItem";
             this.playToolStripMenuItem.ShortcutKeyDisplayString = "Space";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.playToolStripMenuItem.Text = "&Play";
             this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
             // 
@@ -406,7 +407,7 @@
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
             this.stopToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.stopToolStripMenuItem.Text = "&Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -415,7 +416,7 @@
             this.rewindToolStripMenuItem.Enabled = false;
             this.rewindToolStripMenuItem.Name = "rewindToolStripMenuItem";
             this.rewindToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.rewindToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.rewindToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.rewindToolStripMenuItem.Text = "&Rewind";
             this.rewindToolStripMenuItem.Click += new System.EventHandler(this.rewindToolStripMenuItem_Click);
             // 
@@ -425,14 +426,14 @@
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
             this.restartToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
                         | System.Windows.Forms.Keys.R)));
-            this.restartToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.restartToolStripMenuItem.Text = "R&estart";
             this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(196, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(187, 6);
             // 
             // shuffleToolStripMenuItem
             // 
@@ -440,7 +441,7 @@
             this.shuffleToolStripMenuItem.Image = global::Baka_MPlayer.Properties.Resources.shuffle;
             this.shuffleToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.shuffleToolStripMenuItem.Name = "shuffleToolStripMenuItem";
-            this.shuffleToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.shuffleToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.shuffleToolStripMenuItem.Text = "Shuff&le";
             this.shuffleToolStripMenuItem.Click += new System.EventHandler(this.shuffleToolStripMenuItem_Click);
             // 
@@ -454,7 +455,7 @@
             this.repeatToolStripMenuItem.Image = global::Baka_MPlayer.Properties.Resources.repeat;
             this.repeatToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.repeatToolStripMenuItem.Name = "repeatToolStripMenuItem";
-            this.repeatToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.repeatToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.repeatToolStripMenuItem.Text = "Re&peat";
             // 
             // offToolStripMenuItem
@@ -462,26 +463,26 @@
             this.offToolStripMenuItem.Checked = true;
             this.offToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-            this.offToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.offToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.offToolStripMenuItem.Text = "&Off";
             this.offToolStripMenuItem.Click += new System.EventHandler(this.offToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(114, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(112, 6);
             // 
             // playlistToolStripMenuItem
             // 
             this.playlistToolStripMenuItem.Name = "playlistToolStripMenuItem";
-            this.playlistToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.playlistToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.playlistToolStripMenuItem.Text = "&Playlist";
             this.playlistToolStripMenuItem.Click += new System.EventHandler(this.playlistToolStripMenuItem_Click);
             // 
             // thisFileToolStripMenuItem
             // 
             this.thisFileToolStripMenuItem.Name = "thisFileToolStripMenuItem";
-            this.thisFileToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.thisFileToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.thisFileToolStripMenuItem.Text = "&This File";
             this.thisFileToolStripMenuItem.Click += new System.EventHandler(this.thisFileToolStripMenuItem_Click);
             // 
@@ -489,20 +490,20 @@
             // 
             this.stopAftercurrentToolStripMenuItem.CheckOnClick = true;
             this.stopAftercurrentToolStripMenuItem.Name = "stopAftercurrentToolStripMenuItem";
-            this.stopAftercurrentToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.stopAftercurrentToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.stopAftercurrentToolStripMenuItem.Text = "Stop after &current";
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(196, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(187, 6);
             // 
             // frameStepToolStripMenuItem
             // 
             this.frameStepToolStripMenuItem.Enabled = false;
             this.frameStepToolStripMenuItem.Name = "frameStepToolStripMenuItem";
             this.frameStepToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-            this.frameStepToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.frameStepToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.frameStepToolStripMenuItem.Text = "&Frame Step";
             this.frameStepToolStripMenuItem.Click += new System.EventHandler(this.frameStepToolStripMenuItem_Click);
             // 
@@ -511,7 +512,7 @@
             this.jumpToTimeToolStripMenuItem.Enabled = false;
             this.jumpToTimeToolStripMenuItem.Name = "jumpToTimeToolStripMenuItem";
             this.jumpToTimeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.J)));
-            this.jumpToTimeToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.jumpToTimeToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.jumpToTimeToolStripMenuItem.Text = "&Jump To Time...";
             this.jumpToTimeToolStripMenuItem.Click += new System.EventHandler(this.jumpToTimeToolStripMenuItem_Click);
             // 
@@ -532,7 +533,7 @@
             this.volumeToolStripTextBox});
             this.mediaToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.mediaToolStripMenuItem.Name = "mediaToolStripMenuItem";
-            this.mediaToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.mediaToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.mediaToolStripMenuItem.Text = "&Media";
             // 
             // fullScreenToolStripMenuItem
@@ -541,7 +542,7 @@
             this.fullScreenToolStripMenuItem.Enabled = false;
             this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
             this.fullScreenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Return)));
-            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.fullScreenToolStripMenuItem.Text = "&Full Screen";
             this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
             // 
@@ -551,28 +552,28 @@
             this.fitToVideoToolStripMenuItem.Name = "fitToVideoToolStripMenuItem";
             this.fitToVideoToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+` (Tilde key)";
             this.fitToVideoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemtilde)));
-            this.fitToVideoToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.fitToVideoToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.fitToVideoToolStripMenuItem.Text = "Fit To &Video";
             this.fitToVideoToolStripMenuItem.Click += new System.EventHandler(this.fitToVideoToolStripMenuItem_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(229, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(223, 6);
             // 
             // audioTracksToolStripMenuItem
             // 
             this.audioTracksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainToolStripMenuItem});
             this.audioTracksToolStripMenuItem.Name = "audioTracksToolStripMenuItem";
-            this.audioTracksToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.audioTracksToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.audioTracksToolStripMenuItem.Text = "Audio &Tracks";
             // 
             // mainToolStripMenuItem
             // 
             this.mainToolStripMenuItem.Enabled = false;
             this.mainToolStripMenuItem.Name = "mainToolStripMenuItem";
-            this.mainToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.mainToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.mainToolStripMenuItem.Text = "0: [ main ]";
             // 
             // chaptersToolStripMenuItem
@@ -580,26 +581,26 @@
             this.chaptersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.noneToolStripMenuItem1});
             this.chaptersToolStripMenuItem.Name = "chaptersToolStripMenuItem";
-            this.chaptersToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.chaptersToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.chaptersToolStripMenuItem.Text = "&Chapters";
             // 
             // noneToolStripMenuItem1
             // 
             this.noneToolStripMenuItem1.Enabled = false;
             this.noneToolStripMenuItem1.Name = "noneToolStripMenuItem1";
-            this.noneToolStripMenuItem1.Size = new System.Drawing.Size(115, 22);
+            this.noneToolStripMenuItem1.Size = new System.Drawing.Size(113, 22);
             this.noneToolStripMenuItem1.Text = "[ none ]";
             // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(229, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(223, 6);
             // 
             // monoAudioToolStripMenuItem
             // 
             this.monoAudioToolStripMenuItem.CheckOnClick = true;
             this.monoAudioToolStripMenuItem.Name = "monoAudioToolStripMenuItem";
-            this.monoAudioToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.monoAudioToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.monoAudioToolStripMenuItem.Text = "&Mono Audio";
             this.monoAudioToolStripMenuItem.Visible = false;
             this.monoAudioToolStripMenuItem.Click += new System.EventHandler(this.monoAudioToolStripMenuItem_Click);
@@ -608,7 +609,7 @@
             // 
             this.increaseVolumeToolStripMenuItem.Name = "increaseVolumeToolStripMenuItem";
             this.increaseVolumeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
-            this.increaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.increaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.increaseVolumeToolStripMenuItem.Text = "&Increase Volume";
             this.increaseVolumeToolStripMenuItem.Click += new System.EventHandler(this.increaseVolumeToolStripMenuItem_Click);
             // 
@@ -616,20 +617,20 @@
             // 
             this.decreaseVolumeToolStripMenuItem.Name = "decreaseVolumeToolStripMenuItem";
             this.decreaseVolumeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
-            this.decreaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.decreaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.decreaseVolumeToolStripMenuItem.Text = "&Decrease Volume";
             this.decreaseVolumeToolStripMenuItem.Click += new System.EventHandler(this.decreaseVolumeToolStripMenuItem_Click);
             // 
             // toolStripSeparator17
             // 
             this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(229, 6);
+            this.toolStripSeparator17.Size = new System.Drawing.Size(223, 6);
             // 
             // volumeToolStripMenuItem
             // 
             this.volumeToolStripMenuItem.Enabled = false;
             this.volumeToolStripMenuItem.Name = "volumeToolStripMenuItem";
-            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(232, 22);
+            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.volumeToolStripMenuItem.Text = "Volume:";
             // 
             // volumeToolStripTextBox
@@ -680,7 +681,7 @@
             // 
             this.noneToolStripMenuItem.Enabled = false;
             this.noneToolStripMenuItem.Name = "noneToolStripMenuItem";
-            this.noneToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.noneToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.noneToolStripMenuItem.Text = "[ none ]";
             // 
             // fontSizeToolStripMenuItem
@@ -727,14 +728,14 @@
             this.mediaInfoToolStripMenuItem});
             this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // takeSnapshotToolStripMenuItem
             // 
             this.takeSnapshotToolStripMenuItem.Enabled = false;
             this.takeSnapshotToolStripMenuItem.Name = "takeSnapshotToolStripMenuItem";
-            this.takeSnapshotToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.takeSnapshotToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.takeSnapshotToolStripMenuItem.Text = "Take &Snapshot";
             this.takeSnapshotToolStripMenuItem.Click += new System.EventHandler(this.takeSnapshotToolStripMenuItem_Click);
             // 
@@ -743,7 +744,7 @@
             this.sayMediaNameToolStripMenuItem.Enabled = false;
             this.sayMediaNameToolStripMenuItem.Name = "sayMediaNameToolStripMenuItem";
             this.sayMediaNameToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.sayMediaNameToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.sayMediaNameToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.sayMediaNameToolStripMenuItem.Text = "Say &Media Name";
             this.sayMediaNameToolStripMenuItem.Click += new System.EventHandler(this.sayMediaNameToolStripMenuItem_Click);
             // 
@@ -752,21 +753,21 @@
             this.showCommandLineToolStripMenuItem.CheckOnClick = true;
             this.showCommandLineToolStripMenuItem.Name = "showCommandLineToolStripMenuItem";
             this.showCommandLineToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.showCommandLineToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.showCommandLineToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.showCommandLineToolStripMenuItem.Text = "Show &Command Line";
             this.showCommandLineToolStripMenuItem.Click += new System.EventHandler(this.showCommandLineToolStripMenuItem_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(225, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(218, 6);
             // 
             // mediaInfoToolStripMenuItem
             // 
             this.mediaInfoToolStripMenuItem.Enabled = false;
             this.mediaInfoToolStripMenuItem.Name = "mediaInfoToolStripMenuItem";
             this.mediaInfoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.mediaInfoToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.mediaInfoToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
             this.mediaInfoToolStripMenuItem.Text = "Media &Info...";
             this.mediaInfoToolStripMenuItem.Click += new System.EventHandler(this.mediaInfoToolStripMenuItem_Click);
             // 
@@ -792,7 +793,7 @@
             this.showPlaylistToolStripMenuItem.Enabled = false;
             this.showPlaylistToolStripMenuItem.Name = "showPlaylistToolStripMenuItem";
             this.showPlaylistToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.showPlaylistToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.showPlaylistToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.showPlaylistToolStripMenuItem.Text = "&Show Playlist";
             this.showPlaylistToolStripMenuItem.Click += new System.EventHandler(this.showPlaylistToolStripMenuItem_Click);
             // 
@@ -801,7 +802,7 @@
             this.hideAlbumArtToolStripMenuItem.CheckOnClick = true;
             this.hideAlbumArtToolStripMenuItem.Enabled = false;
             this.hideAlbumArtToolStripMenuItem.Name = "hideAlbumArtToolStripMenuItem";
-            this.hideAlbumArtToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.hideAlbumArtToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.hideAlbumArtToolStripMenuItem.Text = "&Hide Album Art";
             this.hideAlbumArtToolStripMenuItem.Click += new System.EventHandler(this.hideAlbumArtToolStripMenuItem_Click);
             // 
@@ -810,14 +811,14 @@
             this.dimLightsToolStripMenuItem.CheckOnClick = true;
             this.dimLightsToolStripMenuItem.Name = "dimLightsToolStripMenuItem";
             this.dimLightsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.dimLightsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.dimLightsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dimLightsToolStripMenuItem.Text = "&Dim Lights";
             this.dimLightsToolStripMenuItem.Click += new System.EventHandler(this.dimLightsToolStripMenuItem_Click);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(181, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(177, 6);
             // 
             // onTopToolStripMenuItem
             // 
@@ -827,34 +828,34 @@
             this.toolStripSeparator16,
             this.neverToolStripMenuItem});
             this.onTopToolStripMenuItem.Name = "onTopToolStripMenuItem";
-            this.onTopToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.onTopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.onTopToolStripMenuItem.Text = "&On Top";
             // 
             // alwaysToolStripMenuItem
             // 
             this.alwaysToolStripMenuItem.Name = "alwaysToolStripMenuItem";
-            this.alwaysToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.alwaysToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.alwaysToolStripMenuItem.Text = "&Always";
             this.alwaysToolStripMenuItem.Click += new System.EventHandler(this.alwaysToolStripMenuItem_Click);
             // 
             // whenPlayingToolStripMenuItem
             // 
             this.whenPlayingToolStripMenuItem.Name = "whenPlayingToolStripMenuItem";
-            this.whenPlayingToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.whenPlayingToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.whenPlayingToolStripMenuItem.Text = "When &Playing";
             this.whenPlayingToolStripMenuItem.Click += new System.EventHandler(this.whenPlayingToolStripMenuItem_Click);
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(144, 6);
+            this.toolStripSeparator16.Size = new System.Drawing.Size(142, 6);
             // 
             // neverToolStripMenuItem
             // 
             this.neverToolStripMenuItem.Checked = true;
             this.neverToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.neverToolStripMenuItem.Name = "neverToolStripMenuItem";
-            this.neverToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.neverToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.neverToolStripMenuItem.Text = "&Never";
             this.neverToolStripMenuItem.Click += new System.EventHandler(this.neverToolStripMenuItem_Click);
             // 
@@ -866,7 +867,7 @@
             this.toolStripSeparator15,
             this.hidePopupToolStripMenuItem});
             this.trayIconToolStripMenuItem.Name = "trayIconToolStripMenuItem";
-            this.trayIconToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.trayIconToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.trayIconToolStripMenuItem.Text = "&Tray Icon";
             // 
             // showIconInTrayToolStripMenuItem
@@ -875,7 +876,7 @@
             this.showIconInTrayToolStripMenuItem.CheckOnClick = true;
             this.showIconInTrayToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.showIconInTrayToolStripMenuItem.Name = "showIconInTrayToolStripMenuItem";
-            this.showIconInTrayToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.showIconInTrayToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.showIconInTrayToolStripMenuItem.Text = "&Show Icon In Tray";
             this.showIconInTrayToolStripMenuItem.Click += new System.EventHandler(this.showIconInTrayToolStripMenuItem_Click);
             // 
@@ -883,33 +884,33 @@
             // 
             this.minimizeToTrayToolStripMenuItem.CheckOnClick = true;
             this.minimizeToTrayToolStripMenuItem.Name = "minimizeToTrayToolStripMenuItem";
-            this.minimizeToTrayToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.minimizeToTrayToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.minimizeToTrayToolStripMenuItem.Text = "&Minimize To Tray";
             this.minimizeToTrayToolStripMenuItem.Click += new System.EventHandler(this.minimizeToTrayToolStripMenuItem_Click);
             // 
             // toolStripSeparator15
             // 
             this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(165, 6);
+            this.toolStripSeparator15.Size = new System.Drawing.Size(161, 6);
             // 
             // hidePopupToolStripMenuItem
             // 
             this.hidePopupToolStripMenuItem.CheckOnClick = true;
             this.hidePopupToolStripMenuItem.Name = "hidePopupToolStripMenuItem";
-            this.hidePopupToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.hidePopupToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.hidePopupToolStripMenuItem.Text = "&Hide Popup";
             this.hidePopupToolStripMenuItem.Click += new System.EventHandler(this.hidePopupToolStripMenuItem_Click);
             // 
             // toolStripSeparator14
             // 
             this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(181, 6);
+            this.toolStripSeparator14.Size = new System.Drawing.Size(177, 6);
             this.toolStripSeparator14.Visible = false;
             // 
             // allOptionsToolStripMenuItem
             // 
             this.allOptionsToolStripMenuItem.Name = "allOptionsToolStripMenuItem";
-            this.allOptionsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.allOptionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.allOptionsToolStripMenuItem.Text = "&All Options...";
             this.allOptionsToolStripMenuItem.Visible = false;
             this.allOptionsToolStripMenuItem.Click += new System.EventHandler(this.allOptionsToolStripMenuItem_Click);
@@ -923,33 +924,33 @@
             this.aboutBakaMPlayerToolStripMenuItem});
             this.helpToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
             // bakaMPlayerHelpToolStripMenuItem
             // 
             this.bakaMPlayerHelpToolStripMenuItem.Name = "bakaMPlayerHelpToolStripMenuItem";
             this.bakaMPlayerHelpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.bakaMPlayerHelpToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.bakaMPlayerHelpToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.bakaMPlayerHelpToolStripMenuItem.Text = "Baka MPlayer &Help";
             this.bakaMPlayerHelpToolStripMenuItem.Click += new System.EventHandler(this.bakaMPlayerHelpToolStripMenuItem_Click);
             // 
             // checkForUpdatesToolStripMenuItem
             // 
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.checkForUpdatesToolStripMenuItem.Text = "&Check for Updates";
             this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // toolStripSeparator18
             // 
             this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(189, 6);
+            this.toolStripSeparator18.Size = new System.Drawing.Size(185, 6);
             // 
             // aboutBakaMPlayerToolStripMenuItem
             // 
             this.aboutBakaMPlayerToolStripMenuItem.Name = "aboutBakaMPlayerToolStripMenuItem";
-            this.aboutBakaMPlayerToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.aboutBakaMPlayerToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.aboutBakaMPlayerToolStripMenuItem.Text = "&About Baka MPlayer";
             this.aboutBakaMPlayerToolStripMenuItem.Click += new System.EventHandler(this.aboutBakaMPlayerToolStripMenuItem_Click);
             // 
@@ -997,29 +998,6 @@
             this.speechButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.speechButton_MouseClick);
             this.speechButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.speechButton_MouseDown);
             this.speechButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.speechButton_MouseUp);
-            // 
-            // volumeBar
-            // 
-            this.volumeBar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.volumeBar.BackColor = System.Drawing.Color.Transparent;
-            this.volumeBar.BarInnerColor = System.Drawing.Color.Gray;
-            this.volumeBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
-            this.volumeBar.DrawSemitransparentThumb = false;
-            this.volumeBar.LargeChange = ((uint)(5u));
-            this.volumeBar.Location = new System.Drawing.Point(363, 10);
-            this.volumeBar.MouseEffects = false;
-            this.volumeBar.Name = "volumeBar";
-            this.volumeBar.Size = new System.Drawing.Size(110, 25);
-            this.volumeBar.SmallChange = ((uint)(1u));
-            this.volumeBar.SolidBackground = true;
-            this.volumeBar.TabIndex = 0;
-            this.volumeBar.TabStop = false;
-            this.volumeBar.ThumbInnerColor = System.Drawing.Color.DarkGray;
-            this.volumeBar.ThumbOuterColor = System.Drawing.Color.Silver;
-            this.volumeBar.ThumbPenColor = System.Drawing.Color.Gray;
-            this.volumeBar.ThumbRoundRectSize = new System.Drawing.Size(14, 16);
-            this.volumeBar.ThumbSize = new System.Drawing.Size(16, 14);
-            this.volumeBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.volumeBar_Scroll);
             // 
             // playlistButton
             // 
@@ -1134,40 +1112,10 @@
             this.seekPanel.Controls.Add(this.timeLeftLabel);
             this.seekPanel.Controls.Add(this.durationLabel);
             this.seekPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.seekPanel.Location = new System.Drawing.Point(0, 323);
+            this.seekPanel.Location = new System.Drawing.Point(0, 325);
             this.seekPanel.Name = "seekPanel";
-            this.seekPanel.Size = new System.Drawing.Size(584, 18);
+            this.seekPanel.Size = new System.Drawing.Size(584, 16);
             this.seekPanel.TabIndex = 2;
-            // 
-            // seekBar
-            // 
-            this.seekBar.BackColor = System.Drawing.Color.Transparent;
-            this.seekBar.BarInnerColor = System.Drawing.Color.SlateGray;
-            this.seekBar.BarOuterColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.seekBar.BarPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.seekBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
-            this.seekBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seekBar.ElapsedInnerColor = System.Drawing.Color.DodgerBlue;
-            this.seekBar.ElapsedOuterColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.seekBar.Enabled = false;
-            this.seekBar.LargeChange = ((uint)(5u));
-            this.seekBar.Location = new System.Drawing.Point(65, 0);
-            this.seekBar.Maximum = 1000000;
-            this.seekBar.MouseEffects = false;
-            this.seekBar.Name = "seekBar";
-            this.seekBar.Size = new System.Drawing.Size(449, 18);
-            this.seekBar.SmallChange = ((uint)(1u));
-            this.seekBar.TabIndex = 1;
-            this.seekBar.TabStop = false;
-            this.seekBar.ThumbInnerColor = System.Drawing.Color.DarkGray;
-            this.seekBar.ThumbOuterColor = System.Drawing.Color.Silver;
-            this.seekBar.ThumbPenColor = System.Drawing.Color.DarkGray;
-            this.seekBar.ThumbRoundRectSize = new System.Drawing.Size(10, 10);
-            this.seekBar.ThumbSize = new System.Drawing.Size(20, 10);
-            this.seekBar.Value = 0;
-            this.seekBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseDown);
-            this.seekBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseUp);
-            this.seekBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseMove);
             // 
             // timeLeftLabel
             // 
@@ -1176,7 +1124,7 @@
             this.timeLeftLabel.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeLeftLabel.Location = new System.Drawing.Point(514, 0);
             this.timeLeftLabel.Name = "timeLeftLabel";
-            this.timeLeftLabel.Size = new System.Drawing.Size(70, 18);
+            this.timeLeftLabel.Size = new System.Drawing.Size(70, 16);
             this.timeLeftLabel.TabIndex = 2;
             this.timeLeftLabel.Text = "-00:00:00";
             this.timeLeftLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1190,7 +1138,7 @@
             this.durationLabel.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.durationLabel.Location = new System.Drawing.Point(0, 0);
             this.durationLabel.Name = "durationLabel";
-            this.durationLabel.Size = new System.Drawing.Size(65, 18);
+            this.durationLabel.Size = new System.Drawing.Size(65, 16);
             this.durationLabel.TabIndex = 0;
             this.durationLabel.Text = "00:00:00";
             this.durationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1210,7 +1158,7 @@
             // mplayerSplitContainer.Panel2
             // 
             this.mplayerSplitContainer.Panel2.Controls.Add(this.playlist);
-            this.mplayerSplitContainer.Size = new System.Drawing.Size(584, 303);
+            this.mplayerSplitContainer.Size = new System.Drawing.Size(584, 305);
             this.mplayerSplitContainer.SplitterDistance = 410;
             this.mplayerSplitContainer.TabIndex = 3;
             this.mplayerSplitContainer.TabStop = false;
@@ -1236,8 +1184,8 @@
             // 
             this.bodySplitContainer.Panel2.Controls.Add(this.outputTextbox);
             this.bodySplitContainer.Panel2.Controls.Add(this.inputTextbox);
-            this.bodySplitContainer.Size = new System.Drawing.Size(410, 303);
-            this.bodySplitContainer.SplitterDistance = 204;
+            this.bodySplitContainer.Size = new System.Drawing.Size(410, 305);
+            this.bodySplitContainer.SplitterDistance = 206;
             this.bodySplitContainer.TabIndex = 0;
             this.bodySplitContainer.TabStop = false;
             // 
@@ -1262,7 +1210,7 @@
             this.albumArtPicbox.Image = global::Baka_MPlayer.Properties.Resources.Music_128;
             this.albumArtPicbox.Location = new System.Drawing.Point(0, 0);
             this.albumArtPicbox.Name = "albumArtPicbox";
-            this.albumArtPicbox.Size = new System.Drawing.Size(410, 204);
+            this.albumArtPicbox.Size = new System.Drawing.Size(410, 206);
             this.albumArtPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.albumArtPicbox.TabIndex = 1;
             this.albumArtPicbox.TabStop = false;
@@ -1295,35 +1243,6 @@
             this.outputTextbox.TabIndex = 0;
             this.outputTextbox.TabStop = false;
             this.outputTextbox.Text = "Baka MPlayer Loaded...";
-            // 
-            // inputTextbox
-            // 
-            this.inputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.inputTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inputTextbox.CueText = "> Insert command here";
-            this.inputTextbox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.inputTextbox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.inputTextbox.ForeColor = System.Drawing.Color.White;
-            this.inputTextbox.Location = new System.Drawing.Point(0, 72);
-            this.inputTextbox.Name = "inputTextbox";
-            this.inputTextbox.Size = new System.Drawing.Size(410, 23);
-            this.inputTextbox.TabIndex = 1;
-            this.inputTextbox.TabStop = false;
-            this.inputTextbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputTextbox_KeyDown);
-            // 
-            // playlist
-            // 
-            this.playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.playlist.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.playlist.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playlist.ForeColor = System.Drawing.Color.White;
-            this.playlist.Location = new System.Drawing.Point(0, 0);
-            this.playlist.Margin = new System.Windows.Forms.Padding(4);
-            this.playlist.Name = "playlist";
-            this.playlist.SelectedIndex = -1;
-            this.playlist.Size = new System.Drawing.Size(170, 303);
-            this.playlist.TabIndex = 0;
-            this.playlist.TabStop = false;
             // 
             // trayIcon
             // 
@@ -1441,6 +1360,88 @@
             // 
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
+            // 
+            // inputTextbox
+            // 
+            this.inputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.inputTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inputTextbox.CueText = "> Insert command here";
+            this.inputTextbox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.inputTextbox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.inputTextbox.ForeColor = System.Drawing.Color.White;
+            this.inputTextbox.Location = new System.Drawing.Point(0, 72);
+            this.inputTextbox.Name = "inputTextbox";
+            this.inputTextbox.Size = new System.Drawing.Size(410, 23);
+            this.inputTextbox.TabIndex = 1;
+            this.inputTextbox.TabStop = false;
+            this.inputTextbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputTextbox_KeyDown);
+            // 
+            // playlist
+            // 
+            this.playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.playlist.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playlist.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playlist.ForeColor = System.Drawing.Color.White;
+            this.playlist.Location = new System.Drawing.Point(0, 0);
+            this.playlist.Margin = new System.Windows.Forms.Padding(4);
+            this.playlist.Name = "playlist";
+            this.playlist.SelectedIndex = -1;
+            this.playlist.Size = new System.Drawing.Size(170, 305);
+            this.playlist.TabIndex = 0;
+            this.playlist.TabStop = false;
+            // 
+            // seekBar
+            // 
+            this.seekBar.BackColor = System.Drawing.Color.Transparent;
+            this.seekBar.BarInnerColor = System.Drawing.Color.SlateGray;
+            this.seekBar.BarOuterColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.seekBar.BarPenColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.seekBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
+            this.seekBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seekBar.ElapsedInnerColor = System.Drawing.Color.DodgerBlue;
+            this.seekBar.ElapsedOuterColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.seekBar.Enabled = false;
+            this.seekBar.LargeChange = ((uint)(5u));
+            this.seekBar.Location = new System.Drawing.Point(65, 0);
+            this.seekBar.Maximum = 1000000;
+            this.seekBar.MouseEffects = false;
+            this.seekBar.Name = "seekBar";
+            this.seekBar.Size = new System.Drawing.Size(449, 16);
+            this.seekBar.SmallChange = ((uint)(1u));
+            this.seekBar.TabIndex = 1;
+            this.seekBar.TabStop = false;
+            this.seekBar.ThumbInnerColor = System.Drawing.Color.DarkGray;
+            this.seekBar.ThumbOuterColor = System.Drawing.Color.Silver;
+            this.seekBar.ThumbPenColor = System.Drawing.Color.DarkGray;
+            this.seekBar.ThumbRoundRectSize = new System.Drawing.Size(10, 10);
+            this.seekBar.ThumbSize = new System.Drawing.Size(20, 10);
+            this.seekBar.Value = 0;
+            this.seekBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseDown);
+            this.seekBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseUp);
+            this.seekBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseMove);
+            // 
+            // volumeBar
+            // 
+            this.volumeBar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.volumeBar.BackColor = System.Drawing.Color.Transparent;
+            this.volumeBar.BarInnerColor = System.Drawing.Color.Gray;
+            this.volumeBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
+            this.volumeBar.DrawSemitransparentThumb = false;
+            this.volumeBar.LargeChange = ((uint)(5u));
+            this.volumeBar.Location = new System.Drawing.Point(363, 10);
+            this.volumeBar.MouseEffects = false;
+            this.volumeBar.Name = "volumeBar";
+            this.volumeBar.Size = new System.Drawing.Size(110, 25);
+            this.volumeBar.SmallChange = ((uint)(1u));
+            this.volumeBar.SolidBackground = true;
+            this.volumeBar.TabIndex = 0;
+            this.volumeBar.TabStop = false;
+            this.volumeBar.ThumbInnerColor = System.Drawing.Color.DarkGray;
+            this.volumeBar.ThumbOuterColor = System.Drawing.Color.Silver;
+            this.volumeBar.ThumbPenColor = System.Drawing.Color.Gray;
+            this.volumeBar.ThumbRoundRectSize = new System.Drawing.Size(14, 16);
+            this.volumeBar.ThumbSize = new System.Drawing.Size(16, 14);
+            this.volumeBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.volumeBar_Scroll);
             // 
             // MainForm
             // 
