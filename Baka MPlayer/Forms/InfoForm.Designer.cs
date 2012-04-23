@@ -31,10 +31,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InfoForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.mplayerProcessLabel = new System.Windows.Forms.Label();
             this.infoList = new System.Windows.Forms.ListView();
             this.infoColumnHeader = new System.Windows.Forms.ColumnHeader();
             this.valueColumnHeader = new System.Windows.Forms.ColumnHeader();
+            this.seperatorBox = new System.Windows.Forms.PictureBox();
+            this.mplayerProcessLabel = new System.Windows.Forms.Label();
             this.searchTextbox = new Baka_MPlayer.Controls.CustomTextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tagList = new System.Windows.Forms.ListView();
@@ -58,6 +59,7 @@
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.seperatorBox)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.albumArtPicbox)).BeginInit();
             this.SuspendLayout();
@@ -71,58 +73,43 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.HotTrack = true;
-            this.tabControl1.Location = new System.Drawing.Point(12, 28);
+            this.tabControl1.Location = new System.Drawing.Point(12, 31);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(410, 337);
+            this.tabControl1.Size = new System.Drawing.Size(410, 334);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Black;
-            this.tabPage1.Controls.Add(this.mplayerProcessLabel);
             this.tabPage1.Controls.Add(this.infoList);
+            this.tabPage1.Controls.Add(this.seperatorBox);
+            this.tabPage1.Controls.Add(this.mplayerProcessLabel);
             this.tabPage1.Controls.Add(this.searchTextbox);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(402, 304);
+            this.tabPage1.Size = new System.Drawing.Size(402, 301);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Media Info";
-            this.tabPage1.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPages_Paint);
-            // 
-            // mplayerProcessLabel
-            // 
-            this.mplayerProcessLabel.BackColor = System.Drawing.Color.Transparent;
-            this.mplayerProcessLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.mplayerProcessLabel.ForeColor = System.Drawing.Color.White;
-            this.mplayerProcessLabel.Location = new System.Drawing.Point(3, 281);
-            this.mplayerProcessLabel.Name = "mplayerProcessLabel";
-            this.mplayerProcessLabel.Size = new System.Drawing.Size(396, 20);
-            this.mplayerProcessLabel.TabIndex = 2;
-            this.mplayerProcessLabel.Text = "Baka MPlayer";
-            this.mplayerProcessLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // infoList
             // 
-            this.infoList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.infoList.BackColor = System.Drawing.Color.Black;
-            this.infoList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.infoList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.infoList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.infoColumnHeader,
             this.valueColumnHeader});
+            this.infoList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.infoList.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.infoList.ForeColor = System.Drawing.Color.White;
             this.infoList.FullRowSelect = true;
             this.infoList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.infoList.HideSelection = false;
-            this.infoList.Location = new System.Drawing.Point(6, 39);
+            this.infoList.Location = new System.Drawing.Point(0, 29);
             this.infoList.MultiSelect = false;
             this.infoList.Name = "infoList";
-            this.infoList.Size = new System.Drawing.Size(390, 238);
+            this.infoList.Size = new System.Drawing.Size(402, 250);
             this.infoList.TabIndex = 1;
             this.infoList.UseCompatibleStateImageBehavior = false;
             this.infoList.View = System.Windows.Forms.View.Details;
@@ -137,18 +124,39 @@
             this.valueColumnHeader.Text = "Value";
             this.valueColumnHeader.Width = 220;
             // 
+            // seperatorBox
+            // 
+            this.seperatorBox.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.seperatorBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.seperatorBox.Location = new System.Drawing.Point(0, 27);
+            this.seperatorBox.Name = "seperatorBox";
+            this.seperatorBox.Size = new System.Drawing.Size(402, 2);
+            this.seperatorBox.TabIndex = 5;
+            this.seperatorBox.TabStop = false;
+            // 
+            // mplayerProcessLabel
+            // 
+            this.mplayerProcessLabel.BackColor = System.Drawing.Color.Transparent;
+            this.mplayerProcessLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.mplayerProcessLabel.ForeColor = System.Drawing.Color.White;
+            this.mplayerProcessLabel.Location = new System.Drawing.Point(0, 279);
+            this.mplayerProcessLabel.Name = "mplayerProcessLabel";
+            this.mplayerProcessLabel.Size = new System.Drawing.Size(402, 22);
+            this.mplayerProcessLabel.TabIndex = 2;
+            this.mplayerProcessLabel.Text = "Baka MPlayer";
+            this.mplayerProcessLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // searchTextbox
             // 
-            this.searchTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.searchTextbox.BackColor = System.Drawing.Color.Black;
             this.searchTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.searchTextbox.CueText = "Search for Property";
+            this.searchTextbox.Dock = System.Windows.Forms.DockStyle.Top;
             this.searchTextbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.searchTextbox.ForeColor = System.Drawing.Color.White;
-            this.searchTextbox.Location = new System.Drawing.Point(6, 6);
+            this.searchTextbox.Location = new System.Drawing.Point(0, 0);
             this.searchTextbox.Name = "searchTextbox";
-            this.searchTextbox.Size = new System.Drawing.Size(390, 27);
+            this.searchTextbox.Size = new System.Drawing.Size(402, 27);
             this.searchTextbox.TabIndex = 0;
             this.searchTextbox.TextChanged += new System.EventHandler(this.searchTextbox_TextChanged);
             // 
@@ -165,7 +173,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(402, 304);
+            this.tabPage2.Size = new System.Drawing.Size(402, 301);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "ID3 Tags";
             this.tabPage2.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPages_Paint);
@@ -188,7 +196,7 @@
             this.tagList.Location = new System.Drawing.Point(6, 6);
             this.tagList.MultiSelect = false;
             this.tagList.Name = "tagList";
-            this.tagList.Size = new System.Drawing.Size(264, 292);
+            this.tagList.Size = new System.Drawing.Size(264, 289);
             this.tagList.TabIndex = 45;
             this.tagList.UseCompatibleStateImageBehavior = false;
             this.tagList.View = System.Windows.Forms.View.Details;
@@ -210,7 +218,7 @@
             this.imgTypeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.imgTypeTextBox.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.imgTypeTextBox.ForeColor = System.Drawing.Color.White;
-            this.imgTypeTextBox.Location = new System.Drawing.Point(283, 198);
+            this.imgTypeTextBox.Location = new System.Drawing.Point(283, 195);
             this.imgTypeTextBox.Name = "imgTypeTextBox";
             this.imgTypeTextBox.ReadOnly = true;
             this.imgTypeTextBox.Size = new System.Drawing.Size(100, 22);
@@ -224,7 +232,7 @@
             this.imgLabel.BackColor = System.Drawing.Color.Transparent;
             this.imgLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.imgLabel.ForeColor = System.Drawing.Color.White;
-            this.imgLabel.Location = new System.Drawing.Point(283, 176);
+            this.imgLabel.Location = new System.Drawing.Point(283, 173);
             this.imgLabel.Name = "imgLabel";
             this.imgLabel.Size = new System.Drawing.Size(100, 19);
             this.imgLabel.TabIndex = 15;
@@ -238,7 +246,7 @@
             this.demTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.demTextBox.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.demTextBox.ForeColor = System.Drawing.Color.White;
-            this.demTextBox.Location = new System.Drawing.Point(283, 252);
+            this.demTextBox.Location = new System.Drawing.Point(283, 249);
             this.demTextBox.Name = "demTextBox";
             this.demTextBox.ReadOnly = true;
             this.demTextBox.Size = new System.Drawing.Size(100, 22);
@@ -252,7 +260,7 @@
             this.demLabel.BackColor = System.Drawing.Color.Transparent;
             this.demLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.demLabel.ForeColor = System.Drawing.Color.White;
-            this.demLabel.Location = new System.Drawing.Point(283, 230);
+            this.demLabel.Location = new System.Drawing.Point(283, 227);
             this.demLabel.Name = "demLabel";
             this.demLabel.Size = new System.Drawing.Size(100, 19);
             this.demLabel.TabIndex = 17;
@@ -300,7 +308,7 @@
             this.nameLabel.Location = new System.Drawing.Point(0, 0);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.nameLabel.Size = new System.Drawing.Size(434, 25);
+            this.nameLabel.Size = new System.Drawing.Size(434, 28);
             this.nameLabel.TabIndex = 0;
             this.nameLabel.Text = "Baka MPlayer";
             this.nameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -399,6 +407,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.seperatorBox)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.albumArtPicbox)).EndInit();
@@ -435,6 +444,7 @@
         private System.Windows.Forms.ContextMenu tagContextMenu;
         private System.Windows.Forms.MenuItem menuItem3;
         private System.Windows.Forms.MenuItem menuItem4;
+        private System.Windows.Forms.PictureBox seperatorBox;
 
     }
 }

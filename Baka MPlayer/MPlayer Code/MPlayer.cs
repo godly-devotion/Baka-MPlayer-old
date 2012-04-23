@@ -49,7 +49,7 @@ public class MPlayer
                 return true;
             }
             // mplayer is not running, so start mplayer then load url
-            var cmdArgs = string.Format(" -vo {0} -ao {1}", "direct3d", "dsound");
+            var cmdArgs = string.Format(" -vo {0} -ao {1}", "gl:force-pbo", "dsound");
             cmdArgs += " -slave";                		 			// switch on slave mode for frontend
             cmdArgs += " -idle";                 		 			// wait insead of quit
             cmdArgs += " -utf8";                 		 			// handles the subtitle file as UTF-8

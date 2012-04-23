@@ -178,10 +178,10 @@
             this.statusLabel.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.statusLabel.Location = new System.Drawing.Point(0, 0);
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(394, 30);
+            this.statusLabel.Size = new System.Drawing.Size(394, 35);
             this.statusLabel.TabIndex = 0;
             this.statusLabel.Text = "Total Time: 00:00:00";
-            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // jumpButton
             // 
@@ -218,7 +218,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.ClientSize = new System.Drawing.Size(394, 122);
+            this.ClientSize = new System.Drawing.Size(394, 117);
             this.Controls.Add(this.checkPicbox);
             this.Controls.Add(this.jumpButton);
             this.Controls.Add(this.subtractRadioButton);
