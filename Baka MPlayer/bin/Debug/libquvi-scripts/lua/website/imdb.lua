@@ -108,7 +108,7 @@ end
 function IMDB.iter_formats(page)
     local p = "case '(.-)' :.-url = '(.-)';"
     local t = {}
-    for c,u in page:gfind(p) do
+    for c,u in page:gmatch(p) do
         table.insert(t, {path=u, container=c})
         --print(u,c)
     end

@@ -21,7 +21,7 @@
 --
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -40,18 +40,19 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "gaskrank"
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('<meta name="description" content="(.-)"')
-    self.title  = s or error ("no match: media title")
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('unit_long(.-)"')
-    self.id     = s or error ("no match: media id")
+    self.title = p:match('name="description" content="(.-)"')
+                  or error("no match: media title")
 
-    local _,_,s = page:find('file=(.-)"')
-    self.url    = {s or error ("no match: file")}
+    self.id = p:match('unit_long(.-)"')
+                or error("no match: media id")
+
+    self.url = {p:match('file=(.-)"')
+                or error ("no match: media url")}
 
     return self
 end

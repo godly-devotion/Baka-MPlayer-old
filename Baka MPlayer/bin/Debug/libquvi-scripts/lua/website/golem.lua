@@ -54,17 +54,18 @@ end
 -- Parse media URL.
 function parse(self)
     self.host_id = "golem"
-    local config = Golem.get_config(self)
 
-    local _,_,s  = config:find("<title>(.-)</")
-    self.title   = s or error("no match: media title")
+    local c = Golem.get_config(self)
 
-    local _,_,s  = config:find('<teaser.-<url>(.-)<.-</teaser>')
+    self.title = c:match("<title>(.-)</")
+                  or error("no match: media title")
+
+    local s = c:match('<teaser.-<url>(.-)<.-</teaser>')
     if s then
         self.thumbnail_url = string.format('http://video.golem.de%s', s)
     end
 
-    local formats = Golem.iter_formats(config)
+    local formats = Golem.iter_formats(c)
     local U       = require 'quvi/util'
     local format  = U.choose_format(self, formats,
                                      Golem.choose_best,
@@ -80,11 +81,11 @@ end
 --
 
 function Golem.get_config(self)
-    local _,_,s = self.page_url:find('/[%w-_]+/(%d+)/')
-    self.id = s or error("no match: media id")
+    self.id = self.page_url:match('/[%w-_]+/(%d+)/')
+                or error("no match: media id")
 
-    local config_url = "http://video.golem.de/xml/" .. self.id
-    return quvi.fetch(config_url, {fetch_type = 'config'})
+    local c_url = "http://video.golem.de/xml/" .. self.id
+    return quvi.fetch(c_url, {fetch_type = 'config'})
 end
 
 function Golem.iter_formats(config)
@@ -93,7 +94,7 @@ function Golem.iter_formats(config)
            .. '.-<url>(.-)<'
            .. '.-</teaser>'
     local t = {}
-    for id,w,h,c,u in config:gfind(p) do
+    for id,w,h,c,u in config:gmatch(p) do
             u = 'http://video.golem.de' .. u
 --            print(id,w,h,c,u)
             table.insert(t, {width=tonumber(w), height=tonumber(h),

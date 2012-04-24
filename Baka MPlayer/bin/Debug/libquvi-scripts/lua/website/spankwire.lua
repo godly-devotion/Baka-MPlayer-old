@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2011  quvi project
+-- Copyright (C) 2011-2012  quvi project
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -42,21 +42,22 @@ end
 -- Parse media URL.
 function parse(self)
     self.host_id = 'spankwire'
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('id="vidTitle">.-<h1>(.-)</')
-    self.title  = s or error('no match: media title')
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('ArticleId:%s+(%d+)')
-    self.id     = s or error('no match: media id')
+    self.title = p:match('id="vidTitle">.-<h1>(.-)</')
+                  or error('no match: media title')
 
-    local _,_,s = page:find('videoPath=(.-)"')
-    local s = s or error('no match: video path')
+    self.id = p:match('ArticleId:%s+(%d+)')
+                or error('no match: media ID')
 
-    local config = quvi.fetch(self.page_url .. s, {fetch_type='config'})
+    local s = p:match('videoPath=(.-)"')
+                or error('no match: video path')
 
-    local _,_,s = config:find('<url>(.-)</url>')
-    self.url    = {s or error('no match: media url')}
+    local c = quvi.fetch(self.page_url .. s, {fetch_type='config'})
+
+    self.url    = {c:match('<url>(.-)</url>')
+                    or error('no match: media URL')}
 
     return self
 end

@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2011  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -60,25 +60,24 @@ end
 function parse(self)
     self.host_id = "dailymotion"
 
-    local U    = require 'quvi/util'
-    local page = Dailymotion.fetch_page(self, U)
+    local U = require 'quvi/util'
+    local p = Dailymotion.fetch_page(self, U)
 
-    local _,_,s = page:find('title="(.-)"')
-    self.title  = s or error("no match: media title")
+    self.title = p:match('title="(.-)"')
+                  or error("no match: media title")
 
-    local _,_,s = page:find("video/(.-)_")
-    self.id     = s or error("no match: media id")
+    self.id = p:match("video/(.-)_")
+                or error("no match: media ID")
 
-    local _,_,s = page:find('"og:image" content="(.-)"')
-    self.thumbnail_url = s or ''
+    self.thumbnail_url = p:match('"og:image" content="(.-)"') or ''
 
-    local formats = Dailymotion.iter_formats(page, U)
+    local formats = Dailymotion.iter_formats(p, U)
     local format  = U.choose_format(self, formats,
                                      Dailymotion.choose_best,
                                      Dailymotion.choose_default,
                                      Dailymotion.to_s)
                         or error("unable to choose format")
-    self.url      = {format.url or error("no match: media url")}
+    self.url      = {format.url or error("no match: media URL")}
     return self
 end
 
@@ -89,7 +88,7 @@ end
 function Dailymotion.fetch_page(self, U)
     self.page_url = Dailymotion.normalize(self.page_url)
 
-    local _,_,s = self.page_url:find('/family_filter%?urlback=(.+)')
+    local s = self.page_url:match('/family_filter%?urlback=(.+)')
     if s then
         self.page_url = 'http://dailymotion.com' .. U.unescape(s)
     end
@@ -99,9 +98,9 @@ function Dailymotion.fetch_page(self, U)
 end
 
 function Dailymotion.normalize(page_url) -- "Normalize" embedded URLs
-    if page_url:find("/swf/") then
+    if page_url:match("/swf/") then
         page_url = page_url:gsub("/swf/", "/")
-    elseif page_url:find("/embed/") then
+    elseif page_url:match("/embed/") then
         page_url = page_url:gsub("/embed/", "/")
     end
     return page_url
@@ -111,7 +110,7 @@ function Dailymotion.iter_formats(page, U)
     local seq = page:match('"sequence",%s+"(.-)"')
     if not seq then
         local e = "no match: sequence"
-        if page:find("_partnerplayer") then
+        if page:match("_partnerplayer") then
             e = e .. ": looks like a partner video which we do not support"
         end
         error(e)
@@ -120,9 +119,10 @@ function Dailymotion.iter_formats(page, U)
     seq = U.unescape(seq)
 
     local t = {}
-    for url in seq:gfind('%w+URL":"(.-)"') do
+    for url in seq:gmatch('%w+URL":"(.-)"') do
         local c,w,h,cn = url:match('(%w+)%-(%d+)x(%d+).-%.(%w+)')
         if c then
+            url = url:gsub('cell=secure%-vod&', '') -- http://is.gd/BzYPZJ
             table.insert(t, {width=tonumber(w), height=tonumber(h),
                              container=cn,      codec=string.lower(c),
                              url=url:gsub("\\/", "/")})

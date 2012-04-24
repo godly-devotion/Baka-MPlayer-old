@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2011  quvi project
+-- Copyright (C) 2010-2012  quvi project
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -25,7 +25,7 @@
 -- user-agent.
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -44,30 +44,30 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "globo"
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('midiaId: (.-),')
-    self.id     = s or error ("no match: media id")
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('<title>.*-.*- (.-)</title>')
-    self.title  = s or error ("no match: media title")
+    self.id = p:match('midiaId: (.-),')
+                or error("no match: media ID")
 
-    local config_url =
-        "http://playervideo.globo.com/webmedia/GMCPlayListASX"
-        .. "?flash=true&midiaId="
-        .. self.id
+    self.title = p:match('<title>.*-.*- (.-)</title>')
+                  or error("no match: media title")
+
+    local c_url = "http://playervideo.globo.com/webmedia/GMCPlayListASX"
+                    .. "?flash=true&midiaId="
+                    .. self.id
 
     -- Unless user-agent is set here to 'iphone', URL verification
     -- *will* fail (HTTP/403) later. Fetching below itself does not
     -- need it, just the URL verification. We set it here to be safe.
 
-    local opts    = {fetch_type = 'config', user_agent = 'iphone'}
-    local xml     = quvi.fetch(config_url, opts)
-    local _,_,d,s = xml:find('<video duration="(.-)" src="(.-)%?')
+    local o = {fetch_type='config', user_agent='iphone'}
+    local c = quvi.fetch(config_url, o)
+    local _,_,d,s = c:find('<video duration="(.-)" src="(.-)%?')
     self.duration = tonumber(d) or 0
-    self.url      = {s or error('no match: media url')}
+    self.url      = {s or error('no match: media URL')}
 
     return self
 end

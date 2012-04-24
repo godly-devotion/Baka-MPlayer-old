@@ -60,16 +60,14 @@ end
 function parse(self)
     self.host_id = "foxnews"
 
-    local U    = require 'quvi/util'
-    local js   = Foxnews.fetch_feed_js(self, U)
+    local U  = require 'quvi/util'
+    local js = Foxnews.fetch_feed_js(self, U)
 
-    local _,_,item = js:find('"item":(%b{})')
-    if not item then
-        error("no match: item")
-    end
+    local item = js:match('"item":(%b{})')
+                  or error("no match: item")
 
-    local _,_,s = js:find('"title":"(.-)"')
-    self.title  = s or error("no match: media title")
+    self.title = js:match('"title":"(.-)"')
+                  or error("no match: media title")
 
     do
         local thumbs = Foxnews.iter_thumbnails_js(item)
@@ -107,9 +105,9 @@ function Foxnews.fetch_feed_js(self, U)
 end
 
 function Foxnews.normalize(self) -- "Normalize" embedded URLs
-    if self.page_url:find("/v/embed.js?id=",1,true) then
+    if self.page_url:match("/v/embed.js?id=",1,true) then
         self.page_url = self.page_url:gsub("/v/embed%.js%?id=(%d+)", "/v/%1/")
-    elseif self.page_url:find("/v/video-embed.html?video_id=",1,true) then
+    elseif self.page_url:match("/v/video-embed.html?video_id=",1,true) then
         self.page_url =
             self.page_url:gsub("/v/video%-embed%.html%?video_id=(%d+)",
                                "/v/%1/")
@@ -126,9 +124,9 @@ function Foxnews.iter_formats_js(page, U)
     end
 
     local t = {}
-    for attrs in formats:gfind('"@attributes":(%b{})') do
+    for attrs in formats:gmatch('"@attributes":(%b{})') do
         local format = {}
-        for key,value in attrs:gfind('"(.-)":"(.-)"') do
+        for key,value in attrs:gmatch('"(.-)":"(.-)"') do
             format[key]=value
 	    end
         if format.rel == "stream" then
@@ -138,7 +136,7 @@ function Foxnews.iter_formats_js(page, U)
                     format[key]=tonumber(format[key])
                 end
             end
-            local _,_,s = format.url:find('FNC_([%w%p]-)%.')
+            local s = format.url:match('FNC_([%w%p]-)%.')
             if s then
                 format.description=string.lower(s)
             end
@@ -156,9 +154,9 @@ function Foxnews.iter_thumbnails_js(page, U)
     end
 
     local t = {}
-    for attrs in thumbs:gfind('"@attributes":(%b{})') do
+    for attrs in thumbs:gmatch('"@attributes":(%b{})') do
         local thumb = {}
-        for key,value in attrs:gfind('"(.-)":"(.-)"') do
+        for key,value in attrs:gmatch('"(.-)":"(.-)"') do
             thumb[key]=value
 	    end
         table.insert(t, thumb)

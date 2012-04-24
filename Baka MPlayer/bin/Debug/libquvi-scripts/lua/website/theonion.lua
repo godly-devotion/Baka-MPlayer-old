@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010  quvi project
+-- Copyright (C) 2010-2012  quvi project
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -21,7 +21,7 @@
 --
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -40,24 +40,25 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "theonion"
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find("<title>(.-) |")
-    self.title  = s or error ("no match: media title")
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('afns_video_id = "(.-)";')
-    self.id     = s or error ("no match: media id")
+    self.title = p:match("<title>(.-) |")
+                  or error("no match: media title")
 
-    local _,_,s = page:find('http://www.theonion.com/video/(.-),')
-    s           = s or error ("no match: flv url")
+    self.id = p:match('afns_video_id = "(.-)";')
+                or error("no match: media ID")
+
+    local s = p:match('http://www.theonion.com/video/(.-),')
+                or error("no match: path")
 
     s = string.format(
-        "http://videos.theonion.com/onion_video/auto/%s/%s-iphone.m4v",
-        self.id, s
-    )
-    self.url   = {s}
+          "http://videos.theonion.com/onion_video/auto/%s/%s-iphone.m4v",
+          self.id, s)
+
+    self.url = {s}
 
     return self
 end

@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2011  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -57,25 +57,24 @@ end
 -- Parse media URL.
 function parse(self)
     self.host_id  = "vimeo"
-    local config  = Vimeo.get_config(self)
 
-    local _,_,s = config:find("<caption>(.-)</")
-    self.title  = s or error("no match: media title")
+    local c = Vimeo.get_config(self)
 
-    local _,_,s = config:find('<duration>(%d+)')
-    self.duration = (tonumber(s) or 0) * 1000 -- to msec
+    self.title = c:match("<caption>(.-)</")
+                  or error("no match: media title")
 
-    local _,_,s = config:find('<thumbnail>(.-)<')
-    self.thumbnail_url = s or ''
+    self.duration = (tonumber(c:match('<duration>(%d+)')) or 0) * 1000
 
-    local formats = Vimeo.iter_formats(self, config)
+    self.thumbnail_url = c:match('<thumbnail>(.-)<') or ''
+
+    local formats = Vimeo.iter_formats(self, c)
     local U       = require 'quvi/util'
     local format  = U.choose_format(self, formats,
                                      Vimeo.choose_best,
                                      Vimeo.choose_default,
                                      Vimeo.to_s)
                         or error("unable to choose format")
-    self.url      = {format.url or error("no match: media url")}
+    self.url      = {format.url or error("no match: media URL")}
     return self
 end
 
@@ -92,23 +91,22 @@ end
 function Vimeo.get_config(self)
     self.page_url = Vimeo.normalize(self.page_url)
 
-    local _,_,s   = self.page_url:find('vimeo.com/(%d+)')
-    self.id       = s or error("no match: media id")
+    self.id = self.page_url:match('vimeo.com/(%d+)')
+                or error("no match: media ID")
 
-    local config_url = "http://vimeo.com/moogaloop/load/clip:" .. self.id
-    local config = quvi.fetch(config_url, {fetch_type = 'config'})
+    local c_url = "http://vimeo.com/moogaloop/load/clip:" .. self.id
+    local c = quvi.fetch(c_url, {fetch_type='config'})
 
-    if config:find('<error>') then
-        local _,_,s = config:find('<message>(.-)[\n<]')
+    if c:match('<error>') then
+        local s = c:match('<message>(.-)[\n<]')
         error( (not s) and "no match: error message" or s )
     end
 
-    return config
+    return c
 end
 
 function Vimeo.iter_formats(self, config)
-    local _,_,s = config:find('<isHD>(%d+)')
-    local isHD  = tonumber(s) or 0
+    local isHD  = tonumber(config:match('<isHD>(%d+)')) or 0
 
     local t = {}
     Vimeo.add_format(self, config, t, 'sd')
@@ -136,11 +134,11 @@ function Vimeo.choose_default(formats) -- First is 'default'
 end
 
 function Vimeo.to_url(self, config, quality)
-    local _,_,s = config:find("<request_signature>(.-)</")
-    local sign  = s or error("no match: request signature")
+    local sign = config:match("<request_signature>(.-)</")
+                  or error("no match: request signature")
 
-    local _,_,s = config:find("<request_signature_expires>(.-)</")
-    local exp   = s or error("no match: request signature expires")
+    local exp = config:match("<request_signature_expires>(.-)</")
+                  or error("no match: request signature expires")
 
     local fmt_s = "http://vimeo.com/moogaloop/play/clip:%s/%s/%s/?q=%s"
 

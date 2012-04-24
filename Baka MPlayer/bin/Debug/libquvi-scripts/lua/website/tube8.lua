@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010  quvi project
+-- Copyright (C) 2010-2012  quvi project
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -42,17 +42,20 @@ end
 -- Parse media URL.
 function parse (self)
     self.host_id = "tube8"
-    local page   = quvi.fetch(self.page_url .. "?processdisclaimer")
 
-    local _,_,s = page:find("<title>(.-)%s+-")
-    self.title  = s or error ("no match: media title")
+    local p = quvi.fetch(self.page_url .. "?processdisclaimer")
 
-    local _,_,s = page:find('name="vidId" value="(%d+)"')
-    self.id     = s or error ("no match: media id")
+    self.title = p:match("<title>(.-)%s+-")
+                  or error ("no match: media title")
+
+    self.id = p:match('name="vidId" value="(%d+)"')
+                or error ("no match: media ID")
+
+    local s = p:match('"video_url":"(.-)"')
+                or error("no match: media URL")
 
     local U = require 'quvi/util'
-    local _,_,s = page:find('"video_url":"(.-)"')
-    self.url    = { U.unescape( s or error ("no match: file") ) }
+    self.url = {U.unescape(s)}
 
     return self
 end

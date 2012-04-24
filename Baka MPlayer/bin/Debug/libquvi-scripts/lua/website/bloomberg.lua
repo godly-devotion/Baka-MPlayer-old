@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010  quvi project
+-- Copyright (C) 2010-2012  quvi project
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -20,10 +20,13 @@
 -- 02110-1301  USA
 --
 
+--
+-- NOTE: Limited support. Some are not available using this method.
 -- http://www.bloomberg.com/video/
+--
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -31,7 +34,7 @@ function ident (self)
     r.formats    = "default"
     r.categories = C.proto_http
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, {"/video/"})
+    r.handles    = U.handles(self.page_url, {r.domain}, {"/video/%d+"})
     return r
 end
 
@@ -44,19 +47,18 @@ end
 -- Parse media URL.
 function parse (self)
     self.host_id = "bloomberg"
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('BLOOMBERG._title = "(.-) ";')
-    self.title  = s or error ("no match: media title")
+    -- Triggers a series of HTTP redirections.
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('BLOOMBERG._fvid_id = "(.-)";')
-    self.id     = s or error ("no match: media id")
+    -- The ID must be parsed from the final URL content.
+    self.id = p:match('_fvid_id = "(.-)"')
+                or error("no match: media id")
 
-    local _,_,s = page:find('BLOOMBERG._fvid_id = "(.-)";')
-    s           = s or error ("no match: flv url")
-    s           = string.format (
-                    'http://videos.bloomberg.com/%s.flv', self.id)
-    self.url    = {s}
+    self.title = p:match('name="title" content="(.-)"')
+                  or error("no match: media title")
+
+    self.url = {string.format('http://videos.bloomberg.com/%s.flv', self.id)}
 
     return self
 end

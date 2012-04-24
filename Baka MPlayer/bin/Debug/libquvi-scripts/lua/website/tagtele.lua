@@ -1,6 +1,7 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010 Paul Kocialkowski <contact@paulk.fr>
+-- Copyright (C) 2012  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010  Paul Kocialkowski <contact@paulk.fr>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -21,7 +22,7 @@
 --
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -40,21 +41,22 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "tagtele"
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find("<title>TagTélé%s+-%s+(.-)</title>")
-    self.title  = s or error ("no match: media title")
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = self.page_url:find('/voir/(%d+)')
-    self.id     = s or error ("no match: media id")
+    self.title = p:match("<title>TagTélé%s+-%s+(.-)</title>")
+                  or error("no match: media title")
 
-    local playlist_url  = "http://www.tagtele.com/videos/playlist/"..self.id.."/"
-    local playlist      = quvi.fetch(playlist_url, {fetch_type='playlist'})
+    self.id = self.page_url:match('/voir/(%d+)')
+                or error("no match: media ID")
 
-    local _,_,s = playlist:find("<location>(.-)</")
-    self.url    = {s or error ("no match: location")}
+    local pl_url = "http://www.tagtele.com/videos/playlist/"..self.id.."/"
+    local pl = quvi.fetch(pl_url, {fetch_type='playlist'})
+
+    self.url = {pl:match("<location>(.-)</")
+                  or error("no match: media URL")}
 
     return self
 end

@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -21,19 +21,15 @@
 --
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
     r.domain     = "videos%.sapo%.pt"
     r.formats    = "default"
     r.categories = C.proto_http
-    -- TODO: Replace with LUA equivalent to Perl's "\w{20}".
-    local p      = "/"
-    for i=1,20 do p = p.."%w" end
-    p = p .. "$"
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, {p})
+    r.handles    = U.handles(self.page_url, {r.domain})
     return r
 end
 
@@ -45,26 +41,18 @@ end
 
 -- Parse media URL.
 function parse (self)
-
     self.host_id = "sapo"
-    local page   = quvi.fetch (self.page_url)
 
-    if (page:find ('rtmp:%/%/')) then
-        error ("media requires rtmp which we do not currently support")
-    end
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find ('class="tit">(.-)</div>')
-    if (s == nil) then
-        _,_,s = page:find ('<title>(.-)%s+-%s+')
-    end
-    self.title = s or error ("no match: media title")
+    self.title = p:match('class="tit">(.-)</div>')
+                  or error("no match: media title")
 
-    local _,_,s = page:find ('?file=(.-)/mov')
-    if (s == nil) then error ("no match: media url") end
-    self.url = {s .. "/mov"}
+    self.id = p:match('vid=(.-)&')
+                or error("no match: media ID")
 
-    local _,_,s = self.url[1]:find ('.*/(.-)/mov')
-    self.id     = s or error ("no match: media id")
+    self.url = {p:match('?file=(.-)&')
+                or error("no match: media URL")}
 
     return self
 end

@@ -104,7 +104,7 @@ end
 function Guardian.iter_formats(config)
     local p = '"format":%s+"(.-)".-"video%-file%-url":%s+"(.-)"'
     local t = {}
-    for c,u in config:gfind(p) do
+    for c,u in config:gmatch(p) do
 --        print(f,u)
         c = c:gsub("video/", "")
         c = c:gsub(":", "_")

@@ -248,7 +248,7 @@ function M.parse_path(path)
 	path = path or ""
 	--path = string.gsub(path, "%s", "")
 	string.gsub(path, "([^/]+)", function (s) table.insert(parsed, s) end)
-	for i = 1, table.getn(parsed) do
+	for i = 1, #parsed do
 		parsed[i] = M.unescape(parsed[i])
 	end
 	if string.sub(path, 1, 1) == "/" then parsed.is_absolute = 1 end
@@ -266,7 +266,7 @@ end
 -----------------------------------------------------------------------------
 function M.build_path(parsed, unsafe)
 	local path = ""
-	local n = table.getn(parsed)
+	local n = #parsed
 	if unsafe then
 		for i = 1, n-1 do
 			path = path .. parsed[i]

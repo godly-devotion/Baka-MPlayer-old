@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2011  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -23,7 +23,7 @@
 local LiveLeak = {} -- Utility functions specific to this script
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -44,27 +44,26 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "liveleak"
 
     LiveLeak.normalize(self)
-    local page   = quvi.fetch(self.page_url)
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find("<title>LiveLeak.com%s+%-%s+(.-)</")
-    self.title  = s or error ("no match: media title")
+    self.title = p:match("<title>LiveLeak.com%s+%-%s+(.-)</")
+                  or error("no match: media title")
 
-    local _,_,s = self.page_url:find('view%?i=([%w_]+)')
-    self.id     = s or error ("no match: media id")
+    self.id = self.page_url:match('view%?i=([%w_]+)')
+                or error("no match: media ID")
 
-    local _,_,s      = page:find('config: "(.-)"')
-    local config_url = s or error ("no match: config")
+    local c_url = p:match('config: "(.-)"')
+                    or error("no match: config")
 
-    local opts       = { fetch_type = 'config' }
-    local U          = require 'quvi/util'
-    local config     = quvi.fetch (U.unescape(config_url), opts)
+    local U = require 'quvi/util'
+    local c = quvi.fetch(U.unescape(c_url), {fetch_type='config'})
 
-    local _,_,s = config:find("<file>(.-)</")
-    self.url    = {s or error ("no match: file")}
+    self.url = {c:match("<file>(.-)</")
+                or error("no match: media URL")}
 
     return self
 end

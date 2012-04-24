@@ -1,6 +1,5 @@
-
 -- libquvi-scripts
--- Copyright (C) 2010  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -20,32 +19,43 @@
 -- 02110-1301  USA
 --
 
--- Parse file suffix (extension) from content-type string.
-function suffix_from_contenttype(ctype)
+function suffix_from_contenttype(c_type)
+  -- Hardcoded.
+  if c_type:match("audio/mpeg") then return "mp3" end
 
-    -- Ideally, we'd parse these from /etc/mime-types.
-    -- In reality, we need a more cross-platform solution.
+  -- Use the media subtype as file extension whenever possible.
+  -- Return 'flv' if nothing is matched.
+  local mst = c_type:match("/(.-)$") or "flv"
+  mst = mst:gsub("^x%-","")
 
-    if ctype:find("text/html") then
-        error('content-type cannot be "' ..ctype.. '" for a video. '
-            ..'The script for this website is either buggy or '
-            ..'incomplete.')
-    end
+  -- Some servers return the following content-types (instead
+  -- of "video/x-flv") for flash videos:
+  --   "application/x-shockwave-flash"
+  --   "text/plain"
+  for _,v in pairs({"octet", "shockwave","plain"}) do
+    if mst:match(v) then return "flv" end
+  end
 
-    if ctype:find("audio/mpeg") then
-        return "mp3"
-    end
-
-    local _,_,s = ctype:find("/(.-)$")
-    s = s or error ("no match: content type")
-    s = s:gsub("^x%-","")
-
-    if s:find("octet") or s:find("swf") or s:find("flash") or s:find("plain")
-    then
-        s = "flv"
-    end
-
-    return s
+  return mst
 end
 
--- vim: set ts=4 sw=4 tw=72 expandtab:
+--[[
+local a = {
+  'video/x-flv',
+  'video/flv',
+  'audio/mpeg',
+  'video/mpeg',
+  'video/webm',
+  'audio/mp4',
+  'video/mp4',
+  'application/octet-stream',
+  'application/x-shockwave-flash',
+  'text/plain',
+  'invalid content-type',
+}
+for _,v in pairs(a) do
+  print(v,to_file_ext({utilscript_dir='.'},v))
+end
+]]--
+
+-- vim: set ts=2 sw=2 tw=72 expandtab:

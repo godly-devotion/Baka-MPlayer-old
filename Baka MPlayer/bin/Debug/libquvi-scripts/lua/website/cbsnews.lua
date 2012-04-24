@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2011  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -55,12 +55,13 @@ end
 -- Parse media URL.
 function parse(self)
     self.host_id = "cbsnews"
-    local config = CBSNews.get_config(self)
 
-    local _,_,s  = config:find ('<Title>.-CDATA%[(.-)%]')
-    self.title   = s or error ("no match: media title")
+    local c = CBSNews.get_config(self)
 
-    local formats = CBSNews.iter_formats(config)
+    self.title = c:match('<Title>.-CDATA%[(.-)%]')
+                  or error ("no match: media title")
+
+    local formats = CBSNews.iter_formats(c)
     local U       = require 'quvi/util'
     local format  = U.choose_format(self, formats,
                                      CBSNews.choose_best,
@@ -76,18 +77,19 @@ end
 --
 
 function CBSNews.get_config(self)
-    local page  = quvi.fetch(self.page_url)
+    local p = quvi.fetch(self.page_url)
 
     -- Need "? because some videos have the " and some don't
-    local _,_,s = page:find('CBSVideo.setVideoId%("?(.-)"?%);')
-    self.id     = s or error("no match: media id")
+    self.id = p:match('CBSVideo.setVideoId%("?(.-)"?%);')
+                or error("no match: media id")
 
-    local s_fmt = "http://api.cnet.com/restApi/v1.0/videoSearch?videoIds=%s"
-                    .. "&iod=videoMedia"
+    local s_fmt =
+      "http://api.cnet.com/restApi/v1.0/videoSearch?videoIds=%s"
+       .. "&iod=videoMedia"
 
-    local config_url = string.format(s_fmt, self.id)
+    local c_url = string.format(s_fmt, self.id)
 
-    return quvi.fetch(config_url, {fetch_type = 'config'})
+    return quvi.fetch(c_url, {fetch_type='config'})
 end
 
 function CBSNews.iter_formats(config) -- Iterate available formats
@@ -97,8 +99,8 @@ function CBSNews.iter_formats(config) -- Iterate available formats
            .. '.-<DeliveryUrl>.-'
            .. 'CDATA%[(.-)%]'
     local t = {}
-    for w,h,b,u in config:gfind(p) do
-        local _,_,s = u:find('%.(%w+)$')
+    for w,h,b,u in config:gmatch(p) do
+        local s = u:match('%.(%w+)$')
 --        print(w,h,b,s,u)
         table.insert(t,
             {width=tonumber(w),

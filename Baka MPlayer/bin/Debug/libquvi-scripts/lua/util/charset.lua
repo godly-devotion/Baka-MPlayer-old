@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010,2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -22,8 +22,7 @@
 
 -- Parse charset from data.
 function charset_from_data(data)
-    local _,_,s = data:lower():find('charset="?([%w-_]+)')
-    return s
+    return (data:lower():match('charset="?([%w-_]+)'))
 end
 
 -- vim: set ts=4 sw=4 tw=72 expandtab:

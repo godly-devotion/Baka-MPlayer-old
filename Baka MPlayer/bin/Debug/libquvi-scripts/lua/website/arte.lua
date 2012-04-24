@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2011  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2012  Toni Gundogdu <legatvs@gmail.com>
 -- Copyright (C) 2011  Raphaël Droz <raphael.droz+floss@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.googlecode.com/>.
@@ -78,16 +78,17 @@ end
 --
 
 function Arte.get_config(self)
-    local page       = quvi.fetch(self.page_url)
-    local _,_,s      = page:find('videorefFileUrl = "(.-)"')
-    local config_url = s or error('no match: config url')
-    local config     = quvi.fetch(config_url, {fetch_type = 'config'})
-    return Arte.get_lang_config(config)
+    local p = quvi.fetch(self.page_url)
+
+    local c_url = p:match('videorefFileUrl = "(.-)"')
+                    or error('no match: config URL')
+
+    return Arte.get_lang_config(quvi.fetch(c_url, {fetch_type='config'}))
 end
 
 function Arte.get_lang_config(config)
     local t = {}
-    for lang,url in config:gfind('<video lang="(%w+)" ref="(.-)"') do
+    for lang,url in config:gmatch('<video lang="(%w+)" ref="(.-)"') do
         table.insert(t, {lang=lang,
                          config=quvi.fetch(url, {fetch_type = 'config'})})
     end
@@ -118,7 +119,7 @@ function Arte.iter_lang_formats(lang_config, t, U)
     local urls = config:match('<urls>(.-)</urls>')
                   or error('no match: urls')
 
-    for q,u in urls:gfind('<url quality="(%w+)">(.-)<') do
+    for q,u in urls:gmatch('<url quality="(%w+)">(.-)<') do
 --        print(q,u)
         table.insert(t, {lang=lang,   quality=q,   url=u,
                          thumb=thumb, title=title, id=id})
@@ -140,7 +141,7 @@ end
 function Arte.choose_best(formats) -- Whatever matches 'hd' first
     local r
     for _,v in pairs(formats) do
-        if Arte.to_s(v):find('hd') then
+        if Arte.to_s(v):match('hd') then
             return v
         end
     end
@@ -150,7 +151,7 @@ end
 function Arte.choose_default(formats) -- Whatever matches 'sd' first
     local r
     for _,v in pairs(formats) do
-        if Arte.to_s(v):find('sd') then
+        if Arte.to_s(v):match('sd') then
             return v
         end
     end

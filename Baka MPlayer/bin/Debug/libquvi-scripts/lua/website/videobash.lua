@@ -1,5 +1,6 @@
 
 -- libquvi-scripts
+-- Copyright (C) 2012  Toni Gundogdu <legatvs@gmail.com>
 -- Copyright (C) 2011  Thomas Preud'homme <robotux@celest.fr>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
@@ -21,7 +22,7 @@
 --
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -40,18 +41,19 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "videobash"
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find("<title>(.-)%s+-")
-    self.title  = s or error ("no match: media title")
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find("addFavorite%((%d+)")
-    self.id     = s or error ("no match: media id")
+    self.title = p:match("<title>(.-)%s+-")
+                  or error ("no match: media title")
 
-    local s = page:match('video_url=(.-)&')
-                or error("no match: media url")
+    self.id = p:match("addFavorite%((%d+)")
+                or error ("no match: media ID")
+
+    local s = p:match('video_url=(.-)&')
+                or error("no match: media URL")
 
     local U     = require 'quvi/util'
     self.url    = {U.unescape(s)}

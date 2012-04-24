@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2011  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2011-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -43,20 +43,21 @@ end
 function parse (self)
     self.host_id = "tmunderground"
 
-    local _,_,s  = self.page_url:find('/watch/(.-)/')
-    self.id      = s or error("no match: media id")
+    self.id = self.page_url:match('/watch/(.-)/')
+                or error("no match: media id")
 
-    local page   = quvi.fetch(self.page_url)
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s  = page:find('class="viewvid_header">(.-)</')
-    self.title   = s or error("no match: media title")
+    self.title = p:match('class="viewvid_header">(.-)</')
+                  or error("no match: media title")
 
-    local _,_,s    = page:find("pf=(.-)'")
-    local conf_url = s or error("no match: config url")
+    local c_url = p:match("pf=(.-)'")
+                    or error("no match: config URL")
 
-    local config = quvi.fetch(conf_url, {fetch_type='config'})
-    local _,_,s  = config:find('<f1>(.-)</')
-    self.url     = {s or error("no match: media url")}
+    local c = quvi.fetch(c_url, {fetch_type='config'})
+
+    self.url = {c:match('<f1>(.-)</')
+                or error("no match: media url")}
 
     return self
 end

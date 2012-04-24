@@ -52,24 +52,31 @@ function parse(self)
         return self
     end
 
-    local U    = require 'quvi/util'
-    local page = Metacafe.fetch_page(self, U)
+    local U = require 'quvi/util'
+    local p = Metacafe.fetch_page(self, U)
 
-    local _,_,s = page:find('"title":"(.-)"')
-    self.title  = U.unescape(s or error("no match: media title"))
+    self.title = p:match('"title":"(.-)"')
+                  or error("no match: media title")
 
-    local _,_,s = page:find('"itemID":"(.-)"')
-    self.id     = s or error("no match: media id")
+    self.title = U.unescape(self.title)
 
-    local _,_,s = page:find('<link rel="image_src" href="(.-)"')
-    self.thumbnail_url = s or ''
+    self.id = p:match('"itemID":"(.-)"')
+                or error('no match: media id')
 
-    local _,_,s = page:find('"mediaData":"(.-)"')
-    local media_data = U.unescape(s or error("no match: media data"))
-    local _,_,s = media_data:find('"mediaURL":"(.-)"')
-    self.url    = U.slash_unescape(s or error("no match: media url"))
-    local _,_,s = media_data:find('"key":"(.-)"')
-    self.url    = { self.url .. "?__gda__=" .. s or error("no match: gda key") }
+    self.thumbnail_url = p:match('rel="image_src" href="(.-)"') or ''
+
+    local d = p:match('"mediaData":"(.-)"')
+                or error('no match: media data')
+    d = U.unescape(d)
+
+    local u = d:match('"mediaURL":"(.-)"')
+                or error('no match: media url')
+    u = U.slash_unescape(u)
+
+    local k = d:match('"key":"(.-)"')
+                or error('no match: gda key')
+
+    self.url = {string.format("%s?__gda__=%s", u, k)}
 
     return self
 end
@@ -79,9 +86,8 @@ end
 --
 
 function Metacafe.redirectp(self)
-    local _,_,s = self.page_url:find('/watch/yt%-([^/]+)/')
-    if s then
-        -- Hand over to youtube.lua
+    local s = self.page_url:match('/watch/yt%-([^/]+)/')
+    if s then -- Hand over to youtube.lua
         self.redirect_url = 'http://youtube.com/watch?v=' .. s
         return true
     end

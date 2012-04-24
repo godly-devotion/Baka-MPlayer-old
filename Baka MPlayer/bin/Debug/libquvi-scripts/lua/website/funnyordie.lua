@@ -82,7 +82,7 @@ end
 
 function FunnyOrDie.iter_formats(page)
     local t = {}
-    for u in page:gfind("'src',%s+'(.-)'") do
+    for u in page:gmatch("'src',%s+'(.-)'") do
         local q,c = u:match('(%w+)%.(%w+)$')
         table.insert(t, {url=u, quality=q, container=c})
 --        print(u,c)

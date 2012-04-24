@@ -123,7 +123,7 @@ end
 function MGNetwork.iter_formats(config)
     local p = 'content url="(.-)" type="%w+/(.-)"'
     local t = {}
-    for u,c in config:gfind(p) do
+    for u,c in config:gmatch(p) do
         table.insert(t, {url=u, container=c})
         --print(u,c)
     end

@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2011  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -57,11 +57,10 @@ end
 
 -- Parse URL.
 function parse(self)
-    self.host_id   = "youtube"
-    local page_url = YouTube.normalize(self.page_url)
+    self.host_id = "youtube"
 
-    local _,_,s = page_url:find('#a?t=(.+)')
-    self.start_time = s or ''
+    local p_url = YouTube.normalize(self.page_url)
+    self.start_time = p_url:match('#a?t=(.+)') or ''
 
     return YouTube.get_video_info(self)
 end
@@ -81,7 +80,7 @@ function YouTube.normalize(s)
         local p = {'/embed/([-_%w]+)', '/%w/([-_%w]+)', '/([-_%w]+)'}
         for _,v in pairs(p) do
             local m = t.path:match(v)
-            if m and not t.query then
+            if m and #m == 11 then
                 t.query = 'v=' .. m
                 t.path  = '/watch'
             end
@@ -91,29 +90,29 @@ function YouTube.normalize(s)
 end
 
 function YouTube.get_config(self)
-    local _,_,s  = self.page_url:find('^(%w+)://')
-    local scheme = s or error("no match: scheme")
+    local sch = self.page_url:match('^(%w+)://')
+                  or error("no match: scheme")
 
-    local page_url = YouTube.normalize(self.page_url)
+    local p_url = YouTube.normalize(self.page_url)
 
-    local _,_,s = page_url:find("v=([%w-_]+)")
-    self.id = s or error("no match: media id")
+    self.id = p_url:match("v=([%w-_]+)")
+                or error("no match: media ID")
 
     local s_fmt = "%s://www.youtube.com/get_video_info?&video_id=%s"
                     .. "&el=detailpage&ps=default&eurl=&gl=US&hl=en"
 
-    local config_url = string.format(s_fmt, scheme, self.id)
+    local c_url = string.format(s_fmt, sch, self.id)
 
-    local U      = require 'quvi/util'
-    local config = U.decode(quvi.fetch(config_url, {fetch_type='config'}))
+    local U = require 'quvi/util'
+    local c = U.decode(quvi.fetch(c_url, {fetch_type='config'}))
 
-    if config['reason'] then
-        local reason = U.unescape(config['reason'])
-        local code   = config['errorcode']
+    if c['reason'] then
+        local reason = U.unescape(c['reason'])
+        local code = c['errorcode']
         error(string.format("%s (code=%s)", reason, code))
     end
 
-    return config,U
+    return c, U
 end
 
 function YouTube.iter_formats(config, U)
@@ -123,7 +122,7 @@ function YouTube.iter_formats(config, U)
     fmt_stream_map = U.unescape(fmt_stream_map) .. ","
 
     local urls = {}
-    for f in fmt_stream_map:gfind('([^,]*),') do
+    for f in fmt_stream_map:gmatch('([^,]*),') do
         local d = U.decode(f)
         if d['itag'] and d['url'] then
             urls[U.unescape(d['itag'])] = U.unescape(d['url'])
@@ -134,7 +133,7 @@ function YouTube.iter_formats(config, U)
     fmt_map = U.unescape(fmt_map)
 
     local r = {}
-    for f,w,h in fmt_map:gfind('(%d+)/(%d+)x(%d+)') do
+    for f,w,h in fmt_map:gmatch('(%d+)/(%d+)x(%d+)') do
 --        print(f,w,h)
         table.insert(r, {fmt_id=tonumber(f),    url=urls[f],
                           width=tonumber(w), height=tonumber(h)})
@@ -233,6 +232,8 @@ end
 local a = {
   {u='http://youtu.be/3WSQH__H1XE',             -- u=page url
    e='http://youtube.com/watch?v=3WSQH__H1XE'}, -- e=expected url
+  {u='http://youtu.be/v/3WSQH__H1XE?hl=en',
+   e='http://youtube.com/watch?v=3WSQH__H1XE'},
   {u='http://youtu.be/watch?v=3WSQH__H1XE',
    e='http://youtube.com/watch?v=3WSQH__H1XE'},
   {u='http://youtu.be/embed/3WSQH__H1XE',
@@ -264,7 +265,7 @@ for i,v in pairs(a) do
     e = e + 1
   end
 end
-print('\nerrors: ' .. e)
+print((e == 0) and 'Tests OK' or ('\nerrors: ' .. e))
 ]]--
 
 -- vim: set ts=4 sw=4 tw=72 expandtab:

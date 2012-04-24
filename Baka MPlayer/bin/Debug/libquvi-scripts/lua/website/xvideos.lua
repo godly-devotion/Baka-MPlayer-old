@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010  quvi project
+-- Copyright (C) 2010-2012  quvi project
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -23,7 +23,7 @@
 local Xvideos = {} -- Utility functions unique to this script
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -32,7 +32,7 @@ function ident (self)
     r.categories = C.proto_http
     local U      = require 'quvi/util'
     Xvideos.normalize(self)
-    r.handles    = U.handles(self.page_url, {r.domain}, {"/video%d+"})
+    r.handles    = U.handles(self.page_url, {r.domain}, {"/video%d+/"})
     return r
 end
 
@@ -43,24 +43,26 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "xvideos"
+
     Xvideos.normalize(self)
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find("<title>(.-)%s+-%s+XVID")
-    self.title  = s or error ("no match: media title")
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find("id_video=(.-)&amp;")
-    self.id     = s or error ("no match: media id")
+    self.title = p:match("<title>(.-)%s+-%s+XVID")
+                  or error("no match: media title")
 
-    local _,_,s = page:find("url_bigthumb=(.-)&amp;")
-    self.thumbnail_url = s or ''
+    self.id = self.page_url:match("/video(%d+)/")
+                or error("no match: media ID")
 
-    local _,_,s = page:find("flv_url=(.-)&amp;")
-    s           = s or error ("no match: flv url")
-    local U     = require 'quvi/util'
-    self.url    = {U.unescape(s)}
+    self.thumbnail_url = p:match("url_bigthumb=(.-)&amp;") or ''
+
+    local s = p:match("flv_url=(.-)&amp;")
+                or error("no match: media URL")
+
+    local U = require 'quvi/util'
+    self.url = {U.unescape(s)}
 
     return self
 end

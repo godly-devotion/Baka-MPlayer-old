@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010  quvi project
+-- Copyright (C) 2010-2012  quvi project
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -21,7 +21,7 @@
 --
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -40,19 +40,19 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "charlierose"
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find("<title>Charlie Rose%s+-%s+(.-)</title>")
-    self.title  = s or error ("no match: media title")
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('view%/content%/(.-)"')
-    self.id     = s or error ("no match: media id")
+    self.title = p:match("<title>Charlie Rose%s+-%s+(.-)</title>")
+                  or error("no match: media title")
 
-    local _,_,s = page:find('url":"(.-)"')
-    s           = s or error ("no match: flv url")
-    self.url    = {s}
+    self.id = p:match('view%/content%/(.-)"')
+                or error("no match: media ID")
+
+    self.url = {p:match('url":"(.-)"')
+                or error("no match: media URL")}
 
     return self
 end

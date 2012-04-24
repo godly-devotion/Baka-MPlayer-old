@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -21,7 +21,7 @@
 --
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -30,7 +30,7 @@ function ident (self)
     r.categories = C.proto_http
     -- TODO: Use quvi/util:handles instead
     r.handles    =
-        (self.page_url ~= nil and self.page_url:find(r.domain) ~= nil)
+        (self.page_url ~= nil and self.page_url:match(r.domain) ~= nil)
     return r
 end
 
@@ -41,25 +41,26 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "sevenload"
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('<meta name="title" content="(.-)"')
-    self.title  = s or error ("no match: media title")
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s      = page:find('configPath=(.-)"')
-    local config_url = s or error ("no match: config")
+    local c_url = p:match('configPath=(.-)"')
+                    or error("no match: config URL")
+    local U = require 'quvi/util'
+    c_url = U.unescape(c_url)
 
-    local U          = require 'quvi/util'
-    config_url       = U.unescape(config_url)
-    local config     = quvi.fetch (config_url, {fetch_type = 'config'})
+    local c = quvi.fetch(c_url, {fetch_type = 'config'})
 
-    local _,_,s = config_url:find("itemId=(%w+)")
-    self.id     = s or error ("no match: media id")
+    self.title = c:match('<item id=.-<title>(.-)</title>')
+                  or error("no match: media title")
 
-    local _,_,s = config:find('<location seeking="yes">(.-)</')
-    self.url    = {s or error ("no match: location")}
+    self.id = c_url:match("itemId=(%w+)")
+                or error("no match: media id")
+
+    self.url = {c:match('<location seeking="yes">(.-)</')
+                or error("no match: media URL")}
 
     return self
 end

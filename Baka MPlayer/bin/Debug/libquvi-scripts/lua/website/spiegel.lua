@@ -21,8 +21,7 @@
 --
 
 --
--- NOTE: mp4s do not appear to be available (404) even if listed in the
---       config xml, this is the case at least with the test URL
+-- NOTE: mp4s do not appear to be available (404) even if listed.
 --
 
 local Spiegel = {} -- Utility functions unique to this script
@@ -64,10 +63,10 @@ function parse(self)
 
     Spiegel.get_media_id(self)
 
-    local playlist = Spiegel.get_playlist(self)
+    local p = Spiegel.get_playlist(self)
 
-    local _,_,s = playlist:find("<headline>(.-)</")
-    self.title  = s or error ("no match: media title")
+    self.title = p:match("<headline>(.-)</")
+                  or error ("no match: media title")
 
     local config  = Spiegel.get_config(self)
     local formats = Spiegel.iter_formats(config)
@@ -80,6 +79,7 @@ function parse(self)
                         or error("unable to choose format")
     self.duration = (format.duration or 0) * 1000 -- to msec
     self.url      = {format.url or error("no match: media url")}
+
     return self
 end
 
@@ -88,8 +88,8 @@ end
 --
 
 function Spiegel.get_media_id(self)
-    local _,_,s = self.page_url:find("/video/video%-(.-)%.")
-    self.id     = s or error ("no match: media id")
+    self.id = self.page_url:match("/video/video%-(.-)%.")
+                or error ("no match: media id")
 end
 
 function Spiegel.get_playlist(self)
@@ -115,8 +115,8 @@ function Spiegel.iter_formats(config)
            .. '.-<height>(%d+)'
            .. '.-<duration>(%d+)'
     local t = {}
-    for fn,c,b,w,h,d in config:gfind(p) do
-        local _,_,cn = fn:find('%.(%w+)$') 
+    for fn,c,b,w,h,d in config:gmatch(p) do
+        local cn = fn:match('%.(%w+)$') or error('no match: container')
         local u = 'http://video.spiegel.de/flash/' .. fn
 --        print(u,c,b,w,h,cn,d)
         table.insert(t, {codec=string.lower(c), url=u,

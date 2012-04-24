@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -21,7 +21,7 @@
 --
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -40,26 +40,24 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "clipfish"
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find("<title>(.-)</title>")
-    self.title  = s or error ("no match: media title")
+    self.id = self.page_url:match("/video/(.-)/")
+                or error("no match: media ID")
 
-    self.title = self.title:gsub("Video:%s+", "")
-    self.title = self.title:gsub("%s+-%s+Clipfish", "")
+    local c_url = "http://www.clipfish.de/devxml/videoinfo/"
+                    .. self.id
 
-    local _,_,s = page:find("/video/(.-)/")
-    self.id     = s or error ("no match: media id")
+    local c = quvi.fetch(c_url, {fetch_type = 'config'})
 
-    local config_url =
-        string.format("http://www.clipfish.de/video_n.php?p=0|DE&vid=%s",
-            self.id)
+    self.title = c:match('<title><!%[CDATA%[(.-)%]')
+                  or error("no match: media title")
 
-    local config = quvi.fetch (config_url, {fetch_type = 'config'})
-    local _,_,s  = config:find("&url=(.-)&")
-    self.url     = {s or error ("no match: url")}
+    self.thumbnail_url = c:match('<imageurl>(.-)</') or ''
+
+    self.url = {c:match("<filename><!%[CDATA%[(.-)%]")
+                  or error("no match: media URL")}
 
     return self
 end

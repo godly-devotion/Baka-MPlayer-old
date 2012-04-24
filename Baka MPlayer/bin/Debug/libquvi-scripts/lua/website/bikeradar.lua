@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2011  quvi project
+-- Copyright (C) 2011-2012  quvi project
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -43,24 +43,20 @@ end
 function parse(self)
     self.host_id  = "bikeradar"
 
-    local _,_,s = self.page_url:find('bikeradar.com/.+-(%d+)$')
-    self.id = s or error("no match: media id")
+    self.id = self.page_url:match('bikeradar.com/.+-(%d+)$')
+                or error("no match: media ID")
 
-    local page = quvi.fetch(self.page_url)
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('"og:title" content="(.-)"/>')
-    self.title  = s or error("no match: media title")
+    self.title = p:match('"og:title" content="(.-)"/>')
+                  or error("no match: media title")
 
-    local _,_,s = page:find('"og:image" content="(.-)"')
-    self.thumbnail_url = s or ''
+    self.thumbnail_url = p:match('"og:image" content="(.-)"') or ''
 
-    local _,_,s = page:find('<param name="flashvars" value="vcode=(%w+)&')
-    local video_id = s or error("no match: media id")
+    local fn = p:match('<param name="flashvars" value="vcode=(%w+)&')
+                or error("no match: file name")
 
-    self.url = {
-        string.format("http://cdn.video.bikeradar.com/%s.flv",
-        video_id)
-    }
+    self.url = {string.format("http://cdn.video.bikeradar.com/%s.flv",fn)}
 
     return self
 end

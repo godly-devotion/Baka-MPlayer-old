@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2011  quvi project
+-- Copyright (C) 2011-2012  quvi project
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -21,7 +21,7 @@
 --
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -40,22 +40,26 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "totallynsfw"
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find('"config","(.-)"')
-    local config_url = s or error ("no match: media config")
+    local p = quvi.fetch(self.page_url)
 
-    local config_page = quvi.fetch(config_url, {fetch_type='config'})
-    local _,_,s  = config_page:find('<file>(.-)</file>')
-    self.url     = {s or error ("no match: media url")}
+    self.title = p:match('<div class="hdr"><h2>(.-)</h2></div>')
+                  or error ("no match: media title")
 
-    local _,_,s = page:find('<div class="hdr"><h2>(.-)</h2></div>')
-    self.title   = s or error ("no match: media title")
+    local c_url = p:match('"config","(.-)"')
+                    or error ("no match: config URL")
 
-    local _,_,s = config_url:find("config_jwplayer_test/(.-)/")
-    self.id     = s or error ("no match: media id")
+    self.id = c_url:match("config_jwplayer_test/(.-)/")
+                or error ("no match: media id")
+
+    local c = quvi.fetch(c_url, {fetch_type='config'})
+
+    local s = c:match('<file>(.-)</file>')
+                or error ("no match: media url")
+
+    self.url = {s}
 
     return self
 end

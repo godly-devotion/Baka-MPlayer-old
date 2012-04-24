@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2011  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2012  Toni Gundogdu <legatvs@gmail.com>
 -- Copyright (C) 2010-2011  Lionel Elie Mamane <lionel@mamane.lu>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
@@ -66,22 +66,21 @@ function parse(self)
         return self
     end
 
-    local config = CollegeHumor.get_config(self)
+    local c = CollegeHumor.get_config(self)
 
-    local _,_,s = config:find('<caption>(.-)<')
-    self.title  = s or error("no match: media title")
+    self.title = c:match('<caption>(.-)<')
+                  or error("no match: media title")
 
-    local _,_,s = config:find('<thumbnail><!%[.-%[(.-)%]')
-    self.thumbnail_url = s or ""
+    self.thumbnail_url = c:match('<thumbnail><!%[.-%[(.-)%]') or ''
 
-    local formats = CollegeHumor.iter_formats(config)
+    local formats = CollegeHumor.iter_formats(c)
     local U       = require 'quvi/util'
     local format  = U.choose_format(self, formats,
                                      CollegeHumor.choose_best,
                                      CollegeHumor.choose_default,
                                      CollegeHumor.to_s)
                         or error("unable to choose format")
-    self.url      = {format.url or error("no match: media url")}
+    self.url      = {format.url or error("no match: media URL")}
     return self
 end
 
@@ -91,8 +90,8 @@ end
 
 function CollegeHumor.redirect_if_embed(self) -- dorkly embeds YouTube videos
     if self.page_url:match('/embed/%d+') then
-        local page  = quvi.fetch(self.page_url)
-        local _,_,s = page:find('youtube.com/embed/([%w-_]+)')
+        local p = quvi.fetch(self.page_url)
+        local s = p:match('youtube.com/embed/([%w-_]+)')
         if s then
             -- Hand over to youtube.lua
             self.redirect_url = 'http://youtube.com/watch?v=' .. s
@@ -103,18 +102,14 @@ function CollegeHumor.redirect_if_embed(self) -- dorkly embeds YouTube videos
 end
 
 function CollegeHumor.get_media_id(self)
-    local R         = require 'quvi/url'
-    local domain    = R.parse(self.page_url).host:gsub('^www%.', '', 1)
+    local U = require 'quvi/url'
+    local domain = U.parse(self.page_url).host:gsub('^www%.', '', 1)
 
-    _,_,self.host_id = domain:find('^(.+)%.[^.]+$')
-    if not self.host_id then
-        error("no match: domain")
-    end
+    self.host_id = domain:match('^(.+)%.[^.]+$')
+                    or error("no match: domain")
 
-    _,_,self.id = self.page_url:find('/video[/:](%d+)')
-    if not self.id then
-        error("no match: media id")
-    end
+    self.id = self.page_url:match('/video[/:](%d+)')
+                or error("no match: media ID")
 
     return domain
 end
@@ -136,17 +131,17 @@ function CollegeHumor.get_config(self)
 end
 
 function CollegeHumor.iter_formats(config)
-    local _,_,sd_url = config:find('<file><!%[.-%[(.-)%]')
-    local _,_,hq_url = config:find('<hq><!%[.-%[(.-)%]')
-    local hq_avail   = (hq_url and #hq_url > 0) and 1 or 0
+    local sd_url = config:match('<file><!%[.-%[(.-)%]')
+    local hq_url = config:match('<hq><!%[.-%[(.-)%]')
+    local hq_avail = (hq_url and #hq_url > 0) and 1 or 0
 
     local t = {}
 
-    local _,_,s = sd_url:find('%.(%w+)$')
+    local s = sd_url:match('%.(%w+)$')
     table.insert(t, {quality='sd', url=sd_url, container=s})
 
     if hq_avail == 1 and hq_url then
-        local _,_,s = hq_url:find('%.(%w+)$')
+        local s = hq_url:match('%.(%w+)$')
         table.insert(t, {quality='hq', url=hq_url, container=s})
     end
 

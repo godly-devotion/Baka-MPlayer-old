@@ -42,19 +42,20 @@ end
 -- Parse media URL.
 function parse (self)
     self.host_id = "keezmovies"
-    local page   = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find("<title>(.-)%s+-%s+KeezMovies.com")
-    self.title  = s or error ("no match: media title")
+    local p = quvi.fetch(self.page_url)
 
-    local _,_,s = page:find("id%%3D(.-)&amp;")
-    self.id     = s or error ("no match: media id")
+    self.title = p:match("<title>(.-)%s+-%s+KeezMovies.com")
+                  or error("no match: media title")
 
-    local _,_,s = page:find("video_url=(.-)&amp;")
-    s           = s or error ("no match: flv url")
+    self.id = p:match("id%%3D(.-)&amp;")
+                or error("no match: media id")
 
-    local U     = require 'quvi/util'
-    self.url    = {U.unescape (s)}
+    local s = p:match("video_url=(.-)&amp;")
+                or error("no match: flv url")
+
+    local U  = require 'quvi/util'
+    self.url = {U.unescape(s)}
 
     return self
 end

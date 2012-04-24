@@ -20,7 +20,7 @@
 -- 02110-1301  USA
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -39,23 +39,26 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "publicsenat"
-    local page   = quvi.fetch (self.page_url)
 
-    local _,_,s = page:find  ('<title>(.-)%s+%|')
-    self.title  = s or error ("no match: media title")
+    local p = quvi.fetch (self.page_url)
 
-    local _,_,s = self.page_url:find ("^http://www.publicsenat.fr/vod/.-(%d+)$")
-    self.id     = s or error ("no match: media id")
+    self.title = p:match('<title>(.-)%s+%|')
+                  or error("no match: media title")
 
-    local config_url =
-        "http://videos.publicsenat.fr/vodiFrame.php?idE="
-        .. self.id
+    self.id = self.page_url:match("^http://www.publicsenat.fr/vod/.-(%d+)$")
+                or error("no match: media id")
 
-    local config = quvi.fetch  (config_url, {fetch_type = 'config'})
-    local _,_,s  = config:find ('id="flvEmissionSelect" value="(.-)"')
-    self.url     = {s or error ("no match: url")}
+    local c_url = "http://videos.publicsenat.fr/vodiFrame.php?idE="
+                    .. self.id
+
+    local c = quvi.fetch(c_url, {fetch_type = 'config'})
+
+    local s = c:match('id="flvEmissionSelect" value="(.-)"')
+                or error("no match: media url")
+
+    self.url = {s}
 
     return self
 end

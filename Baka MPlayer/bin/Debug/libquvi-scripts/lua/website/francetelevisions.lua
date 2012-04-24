@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2011  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2011-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.googlecode.com/>.
 --
@@ -20,7 +20,7 @@
 -- 02110-1301  USA
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -39,24 +39,24 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id  = 'francetelevisions'
 
-    local _,_,s   = self.page_url:find ('id%-video=([%w_]+)')
-    self.id       = s or error ('no match: id')
+    self.id = self.page_url:match('id%-video=([%w_]+)')
+                or error('no match: media ID')
 
-    local config_url =
-        "http://info.francetelevisions.fr/video-info/player_html/blochtml.php?"
+    local c_url =
+      "http://info.francetelevisions.fr/video-info/player_html/blochtml.php?"
         .. "id-video="
         .. self.id
 
-    local config = quvi.fetch (config_url, {fetch_type = 'config'})
+    local c = quvi.fetch(c_url, {fetch_type='config'})
 
-    local _,_,s  = config:find ('itemTitle">(.-)<')
-    self.title   = s or error ('no match: title')
+    self.title = c:match('itemTitle">(.-)<')
+                  or error('no match: title')
 
-    local _,_,s  = config:find ('embed src="(.-)"')
-    self.url     = {s or error ('no match: media url')}
+    self.url = {c:match('embed src="(.-)"')
+                  or error('no match: media URL')}
 
     return self
 

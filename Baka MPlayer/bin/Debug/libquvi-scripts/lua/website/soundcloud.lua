@@ -54,7 +54,7 @@ function parse(self)
 
     self.thumbnail_url = ''
     self.title = nil -- Ugly but works.
-    for c,p in p:gfind('<meta content="(.-)" property="(.-)"') do
+    for c,p in p:gmatch('<meta content="(.-)" property="(.-)"') do
         if p == 'og:title' then
             self.title = c
         elseif p == 'og:image' then

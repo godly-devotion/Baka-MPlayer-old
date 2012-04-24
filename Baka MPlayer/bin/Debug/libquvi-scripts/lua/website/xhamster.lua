@@ -1,6 +1,7 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010 Paul Kocialkowski <contact@paulk.fr>
+-- Copyright (C) 2012  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010  Paul Kocialkowski <contact@paulk.fr>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -21,7 +22,7 @@
 --
 
 -- Identify the script.
-function ident (self)
+function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
@@ -40,23 +41,24 @@ function query_formats(self)
 end
 
 -- Parse media URL.
-function parse (self)
+function parse(self)
     self.host_id = "xhamster"
-    local page   = quvi.fetch(self.page_url)
 
-    self.title = page:match('class="mTitle">.-<h1?.>(.-)</h1>')
+    local p = quvi.fetch(self.page_url)
+
+    self.title = p:match('class="mTitle">.-<h1?.>(.-)</h1>')
                   or error("no match: media title")
 
-    local _,_,s = self.page_url:find("/movies/(.-)/")
-    self.id     = s or error ("no match: media id")
+    self.id = self.page_url:match("/movies/(.-)/")
+                or error("no match: media ID")
 
-    local _,_,s = page:find("'srv': '(.-)'")
-    local srv   = s or error ("no match: server")
+    local s = p:match("'srv': '(.-)'")
+                or error("no match: server")
 
-    local _,_,s = page:find("'file': '(.-)'")
-    local file  = s or error ("no match: file")
+    local f = p:match("'file': '(.-)'")
+                or error("no match: file")
 
-    self.url    = {srv.."/key="..file}
+    self.url    = {s .."/key=".. f}
 
     return self
 end
