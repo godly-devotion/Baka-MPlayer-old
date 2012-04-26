@@ -2,7 +2,6 @@
 * UltraID3Lib wrapper class *
 * by Joshua Park            *
 ****************************/
-
 using System.Drawing;
 using HundredMilesSoftware.UltraID3Lib;
 

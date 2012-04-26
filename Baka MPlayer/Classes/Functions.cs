@@ -1,6 +1,5 @@
 ﻿/*****************************
 * Functions (by Joshua Park) *
-* updated 4/5/2012           *
 *****************************/
 using System;
 using System.Runtime.InteropServices;
@@ -23,6 +22,14 @@ public static class Functions
             return (Environment.OSVersion.Version.Major > 6) ||
                 (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor >= 1);
         }
+    }
+
+    public static bool IsRunning64Bit()
+    {
+        // if (IntPtr.Size == 4) 32-bit
+        // if (IntPtr.Size == 8) 64-bit
+
+        return IntPtr.Size.Equals(8);
     }
 
     public static string GetFileSize(string FilePath, int RoundTo)

@@ -1,6 +1,5 @@
 /****************************
 * Settings (by Joshua Park) *
-* updated 3/8/2012          *
 ****************************/
 using System;
 using System.Collections.Generic;

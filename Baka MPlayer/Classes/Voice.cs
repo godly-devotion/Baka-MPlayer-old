@@ -1,8 +1,4 @@
-﻿/*************************
-* Voice (by Joshua Park) *
-* updated 2/20/2012      *
-*************************/
-using Baka_MPlayer.Forms;
+﻿using Baka_MPlayer.Forms;
 using System.Speech.Recognition;
 using System.Media;
 
@@ -69,7 +65,7 @@ public class Voice
     // Handle the SpeechRecognized event.
     public void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
     {
-        if (e.Result.Confidence > 0.9F)
+        if (e.Result.Confidence > 0.8F)
         {
             mainForm.CallStateChanged(VoiceState.SpeechRecognized);
             mainForm.CallTakeAction(e.Result.Text.ToLower().Substring(callName.Length + 1));

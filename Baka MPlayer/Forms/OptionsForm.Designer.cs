@@ -65,7 +65,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(350, 322);
+            this.tabControl1.Size = new System.Drawing.Size(410, 342);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -75,7 +75,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 30);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(342, 288);
+            this.tabPage1.Size = new System.Drawing.Size(402, 308);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
             // 
@@ -92,7 +92,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 30);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(342, 288);
+            this.tabPage2.Size = new System.Drawing.Size(402, 308);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Voice";
             // 
@@ -109,6 +109,7 @@
             // 
             // label8
             // 
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.Gray;
             this.label8.Location = new System.Drawing.Point(6, 200);
             this.label8.Name = "label8";
@@ -139,6 +140,7 @@
             // 
             // label6
             // 
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.Gray;
             this.label6.Location = new System.Drawing.Point(6, 59);
             this.label6.Name = "label6";
@@ -169,12 +171,13 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 30);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(342, 288);
+            this.tabPage3.Size = new System.Drawing.Size(402, 308);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "MPlayer";
             // 
             // label4
             // 
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.Gray;
             this.label4.Location = new System.Drawing.Point(6, 156);
             this.label4.Name = "label4";
@@ -184,6 +187,7 @@
             // 
             // label3
             // 
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Gray;
             this.label3.Location = new System.Drawing.Point(6, 59);
             this.label3.Name = "label3";
@@ -244,10 +248,12 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.ForeColor = System.Drawing.Color.Gray;
-            this.label5.Location = new System.Drawing.Point(12, 337);
+            this.label5.Location = new System.Drawing.Point(12, 357);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(350, 21);
+            this.label5.Size = new System.Drawing.Size(410, 21);
             this.label5.TabIndex = 1;
             this.label5.Text = "* requires Baka MPlayer restart";
             // 
@@ -262,7 +268,7 @@
             this.closeButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.White;
             this.closeButton.IsDefaultButton = true;
-            this.closeButton.Location = new System.Drawing.Point(145, 362);
+            this.closeButton.Location = new System.Drawing.Point(175, 382);
             this.closeButton.Margin = new System.Windows.Forms.Padding(4);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(85, 30);
@@ -276,7 +282,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(374, 402);
+            this.ClientSize = new System.Drawing.Size(434, 422);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.closeButton);

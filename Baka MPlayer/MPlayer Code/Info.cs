@@ -1,8 +1,4 @@
-﻿/*********************************
-* Info (by Joshua Park & u8sand) *
-* updated 4/15/2012              *
-*********************************/
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 /// <summary>
 /// Enum for mplayer's current playStates

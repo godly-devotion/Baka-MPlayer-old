@@ -1,6 +1,5 @@
 ﻿/************************************
 * MPlayer (by Joshua Park & u8sand) *
-* updated 4/1/2012                  *
 ************************************/
 using System;
 using System.Diagnostics;
@@ -49,7 +48,7 @@ public class MPlayer
                 return true;
             }
             // mplayer is not running, so start mplayer then load url
-            var cmdArgs = string.Format(" -vo {0} -ao {1}", "gl:force-pbo", "dsound");
+            var cmdArgs = string.Format("-vo {0} -ao {1}", "gl", "dsound");
             cmdArgs += " -slave";                		 			// switch on slave mode for frontend
             cmdArgs += " -idle";                 		 			// wait insead of quit
             cmdArgs += " -utf8";                 		 			// handles the subtitle file as UTF-8

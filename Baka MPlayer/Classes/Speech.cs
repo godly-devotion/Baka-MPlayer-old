@@ -1,8 +1,4 @@
-﻿/**************************
-* Speech (by Joshua Park) *
-* updated 1/19/2012       *
-**************************/
-using System;
+﻿using System;
 using System.IO;
 using System.Speech.Synthesis;
 using System.Windows.Forms;

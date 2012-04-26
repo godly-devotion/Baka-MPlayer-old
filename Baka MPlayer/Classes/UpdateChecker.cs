@@ -1,6 +1,5 @@
 ﻿/******************************************
 * UpdateChecker (by Joshua Park & u8sand) *
-* updated 2/19/2012                       *
 ******************************************/
 using System;
 using System.IO;
