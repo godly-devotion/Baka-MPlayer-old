@@ -3,6 +3,7 @@
 * by Joshua Park            *
 ****************************/
 using System.Drawing;
+using System.IO;
 using HundredMilesSoftware.UltraID3Lib;
 
 public class PictureTag
@@ -25,15 +26,21 @@ public class PictureTag
 
 public class ID3Tag
 {
-    private readonly UltraID3 tagReader = new UltraID3();
+    private UltraID3 tagReader;
 
     public void Read(string url)
     {
-        tagReader.Read(url);
+        if (File.Exists(url))
+        {
+            tagReader = new UltraID3();
+            tagReader.Read(url);
+        }
     }
 
     public PictureTag GetAlbumPictureTag()
     {
+        if (tagReader == null) return new PictureTag(null, null);
+
         var frames = tagReader.ID3v2Tag.Frames.GetFrames(MultipleInstanceID3v2FrameTypes.ID3v23Picture);
         if (frames.Count > 0)
         {
