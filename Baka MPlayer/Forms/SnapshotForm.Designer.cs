@@ -115,7 +115,6 @@
             // snapshotPicbox
             // 
             this.snapshotPicbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
-            this.snapshotPicbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.snapshotPicbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.snapshotPicbox.Location = new System.Drawing.Point(0, 0);
             this.snapshotPicbox.Name = "snapshotPicbox";

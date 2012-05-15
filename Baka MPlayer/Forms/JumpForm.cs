@@ -26,12 +26,12 @@ namespace Baka_MPlayer.Forms
             int hour, min, sec;
 
             // enable time inputs
-            Functions.CalculateTimeFromSeconds(Info.Current.TotalLength, out hour, out min, out sec);
+            Functions.Time.CalculateTimeFromSeconds(Info.Current.TotalLength, out hour, out min, out sec);
             hourBox.Enabled = hour > 0;
             minBox.Enabled = min > 0;
 
             // set default input
-            Functions.CalculateTimeFromSeconds(duration, out hour, out min, out sec);
+            Functions.Time.CalculateTimeFromSeconds(duration, out hour, out min, out sec);
             hourBox.Value = hour;
             minBox.Value = min;
             secBox.Value = sec;
@@ -51,7 +51,7 @@ namespace Baka_MPlayer.Forms
 
             if (goToRadioButton.Checked)
             {
-                statusLabel.Text = string.Format("Total Time: " + Functions.ConvertTimeFromSeconds(Info.Current.TotalLength));
+                statusLabel.Text = string.Format("Total Time: " + Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength));
 
                 if (calculatedTotal > -1 && calculatedTotal < Info.Current.TotalLength)
                 {
@@ -64,7 +64,7 @@ namespace Baka_MPlayer.Forms
             else if (addRadioButton.Checked)
             {
                 double newTime = duration + calculatedTotal;
-                statusLabel.Text = string.Format("Jumps To: " + Functions.ConvertTimeFromSeconds(newTime));
+                statusLabel.Text = string.Format("Jumps To: " + Functions.Time.ConvertTimeFromSeconds(newTime));
 
                 if (calculatedTotal > -1 && newTime < Info.Current.TotalLength)
                 {
@@ -77,7 +77,7 @@ namespace Baka_MPlayer.Forms
             else if (subtractRadioButton.Checked)
             {
                 double newTime = duration - calculatedTotal;
-                statusLabel.Text = string.Format("Jumps To: " + Functions.ConvertTimeFromSeconds(newTime));
+                statusLabel.Text = string.Format("Jumps To: " + Functions.Time.ConvertTimeFromSeconds(newTime));
 
                 if (calculatedTotal > -1 && newTime > -1)
                 {

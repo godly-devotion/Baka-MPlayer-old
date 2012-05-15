@@ -39,15 +39,14 @@ namespace Baka_MPlayer.Forms
         {
             // set file name
             var fileName = cleanNameCheckbox.Checked ?
-                cleanName(Path.GetFileNameWithoutExtension(Info.URL)) :
-                Path.GetFileNameWithoutExtension(Info.URL);
-            var location = Path.GetDirectoryName(Info.URL);
+                cleanName(Path.GetFileNameWithoutExtension(Info.FileName)) :
+                Path.GetFileNameWithoutExtension(Info.FileName);
 
             var sfd = new SaveFileDialog();
             sfd.FileName = fileName + "_snapshot[1].png";
 
             int total = 1;
-            while (File.Exists(string.Format("{0}\\{1}_snapshot[{2}].png", location, fileName, total)))
+            while (File.Exists(string.Format("{0}\\{1}_snapshot[{2}].png", Info.GetDirectoryName, fileName, total)))
             {
                 total++;
                 sfd.FileName = string.Format("{0}_snapshot[{1}].png", fileName, total);

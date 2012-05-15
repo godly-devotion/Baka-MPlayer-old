@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Baka_MPlayer.Forms
@@ -7,11 +8,6 @@ namespace Baka_MPlayer.Forms
     public partial class BlackForm : Form
     {
         private readonly MainForm mainForm;
-
-        public string SetTitle
-        {
-            set { titleLabel.Text = value; }
-        }
 
         public BlackForm(MainForm mainForm)
         {
@@ -25,6 +21,13 @@ namespace Baka_MPlayer.Forms
             this.Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
         }
 
+        public void RefreshTitle()
+        {
+            titleLabel.Text = Path.GetFileNameWithoutExtension(Functions.URL.DecodeURL(Info.FileName));
+        }
+
+        #region Events
+
         private void BlackForm_GotFocus(object sender, EventArgs e)
         {
             mainForm.Focus();
@@ -37,5 +40,7 @@ namespace Baka_MPlayer.Forms
             this.Location = new Point(scrn.Bounds.X, scrn.Bounds.Y);
             this.Size = new Size(scrn.Bounds.Width, scrn.Bounds.Height);
         }
+
+        #endregion
     }
 }

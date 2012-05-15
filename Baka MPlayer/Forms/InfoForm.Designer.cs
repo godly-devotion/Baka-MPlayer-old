@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InfoForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -57,6 +58,7 @@
             this.tagContextMenu = new System.Windows.Forms.ContextMenu();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
+            this.myToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seperatorBox)).BeginInit();
@@ -302,6 +304,7 @@
             // 
             this.nameLabel.AutoEllipsis = true;
             this.nameLabel.BackColor = System.Drawing.Color.Transparent;
+            this.nameLabel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.nameLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.nameLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nameLabel.ForeColor = System.Drawing.Color.DeepSkyBlue;
@@ -312,6 +315,8 @@
             this.nameLabel.TabIndex = 0;
             this.nameLabel.Text = "Baka MPlayer";
             this.nameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.myToolTip.SetToolTip(this.nameLabel, "Click here to copy text");
+            this.nameLabel.Click += new System.EventHandler(this.nameLabel_Click);
             // 
             // closeButton
             // 
@@ -445,6 +450,7 @@
         private System.Windows.Forms.MenuItem menuItem3;
         private System.Windows.Forms.MenuItem menuItem4;
         private System.Windows.Forms.PictureBox seperatorBox;
+        private System.Windows.Forms.ToolTip myToolTip;
 
     }
 }

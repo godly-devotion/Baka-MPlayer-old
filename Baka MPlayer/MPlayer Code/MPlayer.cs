@@ -1,6 +1,7 @@
-﻿/************************************
-* MPlayer (by Joshua Park & u8sand) *
-************************************/
+﻿/***************************
+* MPlayer Wrapper          *
+* by Joshua Park & u8sand) *
+***************************/
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -58,7 +59,6 @@ public class MPlayer
             cmdArgs += " -ass";                  		 			// enable .ass subtitle support
             cmdArgs += " -nokeepaspect";         		 			// doesn't keep window aspect ratio when resizing windows
             cmdArgs += " -framedrop";                               // enables soft framedrop
-            //cmdArgs += " -dr"; // turns on direct rendering (WARNING: May cause OSD/SUB corruption!)
             cmdArgs += string.Format(" -volume {0}", Info.Current.Volume);       // retrieves last volume
             cmdArgs += string.Format(" -wid {0}", mainForm.mplayerPanel.Handle); // output handle
 
@@ -372,6 +372,7 @@ public class MPlayer
             case "ID_FILENAME":
                 Info.URL = value;
                 Info.FileName = Path.GetFileName(value);
+                Info.GetDirectoryName = Functions.IO.GetDirectoryName(value);
                 break;
             case "ID_VIDEO_WIDTH":
                 int width;

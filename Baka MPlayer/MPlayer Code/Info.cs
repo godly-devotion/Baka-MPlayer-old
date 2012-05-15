@@ -96,6 +96,7 @@ public static class Info
     // FileInfo
     public static string URL { get; set; }
     public static string FileName { get; set; } // w/ extension
+    public static string GetDirectoryName { get; set; } // Path.GetDirectoryName(...)
 
     public static class Current
     {

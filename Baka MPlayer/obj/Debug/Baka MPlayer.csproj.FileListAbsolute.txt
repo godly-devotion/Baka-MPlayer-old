@@ -59,7 +59,6 @@ C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer_MarkupCompile.cache
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.g.resources
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Controls.ButtonControl.resources
-C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Controls.PlaylistControl.resources
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.AboutForm.resources
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.BlackForm.resources
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.InfoForm.resources
@@ -76,3 +75,4 @@ C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.csproj.GenerateResource.Cache
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.HelpForm.resources
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\bin\Debug\UltraID3Lib.dll
+C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Controls.PlaylistControl.resources

@@ -141,15 +141,15 @@ namespace Baka_MPlayer.Forms
         // notification tray code
         private void SetSystemTray()
         {
-            var lastPart = string.Format("(File {0} of {1})", playlist.GetPlaylistIndex + 1, playlist.GetTotalItems);
+            var lastPart = string.Format("(File {0} of {1})", playlist.GetPlayingItem.Index + 1, playlist.GetTotalItems);
 
             if (!string.IsNullOrEmpty(Info.ID3Tags.Title))
             {
                 bool hasArtist = !string.IsNullOrEmpty(Info.ID3Tags.Artist);
 
-                titleMenuItem.Text = string.Format("  {0}", Functions.AutoEllipsis(25, Info.ID3Tags.Title));
+                titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, Info.ID3Tags.Title));
                 artistMenuItem.Text = string.Format("  {0}",
-                    hasArtist ? Functions.AutoEllipsis(25, Info.ID3Tags.Artist) : "Unknown Artist");
+                    hasArtist ? Functions.String.AutoEllipsis(25, Info.ID3Tags.Artist) : "Unknown Artist");
 
                 SetNotifyIconText(string.Format("{0}\n{1}{2}", Info.ID3Tags.Title, hasArtist ? Info.ID3Tags.Artist + '\n' : "", lastPart));
 
@@ -160,12 +160,12 @@ namespace Baka_MPlayer.Forms
             else
             {
                 // no title & artist (no artist assumed)
-                var fullFileName = Path.GetFileNameWithoutExtension(Info.URL);
+                var fullFileName = Path.GetFileNameWithoutExtension(Info.FileName);
 
-                titleMenuItem.Text = string.Format("  {0}", Functions.AutoEllipsis(25, fullFileName));
+                titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, fullFileName));
                 artistMenuItem.Text = "  Unknown Artist";
 
-                SetNotifyIconText(Functions.AutoEllipsis(25, fullFileName) + '\n' + lastPart);
+                SetNotifyIconText(Functions.String.AutoEllipsis(25, fullFileName) + '\n' + lastPart);
 
                 if (!Info.VideoInfo.HasVideo && !hidePopupToolStripMenuItem.Checked)
                     trayIcon.ShowBalloonTip(4000, fullFileName, lastPart, ToolTipIcon.None);
@@ -211,6 +211,7 @@ namespace Baka_MPlayer.Forms
         {
             statusLabel.Text = status;
             statusLabel.Show();
+
             if (!noAutoHide)
                 statusTimer.Enabled = true;
         }
@@ -584,7 +585,7 @@ namespace Baka_MPlayer.Forms
         }
 
         #endregion
-        #region Property's
+        #region Properties
 
         private bool _voiceEnabled;
         private bool VoiceEnabled
@@ -617,7 +618,7 @@ namespace Baka_MPlayer.Forms
                     mplayerSplitContainer.Panel2Collapsed = false;
                     showPlaylistToolStripMenuItem.Checked = true;
 
-                    playlist.DisableInteraction = false;
+                    playlist.DisableInteraction(false);
                     mplayerSplitContainer.IsSplitterFixed = false;
                 }
                 else
@@ -626,7 +627,7 @@ namespace Baka_MPlayer.Forms
                     showPlaylistToolStripMenuItem.Checked = false;
                     hideAlbumArtToolStripMenuItem.Checked = false;
 
-                    playlist.DisableInteraction = true;
+                    playlist.DisableInteraction(true);
                     mplayerSplitContainer.IsSplitterFixed = true;
                 }
             }
@@ -672,7 +673,7 @@ namespace Baka_MPlayer.Forms
         }
         private void takeAction(string speechCommand)
         {
-            SetStatus("Voice Command: " + Functions.ToTitleCase(speechCommand), false);
+            SetStatus("Voice Command: " + Functions.String.ToTitleCase(speechCommand), false);
 
             switch (speechCommand)
             {
@@ -727,11 +728,11 @@ namespace Baka_MPlayer.Forms
             var currentPos = seekBar.Value * Info.Current.TotalLength / seekBar.Maximum;
 
             if (settings.GetBoolValue("ShowTimeRemaining"))
-                timeLeftLabel.Text = string.Format("-{0}", Functions.ConvertTimeFromSeconds(Info.Current.TotalLength - currentPos));
+                timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength - currentPos));
             else
-                timeLeftLabel.Text = Functions.ConvertTimeFromSeconds(Info.Current.TotalLength);
+                timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength);
 
-            durationLabel.Text = Functions.ConvertTimeFromSeconds(currentPos);
+            durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(currentPos);
         }
 
         private void seekBar_MouseUp(object sender, MouseEventArgs e)
@@ -882,10 +883,10 @@ namespace Baka_MPlayer.Forms
         {
             if (!previousButton.Enabled) return;
             var drawFont = new Font("Segoe UI", 10f);
-            var stringSize = new SizeF(e.Graphics.MeasureString(playlist.GetPlaylistIndex.ToString(), drawFont));
-            var x = ((previousButton.Width - stringSize.Width) / 2) + 4;
+            var stringSize = new SizeF(e.Graphics.MeasureString(playlist.GetPlayingItem.Index.ToString(), drawFont));
+            var x = ((previousButton.Width - stringSize.Width) / 2) + 5;
             var y = (previousButton.Height - stringSize.Height) / 2;
-            e.Graphics.DrawString(playlist.GetPlaylistIndex.ToString(), drawFont, new SolidBrush(Color.Black), x, y);
+            e.Graphics.DrawString(playlist.GetPlayingItem.Index.ToString(), drawFont, new SolidBrush(Color.Black), x, y);
         }
 
         // NextButton
@@ -919,10 +920,10 @@ namespace Baka_MPlayer.Forms
         {
             if (!nextButton.Enabled) return;
             var drawFont = new Font("Segoe UI", 10f);
-            var stringSize = new SizeF(e.Graphics.MeasureString((playlist.GetPlaylistIndex + 2).ToString(), drawFont));
-            float x = ((nextButton.Width - stringSize.Width) / 2) - 4;
+            var stringSize = new SizeF(e.Graphics.MeasureString((playlist.GetPlayingItem.Index + 2).ToString(), drawFont));
+            float x = ((nextButton.Width - stringSize.Width) / 2) - 5;
             float y = (nextButton.Height - stringSize.Height) / 2;
-            e.Graphics.DrawString((playlist.GetPlaylistIndex + 2).ToString(), drawFont, new SolidBrush(Color.Black), x, y);
+            e.Graphics.DrawString((playlist.GetPlayingItem.Index + 2).ToString(), drawFont, new SolidBrush(Color.Black), x, y);
         }
 
         // PlayButton
@@ -1060,7 +1061,7 @@ namespace Baka_MPlayer.Forms
 
                 CursorShown = true;
                 cursorTimer.Start();
-
+                
                 if (Cursor.Position.Y > scrn.Bounds.Height - (seekPanel.Height + controlPanel.Height + 10))
                 {
                     seekPanel.Show();
@@ -1154,7 +1155,7 @@ namespace Baka_MPlayer.Forms
         {
             string clipText = Clipboard.GetText();
 
-            if (File.Exists(clipText) || Functions.ValidateURL(clipText))
+            if (File.Exists(clipText) || Functions.URL.ValidateURL(clipText))
                 mplayer.OpenFile(clipText);
             else
                 MessageBox.Show(string.Format("The location \"{0}\" cannot be openend.", clipText),
@@ -1253,14 +1254,11 @@ namespace Baka_MPlayer.Forms
         {
             if (shuffleToolStripMenuItem.Checked)
             {
-                playlist.Shuffle();
+                playlist.RandomizeItems();
                 SetBackForwardControls();
             }
             else
-            {
-                playlist.refreshRequired = true;
-                playlist.SetPlaylist();
-            }
+                playlist.SetPlaylist(true);
         }
 
         private void offToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1524,8 +1522,8 @@ namespace Baka_MPlayer.Forms
 
         private void takeSnapshotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //fitToVideoToolStripMenuItem_Click(null, null);
-            // hide osd
+            // hide distractions
+            takeSnapshotToolStripMenuItem.HideDropDown();
             HideStatusLabel();
             mplayer.ShowStatus(string.Empty);
 
@@ -1582,7 +1580,7 @@ namespace Baka_MPlayer.Forms
             if (blackForm == null)
             {
                 blackForm = new BlackForm(this);
-                blackForm.SetTitle = Path.GetFileNameWithoutExtension(Functions.DecodeURL(Info.URL));
+                blackForm.RefreshTitle();
             }
 
             if (dimLightsToolStripMenuItem.Checked)
@@ -1703,17 +1701,8 @@ namespace Baka_MPlayer.Forms
 
             InitializeComponent();
 
-            this.MouseWheel += MainForm_MouseWheel;
             mplayer = new MPlayer(this);
             playlist.Init(this, mplayer);
-
-            folderToolStripMenuItem.Text = "Build " + Application.ProductVersion;
-            trayIcon.ContextMenu = trayContextMenu;
-            SetLCDFont(); // Embbeding Font (LCD)
-            ShowConsole = false;
-            ShowPlaylist = false;
-
-            LoadSettings();
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -1724,8 +1713,22 @@ namespace Baka_MPlayer.Forms
                 Application.Exit();
             }
 
-            this.MinimumSize = new Size(this.Width,
-                this.Height - this.ClientSize.Height + mainMenuStrip.Height + seekPanel.Height + controlPanel.Height);
+            // set gui environment
+            folderToolStripMenuItem.Text = "Build " + Application.ProductVersion;
+            this.MinimumSize = new Size(this.Width, this.Height - this.ClientSize.Height
+                + mainMenuStrip.Height + seekPanel.Height + controlPanel.Height);
+            this.MouseWheel += MainForm_MouseWheel;
+            trayIcon.ContextMenu = trayContextMenu;
+
+            SetLCDFont(); // Embbeding Font (LCD)
+            ShowConsole = false;
+            ShowPlaylist = false;
+
+            LoadSettings();
+
+            // check for updates
+            var checker = new UpdateChecker();
+            checker.Check(true);
 
             // check for command line args
             var cmdLine = Environment.GetCommandLineArgs();
@@ -1747,14 +1750,10 @@ namespace Baka_MPlayer.Forms
                     break;
                 }
             }
-
-            // check for updates
-            var checker = new UpdateChecker();
-            checker.Check(true);
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (Functions.RunningOnWin7)
+            if (Functions.OS.RunningOnWin7)
                 setThumbnailToolbars();
         }
         private void LoadSettings()
@@ -1843,7 +1842,7 @@ namespace Baka_MPlayer.Forms
             if (firstFile)
             {
                 firstFile = false;
-                playlist.refreshRequired = true;
+                playlist.SetPlaylist(true);
                 settings.SetConfig(Info.URL, "LastFile");
             }
             else
@@ -1851,19 +1850,20 @@ namespace Baka_MPlayer.Forms
                 settings.SetConfig(tempURL, "LastFile");
                 openLastFileToolStripMenuItem.ToolTipText = Path.GetFileName(tempURL);
                 openLastFileToolStripMenuItem.Enabled = true;
-                playlist.refreshRequired = Path.GetDirectoryName(tempURL) != Path.GetDirectoryName(Info.URL);
+                playlist.SetPlaylist(false);
+                //refreshRequired = Functions.IO.GetDirectoryName(tempURL) != Info.GetDirectoryName;
             }
             settings.SaveConfig();
             tempURL = Info.URL;
 
             // set file name texts
-            this.Text = Path.GetFileName(Functions.DecodeURL(Info.URL));
+            this.Text = Functions.URL.DecodeURL(Info.FileName);
 
             folderToolStripMenuItem.Text = File.Exists(Info.URL) ?
-                Functions.AutoEllipsis(32, Functions.GetFolderName(Info.URL)) : new Uri(Info.URL).Host;
+                Functions.String.AutoEllipsis(32, Functions.IO.GetFolderName(Info.URL)) : new Uri(Info.URL).Host;
 
             if (blackForm != null)
-                blackForm.SetTitle = Path.GetFileNameWithoutExtension(Functions.DecodeURL(Info.URL));
+                blackForm.RefreshTitle();
 
             if (infoForm != null && !infoForm.IsDisposed)
                 infoForm.RefreshInfo();
@@ -1913,7 +1913,6 @@ namespace Baka_MPlayer.Forms
             UpdateVolume(Info.Current.Volume);
 
             // call other methods
-            playlist.SetPlaylist();
             SetSystemTray();
             enableControls();
             SetBackForwardControls();
@@ -1945,7 +1944,7 @@ namespace Baka_MPlayer.Forms
 
             if (playlistToolStripMenuItem.Checked)
             {
-                if (playlist.GetPlaylistIndex.Equals(playlist.GetTotalItems - 1))
+                if (playlist.GetPlayingItem.Index.Equals(playlist.GetTotalItems - 1))
                 {
                     // end of playlist, repeat from beginning of playlist
                     playlist.PlayFile(0);
@@ -1964,8 +1963,8 @@ namespace Baka_MPlayer.Forms
             else if (offToolStripMenuItem.Checked)
             {
                 // repeat off/default
-                if (playlist.GetPlaylistIndex < playlist.GetTotalItems - 1)
-                    playlist.PlayFile(playlist.GetPlaylistIndex + 1);
+                if (playlist.GetPlayingItem.Index < playlist.GetTotalItems - 1)
+                    playlist.PlayFile(playlist.GetPlayingItem.Index + 1);
                 else
                     LastFile();
             }
@@ -2051,13 +2050,13 @@ namespace Baka_MPlayer.Forms
             if (Info.Current.TotalLength > 0)
             {
                 seekBar.Value = Convert.ToInt32((Info.Current.Duration * 1000000) / Info.Current.TotalLength); // %
-                durationLabel.Text = Functions.ConvertTimeFromSeconds(Info.Current.Duration);
+                durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
             }
 
             if (settings.GetBoolValue("ShowTimeRemaining"))
-                timeLeftLabel.Text = string.Format("-{0}", Functions.ConvertTimeFromSeconds(Info.Current.TotalLength - Info.Current.Duration));
+                timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength - Info.Current.Duration));
             else
-                timeLeftLabel.Text = Functions.ConvertTimeFromSeconds(Info.Current.TotalLength);
+                timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength);
         }
 
         #endregion
@@ -2071,17 +2070,14 @@ namespace Baka_MPlayer.Forms
 
             if (File.Exists(Info.URL))
             {
-                ofd.InitialDirectory = Path.GetDirectoryName(Info.URL);
-                ofd.FileName = Path.GetFileName(Info.URL);
+                ofd.InitialDirectory = Info.GetDirectoryName;
+                ofd.FileName = Info.FileName;
             }
             else
                 ofd.FileName = string.Empty;
 
             if (ofd.ShowDialog() == DialogResult.OK && File.Exists(ofd.FileName))
-            {
                 mplayer.OpenFile(ofd.FileName);
-                ofd.Dispose();
-            }
         }
 
         private void HidePlayer()
@@ -2201,10 +2197,10 @@ namespace Baka_MPlayer.Forms
             switch(Info.Current.PlayState)
             {
                 case PlayStates.Playing:
-                    nowPlayingMenuItem.Text = string.Format("Now Playing ({0})", Functions.ConvertTimeFromSeconds(Info.Current.Duration));
+                    nowPlayingMenuItem.Text = string.Format("Now Playing ({0})", Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration));
                     break;
                 case PlayStates.Paused:
-                    nowPlayingMenuItem.Text = string.Format("Paused ({0})", Functions.ConvertTimeFromSeconds(Info.Current.Duration));
+                    nowPlayingMenuItem.Text = string.Format("Paused ({0})", Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration));
                     break;
                 case PlayStates.Stopped:
                     nowPlayingMenuItem.Text = "Stopped";
@@ -2257,7 +2253,7 @@ namespace Baka_MPlayer.Forms
         {
             if (playlist.GetTotalItems > 1)
             {
-                if (playlist.GetPlaylistIndex.Equals(0))
+                if (playlist.GetPlayingItem.Index.Equals(0))
                 {
                     previousButton.Enabled = false;
                     nextButton.Enabled = true;
@@ -2270,7 +2266,7 @@ namespace Baka_MPlayer.Forms
                     previousMenuItem.Enabled = false;
                     nextMenuItem.Enabled = true;
                 }
-                else if (playlist.GetPlaylistIndex + 1 == playlist.GetTotalItems)
+                else if (playlist.GetPlayingItem.Index + 1 == playlist.GetTotalItems)
                 {
                     previousButton.Enabled = true;
                     nextButton.Enabled = false;
