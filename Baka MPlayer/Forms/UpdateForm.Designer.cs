@@ -50,7 +50,7 @@
             this.closeButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.White;
             this.closeButton.IsDefaultButton = false;
-            this.closeButton.Location = new System.Drawing.Point(275, 289);
+            this.closeButton.Location = new System.Drawing.Point(275, 299);
             this.closeButton.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(85, 30);
@@ -72,7 +72,7 @@
             this.downloadButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.downloadButton.ForeColor = System.Drawing.Color.White;
             this.downloadButton.IsDefaultButton = true;
-            this.downloadButton.Location = new System.Drawing.Point(170, 289);
+            this.downloadButton.Location = new System.Drawing.Point(170, 299);
             this.downloadButton.Margin = new System.Windows.Forms.Padding(5, 6, 5, 6);
             this.downloadButton.Name = "downloadButton";
             this.downloadButton.Size = new System.Drawing.Size(95, 30);
@@ -105,7 +105,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.White;
             this.groupBox1.Location = new System.Drawing.Point(12, 73);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(350, 205);
+            this.groupBox1.Size = new System.Drawing.Size(350, 215);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "What\'s New?";
@@ -116,7 +116,7 @@
             this.newLabel.Location = new System.Drawing.Point(3, 23);
             this.newLabel.Name = "newLabel";
             this.newLabel.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.newLabel.Size = new System.Drawing.Size(344, 179);
+            this.newLabel.Size = new System.Drawing.Size(344, 189);
             this.newLabel.TabIndex = 0;
             this.newLabel.Text = "Checking for updates...";
             // 
@@ -138,7 +138,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(374, 332);
+            this.ClientSize = new System.Drawing.Size(374, 342);
             this.ControlBox = false;
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.groupBox1);

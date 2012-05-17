@@ -28,13 +28,6 @@ namespace Baka_MPlayer.Forms
             demensionsLabel.Text = string.Format("Demensions: {0} x {1}", image.Width, image.Height);
         }
 
-        private void bottomPanel_Paint(object sender, PaintEventArgs e)
-        {
-            var formGraphics = e.Graphics;
-            var gradientBrush = new LinearGradientBrush(bottomPanel.ClientRectangle, Color.FromArgb(255, 30, 30, 30), Color.Black, LinearGradientMode.Vertical);
-            formGraphics.FillRectangle(gradientBrush, bottomPanel.ClientRectangle);
-        }
-
         private void saveButton_Click(object sender, EventArgs e)
         {
             // set file name
@@ -70,6 +63,11 @@ namespace Baka_MPlayer.Forms
                 if (sfd.FilterIndex.Equals(4))
                     image.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Tiff);
             }
+        }
+
+        private void copyLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Clipboard.SetImage(image);
         }
 
         private void snapshotPicbox_SizeChanged(object sender, EventArgs e)

@@ -49,19 +49,20 @@ public class MPlayer
                 return true;
             }
             // mplayer is not running, so start mplayer then load url
-            var cmdArgs = string.Format("-vo {0} -ao {1}", "gl", "dsound");
-            cmdArgs += " -slave";                		 			// switch on slave mode for frontend
-            cmdArgs += " -idle";                 		 			// wait insead of quit
-            cmdArgs += " -utf8";                 		 			// handles the subtitle file as UTF-8
-            cmdArgs += " -volstep 5";			  		 			// change volume step
-            cmdArgs += " -msglevel identify=6:global=6"; 			// set msglevel
-            cmdArgs += " -nomouseinput";         		 			// disable mouse input events
-            cmdArgs += " -ass";                  		 			// enable .ass subtitle support
-            cmdArgs += " -nokeepaspect";         		 			// doesn't keep window aspect ratio when resizing windows
-            cmdArgs += " -framedrop";                               // enables soft framedrop
-            cmdArgs += string.Format(" -volume {0}", Info.Current.Volume);       // retrieves last volume
-            cmdArgs += string.Format(" -wid {0}", mainForm.mplayerPanel.Handle); // output handle
-
+            var args = new StringBuilder();
+            args.AppendFormat("-vo {0} -ao {1}", "direct3d", "dsound");
+            args.Append(" -slave");                		 		// switch on slave mode for frontend
+            args.Append(" -idle");                 		 	    // wait insead of quit
+            args.Append(" -utf8");                 		 		// handles the subtitle file as UTF-8
+            args.Append(" -volstep 5");			  		 		// change volume step
+            args.Append(" -msglevel identify=6:global=6"); 		// set msglevel
+            args.Append(" -nomouseinput");         		 		// disable mouse input events
+            args.Append(" -ass");                  		 		// enable .ass subtitle support
+            args.Append(" -nokeepaspect");         		 		// doesn't keep window aspect ratio when resizing windows
+            args.Append(" -framedrop");                          // enables soft framedrop
+            args.AppendFormat(" -volume {0}", Info.Current.Volume); // retrieves last volume
+            args.AppendFormat(" -wid {0}", mainForm.mplayerPanel.Handle); // output handle
+            
             mplayer = new Process
             {
                 StartInfo =
@@ -74,7 +75,7 @@ public class MPlayer
                     RedirectStandardError = true,
                     StandardOutputEncoding = Encoding.UTF8,
                     StandardErrorEncoding = Encoding.UTF8,
-                    Arguments = cmdArgs + string.Format(" \"{0}\"", url)
+                    Arguments = args.AppendFormat(" \"{0}\"", url).ToString()
                 }
             };
             parsingHeader = true;

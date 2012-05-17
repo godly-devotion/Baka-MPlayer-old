@@ -1731,10 +1731,10 @@ namespace Baka_MPlayer.Forms
             checker.Check(true);
 
             // check for command line args
-            var cmdLine = Environment.GetCommandLineArgs();
-            for (int i = 1; i < cmdLine.Length; i++)
+            var arg = Environment.GetCommandLineArgs();
+            for (int i = 1; i < arg.Length; i++)
             {
-                if (cmdLine[i].Equals("-lastfile"))
+                if (arg[i].Equals("-lastfile"))
                 {
                     if (File.Exists(settings.GetStringValue("LastFile")))
                         mplayer.OpenFile(settings.GetStringValue("LastFile"));
@@ -1743,10 +1743,10 @@ namespace Baka_MPlayer.Forms
                             "No Previous File", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     break;
                 }
-                if (File.Exists(cmdLine[i]))
+                if (File.Exists(arg[i]))
                 {
-                    // Note: only one file is supported for now
-                    mplayer.OpenFile(cmdLine[i]);
+                    // Note: opening only one file is supported for now
+                    mplayer.OpenFile(arg[i]);
                     break;
                 }
             }
