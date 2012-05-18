@@ -41,7 +41,7 @@
             // 
             // sidePanel
             // 
-            this.sidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.sidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.sidePanel.Controls.Add(this.copyLink);
             this.sidePanel.Controls.Add(this.saveButton);
             this.sidePanel.Controls.Add(this.cancelButton);

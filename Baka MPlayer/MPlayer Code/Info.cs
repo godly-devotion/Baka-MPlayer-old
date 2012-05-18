@@ -97,6 +97,7 @@ public static class Info
     public static string URL { get; set; }
     public static string FileName { get; set; } // w/ extension
     public static string GetDirectoryName { get; set; } // Path.GetDirectoryName(...)
+    public static bool FileExists { get; set; } // File.Exists(...)
 
     public static class Current
     {
@@ -108,9 +109,9 @@ public static class Info
 
     public static class MiscInfo
     {
-		public static List<Sub> Subs = new List<Sub>();
-		public static List<Chapter> Chapters = new List<Chapter>();
-        public static List<ID_Info> OtherInfo = new List<ID_Info>();
+		public static List<Sub> Subs;
+		public static List<Chapter> Chapters;
+        public static List<ID_Info> OtherInfo;
     }
 	
 	public static class VideoInfo
@@ -124,7 +125,7 @@ public static class Info
 	
 	public static class AudioInfo
 	{
-		public static List<AudioTrack> AudioTracks = new List<AudioTrack>();
+		public static List<AudioTrack> AudioTracks;
 	}
 
     public static class ID3Tags

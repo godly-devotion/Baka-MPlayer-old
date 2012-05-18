@@ -84,14 +84,17 @@ namespace Baka_MPlayer.Controls
         {
             playlistList.BeginUpdate();
 
-            if (File.Exists(Info.URL))
+            if (Info.FileExists)
             {
                 if (!forceRefresh)
                     forceRefresh = playlistList.FindItemWithText(Info.FileName) == null;
 
                 if (forceRefresh)
+                {
+                    mainForm.SetShuffleCheckState(false);
                     FillPlaylist();
-
+                }
+                
                 GetPlayingItem = playlistList.FindItemWithText(Info.FileName);
                 SelectedIndex = GetPlayingItem.Index;
 
@@ -202,12 +205,16 @@ namespace Baka_MPlayer.Controls
 
         private void RemoveAt(int index)
         {
-            if (GetPlayingItem.Index == index)
+            if (GetPlayingItem.Index.Equals(index))
             {
                 if (SelectedIndex + 1 >= GetTotalItems)
                     mplayer.Stop();
                 else
-                    PlayNextFile();
+                {
+                    //PlayNextFile();
+                    MessageBox.Show("You can't remove the playing file!", "A no no", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
             }
             playlistList.Items.RemoveAt(index);
             UpdateUI();

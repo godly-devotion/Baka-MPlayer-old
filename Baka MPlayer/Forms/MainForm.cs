@@ -1176,7 +1176,7 @@ namespace Baka_MPlayer.Forms
 
         private void showInWindowsExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (File.Exists(Info.URL))
+            if (Info.FileExists)
             {
                 var process = new Process
                 {
@@ -1196,7 +1196,7 @@ namespace Baka_MPlayer.Forms
 
         private void folderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (File.Exists(Info.URL))
+            if (Info.FileExists)
             {
                 var process = new Process
                 {
@@ -1859,7 +1859,7 @@ namespace Baka_MPlayer.Forms
             // set file name texts
             this.Text = Functions.URL.DecodeURL(Info.FileName);
 
-            folderToolStripMenuItem.Text = File.Exists(Info.URL) ?
+            folderToolStripMenuItem.Text = Info.FileExists ?
                 Functions.String.AutoEllipsis(32, Functions.IO.GetFolderName(Info.URL)) : new Uri(Info.URL).Host;
 
             if (blackForm != null)
@@ -1899,7 +1899,7 @@ namespace Baka_MPlayer.Forms
             bodySplitContainer_Panel1_SizeChanged(null, null);
 
             // check if media is online
-            if (File.Exists(Info.URL))
+            if (Info.FileExists)
             {
                 saveMediaAsToolStripMenuItem.Enabled = false;
                 showInWindowsExplorerToolStripMenuItem.Enabled = true;
@@ -2068,7 +2068,7 @@ namespace Baka_MPlayer.Forms
                 Properties.Resources.VideoFiles + "; " + Properties.Resources.AudioFiles,
                 Properties.Resources.VideoFiles, Properties.Resources.AudioFiles);
 
-            if (File.Exists(Info.URL))
+            if (Info.FileExists)
             {
                 ofd.InitialDirectory = Info.GetDirectoryName;
                 ofd.FileName = Info.FileName;

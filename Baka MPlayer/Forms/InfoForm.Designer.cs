@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("General", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("MPlayer Tags", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InfoForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -97,21 +99,28 @@
             // 
             // infoList
             // 
-            this.infoList.BackColor = System.Drawing.Color.Black;
+            this.infoList.BackColor = System.Drawing.Color.White;
             this.infoList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.infoList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.infoColumnHeader,
             this.valueColumnHeader});
             this.infoList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.infoList.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.infoList.ForeColor = System.Drawing.Color.White;
+            this.infoList.ForeColor = System.Drawing.Color.Black;
             this.infoList.FullRowSelect = true;
+            listViewGroup1.Header = "General";
+            listViewGroup1.Name = "listViewGroup1";
+            listViewGroup2.Header = "MPlayer Tags";
+            listViewGroup2.Name = "listViewGroup2";
+            this.infoList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
+            listViewGroup1,
+            listViewGroup2});
             this.infoList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.infoList.HideSelection = false;
-            this.infoList.Location = new System.Drawing.Point(0, 29);
+            this.infoList.Location = new System.Drawing.Point(0, 22);
             this.infoList.MultiSelect = false;
             this.infoList.Name = "infoList";
-            this.infoList.Size = new System.Drawing.Size(402, 250);
+            this.infoList.Size = new System.Drawing.Size(402, 257);
             this.infoList.TabIndex = 1;
             this.infoList.UseCompatibleStateImageBehavior = false;
             this.infoList.View = System.Windows.Forms.View.Details;
@@ -130,7 +139,7 @@
             // 
             this.seperatorBox.BackColor = System.Drawing.Color.DeepSkyBlue;
             this.seperatorBox.Dock = System.Windows.Forms.DockStyle.Top;
-            this.seperatorBox.Location = new System.Drawing.Point(0, 27);
+            this.seperatorBox.Location = new System.Drawing.Point(0, 20);
             this.seperatorBox.Name = "seperatorBox";
             this.seperatorBox.Size = new System.Drawing.Size(402, 2);
             this.seperatorBox.TabIndex = 5;
@@ -138,9 +147,9 @@
             // 
             // mplayerProcessLabel
             // 
-            this.mplayerProcessLabel.BackColor = System.Drawing.Color.Transparent;
+            this.mplayerProcessLabel.BackColor = System.Drawing.Color.White;
             this.mplayerProcessLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.mplayerProcessLabel.ForeColor = System.Drawing.Color.White;
+            this.mplayerProcessLabel.ForeColor = System.Drawing.Color.Black;
             this.mplayerProcessLabel.Location = new System.Drawing.Point(0, 279);
             this.mplayerProcessLabel.Name = "mplayerProcessLabel";
             this.mplayerProcessLabel.Size = new System.Drawing.Size(402, 22);
@@ -150,21 +159,20 @@
             // 
             // searchTextbox
             // 
-            this.searchTextbox.BackColor = System.Drawing.Color.Black;
-            this.searchTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.searchTextbox.BackColor = System.Drawing.Color.White;
+            this.searchTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.searchTextbox.CueText = "Search for Property";
             this.searchTextbox.Dock = System.Windows.Forms.DockStyle.Top;
             this.searchTextbox.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.searchTextbox.ForeColor = System.Drawing.Color.White;
+            this.searchTextbox.ForeColor = System.Drawing.Color.Black;
             this.searchTextbox.Location = new System.Drawing.Point(0, 0);
             this.searchTextbox.Name = "searchTextbox";
-            this.searchTextbox.Size = new System.Drawing.Size(402, 27);
+            this.searchTextbox.Size = new System.Drawing.Size(402, 20);
             this.searchTextbox.TabIndex = 0;
             this.searchTextbox.TextChanged += new System.EventHandler(this.searchTextbox_TextChanged);
             // 
             // tabPage2
             // 
-            this.tabPage2.BackColor = System.Drawing.Color.Black;
             this.tabPage2.Controls.Add(this.tagList);
             this.tabPage2.Controls.Add(this.imgTypeTextBox);
             this.tabPage2.Controls.Add(this.imgLabel);
@@ -178,20 +186,19 @@
             this.tabPage2.Size = new System.Drawing.Size(402, 301);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "ID3 Tags";
-            this.tabPage2.Paint += new System.Windows.Forms.PaintEventHandler(this.tabPages_Paint);
             // 
             // tagList
             // 
             this.tagList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tagList.BackColor = System.Drawing.Color.Black;
+            this.tagList.BackColor = System.Drawing.Color.White;
             this.tagList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tagList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.tagColumnHeader,
             this.valueColumnHeader1});
             this.tagList.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tagList.ForeColor = System.Drawing.Color.White;
+            this.tagList.ForeColor = System.Drawing.Color.Black;
             this.tagList.FullRowSelect = true;
             this.tagList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.tagList.HideSelection = false;
@@ -216,7 +223,6 @@
             // imgTypeTextBox
             // 
             this.imgTypeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.imgTypeTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.imgTypeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.imgTypeTextBox.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.imgTypeTextBox.ForeColor = System.Drawing.Color.White;
@@ -231,9 +237,8 @@
             // 
             this.imgLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.imgLabel.AutoEllipsis = true;
-            this.imgLabel.BackColor = System.Drawing.Color.Transparent;
             this.imgLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.imgLabel.ForeColor = System.Drawing.Color.White;
+            this.imgLabel.ForeColor = System.Drawing.Color.Black;
             this.imgLabel.Location = new System.Drawing.Point(283, 173);
             this.imgLabel.Name = "imgLabel";
             this.imgLabel.Size = new System.Drawing.Size(100, 19);
@@ -244,7 +249,6 @@
             // demTextBox
             // 
             this.demTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.demTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.demTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.demTextBox.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.demTextBox.ForeColor = System.Drawing.Color.White;
@@ -259,9 +263,8 @@
             // 
             this.demLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.demLabel.AutoEllipsis = true;
-            this.demLabel.BackColor = System.Drawing.Color.Transparent;
             this.demLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.demLabel.ForeColor = System.Drawing.Color.White;
+            this.demLabel.ForeColor = System.Drawing.Color.Black;
             this.demLabel.Location = new System.Drawing.Point(283, 227);
             this.demLabel.Name = "demLabel";
             this.demLabel.Size = new System.Drawing.Size(100, 19);
@@ -291,7 +294,7 @@
             // albumArtPicbox
             // 
             this.albumArtPicbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.albumArtPicbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.albumArtPicbox.BackColor = System.Drawing.Color.White;
             this.albumArtPicbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.albumArtPicbox.Location = new System.Drawing.Point(276, 6);
             this.albumArtPicbox.Name = "albumArtPicbox";
@@ -307,7 +310,7 @@
             this.nameLabel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.nameLabel.Dock = System.Windows.Forms.DockStyle.Top;
             this.nameLabel.Font = new System.Drawing.Font("Calibri", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameLabel.ForeColor = System.Drawing.Color.DeepSkyBlue;
+            this.nameLabel.ForeColor = System.Drawing.Color.Black;
             this.nameLabel.Location = new System.Drawing.Point(0, 0);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
@@ -328,7 +331,7 @@
             this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.closeButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeButton.ForeColor = System.Drawing.Color.White;
+            this.closeButton.ForeColor = System.Drawing.Color.Black;
             this.closeButton.IsDefaultButton = true;
             this.closeButton.Location = new System.Drawing.Point(175, 374);
             this.closeButton.Margin = new System.Windows.Forms.Padding(4);
@@ -395,7 +398,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.closeButton;
             this.ClientSize = new System.Drawing.Size(434, 412);
             this.Controls.Add(this.closeButton);

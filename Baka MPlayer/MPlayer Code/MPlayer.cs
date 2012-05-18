@@ -374,6 +374,7 @@ public class MPlayer
                 Info.URL = value;
                 Info.FileName = Path.GetFileName(value);
                 Info.GetDirectoryName = Functions.IO.GetDirectoryName(value);
+                Info.FileExists = File.Exists(value);
                 break;
             case "ID_VIDEO_WIDTH":
                 int width;

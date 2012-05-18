@@ -1,20 +1,59 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Baka_MPlayer.Forms
 {
     public partial class InfoForm : Form
     {
+        #region GetFileType Code
+
+        [DllImport("shell32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHFILEINFO psfi, uint cbFileInfo, uint uFlags);
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+        public struct SHFILEINFO
+        {
+            public IntPtr hIcon;
+            public int iIcon;
+            public uint dwAttributes;
+
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
+            public string szDisplayName;
+
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
+            public string szTypeName;
+        };
+
+        private string getFileType(string path)
+        {
+            var x = new SHFILEINFO();
+            SHGetFileInfo(path, 0, ref x, (uint)Marshal.SizeOf(x), 0x400);
+            return x.szTypeName;
+        }
+
+        #endregion
+
+        #region Accessor
+
+        private Image AlbumArt
+        {
+            set { albumArtPicbox.Image = value; }
+            get { return albumArtPicbox.Image; }
+        }
+
+        #endregion
+
+        #region Constructor
+
         public InfoForm(string resp)
         {
             InitializeComponent();
 
             mplayerProcessLabel.Text = resp;
         }
-
         private void InfoForm_Load(object sender, EventArgs e)
         {
             this.MinimumSize = this.Size;
@@ -24,62 +63,103 @@ namespace Baka_MPlayer.Forms
             RefreshInfo();
         }
 
-        public void RefreshInfo()
+        #endregion
+
+        #region Functions
+
+        private void setGeneralInfo()
         {
-            nameLabel.Text = Path.GetFileNameWithoutExtension(Info.FileName);
-            setInfoList();
-            setID3Tags();
+            // file name
+            var nameItem = new ListViewItem("File name", infoList.Groups[0]);
+            nameItem.SubItems.Add(Info.FileName);
+
+            // file type
+            var type = getFileType(Info.URL);
+            if (string.IsNullOrEmpty(type))
+                type = Path.GetExtension(Info.FileName).Substring(1);
+            var typeItem = new ListViewItem("File type", infoList.Groups[0]);
+            typeItem.SubItems.Add(type);
+
+            // file size
+            var sizeItem = new ListViewItem("File size", infoList.Groups[0]);
+            if (Info.FileExists)
+                sizeItem.SubItems.Add(Functions.IO.GetFileSize(Info.URL, 2));
+            else
+                sizeItem.SubItems.Add("Not Available");
+
+            // last modified
+            var modifiedItem = new ListViewItem("Last modified", infoList.Groups[0]);
+            if (Info.FileExists)
+                modifiedItem.SubItems.Add(File.GetLastWriteTime(Info.URL).ToLocalTime().ToString());
+            else
+                modifiedItem.SubItems.Add("Not Available");
+
+            infoList.Items.AddRange(new[]{nameItem, typeItem, sizeItem, modifiedItem});
         }
 
-        private void saveImgLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void setTagsInfo()
         {
-            var fileName = Path.GetFileNameWithoutExtension(Info.FileName);
-            var sfd = new SaveFileDialog
+            foreach (ID_Info info in Info.MiscInfo.OtherInfo)
             {
-                SupportMultiDottedExtensions = true,
-                FileName = string.Format("{0} (Album Art).{1}", fileName, Info.ID3Tags.AlbumArtTag.GetPictureExt()),
-                Filter = string.Format("Image File (*.{0})|*.{0}", Info.ID3Tags.AlbumArtTag.GetPictureExt())
-            };
-
-            if (sfd.ShowDialog() == DialogResult.OK && sfd.FileName.Length > 0)
-            {
-                try
-                {
-                    AlbumArt.Save(sfd.FileName, AlbumArt.RawFormat);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error in Saving Image", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                var item = new ListViewItem(info.ID, infoList.Groups[1]);
+                item.SubItems.Add(info.Value);
+                infoList.Items.Add(item);
             }
         }
 
-        private void nameLabel_Click(object sender, EventArgs e)
+        private void setID3Tags()
         {
-            if (nameLabel.Text != "Baka MPlayer")
-                Clipboard.SetText(nameLabel.Text);
+            tagList.Items.Clear();
+            tagList.BeginUpdate();
+
+            addTagItem("Title", Info.ID3Tags.Title);
+            addTagItem("Artist", Info.ID3Tags.Artist);
+            addTagItem("Album", Info.ID3Tags.Album);
+            addTagItem("Year", Info.ID3Tags.Date);
+            addTagItem("Track", Info.ID3Tags.Track);
+            addTagItem("Genre", Info.ID3Tags.Genre);
+            addTagItem("Description", Info.ID3Tags.Description);
+            addTagItem("Comment", Info.ID3Tags.Comment);
+            tagList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+
+            // album art
+            if (Info.ID3Tags.AlbumArtTag.AlbumArt == null)
+            {
+                saveImgLabel.Enabled = false;
+                AlbumArt = null;
+            }
+            else
+            {
+                saveImgLabel.Enabled = true;
+                AlbumArt = Info.ID3Tags.AlbumArtTag.AlbumArt;
+
+                imgTypeTextBox.Text = Info.ID3Tags.AlbumArtTag.Type;
+                demTextBox.Text = string.Format("{0} x {1}", AlbumArt.Width, AlbumArt.Height);
+            }
+            tagList.EndUpdate();
         }
 
-        private void closeButton_Click(object sender, EventArgs e)
+        private void addTagItem(string tagName, string tagValue)
         {
-            this.Close();
+            tagList.Items.Add(tagName).SubItems.Add(tagValue);
         }
 
-        #region Paint Methods
-
-        protected override void OnPaint(PaintEventArgs e)
+        public void RefreshInfo()
         {
-            var formGraphics = e.Graphics;
-            var gradientBrush = new LinearGradientBrush(this.ClientRectangle, Color.FromArgb(255, 30, 30, 30), Color.Black, LinearGradientMode.Vertical);
-            formGraphics.FillRectangle(gradientBrush, this.ClientRectangle);
-        }
+            nameLabel.Text = Path.GetFileNameWithoutExtension(Info.FileName);
 
-        private void tabPages_Paint(object sender, PaintEventArgs e)
-        {
-            var tab = (TabPage)sender;
-            var formGraphics = e.Graphics;
-            var gradientBrush = new LinearGradientBrush(tab.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical);
-            formGraphics.FillRectangle(gradientBrush, ClientRectangle);
+            // set Media Info tagpage
+            infoList.BeginUpdate();
+            infoList.Items.Clear();
+
+            setGeneralInfo();
+            setTagsInfo();
+
+            infoList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            infoList.EndUpdate();
+
+            // set ID3 Tags tabpage
+            setID3Tags();
         }
 
         #endregion
@@ -115,10 +195,12 @@ namespace Baka_MPlayer.Forms
 
             foreach (ListViewItem item in infoList.Items)
             {
-                if (item.Text.Contains(searchTextbox.Text.ToUpper()))
+                var itemText = item.Text.Replace('_', ' ').ToLower();
+                if (itemText.Contains(searchTextbox.Text.ToLower()))
                 {
                     infoList_SelectedIndex = item.Index;
-                    infoList.TopItem = item;
+                    //infoList.TopItem = item;
+                    infoList.EnsureVisible(item.Index);
                     break;
                 }
             }
@@ -196,61 +278,42 @@ namespace Baka_MPlayer.Forms
 
         #endregion
 
-        #region Set Data
+        #region Events
 
-        private void setInfoList()
+        private void saveImgLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            infoList.Items.Clear();
-
-            foreach (ID_Info info in Info.MiscInfo.OtherInfo)
+            var fileName = Path.GetFileNameWithoutExtension(Info.FileName);
+            var sfd = new SaveFileDialog
             {
-                infoList.Items.Add(info.ID).SubItems.Add(info.Value);
-            }
-            infoList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-        }
+                SupportMultiDottedExtensions = true,
+                FileName = string.Format("{0} (Album Art).{1}", fileName, Info.ID3Tags.AlbumArtTag.GetPictureExt()),
+                Filter = string.Format("Image File (*.{0})|*.{0}", Info.ID3Tags.AlbumArtTag.GetPictureExt())
+            };
 
-        private void setID3Tags()
-        {
-            tagList.Items.Clear();
-
-            addTagItem("Title", Info.ID3Tags.Title);
-            addTagItem("Artist", Info.ID3Tags.Artist);
-            addTagItem("Album", Info.ID3Tags.Album);
-            addTagItem("Year", Info.ID3Tags.Date);
-            addTagItem("Track", Info.ID3Tags.Track);
-            addTagItem("Genre", Info.ID3Tags.Genre);
-            addTagItem("Description", Info.ID3Tags.Description);
-            addTagItem("Comment", Info.ID3Tags.Comment);
-            tagList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-
-            // album art
-            if (Info.ID3Tags.AlbumArtTag.AlbumArt == null)
+            if (sfd.ShowDialog() == DialogResult.OK && sfd.FileName.Length > 0)
             {
-                saveImgLabel.Enabled = false;
-                AlbumArt = null;
-            }
-            else
-            {
-                saveImgLabel.Enabled = true;
-                AlbumArt = Info.ID3Tags.AlbumArtTag.AlbumArt;
-
-                imgTypeTextBox.Text = Info.ID3Tags.AlbumArtTag.Type;
-                demTextBox.Text = string.Format("{0} x {1}", AlbumArt.Width, AlbumArt.Height);
+                try
+                {
+                    AlbumArt.Save(sfd.FileName, AlbumArt.RawFormat);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error in Saving Image", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
-        private void addTagItem(string tagName, string tagValue)
+        private void nameLabel_Click(object sender, EventArgs e)
         {
-            tagList.Items.Add(tagName).SubItems.Add(tagValue);
+            if (nameLabel.Text != "Baka MPlayer")
+                Clipboard.SetText(nameLabel.Text);
         }
 
-        private Image AlbumArt
+        private void closeButton_Click(object sender, EventArgs e)
         {
-            set { albumArtPicbox.Image = value; }
-            get { return albumArtPicbox.Image; }
+            this.Close();
         }
 
         #endregion
-
     }
 }
