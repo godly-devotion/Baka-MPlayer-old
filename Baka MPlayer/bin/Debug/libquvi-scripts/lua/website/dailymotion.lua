@@ -66,7 +66,7 @@ function parse(self)
     self.title = p:match('title="(.-)"')
                   or error("no match: media title")
 
-    self.id = p:match("video/(.-)_")
+    self.id = p:match("video/([^%?_]+)")
                 or error("no match: media ID")
 
     self.thumbnail_url = p:match('"og:image" content="(.-)"') or ''

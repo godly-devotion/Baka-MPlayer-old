@@ -94,8 +94,8 @@ public class AudioTrack
 public static class Info
 {
     // FileInfo
-    public static string URL { get; set; }
-    public static string FileName { get; set; } // w/ extension
+    public static string URL { set; get; }
+    public static string FullFileName { set; get; } // w/ extension
     public static string GetDirectoryName { get; set; } // Path.GetDirectoryName(...)
     public static bool FileExists { get; set; } // File.Exists(...)
 

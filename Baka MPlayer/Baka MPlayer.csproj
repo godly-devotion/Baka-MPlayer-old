@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -13,13 +13,18 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -198,7 +203,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
@@ -217,8 +221,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="WinAPI Code Pack\Core\Resources\LocalizedMessages.resx">
       <SubType>Designer</SubType>
@@ -228,8 +232,8 @@
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="WinAPI Code Pack\Core\AppRestartRecovery\ApplicationRecoveryException.cs" />
     <Compile Include="WinAPI Code Pack\Core\AppRestartRecovery\ApplicationRestartRecoveryManager.cs" />
@@ -490,6 +494,9 @@
     <None Include="Resources\MainForm\playButton\disabled_play.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\MainForm\playlistButton\default_playlist.png" />
+    <None Include="Resources\MainForm\playlistButton\disabled_playlist.png" />
+    <None Include="Resources\MainForm\playlistButton\down_playlist.png" />
     <None Include="Resources\MainForm\previousButton\default_previous.png" />
   </ItemGroup>
   <ItemGroup>
@@ -508,9 +515,6 @@
     <None Include="Resources\MainForm\nextButton\disabled_next.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MainForm\openButton\ajax_loader.gif" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\MainForm\openButton\down_open.png" />
   </ItemGroup>
   <ItemGroup>
@@ -524,15 +528,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MainForm\playback images\shuffle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\playlistButton\default_playlist.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\playlistButton\disabled_playlist.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\playlistButton\down_playlist.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MainForm\reverseButton\default_reverse.png" />
@@ -580,12 +575,17 @@
     <Page Include="WinAPI Code Pack\Shell\Controls\CommandLinkWPF.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowser.WPF.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

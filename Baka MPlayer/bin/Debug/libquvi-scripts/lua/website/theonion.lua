@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2012  quvi project
+-- Copyright (C) 2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -29,7 +29,7 @@ function ident(self)
     r.formats    = "default"
     r.categories = C.proto_http
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, {"/video/"})
+    r.handles    = U.handles(self.page_url, {r.domain}, {"/video/.-,%d+/"})
     return r
 end
 
@@ -43,22 +43,20 @@ end
 function parse(self)
     self.host_id = "theonion"
 
-    local p = quvi.fetch(self.page_url)
+    self.id = self.page_url:match(',(%d+)/') or error('no match: media ID')
 
-    self.title = p:match("<title>(.-) |")
-                  or error("no match: media title")
+    local u = string.format('http://theonion.com/videos/embed/%s.json',
+                              self.id)
 
-    self.id = p:match('afns_video_id = "(.-)";')
-                or error("no match: media ID")
+    local c = quvi.fetch(u, {fetch_type='config'})
 
-    local s = p:match('http://www.theonion.com/video/(.-),')
-                or error("no match: path")
+    self.title = c:match('"title":%s+"(.-)"')
+                  or error('no match: media title')
 
-    s = string.format(
-          "http://videos.theonion.com/onion_video/auto/%s/%s-iphone.m4v",
-          self.id, s)
+    self.thumbnail_url = c:match('"thumbnail":%s+"(.-)"') or ''
 
-    self.url = {s}
+    self.url = {c:match('"video_url":%s+"(.-)"')
+                  or error('no match: media stream URL')}
 
     return self
 end

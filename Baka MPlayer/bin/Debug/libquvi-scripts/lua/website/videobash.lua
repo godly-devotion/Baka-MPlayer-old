@@ -52,11 +52,13 @@ function parse(self)
     self.id = p:match("addFavorite%((%d+)")
                 or error ("no match: media ID")
 
-    local s = p:match('video_url=(.-)&')
-                or error("no match: media URL")
+    local s = p:match('file="(.-);') or error("no match: media URL")
+    s = s:gsub("[%s+']+", '')
 
-    local U     = require 'quvi/util'
-    self.url    = {U.unescape(s)}
+    self.thumbnail_url = p:match('og:image"%s+content="(.-)"') or ''
+
+    local U  = require 'quvi/util'
+    self.url = {U.unescape(s)}
 
     return self
 end

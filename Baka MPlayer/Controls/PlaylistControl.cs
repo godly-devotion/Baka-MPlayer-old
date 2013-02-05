@@ -87,7 +87,7 @@ namespace Baka_MPlayer.Controls
             if (Info.FileExists)
             {
                 if (!forceRefresh)
-                    forceRefresh = playlistList.FindItemWithText(Info.FileName) == null;
+                    forceRefresh = playlistList.FindItemWithText(Info.FullFileName) == null;
 
                 if (forceRefresh)
                 {
@@ -95,7 +95,7 @@ namespace Baka_MPlayer.Controls
                     FillPlaylist();
                 }
                 
-                GetPlayingItem = playlistList.FindItemWithText(Info.FileName);
+                GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
                 SelectedIndex = GetPlayingItem.Index;
 
                 mainForm.SetPlaylistButtonEnable(true);
@@ -186,10 +186,9 @@ namespace Baka_MPlayer.Controls
             if (showAllFilesToolStripMenuItem.Checked)
                 files = dirInfo.GetFiles("*.*");
             else
-                files = dirInfo.GetFiles('*' + Path.GetExtension(Info.FileName));
+                files = dirInfo.GetFiles('*' + Path.GetExtension(Info.FullFileName));
 
-            for (var i = 0; i <= files.Length - 1; i++)
-            {
+            for (var i = 0; i <= files.Length - 1; i++) {
                 // skip .db files (useless files)
                 if (!files[i].Name.EndsWith(".db"))
                     playlistList.Items.Add(files[i].Name);
@@ -198,7 +197,7 @@ namespace Baka_MPlayer.Controls
 
         private void UpdateUI()
         {
-            GetPlayingItem = playlistList.FindItemWithText(Info.FileName);
+            GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
             playlistList_SelectedIndexChanged(null, null);
             mainForm.CallSetBackForwardControls();
         }

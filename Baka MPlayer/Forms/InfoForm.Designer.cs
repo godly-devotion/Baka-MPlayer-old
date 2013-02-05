@@ -35,15 +35,15 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.infoList = new System.Windows.Forms.ListView();
-            this.infoColumnHeader = new System.Windows.Forms.ColumnHeader();
-            this.valueColumnHeader = new System.Windows.Forms.ColumnHeader();
+            this.infoColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.seperatorBox = new System.Windows.Forms.PictureBox();
             this.mplayerProcessLabel = new System.Windows.Forms.Label();
             this.searchTextbox = new Baka_MPlayer.Controls.CustomTextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tagList = new System.Windows.Forms.ListView();
-            this.tagColumnHeader = new System.Windows.Forms.ColumnHeader();
-            this.valueColumnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.tagColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.valueColumnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.imgTypeTextBox = new System.Windows.Forms.TextBox();
             this.imgLabel = new System.Windows.Forms.Label();
             this.demTextBox = new System.Windows.Forms.TextBox();
@@ -55,8 +55,8 @@
             this.infoContextMenu = new System.Windows.Forms.ContextMenu();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tagContextMenu = new System.Windows.Forms.ContextMenu();
             this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
@@ -70,9 +70,9 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -80,7 +80,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 31);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(410, 334);
+            this.tabControl1.Size = new System.Drawing.Size(410, 353);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 1;
             // 
@@ -93,7 +93,7 @@
             this.tabPage1.Controls.Add(this.searchTextbox);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(402, 301);
+            this.tabPage1.Size = new System.Drawing.Size(402, 320);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Media Info";
             // 
@@ -120,7 +120,7 @@
             this.infoList.Location = new System.Drawing.Point(0, 22);
             this.infoList.MultiSelect = false;
             this.infoList.Name = "infoList";
-            this.infoList.Size = new System.Drawing.Size(402, 257);
+            this.infoList.Size = new System.Drawing.Size(402, 276);
             this.infoList.TabIndex = 1;
             this.infoList.UseCompatibleStateImageBehavior = false;
             this.infoList.View = System.Windows.Forms.View.Details;
@@ -150,7 +150,7 @@
             this.mplayerProcessLabel.BackColor = System.Drawing.Color.White;
             this.mplayerProcessLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.mplayerProcessLabel.ForeColor = System.Drawing.Color.Black;
-            this.mplayerProcessLabel.Location = new System.Drawing.Point(0, 279);
+            this.mplayerProcessLabel.Location = new System.Drawing.Point(0, 298);
             this.mplayerProcessLabel.Name = "mplayerProcessLabel";
             this.mplayerProcessLabel.Size = new System.Drawing.Size(402, 22);
             this.mplayerProcessLabel.TabIndex = 2;
@@ -183,15 +183,15 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(402, 301);
+            this.tabPage2.Size = new System.Drawing.Size(402, 320);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "ID3 Tags";
             // 
             // tagList
             // 
-            this.tagList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tagList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tagList.BackColor = System.Drawing.Color.White;
             this.tagList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tagList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -205,7 +205,7 @@
             this.tagList.Location = new System.Drawing.Point(6, 6);
             this.tagList.MultiSelect = false;
             this.tagList.Name = "tagList";
-            this.tagList.Size = new System.Drawing.Size(264, 289);
+            this.tagList.Size = new System.Drawing.Size(264, 308);
             this.tagList.TabIndex = 45;
             this.tagList.UseCompatibleStateImageBehavior = false;
             this.tagList.View = System.Windows.Forms.View.Details;
@@ -333,7 +333,7 @@
             this.closeButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.Black;
             this.closeButton.IsDefaultButton = true;
-            this.closeButton.Location = new System.Drawing.Point(175, 374);
+            this.closeButton.Location = new System.Drawing.Point(175, 393);
             this.closeButton.Margin = new System.Windows.Forms.Padding(4);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(85, 30);
@@ -399,7 +399,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(434, 412);
+            this.ClientSize = new System.Drawing.Size(434, 431);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.tabControl1);
@@ -408,6 +408,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "InfoForm";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Media Info";
             this.Load += new System.EventHandler(this.InfoForm_Load);

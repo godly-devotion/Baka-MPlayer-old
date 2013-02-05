@@ -23,7 +23,7 @@ namespace Baka_MPlayer.Forms
 
         public void RefreshTitle()
         {
-            titleLabel.Text = Path.GetFileNameWithoutExtension(Functions.URL.DecodeURL(Info.FileName));
+            titleLabel.Text = Path.GetFileNameWithoutExtension(Functions.URL.DecodeURL(Info.FullFileName));
         }
 
         #region Events

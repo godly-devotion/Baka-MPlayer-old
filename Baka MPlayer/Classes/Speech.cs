@@ -26,11 +26,11 @@ public static class Speech
                     Speak(title);
             }
             else
-                Speak(Path.GetFileNameWithoutExtension(Info.URL));
+                Speak(Path.GetFileNameWithoutExtension(Info.FullFileName));
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-
+            System.Diagnostics.Debug.WriteLine(ex.Message);
         }
     }
 

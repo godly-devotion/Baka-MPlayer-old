@@ -45,16 +45,17 @@ function parse(self)
     local page   = quvi.fetch(self.page_url)
     local U      = require 'quvi/util'
 
-    self.title = page:match('\'video_title\'%s+:%s+"(.-)"')
-                  or error("no match: media title")
-    self.title = self.title:gsub('+',' ')
+    local s = page:match('"video_title":"(.-)"')
+                or error("no match: media title")
+    self.title = s:gsub('+',' ')
 
-    local s  = page:match('\'video_url\'%s+:%s+"(.-)"')
-                or error ("no match: config url")
+    local s  = page:match('"video_url":"(.-)"')
+                or error ("no match: media stream URL")
+
     self.url = { U.unescape(s) }
 
     self.id = self.page_url:match('viewkey=(%d+)')
-                or error ("no match: media id")
+                or error ("no match: media ID")
 
     return self
 end

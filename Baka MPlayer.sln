@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baka MPlayer", "Baka MPlayer\Baka MPlayer.csproj", "{3DD3A1F2-8DC4-41A9-AAD6-029758F3D936}"
 EndProject
 Global

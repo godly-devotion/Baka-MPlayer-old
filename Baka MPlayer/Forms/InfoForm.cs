@@ -67,16 +67,17 @@ namespace Baka_MPlayer.Forms
 
         #region Functions
 
-        private void setGeneralInfo()
+        private void SetGeneralInfo()
         {
             // file name
             var nameItem = new ListViewItem("File name", infoList.Groups[0]);
-            nameItem.SubItems.Add(Info.FileName);
+            nameItem.SubItems.Add(Info.FullFileName);
 
             // file type
             var type = getFileType(Info.URL);
-            if (string.IsNullOrEmpty(type))
-                type = Path.GetExtension(Info.FileName).Substring(1);
+            if (string.IsNullOrEmpty(type)) {
+                type = Path.GetExtension(Info.FullFileName).Substring(1);
+            }
             var typeItem = new ListViewItem("File type", infoList.Groups[0]);
             typeItem.SubItems.Add(type);
 
@@ -97,7 +98,7 @@ namespace Baka_MPlayer.Forms
             infoList.Items.AddRange(new[]{nameItem, typeItem, sizeItem, modifiedItem});
         }
 
-        private void setTagsInfo()
+        private void SetTagsInfo()
         {
             foreach (ID_Info info in Info.MiscInfo.OtherInfo)
             {
@@ -107,19 +108,19 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private void setID3Tags()
+        private void SetId3Tags()
         {
             tagList.Items.Clear();
             tagList.BeginUpdate();
 
-            addTagItem("Title", Info.ID3Tags.Title);
-            addTagItem("Artist", Info.ID3Tags.Artist);
-            addTagItem("Album", Info.ID3Tags.Album);
-            addTagItem("Year", Info.ID3Tags.Date);
-            addTagItem("Track", Info.ID3Tags.Track);
-            addTagItem("Genre", Info.ID3Tags.Genre);
-            addTagItem("Description", Info.ID3Tags.Description);
-            addTagItem("Comment", Info.ID3Tags.Comment);
+            AddTagItem("Title", Info.ID3Tags.Title);
+            AddTagItem("Artist", Info.ID3Tags.Artist);
+            AddTagItem("Album", Info.ID3Tags.Album);
+            AddTagItem("Year", Info.ID3Tags.Date);
+            AddTagItem("Track", Info.ID3Tags.Track);
+            AddTagItem("Genre", Info.ID3Tags.Genre);
+            AddTagItem("Description", Info.ID3Tags.Description);
+            AddTagItem("Comment", Info.ID3Tags.Comment);
             tagList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 
             // album art
@@ -139,27 +140,27 @@ namespace Baka_MPlayer.Forms
             tagList.EndUpdate();
         }
 
-        private void addTagItem(string tagName, string tagValue)
+        private void AddTagItem(string tagName, string tagValue)
         {
             tagList.Items.Add(tagName).SubItems.Add(tagValue);
         }
 
         public void RefreshInfo()
         {
-            nameLabel.Text = Path.GetFileNameWithoutExtension(Info.FileName);
+            nameLabel.Text = Path.GetFileNameWithoutExtension(Info.FullFileName);
 
             // set Media Info tagpage
             infoList.BeginUpdate();
             infoList.Items.Clear();
 
-            setGeneralInfo();
-            setTagsInfo();
+            SetGeneralInfo();
+            SetTagsInfo();
 
             infoList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             infoList.EndUpdate();
 
             // set ID3 Tags tabpage
-            setID3Tags();
+            SetId3Tags();
         }
 
         #endregion
@@ -282,7 +283,7 @@ namespace Baka_MPlayer.Forms
 
         private void saveImgLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var fileName = Path.GetFileNameWithoutExtension(Info.FileName);
+            var fileName = Path.GetFileNameWithoutExtension(Info.FullFileName);
             var sfd = new SaveFileDialog
             {
                 SupportMultiDottedExtensions = true,

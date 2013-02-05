@@ -18,7 +18,7 @@ public class GlobalMouseHandler : IMessageFilter
                 TheMouseMoved();
             }
         }
-        // Always allow message to continue to the next filter control
+        // always allow message to continue to the next filter control
         return false;
     }
 }

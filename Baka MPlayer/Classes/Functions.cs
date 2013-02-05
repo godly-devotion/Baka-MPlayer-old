@@ -81,24 +81,19 @@ public static class Functions
             try
             {
                 var FileProperties = new System.IO.FileInfo(FilePath);
-                if (FileProperties.Length < 1024)
-                {
+                if (FileProperties.Length < 1024) {
                     // Bytes
                     return (FileProperties.Length + " B");
-                } if (FileProperties.Length >= 1024 && FileProperties.Length < 1048576)
-                {
+                } if (FileProperties.Length >= 1024 && FileProperties.Length < 1048576) {
                     // Kilobytes
                     return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1024, RoundTo) + "kB";
-                } if (FileProperties.Length >= 1048576 && FileProperties.Length < 1073741824)
-                {
+                } if (FileProperties.Length >= 1048576 && FileProperties.Length < 1073741824) {
                     // Megabytes
                     return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1048576, RoundTo) + " MB";
-                } if (FileProperties.Length >= 1073741824 && FileProperties.Length < 1099511627776L)
-                {
+                } if (FileProperties.Length >= 1073741824 && FileProperties.Length < 1099511627776L) {
                     // Gigabytes
                     return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1073741824, RoundTo) + " GB";
-                } if (FileProperties.Length >= 1099511627776L && FileProperties.Length < 1099511627776L)
-                {
+                } if (FileProperties.Length >= 1099511627776L && FileProperties.Length < 1099511627776L) {
                     // Terabytes
                     return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1099511627776L, RoundTo) + " TB";
                 }

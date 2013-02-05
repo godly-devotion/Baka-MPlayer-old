@@ -1,7 +1,7 @@
 - Baka MPlayer -
 http://bakamplayer.netii.net
 
-Info: The project requires Visual Studio 2008 or newer.
+Info: The project requires Visual Studio 2012 or newer.
 
-Note: mplayer2.exe is using the x86_64 build, so it wont run on x86 OS's.
-If your OS type is x86, get the x86 version of mplayer2 here: http://mplayer2.srsfckn.biz/mplayer2-i686-latest.7z
+Note: mplayer2.exe is using the x86_64 build, so it wont run on 32-bit OS's.
+If your OS is 32-bit, get the 32-bit version of mplayer2 here: http://mplayer2.srsfckn.biz/mplayer2-i686-latest.7z

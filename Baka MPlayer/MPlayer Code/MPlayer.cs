@@ -1,7 +1,7 @@
-﻿/***************************
-* MPlayer Wrapper          *
-* by Joshua Park & u8sand) *
-***************************/
+﻿/**************************
+* MPlayer Wrapper         *
+* by Joshua Park & u8sand *
+**************************/
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -59,7 +59,8 @@ public class MPlayer
             args.Append(" -nomouseinput");         		 		// disable mouse input events
             args.Append(" -ass");                  		 		// enable .ass subtitle support
             args.Append(" -nokeepaspect");         		 		// doesn't keep window aspect ratio when resizing windows
-            args.Append(" -framedrop");                          // enables soft framedrop
+            args.Append(" -framedrop");                         // enables soft framedrop
+            //args.Append(" -nocache");                           // disables caching
             args.AppendFormat(" -volume {0}", Info.Current.Volume); // retrieves last volume
             args.AppendFormat(" -wid {0}", mainForm.mplayerPanel.Handle); // output handle
             
@@ -303,8 +304,9 @@ public class MPlayer
             if (e.Data.StartsWith("ID_") && !e.Data.StartsWith("ID_PAUSED"))
             {
                 // Parsing "ID_*"
-                var key = e.Data.Substring(0, e.Data.IndexOf('='));
-                var value = e.Data.Substring(e.Data.IndexOf('=') + 1);
+                var i = e.Data.IndexOf('=');
+                var key = e.Data.Substring(0, i);
+                var value = e.Data.Substring(i + 1);
 
                 ProcessDetails(key, value);
                 Info.MiscInfo.OtherInfo.Add(new ID_Info(key, value));
@@ -372,7 +374,7 @@ public class MPlayer
         {
             case "ID_FILENAME":
                 Info.URL = value;
-                Info.FileName = Path.GetFileName(value);
+                Info.FullFileName = Path.GetFileName(value);
                 Info.GetDirectoryName = Functions.IO.GetDirectoryName(value);
                 Info.FileExists = File.Exists(value);
                 break;
@@ -493,28 +495,29 @@ public class MPlayer
         }
 
         var s = data.Substring(i+2);
+        data = data.ToLower();
 
-        if (data.ToLower().StartsWith("title:"))
+        if (data.StartsWith("title:"))
             Info.ID3Tags.Title = s;
-        else if (data.ToLower().StartsWith("artist:"))
+        else if (data.StartsWith("artist:"))
             Info.ID3Tags.Artist = s;
-        else if (data.ToLower().StartsWith("album:"))
+        else if (data.StartsWith("album:"))
             Info.ID3Tags.Album = s;
-        else if (data.ToLower().StartsWith("date:"))
+        else if (data.StartsWith("date:"))
             Info.ID3Tags.Date = s;
-        else if (data.ToLower().StartsWith("track:"))
+        else if (data.StartsWith("track:"))
             Info.ID3Tags.Track = s;
-        else if (data.ToLower().StartsWith("genre:"))
+        else if (data.StartsWith("genre:"))
             Info.ID3Tags.Genre = s;
-        else if (data.ToLower().StartsWith("description:"))
+        else if (data.StartsWith("description:"))
             Info.ID3Tags.Description = s;
-        else if (data.ToLower().StartsWith("comment:"))
+        else if (data.StartsWith("comment:"))
             Info.ID3Tags.Comment = s;
-        else if (data.ToLower().StartsWith("album_artist:"))
+        else if (data.StartsWith("album_artist:"))
             Info.ID3Tags.Album_Artist = s;
-        else if (data.ToLower().StartsWith("encoder:"))
+        else if (data.StartsWith("encoder:"))
             Info.ID3Tags.Encoder = s;
-        else if (data.ToLower().StartsWith("disk:"))
+        else if (data.StartsWith("disk:"))
         {
             int disk;
             int.TryParse(s, out disk);

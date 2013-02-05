@@ -9,14 +9,24 @@ using System.Windows.Forms;
 
 public class Setting
 {
-    public string Name;
+    public SettingEnum Name;
     public object Value;
 
-    public Setting(string name, object value)
+    public Setting(SettingEnum name, object value)
     {
         this.Name = name;
         this.Value = value;
     }
+}
+
+public enum SettingEnum
+{
+    LastFile = 0,
+    ShowIcon,
+    Volume,
+    ShowTimeRemaining,
+    MinimizeToTray,
+    HidePopup
 }
 
 public class Settings
@@ -27,12 +37,12 @@ public class Settings
     private void defaultSettings()
     {
         settings.Clear();
-        settings.Add(new Setting("LastFile", ""));
-        settings.Add(new Setting("ShowIcon", true));
-        settings.Add(new Setting("Volume", 50));
-        settings.Add(new Setting("ShowTimeRemaining", true));
-        settings.Add(new Setting("MinimizeToTray", false));
-        settings.Add(new Setting("HidePopup", false));
+        settings.Add(new Setting(SettingEnum.LastFile, ""));
+        settings.Add(new Setting(SettingEnum.ShowIcon, true));
+        settings.Add(new Setting(SettingEnum.Volume, 50));
+        settings.Add(new Setting(SettingEnum.ShowTimeRemaining, true));
+        settings.Add(new Setting(SettingEnum.MinimizeToTray, false));
+        settings.Add(new Setting(SettingEnum.HidePopup, false));
     }
 
     #region Global Objects
@@ -81,7 +91,7 @@ public class Settings
         configDataSet = new DataSet();
 
         foreach (Setting s in settings)
-            configDataTable.Columns.Add(s.Name, s.Value.GetType());
+            configDataTable.Columns.Add(s.Name.ToString(), s.Value.GetType());
 
         configDataSet.Tables.Add(this.configDataTable);
     }
@@ -123,7 +133,7 @@ public class Settings
     /// <summary>
     /// Gets setting with string value
     /// </summary>
-    public string GetStringValue(string name)
+    public string GetStringValue(SettingEnum name)
     {
         return (string)settings.Find(item => item.Name.Equals(name)).Value;
     }
@@ -131,7 +141,7 @@ public class Settings
     /// <summary>
     /// Gets setting with int value
     /// </summary>
-    public int GetIntValue(string name)
+    public int GetIntValue(SettingEnum name)
     {
         return Convert.ToInt32(settings.Find(item => item.Name.Equals(name)).Value);
     }
@@ -139,7 +149,7 @@ public class Settings
     /// <summary>
     /// Gets setting with boolean value
     /// </summary>
-    public bool GetBoolValue(string name)
+    public bool GetBoolValue(SettingEnum name)
     {
         return Convert.ToBoolean(settings.Find(item => item.Name.Equals(name)).Value);
     }
@@ -147,7 +157,7 @@ public class Settings
     /// <summary>
     /// Sets setting value
     /// </summary>
-    public void SetConfig(object value, string name)
+    public void SetConfig(object value, SettingEnum name)
     {
         settings.Find(item => item.Name.Equals(name)).Value = Convert.ChangeType(value, value.GetType());
     }
@@ -162,8 +172,8 @@ public class Settings
         DataRow r = configDataSet.Tables[0].NewRow();
 
         foreach (Setting item in settings)
-            r[item.Name] = Convert.ChangeType(item.Value, item.Value.GetType());
-
+            r[(int)item.Name] = Convert.ChangeType(item.Value, item.Value.GetType());
+        
         configDataSet.Tables["ConfigDataTable"].Rows.Add(r);
         configDataSet.WriteXml(AppPath + xmlExtention);
 
