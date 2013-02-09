@@ -124,13 +124,13 @@ namespace Baka_MPlayer.Forms
             this.aboutBakaMPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.quickButton = new Baka_MPlayer.Controls.MediaButton();
+            this.nextButton = new Baka_MPlayer.Controls.MediaButton();
+            this.previousButton = new Baka_MPlayer.Controls.MediaButton();
+            this.rewindButton = new Baka_MPlayer.Controls.MediaButton();
+            this.playlistButton = new Baka_MPlayer.Controls.MediaButton();
             this.speechButton = new System.Windows.Forms.PictureBox();
             this.volumeBar = new Baka_MPlayer.Controls.ColorSlider();
-            this.playlistButton = new System.Windows.Forms.PictureBox();
-            this.quickButton = new System.Windows.Forms.PictureBox();
-            this.rewindButton = new System.Windows.Forms.PictureBox();
-            this.previousButton = new System.Windows.Forms.PictureBox();
-            this.nextButton = new System.Windows.Forms.PictureBox();
             this.playButton = new System.Windows.Forms.PictureBox();
             this.seekPanel = new System.Windows.Forms.Panel();
             this.seekBar = new Baka_MPlayer.Controls.ColorSlider();
@@ -164,12 +164,12 @@ namespace Baka_MPlayer.Forms
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.speechButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.playlistButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.quickButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rewindButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.previousButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nextButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.previousButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rewindButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playlistButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speechButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playButton)).BeginInit();
             this.seekPanel.SuspendLayout();
             this.mplayerSplitContainer.Panel1.SuspendLayout();
@@ -971,13 +971,13 @@ namespace Baka_MPlayer.Forms
             // controlPanel
             // 
             this.controlPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.controlPanel.Controls.Add(this.quickButton);
+            this.controlPanel.Controls.Add(this.nextButton);
+            this.controlPanel.Controls.Add(this.previousButton);
+            this.controlPanel.Controls.Add(this.rewindButton);
+            this.controlPanel.Controls.Add(this.playlistButton);
             this.controlPanel.Controls.Add(this.speechButton);
             this.controlPanel.Controls.Add(this.volumeBar);
-            this.controlPanel.Controls.Add(this.playlistButton);
-            this.controlPanel.Controls.Add(this.quickButton);
-            this.controlPanel.Controls.Add(this.rewindButton);
-            this.controlPanel.Controls.Add(this.previousButton);
-            this.controlPanel.Controls.Add(this.nextButton);
             this.controlPanel.Controls.Add(this.playButton);
             this.controlPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.controlPanel.Location = new System.Drawing.Point(0, 341);
@@ -987,12 +987,102 @@ namespace Baka_MPlayer.Forms
             this.controlPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.controlPanel_Paint);
             this.controlPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
+            // quickButton
+            // 
+            this.quickButton.BackColor = System.Drawing.Color.Transparent;
+            this.quickButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.quickButton.DefaultImage = global::Baka_MPlayer.Properties.Resources.default_open;
+            this.quickButton.DisabledImage = null;
+            this.quickButton.Image = global::Baka_MPlayer.Properties.Resources.default_open;
+            this.quickButton.Location = new System.Drawing.Point(12, 10);
+            this.quickButton.MouseDownImage = global::Baka_MPlayer.Properties.Resources.down_open;
+            this.quickButton.Name = "quickButton";
+            this.quickButton.Size = new System.Drawing.Size(25, 25);
+            this.quickButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.quickButton.TabIndex = 12;
+            this.quickButton.TabStop = false;
+            this.xToolTip.SetToolTip(this.quickButton, "Left Click to Open File\r\nMouse Wheel Click to Jump\r\nRight Click to Open URL");
+            this.quickButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.quickButton_MouseClick);
+            // 
+            // nextButton
+            // 
+            this.nextButton.BackColor = System.Drawing.Color.Transparent;
+            this.nextButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.nextButton.DefaultImage = global::Baka_MPlayer.Properties.Resources.default_next;
+            this.nextButton.DisabledImage = global::Baka_MPlayer.Properties.Resources.disabled_next;
+            this.nextButton.Enabled = false;
+            this.nextButton.Image = global::Baka_MPlayer.Properties.Resources.disabled_next;
+            this.nextButton.Location = new System.Drawing.Point(320, 10);
+            this.nextButton.MouseDownImage = global::Baka_MPlayer.Properties.Resources.down_next;
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(37, 25);
+            this.nextButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.nextButton.TabIndex = 11;
+            this.nextButton.TabStop = false;
+            this.nextButton.Paint += new System.Windows.Forms.PaintEventHandler(this.nextButton_Paint);
+            this.nextButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.nextButton_MouseClick);
+            // 
+            // previousButton
+            // 
+            this.previousButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.previousButton.BackColor = System.Drawing.Color.Transparent;
+            this.previousButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.previousButton.DefaultImage = global::Baka_MPlayer.Properties.Resources.default_previous;
+            this.previousButton.DisabledImage = global::Baka_MPlayer.Properties.Resources.disabled_previous;
+            this.previousButton.Enabled = false;
+            this.previousButton.Image = global::Baka_MPlayer.Properties.Resources.disabled_previous;
+            this.previousButton.Location = new System.Drawing.Point(227, 10);
+            this.previousButton.MouseDownImage = global::Baka_MPlayer.Properties.Resources.down_previous;
+            this.previousButton.Name = "previousButton";
+            this.previousButton.Size = new System.Drawing.Size(37, 25);
+            this.previousButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.previousButton.TabIndex = 10;
+            this.previousButton.TabStop = false;
+            this.previousButton.Paint += new System.Windows.Forms.PaintEventHandler(this.previousButton_Paint);
+            this.previousButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.previousButton_MouseClick);
+            // 
+            // rewindButton
+            // 
+            this.rewindButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.rewindButton.BackColor = System.Drawing.Color.Transparent;
+            this.rewindButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rewindButton.DefaultImage = global::Baka_MPlayer.Properties.Resources.default_reverse;
+            this.rewindButton.DisabledImage = global::Baka_MPlayer.Properties.Resources.disabled_reverse;
+            this.rewindButton.Enabled = false;
+            this.rewindButton.Image = global::Baka_MPlayer.Properties.Resources.disabled_reverse;
+            this.rewindButton.Location = new System.Drawing.Point(189, 10);
+            this.rewindButton.MouseDownImage = global::Baka_MPlayer.Properties.Resources.down_reverse;
+            this.rewindButton.Name = "rewindButton";
+            this.rewindButton.Size = new System.Drawing.Size(32, 25);
+            this.rewindButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.rewindButton.TabIndex = 9;
+            this.rewindButton.TabStop = false;
+            this.rewindButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rewindButton_MouseClick);
+            // 
+            // playlistButton
+            // 
+            this.playlistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.playlistButton.BackColor = System.Drawing.Color.Transparent;
+            this.playlistButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.playlistButton.DefaultImage = global::Baka_MPlayer.Properties.Resources.default_playlist;
+            this.playlistButton.DisabledImage = global::Baka_MPlayer.Properties.Resources.disabled_playlist;
+            this.playlistButton.Enabled = false;
+            this.playlistButton.Image = global::Baka_MPlayer.Properties.Resources.disabled_playlist;
+            this.playlistButton.Location = new System.Drawing.Point(547, 10);
+            this.playlistButton.MouseDownImage = global::Baka_MPlayer.Properties.Resources.down_playlist;
+            this.playlistButton.Name = "playlistButton";
+            this.playlistButton.Size = new System.Drawing.Size(25, 25);
+            this.playlistButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.playlistButton.TabIndex = 8;
+            this.playlistButton.TabStop = false;
+            this.playlistButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.playlistButton_MouseClick);
+            // 
             // speechButton
             // 
             this.speechButton.BackColor = System.Drawing.Color.Transparent;
             this.speechButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.speechButton.Image = global::Baka_MPlayer.Properties.Resources.disabled_mic;
-            this.speechButton.Location = new System.Drawing.Point(44, 10);
+            this.speechButton.Location = new System.Drawing.Point(43, 10);
             this.speechButton.Name = "speechButton";
             this.speechButton.Size = new System.Drawing.Size(25, 25);
             this.speechButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -1025,97 +1115,6 @@ namespace Baka_MPlayer.Forms
             this.volumeBar.ThumbRoundRectSize = new System.Drawing.Size(14, 16);
             this.volumeBar.ThumbSize = new System.Drawing.Size(16, 14);
             this.volumeBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.volumeBar_Scroll);
-            // 
-            // playlistButton
-            // 
-            this.playlistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.playlistButton.BackColor = System.Drawing.Color.Transparent;
-            this.playlistButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.playlistButton.Enabled = false;
-            this.playlistButton.Image = global::Baka_MPlayer.Properties.Resources.disabled_playlist;
-            this.playlistButton.Location = new System.Drawing.Point(547, 10);
-            this.playlistButton.Name = "playlistButton";
-            this.playlistButton.Size = new System.Drawing.Size(25, 25);
-            this.playlistButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.playlistButton.TabIndex = 5;
-            this.playlistButton.TabStop = false;
-            this.playlistButton.EnabledChanged += new System.EventHandler(this.playlistButton_EnabledChanged);
-            this.playlistButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.playlistButton_MouseClick);
-            this.playlistButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.playlistButton_MouseDown);
-            this.playlistButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.playlistButton_MouseUp);
-            // 
-            // quickButton
-            // 
-            this.quickButton.BackColor = System.Drawing.Color.Transparent;
-            this.quickButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.quickButton.Image = global::Baka_MPlayer.Properties.Resources.default_open;
-            this.quickButton.Location = new System.Drawing.Point(12, 10);
-            this.quickButton.Name = "quickButton";
-            this.quickButton.Size = new System.Drawing.Size(25, 25);
-            this.quickButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.quickButton.TabIndex = 4;
-            this.quickButton.TabStop = false;
-            this.xToolTip.SetToolTip(this.quickButton, "Left Click to Open File\r\nMouse Wheel Click to Jump\r\nRight Click to Open URL");
-            this.quickButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.quickButton_MouseClick);
-            this.quickButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.quickButton_MouseDown);
-            this.quickButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.quickButton_MouseUp);
-            // 
-            // rewindButton
-            // 
-            this.rewindButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.rewindButton.BackColor = System.Drawing.Color.Transparent;
-            this.rewindButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rewindButton.Enabled = false;
-            this.rewindButton.Image = global::Baka_MPlayer.Properties.Resources.disabled_reverse;
-            this.rewindButton.Location = new System.Drawing.Point(185, 10);
-            this.rewindButton.Name = "rewindButton";
-            this.rewindButton.Size = new System.Drawing.Size(32, 25);
-            this.rewindButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.rewindButton.TabIndex = 3;
-            this.rewindButton.TabStop = false;
-            this.xToolTip.SetToolTip(this.rewindButton, "Rewind / Stop");
-            this.rewindButton.EnabledChanged += new System.EventHandler(this.rewindButton_EnabledChanged);
-            this.rewindButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rewindButton_MouseClick);
-            this.rewindButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.rewindButton_MouseDown);
-            this.rewindButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.rewindButton_MouseUp);
-            // 
-            // previousButton
-            // 
-            this.previousButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.previousButton.BackColor = System.Drawing.Color.Transparent;
-            this.previousButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.previousButton.Enabled = false;
-            this.previousButton.Image = global::Baka_MPlayer.Properties.Resources.disabled_previous;
-            this.previousButton.Location = new System.Drawing.Point(227, 10);
-            this.previousButton.Name = "previousButton";
-            this.previousButton.Size = new System.Drawing.Size(37, 25);
-            this.previousButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.previousButton.TabIndex = 2;
-            this.previousButton.TabStop = false;
-            this.previousButton.EnabledChanged += new System.EventHandler(this.previousButton_EnabledChanged);
-            this.previousButton.Paint += new System.Windows.Forms.PaintEventHandler(this.previousButton_Paint);
-            this.previousButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.previousButton_MouseClick);
-            this.previousButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.previousButton_MouseDown);
-            this.previousButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.previousButton_MouseUp);
-            // 
-            // nextButton
-            // 
-            this.nextButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.nextButton.BackColor = System.Drawing.Color.Transparent;
-            this.nextButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.nextButton.Enabled = false;
-            this.nextButton.Image = global::Baka_MPlayer.Properties.Resources.disabled_next;
-            this.nextButton.Location = new System.Drawing.Point(320, 10);
-            this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(37, 25);
-            this.nextButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.nextButton.TabIndex = 1;
-            this.nextButton.TabStop = false;
-            this.nextButton.EnabledChanged += new System.EventHandler(this.nextButton_EnabledChanged);
-            this.nextButton.Paint += new System.Windows.Forms.PaintEventHandler(this.nextButton_Paint);
-            this.nextButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.nextButton_MouseClick);
-            this.nextButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.nextButton_MouseDown);
-            this.nextButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.nextButton_MouseUp);
             // 
             // playButton
             // 
@@ -1477,12 +1476,12 @@ namespace Baka_MPlayer.Forms
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.controlPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.speechButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.playlistButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.quickButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rewindButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.previousButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nextButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.previousButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rewindButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playlistButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.speechButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playButton)).EndInit();
             this.seekPanel.ResumeLayout(false);
             this.mplayerSplitContainer.Panel1.ResumeLayout(false);
@@ -1516,11 +1515,6 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.Label durationLabel;
         private System.Windows.Forms.Label timeLeftLabel;
         private System.Windows.Forms.PictureBox playButton;
-        private System.Windows.Forms.PictureBox nextButton;
-        private System.Windows.Forms.PictureBox previousButton;
-        private System.Windows.Forms.PictureBox rewindButton;
-        private System.Windows.Forms.PictureBox quickButton;
-        private System.Windows.Forms.PictureBox playlistButton;
         protected internal System.Windows.Forms.Panel mplayerPanel;
         private Baka_MPlayer.Controls.ColorSlider volumeBar;
         private Baka_MPlayer.Controls.ColorSlider seekBar;
@@ -1630,6 +1624,11 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem playDVDToolStripMenuItem;
         private System.Windows.Forms.Timer cursorTimer;
         private System.Windows.Forms.ToolStripMenuItem frameStepToolStripMenuItem;
+        private MediaButton playlistButton;
+        private MediaButton rewindButton;
+        private MediaButton previousButton;
+        private MediaButton nextButton;
+        private MediaButton quickButton;
     }
 }
 

@@ -34,7 +34,7 @@
             this.webLinkLabel = new System.Windows.Forms.LinkLabel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.closeButton = new Baka_MPlayer.Controls.ButtonControl();
+            this.closeButton = new Baka_MPlayer.Controls.SimpleButton();
             this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logoPicbox)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -168,7 +168,7 @@
 
         #endregion
 
-        private Baka_MPlayer.Controls.ButtonControl closeButton;
+        private Baka_MPlayer.Controls.SimpleButton closeButton;
         private System.Windows.Forms.PictureBox logoPicbox;
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.LinkLabel webLinkLabel;

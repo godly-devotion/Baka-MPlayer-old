@@ -31,8 +31,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.messageLabel = new System.Windows.Forms.Label();
             this.inputTextbox = new Baka_MPlayer.Controls.CustomTextBox();
-            this.okButton = new Baka_MPlayer.Controls.ButtonControl();
-            this.cancelButton = new Baka_MPlayer.Controls.ButtonControl();
+            this.okButton = new Baka_MPlayer.Controls.SimpleButton();
+            this.cancelButton = new Baka_MPlayer.Controls.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -146,7 +146,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label messageLabel;
         private Baka_MPlayer.Controls.CustomTextBox inputTextbox;
-        private Baka_MPlayer.Controls.ButtonControl okButton;
-        private Baka_MPlayer.Controls.ButtonControl cancelButton;
+        private Baka_MPlayer.Controls.SimpleButton okButton;
+        private Baka_MPlayer.Controls.SimpleButton cancelButton;
     }
 }

@@ -46,7 +46,7 @@
             this.videoOutputbox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.closeButton = new Baka_MPlayer.Controls.ButtonControl();
+            this.closeButton = new Baka_MPlayer.Controls.SimpleButton();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -309,7 +309,7 @@
 
         #endregion
 
-        private Baka_MPlayer.Controls.ButtonControl closeButton;
+        private Baka_MPlayer.Controls.SimpleButton closeButton;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;

@@ -38,7 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.statusLabel = new System.Windows.Forms.Label();
-            this.jumpButton = new Baka_MPlayer.Controls.ButtonControl();
+            this.jumpButton = new Baka_MPlayer.Controls.SimpleButton();
             this.checkPicbox = new System.Windows.Forms.PictureBox();
             this.timePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.secBox)).BeginInit();
@@ -262,7 +262,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label statusLabel;
-        private Baka_MPlayer.Controls.ButtonControl jumpButton;
+        private Baka_MPlayer.Controls.SimpleButton jumpButton;
         private System.Windows.Forms.PictureBox checkPicbox;
     }
 }

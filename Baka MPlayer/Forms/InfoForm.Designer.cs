@@ -51,7 +51,7 @@
             this.saveImgLabel = new System.Windows.Forms.LinkLabel();
             this.albumArtPicbox = new System.Windows.Forms.PictureBox();
             this.nameLabel = new System.Windows.Forms.Label();
-            this.closeButton = new Baka_MPlayer.Controls.ButtonControl();
+            this.closeButton = new Baka_MPlayer.Controls.SimpleButton();
             this.infoContextMenu = new System.Windows.Forms.ContextMenu();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
@@ -434,7 +434,7 @@
         private System.Windows.Forms.ColumnHeader infoColumnHeader;
         private System.Windows.Forms.ColumnHeader valueColumnHeader;
         private System.Windows.Forms.Label mplayerProcessLabel;
-        private Baka_MPlayer.Controls.ButtonControl closeButton;
+        private Baka_MPlayer.Controls.SimpleButton closeButton;
         private System.Windows.Forms.TextBox imgTypeTextBox;
         private System.Windows.Forms.Label imgLabel;
         private System.Windows.Forms.TextBox demTextBox;

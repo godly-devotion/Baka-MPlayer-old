@@ -671,9 +671,9 @@ namespace Baka_MPlayer.Forms
 
         public void CallTakeAction(string speechCommand)
         {
-            Invoke((MethodInvoker)(() => takeAction(speechCommand)));
+            Invoke((MethodInvoker)(() => TakeAction(speechCommand)));
         }
-        private void takeAction(string speechCommand)
+        private void TakeAction(string speechCommand)
         {
             SetStatus("Voice Command: " + Functions.String.ToTitleCase(speechCommand), false);
 
@@ -791,27 +791,15 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private void quickButton_MouseDown(object sender, MouseEventArgs e)
-        {
-            quickButton.Image = Properties.Resources.down_open;
-        }
-
-        private void quickButton_MouseUp(object sender, MouseEventArgs e)
-        {
-            quickButton.Image = Properties.Resources.default_open;
-        }
-
         // Speech Button
         private void speechButton_MouseClick(object sender, MouseEventArgs e)
         {
             VoiceEnabled = !VoiceEnabled;
         }
-
         private void speechButton_MouseDown(object sender, MouseEventArgs e)
         {
             speechButton.Image = Properties.Resources.down_mic;
         }
-
         private void speechButton_MouseUp(object sender, MouseEventArgs e)
         {
             speechButton.Image = VoiceEnabled ?
@@ -819,12 +807,6 @@ namespace Baka_MPlayer.Forms
         }
 
         // RewindButton
-        private void rewindButton_EnabledChanged(object sender, EventArgs e)
-        {
-            rewindButton.Image = rewindButton.Enabled ?
-                Properties.Resources.default_reverse : Properties.Resources.disabled_reverse;
-        }
-
         private void rewindButton_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button != MouseButtons.Left)
@@ -840,47 +822,12 @@ namespace Baka_MPlayer.Forms
                 mplayer.Stop();
         }
 
-        private void rewindButton_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (rewindButton.Enabled && e.Button == MouseButtons.Left)
-                rewindButton.Image = Properties.Resources.down_reverse;
-        }
-
-        private void rewindButton_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (rewindButton.Enabled)
-                rewindButton.Image = Properties.Resources.default_reverse;
-            else
-                rewindButton.Image = Properties.Resources.disabled_reverse;
-        }
-
         // PreviousButton
-        private void previousButton_EnabledChanged(object sender, EventArgs e)
-        {
-            previousButton.Image = previousButton.Enabled ?
-                Properties.Resources.default_previous : Properties.Resources.disabled_previous;
-        }
-
         private void previousButton_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
                 playlist.PlayPreviousFile();
         }
-
-        private void previousButton_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (previousButton.Enabled && e.Button == MouseButtons.Left)
-                previousButton.Image = Properties.Resources.down_previous;
-        }
-
-        private void previousButton_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (previousButton.Enabled)
-                previousButton.Image = Properties.Resources.default_previous;
-            else
-                previousButton.Image = Properties.Resources.disabled_previous;
-        }
-
         private void previousButton_Paint(object sender, PaintEventArgs e)
         {
             if (!previousButton.Enabled) return;
@@ -892,32 +839,11 @@ namespace Baka_MPlayer.Forms
         }
 
         // NextButton
-        private void nextButton_EnabledChanged(object sender, EventArgs e)
-        {
-            nextButton.Image = nextButton.Enabled ?
-                Properties.Resources.default_next : Properties.Resources.disabled_next;
-        }
-
         private void nextButton_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
                 playlist.PlayNextFile();
         }
-
-        private void nextButton_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (nextButton.Enabled && e.Button == MouseButtons.Left)
-                nextButton.Image = Properties.Resources.down_next;
-        }
-
-        private void nextButton_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (nextButton.Enabled)
-                nextButton.Image = Properties.Resources.default_next;
-            else
-                nextButton.Image = Properties.Resources.disabled_next;
-        }
-
         private void nextButton_Paint(object sender, PaintEventArgs e)
         {
             if (!nextButton.Enabled) return;
@@ -943,7 +869,6 @@ namespace Baka_MPlayer.Forms
                 playButton.Image = Properties.Resources.disabled_play;
             }
         }
-
         private void playButton_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && playButton.Enabled)
@@ -954,7 +879,6 @@ namespace Baka_MPlayer.Forms
                     playButton.Image = Properties.Resources.down_play;
             }
         }
-
         private void playButton_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left && playButton.Enabled)
@@ -969,27 +893,11 @@ namespace Baka_MPlayer.Forms
         }
 
         // PlaylistButton
-        private void playlistButton_EnabledChanged(object sender, EventArgs e)
-        {
-            playlistButton.Image = playlistButton.Enabled ?
-                Properties.Resources.default_playlist : Properties.Resources.disabled_playlist;
-        }
-
         private void playlistButton_MouseClick(object sender, MouseEventArgs e)
         {
             ShowPlaylist = !ShowPlaylist;
             showPlaylistToolStripMenuItem.Checked = !mplayerSplitContainer.Panel2Collapsed;
             hideAlbumArtToolStripMenuItem.Checked = false;
-        }
-
-        private void playlistButton_MouseDown(object sender, MouseEventArgs e)
-        {
-            playlistButton.Image = Properties.Resources.down_playlist;
-        }
-
-        private void playlistButton_MouseUp(object sender, MouseEventArgs e)
-        {
-            playlistButton.Image = Properties.Resources.default_playlist;
         }
 
         // VolumeBar
@@ -2166,7 +2074,7 @@ namespace Baka_MPlayer.Forms
             if (Info.VideoInfo.HasVideo)
             {
                 var now_aspect = (double)bodySplitContainer.Panel1.Width / bodySplitContainer.Panel1.Height;
-                int newWid, newHei;
+                int newWidth, newHeight;
 
                 var ratio = Info.VideoInfo.AspectRatio;
                 if (ratio.Equals(0.0))
@@ -2174,25 +2082,25 @@ namespace Baka_MPlayer.Forms
 
                 if (now_aspect < ratio)
                 {
-                    newWid = bodySplitContainer.Panel1.Width;
-                    newHei = (int)(newWid / ratio);
+                    newWidth = bodySplitContainer.Panel1.Width;
+                    newHeight = (int)(newWidth / ratio);
                 }
                 else
                 {
-                    newHei = bodySplitContainer.Panel1.Height;
-                    newWid = (int)(newHei * ratio);
+                    newHeight = bodySplitContainer.Panel1.Height;
+                    newWidth = (int)(newHeight * ratio);
                 }
 
                 // update Size : Width, Height
-                if (Info.VideoInfo.Width != newWid || Info.VideoInfo.Height != newHei)
-                    mplayerPanel.Size = new Size(newWid, newHei);
+                if (Info.VideoInfo.Width != newWidth || Info.VideoInfo.Height != newHeight)
+                    mplayerPanel.Size = new Size(newWidth, newHeight);
 
                 // update location : Top, Left
-                newWid = (bodySplitContainer.Panel1.Width - newWid) / 2;
-                newHei = (bodySplitContainer.Panel1.Height - newHei) / 2;
+                newWidth = (bodySplitContainer.Panel1.Width - newWidth) / 2;
+                newHeight = (bodySplitContainer.Panel1.Height - newHeight) / 2;
 
-                if (mplayerPanel.Left != newWid || mplayerPanel.Top != newHei)
-                    mplayerPanel.Location = new Point(newWid, newHei);
+                if (mplayerPanel.Left != newWidth || mplayerPanel.Top != newHeight)
+                    mplayerPanel.Location = new Point(newWidth, newHeight);
             }
         }
 

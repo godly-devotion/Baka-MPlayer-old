@@ -75,11 +75,17 @@
     <Compile Include="Classes\Speech.cs" />
     <Compile Include="Classes\UpdateChecker.cs" />
     <Compile Include="Classes\Voice.cs" />
-    <Compile Include="Controls\ButtonControl.cs">
+    <Compile Include="Controls\MediaButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\ButtonControl.Designer.cs">
-      <DependentUpon>ButtonControl.cs</DependentUpon>
+    <Compile Include="Controls\MediaButton.Designer.cs">
+      <DependentUpon>MediaButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SimpleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\SimpleButton.Designer.cs">
+      <DependentUpon>SimpleButton.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ColorSlider.cs">
       <SubType>Component</SubType>
@@ -169,8 +175,8 @@
     <Compile Include="MPlayer Code\Info.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Controls\ButtonControl.resx">
-      <DependentUpon>ButtonControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\SimpleButton.resx">
+      <DependentUpon>SimpleButton.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\PlaylistControl.resx">

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UpdateForm));
-            this.closeButton = new Baka_MPlayer.Controls.ButtonControl();
-            this.downloadButton = new Baka_MPlayer.Controls.ButtonControl();
+            this.closeButton = new Baka_MPlayer.Controls.SimpleButton();
+            this.downloadButton = new Baka_MPlayer.Controls.SimpleButton();
             this.statusLabel = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.newLabel = new System.Windows.Forms.Label();
@@ -162,8 +162,8 @@
 
         #endregion
 
-        private Baka_MPlayer.Controls.ButtonControl closeButton;
-        private Baka_MPlayer.Controls.ButtonControl downloadButton;
+        private Baka_MPlayer.Controls.SimpleButton closeButton;
+        private Baka_MPlayer.Controls.SimpleButton downloadButton;
         private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label versionLabel;

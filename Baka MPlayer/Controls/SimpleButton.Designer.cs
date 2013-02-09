@@ -1,6 +1,6 @@
 ﻿namespace Baka_MPlayer.Controls
 {
-    partial class ButtonControl
+    partial class SimpleButton
     {
         /// <summary>
         /// Required designer variable.

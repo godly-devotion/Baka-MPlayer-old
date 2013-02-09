@@ -30,8 +30,8 @@
         {
             this.sidePanel = new System.Windows.Forms.Panel();
             this.copyLink = new System.Windows.Forms.LinkLabel();
-            this.saveButton = new Baka_MPlayer.Controls.ButtonControl();
-            this.cancelButton = new Baka_MPlayer.Controls.ButtonControl();
+            this.saveButton = new Baka_MPlayer.Controls.SimpleButton();
+            this.cancelButton = new Baka_MPlayer.Controls.SimpleButton();
             this.cleanNameCheckbox = new System.Windows.Forms.CheckBox();
             this.demensionsLabel = new System.Windows.Forms.Label();
             this.snapshotPicbox = new System.Windows.Forms.PictureBox();
@@ -173,8 +173,8 @@
 
         private System.Windows.Forms.Panel sidePanel;
         private System.Windows.Forms.PictureBox snapshotPicbox;
-        private Baka_MPlayer.Controls.ButtonControl saveButton;
-        private Baka_MPlayer.Controls.ButtonControl cancelButton;
+        private Baka_MPlayer.Controls.SimpleButton saveButton;
+        private Baka_MPlayer.Controls.SimpleButton cancelButton;
         private System.Windows.Forms.CheckBox cleanNameCheckbox;
         private System.Windows.Forms.Label demensionsLabel;
         private System.Windows.Forms.LinkLabel copyLink;

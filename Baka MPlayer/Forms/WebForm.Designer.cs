@@ -33,12 +33,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.urlTextbox = new System.Windows.Forms.TextBox();
             this.fileTypeLabel = new System.Windows.Forms.Label();
-            this.okButton = new Baka_MPlayer.Controls.ButtonControl();
-            this.closeButton = new Baka_MPlayer.Controls.ButtonControl();
-            this.pasteButton = new Baka_MPlayer.Controls.ButtonControl();
-            this.copyButton = new Baka_MPlayer.Controls.ButtonControl();
-            this.clearButton = new Baka_MPlayer.Controls.ButtonControl();
-            this.undoButton = new Baka_MPlayer.Controls.ButtonControl();
+            this.okButton = new Baka_MPlayer.Controls.SimpleButton();
+            this.closeButton = new Baka_MPlayer.Controls.SimpleButton();
+            this.pasteButton = new Baka_MPlayer.Controls.SimpleButton();
+            this.copyButton = new Baka_MPlayer.Controls.SimpleButton();
+            this.clearButton = new Baka_MPlayer.Controls.SimpleButton();
+            this.undoButton = new Baka_MPlayer.Controls.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.checkPicbox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -247,11 +247,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox urlTextbox;
         private System.Windows.Forms.Label fileTypeLabel;
-        private Baka_MPlayer.Controls.ButtonControl okButton;
-        private Baka_MPlayer.Controls.ButtonControl closeButton;
-        private Baka_MPlayer.Controls.ButtonControl pasteButton;
-        private Baka_MPlayer.Controls.ButtonControl copyButton;
-        private Baka_MPlayer.Controls.ButtonControl clearButton;
-        private Baka_MPlayer.Controls.ButtonControl undoButton;
+        private Baka_MPlayer.Controls.SimpleButton okButton;
+        private Baka_MPlayer.Controls.SimpleButton closeButton;
+        private Baka_MPlayer.Controls.SimpleButton pasteButton;
+        private Baka_MPlayer.Controls.SimpleButton copyButton;
+        private Baka_MPlayer.Controls.SimpleButton clearButton;
+        private Baka_MPlayer.Controls.SimpleButton undoButton;
     }
 }

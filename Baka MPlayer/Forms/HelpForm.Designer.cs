@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HelpForm));
-            this.closeButton = new Baka_MPlayer.Controls.ButtonControl();
+            this.closeButton = new Baka_MPlayer.Controls.SimpleButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.richTextBox4 = new System.Windows.Forms.RichTextBox();
@@ -151,7 +151,7 @@
 
         #endregion
 
-        private Baka_MPlayer.Controls.ButtonControl closeButton;
+        private Baka_MPlayer.Controls.SimpleButton closeButton;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
