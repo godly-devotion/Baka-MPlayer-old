@@ -138,10 +138,17 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        // notification tray code
+        // notify icon code
         private void SetSystemTray()
         {
-            // WEB GIVES NULL - USE FILE EXISTS?? No. Add something to playlist??
+            if (!File.Exists(Info.URL))
+            {
+                var fullFileName = Path.GetFileNameWithoutExtension(Info.FullFileName);
+                titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, fullFileName));
+                artistMenuItem.Text = "  Online Media";
+                SetNotifyIconText(string.Format("{0}\n{1}", fullFileName, "Online Media"));
+                return;
+            }
 
             var lastPart = string.Format("(File {0} of {1})", playlist.GetPlayingItem.Index + 1, playlist.GetTotalItems);
 
@@ -162,12 +169,16 @@ namespace Baka_MPlayer.Forms
             else
             {
                 // no title & artist (no artist assumed)
-                var fullFileName = Path.GetFileNameWithoutExtension(Info.FullFileName);
+                var fullFileName = Functions.String.AutoEllipsis(25, Path.GetFileNameWithoutExtension(Info.FullFileName));
 
-                titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, fullFileName));
-                artistMenuItem.Text = "  Unknown Artist";
+                titleMenuItem.Text = string.Format("  {0}", fullFileName);
 
-                SetNotifyIconText(Functions.String.AutoEllipsis(25, fullFileName) + '\n' + lastPart);
+                if (File.Exists(Info.URL))
+                    artistMenuItem.Text = "  Unknown Artist";
+                else
+                    artistMenuItem.Text = "  Online Media";
+
+                SetNotifyIconText(string.Format("{0}\n{1}", fullFileName, lastPart));
 
                 if (!Info.VideoInfo.HasVideo && !hidePopupToolStripMenuItem.Checked)
                     trayIcon.ShowBalloonTip(4000, fullFileName, lastPart, ToolTipIcon.None);

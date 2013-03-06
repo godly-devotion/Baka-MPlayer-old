@@ -103,9 +103,14 @@ namespace Baka_MPlayer.Controls
             }
             else
             {
+                playlistList.Items.Clear();
+                playlistList.Items.Add(Info.FullFileName);
+
+                GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
+                SelectedIndex = GetPlayingItem.Index;
+
                 mainForm.SetPlaylistButtonEnable(false);
                 mainForm.ShowPlaylist = false;
-                playlistList.Items.Clear();
             }
 
             playlistList.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);

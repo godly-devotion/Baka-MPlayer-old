@@ -38,7 +38,6 @@
             this.pasteButton = new Baka_MPlayer.Controls.SimpleButton();
             this.copyButton = new Baka_MPlayer.Controls.SimpleButton();
             this.clearButton = new Baka_MPlayer.Controls.SimpleButton();
-            this.undoButton = new Baka_MPlayer.Controls.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.checkPicbox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -94,9 +93,9 @@
             this.okButton.BackColor = System.Drawing.Color.Transparent;
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.okButton.Enabled = false;
-            this.okButton.FlatAppearance.BorderColor = System.Drawing.Color.DeepSkyBlue;
-            this.okButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
-            this.okButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.okButton.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.okButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
+            this.okButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DodgerBlue;
             this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.okButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.okButton.ForeColor = System.Drawing.Color.White;
@@ -140,7 +139,7 @@
             this.pasteButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pasteButton.ForeColor = System.Drawing.Color.White;
             this.pasteButton.IsDefaultButton = false;
-            this.pasteButton.Location = new System.Drawing.Point(135, 49);
+            this.pasteButton.Location = new System.Drawing.Point(182, 49);
             this.pasteButton.Margin = new System.Windows.Forms.Padding(4);
             this.pasteButton.Name = "pasteButton";
             this.pasteButton.Size = new System.Drawing.Size(85, 30);
@@ -159,7 +158,7 @@
             this.copyButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.copyButton.ForeColor = System.Drawing.Color.White;
             this.copyButton.IsDefaultButton = false;
-            this.copyButton.Location = new System.Drawing.Point(228, 49);
+            this.copyButton.Location = new System.Drawing.Point(275, 49);
             this.copyButton.Margin = new System.Windows.Forms.Padding(4);
             this.copyButton.Name = "copyButton";
             this.copyButton.Size = new System.Drawing.Size(85, 30);
@@ -178,7 +177,7 @@
             this.clearButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.clearButton.ForeColor = System.Drawing.Color.White;
             this.clearButton.IsDefaultButton = false;
-            this.clearButton.Location = new System.Drawing.Point(321, 49);
+            this.clearButton.Location = new System.Drawing.Point(368, 49);
             this.clearButton.Margin = new System.Windows.Forms.Padding(4);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(85, 30);
@@ -186,25 +185,6 @@
             this.clearButton.Text = "C&lear";
             this.clearButton.UseVisualStyleBackColor = true;
             this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
-            // 
-            // undoButton
-            // 
-            this.undoButton.BackColor = System.Drawing.Color.Transparent;
-            this.undoButton.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.undoButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
-            this.undoButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gray;
-            this.undoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.undoButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.undoButton.ForeColor = System.Drawing.Color.White;
-            this.undoButton.IsDefaultButton = false;
-            this.undoButton.Location = new System.Drawing.Point(414, 49);
-            this.undoButton.Margin = new System.Windows.Forms.Padding(4);
-            this.undoButton.Name = "undoButton";
-            this.undoButton.Size = new System.Drawing.Size(85, 30);
-            this.undoButton.TabIndex = 6;
-            this.undoButton.Text = "&Undo";
-            this.undoButton.UseVisualStyleBackColor = true;
-            this.undoButton.Click += new System.EventHandler(this.undoButton_Click);
             // 
             // WebForm
             // 
@@ -214,7 +194,6 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.CancelButton = this.closeButton;
             this.ClientSize = new System.Drawing.Size(634, 92);
-            this.Controls.Add(this.undoButton);
             this.Controls.Add(this.clearButton);
             this.Controls.Add(this.copyButton);
             this.Controls.Add(this.pasteButton);
@@ -252,6 +231,5 @@
         private Baka_MPlayer.Controls.SimpleButton pasteButton;
         private Baka_MPlayer.Controls.SimpleButton copyButton;
         private Baka_MPlayer.Controls.SimpleButton clearButton;
-        private Baka_MPlayer.Controls.SimpleButton undoButton;
     }
 }

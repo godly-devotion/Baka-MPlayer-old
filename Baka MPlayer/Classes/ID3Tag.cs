@@ -2,6 +2,8 @@
 * UltraID3Lib wrapper class *
 * by Joshua Park            *
 ****************************/
+
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using HundredMilesSoftware.UltraID3Lib;
@@ -32,14 +34,25 @@ public class ID3Tag
     {
         if (File.Exists(url))
         {
-            tagReader = new UltraID3();
-            tagReader.Read(url);
+            try
+            {
+                tagReader = new UltraID3();
+                tagReader.Read(url);
+            }
+            catch (IOException ex)
+            {
+                // unload tagReader
+                tagReader = null;
+
+                Debug.WriteLine("Error at ID3Tag class: " + ex.Message);
+            }
         }
     }
 
     public PictureTag GetAlbumPictureTag()
     {
-        if (tagReader == null) return new PictureTag(null, null);
+        if (tagReader == null)
+            return new PictureTag(null, null);
 
         var frames = tagReader.ID3v2Tag.Frames.GetFrames(MultipleInstanceID3v2FrameTypes.ID3v23Picture);
         if (frames.Count > 0)

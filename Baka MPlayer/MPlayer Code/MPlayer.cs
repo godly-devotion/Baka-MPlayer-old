@@ -18,7 +18,7 @@ public class MPlayer
     private readonly ID3Tag id3Tag = new ID3Tag();
     private bool parsingHeader;
     private bool parsingClipInfo = false;
-	private bool cachingFonts = false;
+    private bool cachingFonts = false;
     public bool ignoreUpdate = false;
 
     #endregion
