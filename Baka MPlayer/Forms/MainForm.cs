@@ -914,7 +914,7 @@ namespace Baka_MPlayer.Forms
         // VolumeBar
         private void volumeBar_Scroll(object sender, ScrollEventArgs e)
         {
-            UpdateVolume(volumeBar.Value);
+            SetVolume(volumeBar.Value);
         }
 
         #endregion
@@ -1315,17 +1315,17 @@ namespace Baka_MPlayer.Forms
         private void increaseVolumeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Info.Current.Volume >= 95)
-                UpdateVolume(100);
+                SetVolume(100);
             else
-                UpdateVolume(Info.Current.Volume + 5);
+                SetVolume(Info.Current.Volume + 5);
         }
 
         private void decreaseVolumeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Info.Current.Volume <= 5)
-                UpdateVolume(0);
+                SetVolume(0);
             else
-                UpdateVolume(Info.Current.Volume - 5);
+                SetVolume(Info.Current.Volume - 5);
         }
 
         private void volumeToolStripTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -1338,19 +1338,19 @@ namespace Baka_MPlayer.Forms
                 case Keys.Enter:
                     if (volumeToolStripTextBox.Text.ToLower().Equals("mute") || newVol.Equals(0))
                     {
-                        UpdateVolume(0);
+                        SetVolume(0);
                         optionsToolStripMenuItem.HideDropDown();
                     }
                     else if (newVol > 0 && newVol <= 100)
                     {
-                        UpdateVolume(newVol);
+                        SetVolume(newVol);
                         optionsToolStripMenuItem.HideDropDown();
                     }
                     else
                     {
                         MessageBox.Show("Please enter a value that is between 1 - 100.",
                             "Invalid Number", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        UpdateVolume(Info.Current.Volume);
+                        SetVolume(Info.Current.Volume);
                     }
                     break;
                 case Keys.Up:
@@ -1682,7 +1682,7 @@ namespace Baka_MPlayer.Forms
         private void LoadSettings()
         {
             // load volume
-            UpdateVolume(settings.GetIntValue(SettingEnum.Volume));
+            SetVolume(settings.GetIntValue(SettingEnum.Volume));
 
             if (!settings.GetBoolValue(SettingEnum.ShowIcon))
             {
@@ -1707,7 +1707,15 @@ namespace Baka_MPlayer.Forms
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
-                HidePlayer();
+            {
+                if (FullScreen)
+                {
+                    fullScreenToolStripMenuItem.Checked = false;
+                    FullScreen = false;
+                }
+                else
+                    HidePlayer();
+            }
 
             // make sure its not focused on anything else
             if (string.IsNullOrEmpty(Info.URL) || playlist.searchTextBox.Focused)
@@ -1726,17 +1734,17 @@ namespace Baka_MPlayer.Forms
             {
                 // scroll up (increase volume)
                 if (Info.Current.Volume >= 95)
-                    UpdateVolume(100);
+                    SetVolume(100);
                 else
-                    UpdateVolume(Info.Current.Volume + 5);
+                    SetVolume(Info.Current.Volume + 5);
             }
             else
             {
                 // scroll down (decrease volume)
                 if (Info.Current.Volume <= 5)
-                    UpdateVolume(0);
+                    SetVolume(0);
                 else
-                    UpdateVolume(Info.Current.Volume - 5);
+                    SetVolume(Info.Current.Volume - 5);
             }
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -1833,7 +1841,7 @@ namespace Baka_MPlayer.Forms
                 showInWindowsExplorerToolStripMenuItem.Enabled = false;
             }
             // set previous volume (output drivers fault for not saving volume)
-            UpdateVolume(Info.Current.Volume);
+            SetVolume(Info.Current.Volume);
 
             // call other methods
             SetSystemTray();
@@ -2134,7 +2142,7 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private void UpdateVolume(int newVol)
+        private void SetVolume(int newVol)
         {
             if (newVol < 0 || newVol > 100)
                 return;
