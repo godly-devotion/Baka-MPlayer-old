@@ -1246,22 +1246,26 @@ namespace Baka_MPlayer.Forms
 
         private void autodetectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.SetAspectRatio(Info.VideoInfo.AspectRatio);
+            Info.VideoInfo.AspectRatio = (double)Info.VideoInfo.Width / Info.VideoInfo.Height;
+            ResizeMplayerPanel();
         }
 
         private void force43ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.SetAspectRatio(1.3333);
+            Info.VideoInfo.AspectRatio = 1.3333;
+            ResizeMplayerPanel();
         }
 
         private void force169ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.SetAspectRatio(1.7778);
+            Info.VideoInfo.AspectRatio = 1.7778;
+            ResizeMplayerPanel();
         }
 
         private void force2351ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.SetAspectRatio(2.35);
+            Info.VideoInfo.AspectRatio = 2.35;
+            ResizeMplayerPanel();
         }
 
         private void audioTracksMenuItem_Click(object sender, EventArgs e)
@@ -1831,6 +1835,8 @@ namespace Baka_MPlayer.Forms
                 hideAlbumArtToolStripMenuItem_Click(null, null);
                 hideAlbumArtToolStripMenuItem.Enabled = false;
                 takeSnapshotToolStripMenuItem.Enabled = true;
+
+
             }
             else
             {
@@ -1847,7 +1853,7 @@ namespace Baka_MPlayer.Forms
                 albumArtPicbox.Image = Info.ID3Tags.AlbumArtTag.AlbumArt ?? Properties.Resources.Music_128;
                 albumArtPicbox_SizeChanged(null, null);
             }
-            bodySplitContainer_Panel1_SizeChanged(null, null);
+            ResizeMplayerPanel();
 
             // check if media is online
             if (Info.FileExists)
@@ -2103,6 +2109,11 @@ namespace Baka_MPlayer.Forms
         }
 
         private void bodySplitContainer_Panel1_SizeChanged(object sender, EventArgs e)
+        {
+            ResizeMplayerPanel();
+        }
+
+        private void ResizeMplayerPanel()
         {
             if (string.IsNullOrEmpty(Info.URL))
             {

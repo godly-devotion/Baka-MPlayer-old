@@ -54,7 +54,7 @@ public class MPlayer
             args.Append(" -slave");                		 		// switch on slave mode for frontend
             args.Append(" -idle");                 		 	    // wait insead of quit
             args.Append(" -volstep 5");			  		 		// change volume step
-            args.Append(" -msglevel identify=6:global=6");      // set msglevel ":global=6"
+            args.Append(" -msglevel identify=6:global=6");      // set msglevel
             args.Append(" -nomouseinput");         		 		// disable mouse input events
             args.Append(" -ass");                  		 		// enable .ass subtitle support
             args.Append(" -nokeepaspect");         		 		// doesn't keep window aspect ratio when resizing windows
@@ -221,13 +221,6 @@ public class MPlayer
     public bool SetVolume(int volume)
     {
         return volume >= 0 && SendCommand("volume {0} 1", volume);
-    }
-    /// <summary>
-    /// Changes the video's aspect ratio
-    /// </summary>
-    public bool SetAspectRatio(double value)
-    {
-        return SendCommand("switch_ratio {0}", value);
     }
     /// <summary>
     /// Switches the audio track to the index specified
