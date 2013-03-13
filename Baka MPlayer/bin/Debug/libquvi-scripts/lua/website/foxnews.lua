@@ -1,5 +1,5 @@
 
--- libquvi-scripts
+-- libquvi-scripts v0.4.10
 -- Copyright (C) 2011  Lionel Elie Mamane <lionel@mamane.lu>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.

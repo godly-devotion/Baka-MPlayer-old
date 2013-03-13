@@ -53,9 +53,8 @@ public class MPlayer
             args.AppendFormat("-vo {0} -ao {1}", "direct3d", "dsound");
             args.Append(" -slave");                		 		// switch on slave mode for frontend
             args.Append(" -idle");                 		 	    // wait insead of quit
-            args.Append(" -utf8");                 		 		// handles the subtitle file as UTF-8
             args.Append(" -volstep 5");			  		 		// change volume step
-            args.Append(" -msglevel identify=6:global=6"); 		// set msglevel
+            args.Append(" -msglevel identify=6:global=6");      // set msglevel ":global=6"
             args.Append(" -nomouseinput");         		 		// disable mouse input events
             args.Append(" -ass");                  		 		// enable .ass subtitle support
             args.Append(" -nokeepaspect");         		 		// doesn't keep window aspect ratio when resizing windows
@@ -224,6 +223,21 @@ public class MPlayer
         return volume >= 0 && SendCommand("volume {0} 1", volume);
     }
     /// <summary>
+    /// Changes the video's aspect ratio
+    /// </summary>
+    public bool SetAspectRatio(double value)
+    {
+        return SendCommand("switch_ratio {0}", value);
+    }
+    /// <summary>
+    /// Switches the audio track to the index specified
+    /// </summary>
+    /// <param name="index">Based on zero index</param>
+    public bool SetAudioTrack(int index)
+    {
+        return SendCommand("switch_audio {0}", index);
+    }
+    /// <summary>
     /// Set to -1 to hide subs.
     /// </summary>
     public bool SetSubs(int index)
@@ -241,14 +255,6 @@ public class MPlayer
         return SendCommand("seek_chapter {0} 1", index);
     }
     /// <summary>
-    /// Switches the audio track to the index specified
-    /// </summary>
-    /// <param name="index">Based on zero index</param>
-    public bool SetAudioTrack(int index)
-    {
-        return SendCommand("switch_audio {0}", index);
-    }
-    /// <summary>
     /// Shows [text] on the OSD (on screen display)
     /// </summary>
     public bool ShowStatus(string text)
@@ -262,6 +268,12 @@ public class MPlayer
 
     private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
     {
+        if (!parsingHeader && e.Data.StartsWith("A:"))
+        {
+            ProcessProgress(e.Data);
+            return;
+        }
+
         //[fontconfig] Scanning dir C:/Windows/Fonts
         if (!cachingFonts && e.Data.StartsWith("[fontconfig]"))
 		{
@@ -282,66 +294,60 @@ public class MPlayer
 
     private void OutputDataReceived(object sender, DataReceivedEventArgs e)
     {
-        if (parsingHeader)
+        if (!parsingHeader)
         {
-            if (e.Data.StartsWith("get_path('")) // ignore get_path(...) (result from msglevel global=6)
-                return;
-
-            // show output
-            mainForm.SetOutput(e.Data);
-
-            if (e.Data.Equals("Clip info:"))
-            {
-                parsingClipInfo = true;
-                return;
-            }
-            if (parsingClipInfo)
-            {
-                ParseClipInfo(e.Data);
-                return;
-            }
-
-            if (e.Data.StartsWith("ID_") && !e.Data.StartsWith("ID_PAUSED"))
-            {
-                // Parsing "ID_*"
-                var i = e.Data.IndexOf('=');
-                var key = e.Data.Substring(0, i);
-                var value = e.Data.Substring(i + 1);
-
-                ProcessDetails(key, value);
-                Info.MiscInfo.OtherInfo.Add(new ID_Info(key, value));
-                return;
-            }
-
-            if (e.Data.StartsWith("Video: no video"))
-            {
-                Info.VideoInfo.HasVideo = false;
-                return;
-            }
-
-            if (e.Data.Equals("Starting playback..."))
-            {
-                parsingHeader = false;
-                mainForm.CallHideStatusLabel();
-
-                // get album picture tag
-                id3Tag.Read(Info.URL);
-                Info.ID3Tags.AlbumArtTag = id3Tag.GetAlbumPictureTag();
-                if (Info.ID3Tags.AlbumArtTag.AlbumArt != null)
-                    Info.VideoInfo.HasVideo = false;
-
-                // tell mainform that new file was opened
-                mainForm.CallMediaOpened();
-            }
-        }
-        else
-        {
-            if (e.Data.StartsWith("A:"))
-            {
-                ProcessProgress(e.Data);
-                return;
-            }
             ProcessOther(e.Data);
+            return;
+        }
+
+        if (e.Data.StartsWith("get_path('")) // ignore get_path(...) (result from msglevel global=6)
+            return;
+
+        // show output
+        mainForm.SetOutput(e.Data);
+
+        if (e.Data.Equals("Clip info:"))
+        {
+            parsingClipInfo = true;
+            return;
+        }
+        if (parsingClipInfo)
+        {
+            ParseClipInfo(e.Data);
+            return;
+        }
+
+        if (e.Data.StartsWith("ID_") && !e.Data.StartsWith("ID_PAUSED"))
+        {
+            // Parsing "ID_*"
+            var i = e.Data.IndexOf('=');
+            var key = e.Data.Substring(0, i);
+            var value = e.Data.Substring(i + 1);
+
+            ProcessDetails(key, value);
+            Info.MiscInfo.OtherInfo.Add(new ID_Info(key, value));
+            return;
+        }
+
+        if (e.Data.StartsWith("Video: no video"))
+        {
+            Info.VideoInfo.HasVideo = false;
+            return;
+        }
+
+        if (e.Data.Equals("Starting playback..."))
+        {
+            parsingHeader = false;
+            mainForm.CallHideStatusLabel();
+
+            // get album picture tag
+            id3Tag.Read(Info.URL);
+            Info.ID3Tags.AlbumArtTag = id3Tag.GetAlbumPictureTag();
+            if (Info.ID3Tags.AlbumArtTag.AlbumArt != null)
+                Info.VideoInfo.HasVideo = false;
+
+            // tell mainform that new file was opened
+            mainForm.CallMediaOpened();
         }
     }
 

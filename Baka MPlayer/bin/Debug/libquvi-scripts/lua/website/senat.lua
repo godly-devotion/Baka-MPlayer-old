@@ -1,8 +1,8 @@
 
--- libquvi-scripts
--- Copyright (C) 2011-2012  Toni Gundogdu <legatvs@gmail.com>
+-- libquvi-scripts v0.4.10
+-- Copyright (C) 2012 Raphaël Droz.
 --
--- This file is part of libquvi-scripts <http://quvi.googlecode.com/>.
+-- This file is part of quvi <http://quvi.googlecode.com/>.
 --
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public
@@ -24,11 +24,11 @@ function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
-    r.domain     = "francetelevisions%.fr"
+    r.domain     = "videos%.senat%.fr"
     r.formats    = "default"
-    r.categories = C.proto_mms
+    r.categories = C.proto_http
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, nil, {"id%-video"})
+    r.handles    = U.handles(self.page_url, {r.domain}, {"/video%d+%.html"})
     return r
 end
 
@@ -40,26 +40,22 @@ end
 
 -- Parse media URL.
 function parse(self)
-    self.host_id  = 'francetelevisions'
+    self.host_id = "senat"
 
-    self.id = self.page_url:match('id%-video=([%w_]+)')
-                or error('no match: media ID')
+    self.id = self.page_url:match(".-/video(%d+)%.html")
+                or error("no match: media ID")
 
-    local c_url =
-      "http://info.francetelevisions.fr/video-info/player_html/blochtml.php?"
-        .. "id-video="
-        .. self.id
+    local p = quvi.fetch(self.page_url)
 
-    local c = quvi.fetch(c_url, {fetch_type='config'})
+    self.title = p:match('<title>(.-)</title>')
+                  or error("no match: media title")
 
-    self.title = c:match('itemTitle">(.-)<')
-                  or error('no match: title')
+    self.thumbnail_url = p:match('image=(.-)&') or ''
 
-    self.url = {c:match('embed src="(.-)"')
-                  or error('no match: media URL')}
+    self.url = {p:match('name="flashvars" value=".-file=(.-flv)')
+                  or error("no match: media stream URL") }
 
     return self
-
 end
 
 -- vim: set ts=4 sw=4 tw=72 expandtab:

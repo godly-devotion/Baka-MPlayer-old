@@ -1,5 +1,5 @@
 
--- libquvi-scripts
+-- libquvi-scripts v0.4.10
 -- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
@@ -98,7 +98,7 @@ function Vimeo.get_config(self)
     self.id = self.page_url:match('vimeo.com/(%d+)')
                 or error("no match: media ID")
 
-    local c_url = "http://player.vimeo.com/config/" .. self.id
+    local c_url = "http://vimeo.com/" .. self.id
     local c = quvi.fetch(c_url, {fetch_type='config'})
 
     if c:match('<error>') then

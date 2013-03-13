@@ -1,6 +1,6 @@
 
--- libquvi-scripts
--- Copyright (C) 2012 Paul Kocialkowski <contact@paulk.fr>
+-- libquvi-scripts v0.4.10
+-- Copyright (C) 2012  Tzafrir Cohen <tzafrir@cohens.org.il>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -25,11 +25,13 @@ function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
-    r.domain     = "empflix%.com"
+    --- http://flix.tapuz.co.il/v/watch-4158845-.html
+    r.domain     = "flix%.tapuz%.co%.il"
     r.formats    = "default"
     r.categories = C.proto_http
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, {"/videos/"})
+    r.handles    = U.handles(self.page_url, {r.domain},
+                       {"/v/watch-.*.html", "/showVideo%.asp"})
     return r
 end
 
@@ -41,22 +43,31 @@ end
 
 -- Parse media URL.
 function parse(self)
-    self.host_id = "empflix"
-    local page   = quvi.fetch(self.page_url)
+    self.host_id = 'tapuz-flix'
 
-    self.title = page:match('name="title"%s+value="(.-)"')
-                  or error("no match: media title")
+    self.id = self.page_url:match('/v/watch%-(%d+)%-.*%.html')
+    if not self.id then
+        self.id = self.page_url:match('/showVideo%.asp%?m=(%d+)')
+                    or error("no match: media ID")
+    end
 
-    local c_url = page:match('name="config"%s+value="(.-)"')
-                    or error("no match: config URL")
+    local xml_url_base = 'v/Handlers/XmlForPlayer.ashx' -- Variable?
+    local mako = 0 -- Does it matter?
+    local playerOptions = '0|1|grey|large|0' -- Does it matter? Format?
 
-    local c = quvi.fetch(c_url, {fetch_type = 'config'})
+    local p = quvi.fetch(self.page_url)
+    self.title = p:match('<meta name="item%-title" content="([^"]*)" />')
 
-    self.id = c:match('<VID>(.-)</VID>') or error("no match: media ID")
-    self.thumbnail_url = c:match('<startThumb>(.-)</') or ''
+    local s_fmt =
+      'http://flix.tapuz.co.il/%s?mediaid=%d&autoplay=0&mako=%d'
+      .. '&playerOptions=%s'
 
-    self.url = {c:match('<videoLink>(.-)</videoLink>')
-                  or error("no match: media stream URL")}
+    local xml_url =
+      string.format(s_fmt, xml_url_base, self.id, mako, playerOptions)
+
+    local xml_page = quvi.fetch(xml_url)
+    self.url = { xml_page:match('<videoUrl>.*(http://.*%.flv).*</videoUrl>') }
+
     return self
 end
 

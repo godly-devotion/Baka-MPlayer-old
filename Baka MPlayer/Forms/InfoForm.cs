@@ -266,11 +266,6 @@ namespace Baka_MPlayer.Forms
                 menuItem4.Enabled = false;
             }
         }
-        private void menuItem3_Click(object sender, EventArgs e)
-        {
-            // Copy Tag
-            Clipboard.SetText(tagList.Items[tagList_SelectedIndex].Text, TextDataFormat.UnicodeText);
-        }
         private void menuItem4_Click(object sender, EventArgs e)
         {
             // Copy Tag Value

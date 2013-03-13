@@ -1,5 +1,5 @@
 
--- libquvi-scripts
+-- libquvi-scripts v0.4.10
 -- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
@@ -63,7 +63,7 @@ function parse(self)
     local U = require 'quvi/util'
     local p = Dailymotion.fetch_page(self, U)
 
-    self.title = p:match('title="(.-)"')
+    self.title = p:match('"og:title" content="(.-)"')
                   or error("no match: media title")
 
     self.id = p:match("video/([^%?_]+)")
@@ -88,7 +88,7 @@ end
 function Dailymotion.fetch_page(self, U)
     self.page_url = Dailymotion.normalize(self.page_url)
 
-    local s = self.page_url:match('/family_filter%?urlback=(.+)')
+    local s = self.page_url:match('[%?%&]urlback=(.+)')
     if s then
         self.page_url = 'http://dailymotion.com' .. U.unescape(s)
     end
@@ -107,7 +107,8 @@ function Dailymotion.normalize(page_url) -- "Normalize" embedded URLs
 end
 
 function Dailymotion.iter_formats(page, U)
-    local seq = page:match('"sequence",%s+"(.-)"')
+    local seq = page:match('"sequence":"(.-)"')
+                  or error('no match: sequence')
     if not seq then
         local e = "no match: sequence"
         if page:match("_partnerplayer") then

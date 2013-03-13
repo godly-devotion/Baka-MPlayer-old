@@ -1,6 +1,6 @@
 
--- libquvi-scripts
--- Copyright (C) 2012 Paul Kocialkowski <contact@paulk.fr>
+-- libquvi-scripts v0.4.10
+-- Copyright (C) 2012  Mikhail Gusarov <dottedmag@dottedmag.net>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -25,11 +25,11 @@ function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
-    r.domain     = "pornhub%.com"
+    r.domain     = "tvrain%.ru"
     r.formats    = "default"
     r.categories = C.proto_http
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, {"view_video.php"})
+    r.handles    = U.handles(self.page_url, {r.domain}, {"/articles/"})
     return r
 end
 
@@ -41,21 +41,36 @@ end
 
 -- Parse media URL.
 function parse(self)
-    self.host_id = "pornhub"
-    local page   = quvi.fetch(self.page_url)
-    local U      = require 'quvi/util'
+    self.host_id = "tvrain"
 
-    local s = page:match('"video_title":"(.-)"')
-                or error("no match: media title")
-    self.title = s:gsub('+',' ')
+    self.id = self.page_url:match('%-(%d+)/$')
+                or error("no match: media ID")
 
-    local s  = page:match('"video_url":"(.-)"')
-                or error ("no match: media stream URL")
+    local p = quvi.fetch(self.page_url)
 
-    self.url = { U.unescape(s) }
+    -- tvrain uses <iframe> for the video player which constructs URL to load a
+    -- playlist. Luckily, we can obtain URL of the playlist from the URL of
+    -- thumbnail image.
 
-    self.id = self.page_url:match('viewkey=(%d+)')
-                or error ("no match: media ID")
+    local p1,p2 = p:match('<meta property="og:image" '
+                          .. 'content="http://photo.tvigle.ru/res/'
+                          .. 'prt/(.-)/../../0*(.-)/pub.jpg" />')
+    if not p1 then
+        error("no match: thumbnail URL")
+    end
+
+    local u = string.format('http://pub.tvigle.ru/xml/index.php?'
+                            .. 'prt=%s&id=%s&mode=1', p1, p2)
+
+    local pl = quvi.fetch(u, {fetch_type='playlist'})
+
+    self.title = pl:match('<video[^>]-name="(.-)"')
+                  or error("no match: media title")
+
+    self.url = {pl:match('<video[^>]-videoLink="(.-)"')
+                  or error("no match: media stream URL")}
+
+    self.thumbnail_url = pl:match('<video[^>]-prw="(.-)"') or ''
 
     return self
 end

@@ -326,9 +326,9 @@
             this.closeButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.closeButton.BackColor = System.Drawing.Color.Transparent;
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.closeButton.FlatAppearance.BorderColor = System.Drawing.Color.DeepSkyBlue;
-            this.closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
-            this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.closeButton.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
+            this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DodgerBlue;
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.closeButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.Black;
@@ -382,16 +382,14 @@
             // 
             // menuItem3
             // 
-            this.menuItem3.Enabled = false;
             this.menuItem3.Index = 0;
-            this.menuItem3.Text = "Copy &Tag";
-            this.menuItem3.Click += new System.EventHandler(this.menuItem3_Click);
+            this.menuItem3.Text = "";
             // 
             // menuItem4
             // 
             this.menuItem4.Enabled = false;
             this.menuItem4.Index = 1;
-            this.menuItem4.Text = "Copy Tag &Value";
+            this.menuItem4.Text = "Cop&y";
             this.menuItem4.Click += new System.EventHandler(this.menuItem4_Click);
             // 
             // InfoForm

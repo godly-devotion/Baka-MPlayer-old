@@ -1,6 +1,6 @@
 
--- libquvi-scripts
--- Copyright (C) 2010 Raphaël Droz.
+-- libquvi-scripts v0.4.10
+-- Copyright (C) 2010,2012 Raphaël Droz.
 --
 -- This file is part of libquvi-scripts <http://quvi.googlecode.com/>.
 --
@@ -28,7 +28,7 @@ function ident(self)
     r.formats    = "default"
     r.categories = C.proto_http
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, {"/vod/.-%d+"})
+    r.handles    = U.handles(self.page_url, {r.domain}, {"/vod"})
     return r
 end
 
@@ -42,23 +42,24 @@ end
 function parse(self)
     self.host_id = "publicsenat"
 
-    local p = quvi.fetch (self.page_url)
+    local p = quvi.fetch(self.page_url)
 
-    self.title = p:match('<title>(.-)%s+%|')
-                  or error("no match: media title")
+    self.title = p:match('<title>(.-)%s+%|') or error("no match: media title")
 
-    self.id = self.page_url:match("^http://www.publicsenat.fr/vod/.-(%d+)$")
-                or error("no match: media id")
+    self.id = self.page_url:match(".-idE=(%d+)$")
+              or self.page_url:match(".-/(%d+)$")
+              or error("no match: media ID")
 
-    local c_url = "http://videos.publicsenat.fr/vodiFrame.php?idE="
-                    .. self.id
+    local t = p:match('id="imgEmissionSelect" value="(.-)"') or ''
+    if #t >0 then
+      self.thumbnail_url = 'http://publicsenat.fr' .. t
+    end
 
-    local c = quvi.fetch(c_url, {fetch_type = 'config'})
+    local u = "http://videos.publicsenat.fr/vodiFrame.php?idE=" ..self.id
+    local c = quvi.fetch(u, {fetch_type='config'})
 
-    local s = c:match('id="flvEmissionSelect" value="(.-)"')
-                or error("no match: media url")
-
-    self.url = {s}
+    self.url = {c:match('id="flvEmissionSelect" value="(.-)"')
+                or error("no match: media stream URL")}
 
     return self
 end

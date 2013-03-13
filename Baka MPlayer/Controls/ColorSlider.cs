@@ -728,17 +728,6 @@ namespace Baka_MPlayer.Controls
             Invalidate();
         }
 
-        /*/// <summary>
-        /// Raises the <see cref="E:System.Windows.Forms.Control.MouseWheel"></see> event.
-        /// </summary>
-        /// <param name="e">A <see cref="T:System.Windows.Forms.MouseEventArgs"></see> that contains the event data.</param>
-        protected override void OnMouseWheel(MouseEventArgs e)
-        {
-            base.OnMouseWheel(e);
-            int v = e.Delta / 120 * (barMaximum - barMinimum) / mouseWheelBarPartitions;
-            SetProperValue(Value + v);
-        }*/
-
         /// <summary>
         /// Raises the <see cref="E:System.Windows.Forms.Control.GotFocus"></see> event.
         /// </summary>

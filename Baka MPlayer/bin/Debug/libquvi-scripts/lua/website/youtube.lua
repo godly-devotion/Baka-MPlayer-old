@@ -1,5 +1,5 @@
 
--- libquvi-scripts
+-- libquvi-scripts v0.4.10
 -- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
@@ -125,7 +125,11 @@ function YouTube.iter_formats(config, U)
     for f in fmt_stream_map:gmatch('([^,]*),') do
         local d = U.decode(f)
         if d['itag'] and d['url'] then
-            urls[U.unescape(d['itag'])] = U.unescape(d['url'])
+            local uurl = U.unescape(d['url'])
+            if d['sig'] then
+                uurl = uurl .. "&signature=" .. U.unescape(d['sig'])
+            end
+            urls[U.unescape(d['itag'])] = uurl
         end
     end
 
@@ -192,15 +196,14 @@ function YouTube.choose_best(formats) -- Highest quality available
     return r
 end
 
-function YouTube.choose_default(formats) -- Lowest quality available
-    local r = {width=0xffff, height=0xffff, url=nil}
-    local U = require 'quvi/util'
+function YouTube.choose_default(formats)
+    local r = formats[1] -- Either whatever YouTube returns as the first.
     for _,v in pairs(formats) do
-        if U.is_lower_quality(v,r) then
+        if v.height == 480 then -- Or, whichever is of 480p and found first.
             r = v
+            break
         end
     end
---    for k,v in pairs(r) do print(k,v) end
     return r
 end
 

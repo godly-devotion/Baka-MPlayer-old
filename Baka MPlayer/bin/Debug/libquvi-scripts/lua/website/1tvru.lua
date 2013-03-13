@@ -1,6 +1,6 @@
 
--- libquvi-scripts
--- Copyright (C) 2012  quvi project
+-- libquvi-scripts v0.4.10
+-- Copyright (C) 2012  Mikhail Gusarov <dottedmag@dottedmag.net>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -20,18 +20,19 @@
 -- 02110-1301  USA
 --
 
-local Redtube = {} -- Utility functions unique to this script
+local OTvRu = {} -- Utility functions specific to this script
 
 -- Identify the script.
 function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
-    r.domain     = "redtube%.com"
+    r.domain     = "1tv%.ru"
     r.formats    = "default"
     r.categories = C.proto_http
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, {"/%d+", "/player/"})
+    r.handles    = U.handles(self.page_url, {r.domain},
+                              {"/sprojects_edition/"})
     return r
 end
 
@@ -43,38 +44,28 @@ end
 
 -- Parse media URL.
 function parse(self)
-    self.host_id = "redtube"
+    self.host_id = "1tvru"
 
-    Redtube.normalize(self)
-
-    self.id = self.page_url:match('/(%d+)')
+    self.id = self.page_url:match('fi(%d+)')
+                or self.page_url:match('fi=(%d+)')
                 or error("no match: media ID")
 
     local p = quvi.fetch(self.page_url)
 
-    self.title = p:match('<title>(.-) |')
+    self.title = p:match(OTvRu.pattern('title', '(.-)'))
                   or error("no match: media title")
 
-    self.thumbnail_url =
-        p:match('<img src=%"(.-)%" .- id=%"vidImgPoster%"') or ''
-
-    self.url = {p:match('(http://videos.mp4.redtubefiles.com/.-)\'')
+    self.url = {p:match(OTvRu.pattern('file', '(.-)'))
                   or error("no match: media stream URL")}
+
+    self.thumbnail_url = p:match('"og:image" content="(.-)"') or ''
 
     return self
 end
 
---
--- Utility functions
---
-
-function Redtube.normalize(self) -- "Normalize" an embedded URL
-    local p = 'http://embed%.redtube%.com/player/%?id=(%d+).?'
-
-    local id = self.page_url:match(p)
-    if not id then return end
-
-    self.page_url = 'http://www.redtube.com/' .. id
+function OTvRu.pattern(key_name, value_pattern)
+   return string.format("jwplayer%%('flashvideoportal_1'%%).*'%s': '%s'",
+                          key_name, value_pattern)
 end
 
 -- vim: set ts=4 sw=4 tw=72 expandtab:

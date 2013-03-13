@@ -1244,6 +1244,26 @@ namespace Baka_MPlayer.Forms
                 mainMenuStrip.Height + mplayerPanel.Height + consoleHeight + seekPanel.Height + controlPanel.Height);
         }
 
+        private void autodetectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mplayer.SetAspectRatio(Info.VideoInfo.AspectRatio);
+        }
+
+        private void force43ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mplayer.SetAspectRatio(1.3333);
+        }
+
+        private void force169ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mplayer.SetAspectRatio(1.7778);
+        }
+
+        private void force2351ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mplayer.SetAspectRatio(2.35);
+        }
+
         private void audioTracksMenuItem_Click(object sender, EventArgs e)
         {
             var item = sender as ToolStripMenuItem;

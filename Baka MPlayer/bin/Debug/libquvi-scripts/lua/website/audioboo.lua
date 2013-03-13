@@ -1,6 +1,6 @@
 
--- libquvi-scripts
--- Copyright (C) 2011  Toni Gundogdu <legatvs@gmail.com>
+-- libquvi-scripts v0.4.10
+-- Copyright (C) 2011-2012  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -43,22 +43,23 @@ end
 function parse (self)
     self.host_id = "audioboo"
 
-    local oe_url =
-        "http://audioboo.fm/publishing/oembed.json?url=" .. self.page_url
+    self.id = self.page_url:match('/boos/(%d+)%-')
+                or error('no match: media ID')
 
-    local oe = quvi.fetch(oe_url, {fetch_type='config'})
+    local p = quvi.fetch(self.page_url)
 
-    self.title = oe:match('"title":"(.-)"')
-                    or error('no match: media title')
+    self.title =
+        p:match('.+content=[\'"](.-)[\'"]%s+property=[\'"]og:title[\'"]')
+          or error('no match: media title')
 
-    self.thumbnail_url = oe:match('"thumbnail_url":"(.-)"') or ''
+    self.thumbnail_url =
+        p:match('.+content=[\'"](.-)[\'"]%s+property=[\'"]og:image[\'"]')
+          or ''
 
-    self.id = oe:match('id=."boo_embed_(.-)."')
-                or error('no match: media id')
-
-    self.url = {oe:match('a href=."(.-)."')
-                    or error('no match: media url')}
-
+    self.url = {
+        p:match('.+content=[\'"](.-)[\'"]%s+property=[\'"]og:audio[\'"]')
+          or error('no match: media stream URL')
+    }
     return self
 end
 
