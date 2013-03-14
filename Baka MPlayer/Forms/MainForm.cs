@@ -1836,7 +1836,10 @@ namespace Baka_MPlayer.Forms
                 hideAlbumArtToolStripMenuItem.Enabled = false;
                 takeSnapshotToolStripMenuItem.Enabled = true;
 
-
+                for (var i = 0; i < aspectRatioToolStripMenuItem.DropDownItems.Count; i++)
+                {
+                    aspectRatioToolStripMenuItem.DropDownItems[i].Enabled = true;
+                }
             }
             else
             {
@@ -1852,6 +1855,11 @@ namespace Baka_MPlayer.Forms
                 // show album art (if it exists);
                 albumArtPicbox.Image = Info.ID3Tags.AlbumArtTag.AlbumArt ?? Properties.Resources.Music_128;
                 albumArtPicbox_SizeChanged(null, null);
+
+                for (var i = 0; i < aspectRatioToolStripMenuItem.DropDownItems.Count; i++)
+                {
+                    aspectRatioToolStripMenuItem.DropDownItems[i].Enabled = false;
+                }
             }
             ResizeMplayerPanel();
 
