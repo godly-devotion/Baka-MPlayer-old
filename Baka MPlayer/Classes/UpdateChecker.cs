@@ -92,9 +92,7 @@ public class UpdateChecker
                 }
             }
 
-            bool updateAvailable = !version.Equals(Application.ProductVersion);
-
-            if (!updateAvailable)
+            if (version.Equals(Application.ProductVersion))
             {
                 if (!(bool) isSilent)
                     MessageBox.Show("You have the latest version!", "No Updates Available",

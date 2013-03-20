@@ -1,5 +1,6 @@
 
--- libquvi-scripts v0.4.10
+-- libquvi-scripts
+-- Copyright (C) 2013  Toni Gundogdu <legatvs@gmail.com>
 -- Copyright (C) 2012  Ross Burton <ross@burtonini.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
@@ -29,7 +30,8 @@ function ident(self)
     r.formats    = "default"
     r.categories = C.proto_http
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, {"/.+/Movies/.+$"})
+    r.handles    = U.handles(self.page_url, {r.domain}, {"/.+/movies/.+$"})
+      -- http://city.lego.com/en-gb/movies/mini-movies/gold-run/
     return r
 end
 
@@ -42,19 +44,22 @@ end
 -- Parse video URL.
 function parse(self)
     self.host_id = "lego"
+
     local p = quvi.fetch(self.page_url)
 
-    local s = p:match('<trackingName>(.+)</trackingName>')
-              or error("no match: tracking name")
-    local index = s:find("-")
+    local d = p:match('FirstVideoData = {(.-)};')
+                or error('no match: FirstVideoData')
 
-    self.title = s:sub(0, index-1)
-    self.id = s:sub(index+1)
+    self.title = d:match('"Name":"(.-)"')
+                  or error('no match: media title')
 
-    -- TODO self.thumbnail_url
+    self.id = d:match('"LikeObjectGuid":"(.-)"') -- Lack of a better.
+                  or error('no match: media ID')
 
-    self.url = {p:match('<movie>(.+)</movie>')
-               or error("no match: media stream URL")}
+    self.url = {d:match('"VideoFlash":%{"Url":"(.-)"')
+                  or error('no match: media stream URL')}
+
+    -- TODO: return self.thumbnail_url
 
     return self
 end

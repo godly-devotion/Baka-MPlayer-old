@@ -1,5 +1,6 @@
 
--- libquvi-scripts v0.4.10
+-- libquvi-scripts
+-- Copyright (C) 2013  Toni Gundogdu <legatvs@gmail.com>
 -- Copyright (C) 2011  Lionel Elie Mamane <lionel@mamane.lu>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
@@ -55,26 +56,22 @@ function parse(self)
     local U = require 'quvi/util'
     local p = Metacafe.fetch_page(self, U)
 
-    self.title = p:match('"title":"(.-)"')
-                  or error("no match: media title")
+    local v = p:match('name="flashvars" value="(.-)"')
+                or error('no match: flashvars')
 
-    self.title = U.unescape(self.title)
-
-    self.id = p:match('"itemID":"(.-)"')
-                or error('no match: media id')
+    v = U.slash_unescape(U.unescape(v))
 
     self.thumbnail_url = p:match('rel="image_src" href="(.-)"') or ''
 
-    local d = p:match('"mediaData":"(.-)"')
-                or error('no match: media data')
-    d = U.unescape(d)
+    self.title = v:match('title=(.-)&') or error('no match: media title')
 
-    local u = d:match('"mediaURL":"(.-)"')
-                or error('no match: media url')
-    u = U.slash_unescape(u)
+    self.id = v:match('itemID=(%d+)') or error('no match: media ID')
 
-    local k = d:match('"key":"(.-)"')
-                or error('no match: gda key')
+    local u = v:match('"mediaURL":"(.-)"')
+                or error('no match: media stream URL')
+
+    local k = v:match('"key":"__gda__","value":"(.-)"')
+                or error('no match: key')
 
     self.url = {string.format("%s?__gda__=%s", u, k)}
 

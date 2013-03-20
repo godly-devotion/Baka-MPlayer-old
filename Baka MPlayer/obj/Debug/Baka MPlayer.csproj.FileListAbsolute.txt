@@ -96,7 +96,6 @@ C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\o
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.InputForm.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.JumpForm.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.MainForm.resources
-C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.OptionsForm.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.SnapshotForm.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.UpdateForm.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.WebForm.resources
@@ -106,5 +105,5 @@ C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\o
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.csproj.GenerateResource.Cache
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git) - OLD\Baka MPlayer\obj\Debug\Baka MPlayer.exe
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git) - OLD\Baka MPlayer\obj\Debug\Baka MPlayer.pdb
-C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.csprojResolveAssemblyReference.cache
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Controls.SimpleButton.resources
+C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.csprojResolveAssemblyReference.cache

@@ -1,6 +1,6 @@
 
--- libquvi-scripts v0.4.10
--- Copyright (C) 2011  Toni Gundogdu <legatvs@gmail.com>
+-- libquvi-scripts
+-- Copyright (C) 2011,2013  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -30,7 +30,7 @@ function ident(self)
     r.categories = C.proto_http
     local U      = require 'quvi/util'
     r.handles    = U.handles(self.page_url,
-                    {r.domain}, {"/joomla/index%.php/"})
+                    {r.domain}, {"/video/.-_%d+%.html"})
     return r
 end
 
@@ -43,13 +43,21 @@ end
 -- Parse media URL.
 function parse(self)
     self.host_id = "tvlux"
-    local page   = quvi.fetch(self.page_url)
-    self.title   = page:match('"title" content="(.-)"')
+
+    self.id = self.page_url:match('/video/.-(%d+)%.html')
+                    or error("no match: media ID")
+
+    local p = quvi.fetch(self.page_url)
+
+    self.thumbnail_url = p:match('"og:image" content="(.-)"') or ''
+
+    self.title = p:match('"title" content="(.-)%s+%-%s+TV')
                     or error("no match: media title")
-    self.id      = self.page_url:match('/(%d+)$')
-                    or error("no match: media id")
-    self.url     = {page:match("'url':'(.-)'")
-                    or error('no match: media')}
+
+    local path = p:match("'file':%s+'(.-)'")
+                    or error('no match: media stream URL')
+
+    self.url = {string.format("http://www.tvlux.be%s", path)}
     return self
 end
 

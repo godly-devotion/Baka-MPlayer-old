@@ -120,8 +120,6 @@ namespace Baka_MPlayer.Forms
             this.minimizeToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.hidePopupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
-            this.allOptionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bakaMPlayerHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -585,7 +583,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.autodetectToolStripMenuItem.Enabled = false;
             this.autodetectToolStripMenuItem.Name = "autodetectToolStripMenuItem";
-            this.autodetectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.autodetectToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.autodetectToolStripMenuItem.Text = "&Autodetect";
             this.autodetectToolStripMenuItem.Click += new System.EventHandler(this.autodetectToolStripMenuItem_Click);
             // 
@@ -593,7 +591,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.force43ToolStripMenuItem.Enabled = false;
             this.force43ToolStripMenuItem.Name = "force43ToolStripMenuItem";
-            this.force43ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.force43ToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.force43ToolStripMenuItem.Text = "Force &4:3";
             this.force43ToolStripMenuItem.Click += new System.EventHandler(this.force43ToolStripMenuItem_Click);
             // 
@@ -601,7 +599,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.force169ToolStripMenuItem.Enabled = false;
             this.force169ToolStripMenuItem.Name = "force169ToolStripMenuItem";
-            this.force169ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.force169ToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.force169ToolStripMenuItem.Text = "Force 16:&9";
             this.force169ToolStripMenuItem.Click += new System.EventHandler(this.force169ToolStripMenuItem_Click);
             // 
@@ -609,7 +607,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.force2351ToolStripMenuItem.Enabled = false;
             this.force2351ToolStripMenuItem.Name = "force2351ToolStripMenuItem";
-            this.force2351ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.force2351ToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.force2351ToolStripMenuItem.Text = "Force &2.35:1";
             this.force2351ToolStripMenuItem.Click += new System.EventHandler(this.force2351ToolStripMenuItem_Click);
             // 
@@ -712,21 +710,21 @@ namespace Baka_MPlayer.Forms
             this.showSubtitlesToolStripMenuItem.CheckOnClick = true;
             this.showSubtitlesToolStripMenuItem.Enabled = false;
             this.showSubtitlesToolStripMenuItem.Name = "showSubtitlesToolStripMenuItem";
-            this.showSubtitlesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.showSubtitlesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.showSubtitlesToolStripMenuItem.Text = "&Show Subtitles";
             this.showSubtitlesToolStripMenuItem.Click += new System.EventHandler(this.showSubtitlesToolStripMenuItem_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(148, 6);
             // 
             // subtitleTrackToolStripMenuItem
             // 
             this.subtitleTrackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.noneToolStripMenuItem});
             this.subtitleTrackToolStripMenuItem.Name = "subtitleTrackToolStripMenuItem";
-            this.subtitleTrackToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.subtitleTrackToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.subtitleTrackToolStripMenuItem.Text = "Subtitle &Track";
             // 
             // noneToolStripMenuItem
@@ -743,7 +741,7 @@ namespace Baka_MPlayer.Forms
             this.sizeToolStripMenuItem1,
             this.resetSizeToolStripMenuItem});
             this.fontSizeToolStripMenuItem.Name = "fontSizeToolStripMenuItem";
-            this.fontSizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fontSizeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.fontSizeToolStripMenuItem.Text = "&Font Size";
             // 
             // sizeToolStripMenuItem
@@ -832,9 +830,7 @@ namespace Baka_MPlayer.Forms
             this.dimLightsToolStripMenuItem,
             this.toolStripSeparator13,
             this.onTopToolStripMenuItem,
-            this.trayIconToolStripMenuItem,
-            this.toolStripSeparator14,
-            this.allOptionsToolStripMenuItem});
+            this.trayIconToolStripMenuItem});
             this.optionsToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
@@ -953,20 +949,6 @@ namespace Baka_MPlayer.Forms
             this.hidePopupToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.hidePopupToolStripMenuItem.Text = "&Hide Popup";
             this.hidePopupToolStripMenuItem.Click += new System.EventHandler(this.hidePopupToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator14
-            // 
-            this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(177, 6);
-            this.toolStripSeparator14.Visible = false;
-            // 
-            // allOptionsToolStripMenuItem
-            // 
-            this.allOptionsToolStripMenuItem.Name = "allOptionsToolStripMenuItem";
-            this.allOptionsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.allOptionsToolStripMenuItem.Text = "&All Options...";
-            this.allOptionsToolStripMenuItem.Visible = false;
-            this.allOptionsToolStripMenuItem.Click += new System.EventHandler(this.allOptionsToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -1623,9 +1605,7 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem alwaysToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem whenPlayingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem trayIconToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripMenuItem dimLightsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem allOptionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator16;
         private System.Windows.Forms.ToolStripMenuItem neverToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bakaMPlayerHelpToolStripMenuItem;

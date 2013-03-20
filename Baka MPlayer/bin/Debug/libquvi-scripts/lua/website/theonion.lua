@@ -1,6 +1,6 @@
 
--- libquvi-scripts v0.4.10
--- Copyright (C) 2012  Toni Gundogdu <legatvs@gmail.com>
+-- libquvi-scripts
+-- Copyright (C) 2012-2013  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -53,7 +53,7 @@ function parse(self)
     self.title = c:match('"title":%s+"(.-)"')
                   or error('no match: media title')
 
-    self.thumbnail_url = c:match('"thumbnail":%s+"(.-)"') or ''
+    self.thumbnail_url = c:match('"thumbnail": %["(.-)"%]') or ''
 
     self.url = {c:match('"video_url":%s+"(.-)"')
                   or error('no match: media stream URL')}

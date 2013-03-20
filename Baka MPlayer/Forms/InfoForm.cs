@@ -255,17 +255,9 @@ namespace Baka_MPlayer.Forms
         }
         private void tagContextMenu_Popup(object sender, EventArgs e)
         {
-            if (tagList_SelectedIndex > -1)
-            {
-                menuItem3.Enabled = true;
-                menuItem4.Enabled = true;
-            }
-            else
-            {
-                menuItem3.Enabled = false;
-                menuItem4.Enabled = false;
-            }
+            menuItem4.Enabled = tagList_SelectedIndex > -1;
         }
+
         private void menuItem4_Click(object sender, EventArgs e)
         {
             // Copy Tag Value

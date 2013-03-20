@@ -16,18 +16,18 @@ public class MPlayer
     private Process mplayer;
     private readonly MainForm mainForm;
     private readonly ID3Tag id3Tag = new ID3Tag();
+    private readonly string execName;
     private bool parsingHeader;
     private bool parsingClipInfo = false;
-    private bool cachingFonts = false;
-    public bool ignoreUpdate = false;
 
     #endregion
 
     #region Constructor
 
-    public MPlayer(MainForm mainForm)
+    public MPlayer(MainForm mainForm, string execName)
     {
         this.mainForm = mainForm;
+        this.execName = execName;
     }
 
     #endregion
@@ -50,24 +50,25 @@ public class MPlayer
             }
             // mplayer is not running, so start mplayer then load url
             var args = new StringBuilder();
-            args.AppendFormat("-vo {0} -ao {1}", "direct3d", "dsound");
-            args.Append(" -slave");                		 		// switch on slave mode for frontend
+            args.AppendFormat("-vo={0} -ao={1}", "direct3d", "dsound");
+            args.Append(" -slave-broken");         		 		// switch on slave mode for frontend
             args.Append(" -idle");                 		 	    // wait insead of quit
-            args.Append(" -volstep 5");			  		 		// change volume step
+            args.Append(" -volstep=5");			  		 		// change volume step
             args.Append(" -msglevel identify=6:global=6");      // set msglevel
-            args.Append(" -nomouseinput");         		 		// disable mouse input events
+            args.Append(" -status-msg=${=pause}-AV:${=time-pos}");
+            args.Append(" -no-mouseinput");         		 	// disable mouse input events
             args.Append(" -ass");                  		 		// enable .ass subtitle support
-            args.Append(" -nokeepaspect");         		 		// doesn't keep window aspect ratio when resizing windows
-            args.Append(" -framedrop");                         // enables soft framedrop
-            //args.Append(" -nocache");                           // disables caching
-            args.AppendFormat(" -volume {0}", Info.Current.Volume); // retrieves last volume
-            args.AppendFormat(" -wid {0}", mainForm.mplayerPanel.Handle); // output handle
+            args.Append(" -no-keepaspect");         		 	// doesn't keep window aspect ratio when resizing windows
+            args.Append(" -framedrop=yes");                     // enables soft framedrop
+            //args.Append(" -no-cache");                        // disables caching
+            args.AppendFormat(" -volume={0}", Info.Current.Volume); // retrieves last volume
+            args.AppendFormat(" -wid={0}", mainForm.mplayerPanel.Handle); // output handle
             
             mplayer = new Process
             {
                 StartInfo =
                 {
-                    FileName = "mplayer2.exe",
+                    FileName = execName,
                     UseShellExecute = false,
                     CreateNoWindow = true,
                     RedirectStandardInput = true,
@@ -155,7 +156,7 @@ public class MPlayer
         try
         {
             if (mplayer == null || mplayer.HasExited)
-                throw new Exception();
+                return true;
 
             mplayer.CancelOutputRead();
             mplayer.CancelErrorRead();
@@ -183,9 +184,7 @@ public class MPlayer
     }
     public bool Stop()
     {
-        ignoreUpdate = true;
         SetPlayState(PlayStates.Stopped, true);
-
         return SendCommand("pausing seek 0 2");
     }
     public bool Restart()
@@ -211,10 +210,10 @@ public class MPlayer
     public bool SeekFrame(double frame)
     {
         // seek <value> [type] [hr-seek] <- force precise seek if possible
-        return SendCommand("seek {0} 2 1", frame / Info.VideoInfo.FPS);
+        return SendCommand("seek {0} 2", frame / Info.VideoInfo.FPS);
     }
 
-    public bool SetPlayRate(float ratio) // 1 = 100%, normal speed. .5 = 50% speed, 2 = 200% double speed.
+    public bool SetPlayRate(float ratio) // 1 = 100%, normal speed; .5 = 50% speed; 2 = 200% double speed.
     {
         return ratio > 0 && SendCommand("speed_mult {0}", ratio); // set the play rate
     }
@@ -261,13 +260,22 @@ public class MPlayer
 
     private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
     {
-        if (!parsingHeader && e.Data.StartsWith("A:"))
+        Debug.WriteLine("-stderr:" + e.Data);
+        if (!parsingHeader && e.Data.StartsWith("no-AV:"))
         {
+            if (Info.Current.PlayState != PlayStates.Playing)
+                SetPlayState(PlayStates.Playing, true);
+
             ProcessProgress(e.Data);
             return;
         }
+        if (e.Data.StartsWith("yes-AV:"))
+        {
+            SetPlayState(PlayStates.Paused, true);
+        }
 
-        //[fontconfig] Scanning dir C:/Windows/Fonts
+        /*
+        //[fontconfig] Scanning dir C:/Windows/Fonts (works only in lachs0r's builds)
         if (!cachingFonts && e.Data.StartsWith("[fontconfig]"))
 		{
             cachingFonts = true;
@@ -283,21 +291,28 @@ public class MPlayer
             else
                 mainForm.CallSetStatus("Caching fonts: " + e.Data, true);
 		}
+        */
     }
 
     private void OutputDataReceived(object sender, DataReceivedEventArgs e)
     {
-        if (!parsingHeader)
-        {
-            ProcessOther(e.Data);
-            return;
-        }
+        Debug.WriteLine(e.Data);
 
-        if (e.Data.StartsWith("get_path('")) // ignore get_path(...) (result from msglevel global=6)
+        if (e.Data.StartsWith("get_data("))
             return;
 
         // show output
         mainForm.SetOutput(e.Data);
+        
+        if (!parsingHeader)
+        {
+            if (e.Data.StartsWith("EOF code: 1")) // reached end of file
+            {
+                Info.Current.PlayState = PlayStates.Ended;
+                mainForm.CallMediaEnded();
+            }
+            return;
+        }
 
         if (e.Data.Equals("Clip info:"))
         {
@@ -323,12 +338,9 @@ public class MPlayer
         }
 
         if (e.Data.StartsWith("Video: no video"))
-        {
             Info.VideoInfo.HasVideo = false;
-            return;
-        }
 
-        if (e.Data.Equals("Starting playback..."))
+        if (e.Data.StartsWith("VO: [direct3d]")) // mpv initializes video output
         {
             parsingHeader = false;
             mainForm.CallHideStatusLabel();
@@ -346,19 +358,12 @@ public class MPlayer
 
     private void ProcessProgress(string time)
     {
-        if (ignoreUpdate)
-        {
-            ignoreUpdate = false;
-            return;
-        }
-        if (Info.Current.PlayState != PlayStates.Playing)
-        {
-            // check current playstate
-            SendCommand("get_property pause");
-        }
+        //no-AV:321.123456
+        var i = time.IndexOf(':') + 1;
+        time = time.Substring(i, time.Length - i);
 
         double sec;
-        double.TryParse(time.Substring(2, time.IndexOf('.')).Trim(), out sec);
+        double.TryParse(time, out sec);
 
         if (sec > 0.0)
         {
@@ -367,7 +372,7 @@ public class MPlayer
         }
     }
 
-    private bool ProcessDetails(string key, string value)
+    private static bool ProcessDetails(string key, string value)
     {
         switch (key)
         {
@@ -460,31 +465,11 @@ public class MPlayer
         return true;
     }
 
-    private void ProcessOther(string output)
-    {
-        if (output.StartsWith("ID_PAUSED") || output.StartsWith("ANS_pause=yes"))
-        {
-            SetPlayState(PlayStates.Paused, true);
-        }
-        else if (output.StartsWith("ANS_pause=no"))
-        {
-            SetPlayState(PlayStates.Playing, true);
-        }
-        else if (output.StartsWith("EOF code: 1")) //EOF code: 4 ??
-        {
-            Info.Current.PlayState = PlayStates.Ended;
-            mainForm.CallMediaEnded();
-        }
-        else
-        {
-            // Other information while playing
-        }
-    }
     private void ParseClipInfo(string data)
     {
         data = data.Trim();
 
-        var i = data.IndexOf(": ");
+        var i = data.IndexOf(": ", StringComparison.Ordinal);
 
         if (i < 1)
         {

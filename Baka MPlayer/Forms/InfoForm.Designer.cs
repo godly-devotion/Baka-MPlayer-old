@@ -58,7 +58,6 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tagContextMenu = new System.Windows.Forms.ContextMenu();
-            this.menuItem3 = new System.Windows.Forms.MenuItem();
             this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.myToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
@@ -376,19 +375,13 @@
             // tagContextMenu
             // 
             this.tagContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.menuItem3,
             this.menuItem4});
             this.tagContextMenu.Popup += new System.EventHandler(this.tagContextMenu_Popup);
-            // 
-            // menuItem3
-            // 
-            this.menuItem3.Index = 0;
-            this.menuItem3.Text = "";
             // 
             // menuItem4
             // 
             this.menuItem4.Enabled = false;
-            this.menuItem4.Index = 1;
+            this.menuItem4.Index = 0;
             this.menuItem4.Text = "Cop&y";
             this.menuItem4.Click += new System.EventHandler(this.menuItem4_Click);
             // 
@@ -448,7 +441,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ContextMenu tagContextMenu;
-        private System.Windows.Forms.MenuItem menuItem3;
         private System.Windows.Forms.MenuItem menuItem4;
         private System.Windows.Forms.PictureBox seperatorBox;
         private System.Windows.Forms.ToolTip myToolTip;

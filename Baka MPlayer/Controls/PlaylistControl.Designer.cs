@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlaylistControl));
             this.playlistList = new System.Windows.Forms.ListView();
-            this.playlistHeader = new System.Windows.Forms.ColumnHeader();
+            this.playlistHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.playlistStatusStrip = new System.Windows.Forms.StatusStrip();
             this.currentFileButton = new System.Windows.Forms.ToolStripDropDownButton();
             this.currentFileLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -67,14 +67,14 @@
             this.playlistList.TabStop = false;
             this.playlistList.UseCompatibleStateImageBehavior = false;
             this.playlistList.View = System.Windows.Forms.View.Details;
+            this.playlistList.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.playlistList_ItemDrag);
             this.playlistList.SelectedIndexChanged += new System.EventHandler(this.playlistList_SelectedIndexChanged);
-            this.playlistList.DoubleClick += new System.EventHandler(this.playlistList_DoubleClick);
             this.playlistList.DragDrop += new System.Windows.Forms.DragEventHandler(this.playlistList_DragDrop);
             this.playlistList.DragEnter += new System.Windows.Forms.DragEventHandler(this.playlistList_DragEnter);
-            this.playlistList.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.playlistList_KeyPress);
-            this.playlistList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.playlistList_KeyDown);
-            this.playlistList.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.playlistList_ItemDrag);
             this.playlistList.DragOver += new System.Windows.Forms.DragEventHandler(this.playlistList_DragOver);
+            this.playlistList.DoubleClick += new System.EventHandler(this.playlistList_DoubleClick);
+            this.playlistList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.playlistList_KeyDown);
+            this.playlistList.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.playlistList_KeyPress);
             // 
             // playlistHeader
             // 
@@ -213,7 +213,6 @@
         #endregion
 
         private System.Windows.Forms.ColumnHeader playlistHeader;
-        public CustomTextBox searchTextBox;
         private System.Windows.Forms.StatusStrip playlistStatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel currentFileLabel;
         private System.Windows.Forms.ToolStripDropDownButton optionsDropDownButton;
@@ -225,5 +224,6 @@
         private System.Windows.Forms.MenuItem menuItem1;
         private System.Windows.Forms.MenuItem menuItem2;
         private System.Windows.Forms.PictureBox seperatorBox;
+        internal CustomTextBox searchTextBox;
     }
 }

@@ -1,5 +1,5 @@
 
--- libquvi-scripts v0.4.10
+-- libquvi-scripts
 -- Copyright (C) 2012  Mikhail Gusarov <dottedmag@dottedmag.net>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
@@ -52,10 +52,10 @@ function parse(self)
 
     local p = quvi.fetch(self.page_url)
 
-    self.title = p:match(OTvRu.pattern('title', '(.-)'))
+    self.title = p:match("'title': '(.-)'")
                   or error("no match: media title")
 
-    self.url = {p:match(OTvRu.pattern('file', '(.-)'))
+    self.url = {p:match("'file': '(.-)'")
                   or error("no match: media stream URL")}
 
     self.thumbnail_url = p:match('"og:image" content="(.-)"') or ''
@@ -63,9 +63,11 @@ function parse(self)
     return self
 end
 
+--[[
 function OTvRu.pattern(key_name, value_pattern)
    return string.format("jwplayer%%('flashvideoportal_1'%%).*'%s': '%s'",
                           key_name, value_pattern)
 end
+]]--
 
 -- vim: set ts=4 sw=4 tw=72 expandtab:

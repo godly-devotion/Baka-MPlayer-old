@@ -21,7 +21,8 @@ public class Setting
 
 public enum SettingEnum
 {
-    LastFile = 0,
+    Exec = 0,
+    LastFile,
     ShowIcon,
     Volume,
     ShowTimeRemaining,
@@ -34,9 +35,10 @@ public class Settings
     /// <summary>
     /// NOTE : SET THE DEFAULT VALUES BEFORE HAND HERE!
     /// </summary>
-    private void defaultSettings()
+    private void DefaultSettings()
     {
         settings.Clear();
+        settings.Add(new Setting(SettingEnum.Exec, "mpv.exe"));
         settings.Add(new Setting(SettingEnum.LastFile, ""));
         settings.Add(new Setting(SettingEnum.ShowIcon, true));
         settings.Add(new Setting(SettingEnum.Volume, 50));
@@ -64,13 +66,13 @@ public class Settings
 
     public Settings()
     {
-        defaultSettings();
+        DefaultSettings();
         if (!File.Exists(AppPath + xmlExtention))
         {
             // config file does not exist so create one
             BuildSchema();
         }
-        readConfig();
+        ReadConfig();
     }
 
     /// <summary>
@@ -101,7 +103,7 @@ public class Settings
     /// If this routine finds the file missing, it re-creates it.
     /// and then returns default values.
     /// </summary>
-    private void readConfig()
+    private void ReadConfig()
     {
         // If config doesn't exist, create it.
         if (!File.Exists(AppPath + xmlExtention))
@@ -110,7 +112,7 @@ public class Settings
         {
             try
             {
-                defaultSettings();
+                DefaultSettings();
                 configDataSet = new DataSet();
                 configDataSet.ReadXml(AppPath + xmlExtention);
                 DataRow r = configDataSet.Tables[0].Rows[0];
@@ -178,7 +180,7 @@ public class Settings
         configDataSet.WriteXml(AppPath + xmlExtention);
 
         // read new config
-        readConfig();
+        ReadConfig();
 
         // clean up
         configDataTable.Dispose();

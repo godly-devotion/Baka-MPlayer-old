@@ -9,18 +9,27 @@ public static class Functions
 {
     public static class Time
     {
+        /// <summary>
+        /// Calculates the total seconds from hour, min, sec.
+        /// </summary>
         public static void CalculateTimeFromSeconds(double time, out int hour, out int min, out int sec)
         {
             hour = (int)(time / 3600);
             min = (int)((time % 3600) / 60);
             sec = (int)((time % 3600) % 60);
         }
+        /// <summary>
+        /// Converts hour, min, sec to "0:00:00" format.
+        /// </summary>
         public static string ConvertTime(int hour, int min, int sec)
         {
             if (hour > 0)
                 return string.Format("{0}:{1}:{2}", hour.ToString("#0"), min.ToString("00"), sec.ToString("00"));
             return string.Format("{0}:{1}", min.ToString("#0"), sec.ToString("00"));
         }
+        /// <summary>
+        /// Converts total seconds to "0:00:00" format;
+        /// </summary>
         public static string ConvertTimeFromSeconds(double totalSec)
         {
             int hour, min, sec;
@@ -76,26 +85,26 @@ public static class Functions
                 return string.Empty;
             }
         }
-        public static string GetFileSize(string FilePath, int RoundTo)
+        public static string GetFileSize(string filePath, int roundTo)
         {
             try
             {
-                var FileProperties = new System.IO.FileInfo(FilePath);
+                var FileProperties = new System.IO.FileInfo(filePath);
                 if (FileProperties.Length < 1024) {
                     // Bytes
                     return (FileProperties.Length + " B");
                 } if (FileProperties.Length >= 1024 && FileProperties.Length < 1048576) {
                     // Kilobytes
-                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1024, RoundTo) + "kB";
+                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1024, roundTo) + "kB";
                 } if (FileProperties.Length >= 1048576 && FileProperties.Length < 1073741824) {
                     // Megabytes
-                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1048576, RoundTo) + " MB";
+                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1048576, roundTo) + " MB";
                 } if (FileProperties.Length >= 1073741824 && FileProperties.Length < 1099511627776L) {
                     // Gigabytes
-                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1073741824, RoundTo) + " GB";
+                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1073741824, roundTo) + " GB";
                 } if (FileProperties.Length >= 1099511627776L && FileProperties.Length < 1099511627776L) {
                     // Terabytes
-                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1099511627776L, RoundTo) + " TB";
+                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1099511627776L, roundTo) + " TB";
                 }
                 return "Not Available";
             }

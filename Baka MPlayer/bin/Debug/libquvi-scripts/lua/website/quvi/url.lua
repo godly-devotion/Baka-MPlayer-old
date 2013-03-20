@@ -1,5 +1,5 @@
 
--- libquvi-scripts v0.4.10
+-- libquvi-scripts
 -- A slightly modified copy of:
 
 -- URI parsing, composition and relative URL resolution

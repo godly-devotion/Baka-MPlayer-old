@@ -468,7 +468,6 @@ namespace Baka_MPlayer.Forms
                     if (Info.Current.Duration - 5 > -1)
                     {
                         mplayer.Seek(Info.Current.Duration - 5);
-                        mplayer.ignoreUpdate = true;
                     }
                     else //if (mplayer.currentPosition < 5)
                         mplayer.Seek(0);
@@ -476,16 +475,9 @@ namespace Baka_MPlayer.Forms
                 case 39:
                     // right arrow key
                     if (Info.Current.Duration + 5 < Info.Current.TotalLength)
-                    {
                         mplayer.Seek(Info.Current.Duration + 5);
-                        mplayer.ignoreUpdate = true;
-                    }
                     else
                         playlist.PlayNextFile();
-                    break;
-                case 161:
-                    // RShiftKey - VoiceOver
-                    Speech.SayMedia();
                     break;
                 case 176:
                     // media next button
@@ -752,9 +744,7 @@ namespace Baka_MPlayer.Forms
         {
             if (seekBar_IsMouseDown)
             {
-                var newTime = (seekBar.Value * Info.Current.TotalLength) / seekBar.Maximum;
-                mplayer.Seek(newTime);
-                mplayer.ignoreUpdate = true;
+                mplayer.Seek((seekBar.Value * Info.Current.TotalLength) / seekBar.Maximum);
                 seekBar_IsMouseDown = false;
             }
         }
@@ -1032,46 +1022,6 @@ namespace Baka_MPlayer.Forms
                 mplayer.OpenFile(webForm.URL);
                 webForm.Dispose();
             }
-        }
-
-        private void playDVDToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            mplayer.OpenFile("dvdnav://");
-        }
-
-        private void cDDVDISOToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void specifyDriveLetterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            /*var inputForm = new InputForm("Type in the drive letter that the CD/DVD disc is in:", "Specify Drive Letter", "D");
-            if (inputForm.ShowDialog(this) == DialogResult.OK)
-            {
-                openDVDDrive(inputForm.GetInputText.ToUpper());
-                inputForm.Dispose();
-            }*/
-        }
-
-        private void openDVDDrive(string letter)
-        {
-            //mplayer.SendCommand("dvd://1 -dvd-device {0}:\\", letter);
-        }
-
-        private void specifyBlurayDriveLetterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            /*var inputForm = new InputForm("Type in the drive letter that the Blu-ray disc is in:", "Specify Drive Letter", "D");
-            if (inputForm.ShowDialog(this) == DialogResult.OK)
-            {
-                openBluRayDisc(inputForm.GetInputText.ToUpper());
-                inputForm.Dispose();
-            }*/
-        }
-
-        private void openBluRayDisc(string letter)
-        {
-            //mplayer.SendCommand("br:// -bluray-device {0}:\\", letter);
         }
 
         private void openLocationFromClipboardToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1602,12 +1552,6 @@ namespace Baka_MPlayer.Forms
             settings.SaveConfig();
         }
 
-        private void allOptionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var optionsForm = new OptionsForm();
-            optionsForm.ShowDialog(this);
-        }
-
         #endregion
         #region Help
 
@@ -1639,8 +1583,7 @@ namespace Baka_MPlayer.Forms
             //  initialize our delegate
             this.myCallbackDelegate = this.callbackFunction_KeyboardHook;
             //  setup a keyboard hook
-            hHook = SetWindowsHookEx(2, this.myCallbackDelegate, IntPtr.Zero, AppDomain.GetCurrentThreadId());
-
+            hHook = SetWindowsHookEx(2, this.myCallbackDelegate, IntPtr.Zero, AppDomain.GetCurrentThreadId()); //AppDomain.GetCurrentThreadID()
             // set mouse hook
             var mouseHandler = new GlobalMouseHandler();
             mouseHandler.TheMouseMoved += MouseMoved;
@@ -1648,15 +1591,16 @@ namespace Baka_MPlayer.Forms
 
             InitializeComponent();
 
-            mplayer = new MPlayer(this);
+            mplayer = new MPlayer(this, settings.GetStringValue(SettingEnum.Exec));
             playlist.Init(this, mplayer);
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // check for mplayer2
-            if (!File.Exists(Application.StartupPath + @"\mplayer2.exe"))
+            // check for player exec
+            if (!File.Exists(Application.StartupPath + "\\" + settings.GetStringValue(SettingEnum.Exec)))
             {
-                MessageBox.Show("Baka MPlayer cannot load without \"mplayer2.exe\"!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(string.Format("Baka MPlayer cannot load without {0}!", settings.GetStringValue(SettingEnum.Exec)),
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }
 
@@ -1667,7 +1611,7 @@ namespace Baka_MPlayer.Forms
             this.MouseWheel += MainForm_MouseWheel;
             trayIcon.ContextMenu = trayContextMenu;
 
-            SetLCDFont(); // Embbeding Font (LCD)
+            SetLCDFont(); // Embbeding Font (LCD.ttf)
             ShowConsole = false;
             ShowPlaylist = false;
 
@@ -1730,25 +1674,21 @@ namespace Baka_MPlayer.Forms
         }
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
-            {
-                if (FullScreen)
-                {
-                    fullScreenToolStripMenuItem.Checked = false;
-                    FullScreen = false;
-                }
-                else
-                    HidePlayer();
-            }
-
-            // make sure its not focused on anything else
-            if (string.IsNullOrEmpty(Info.URL) || playlist.searchTextBox.Focused)
-                return;
-
             switch (e.KeyCode)
             {
                 case Keys.Space: // play or pause
-                    mplayer.Pause(true);
+                    // make sure its not focused on anything else
+                    if (!string.IsNullOrEmpty(Info.URL) && !playlist.searchTextBox.Focused)
+                        mplayer.Pause(true);
+                    break;
+                case Keys.Escape:
+                    if (FullScreen)
+                    {
+                        fullScreenToolStripMenuItem.Checked = false;
+                        FullScreen = false;
+                    }
+                    else
+                        HidePlayer();
                     break;
             }
         }
@@ -1888,7 +1828,6 @@ namespace Baka_MPlayer.Forms
             SetSubs();
 
             // play video
-            mplayer.SendCommand("pausing get_property pause");
             mplayer.Play();
         }
 
@@ -2064,7 +2003,7 @@ namespace Baka_MPlayer.Forms
             if (minimizeToTrayToolStripMenuItem.Enabled && minimizeToTrayToolStripMenuItem.Checked)
                 ToggleToTaskbar(true);
 
-            // code required to bypass windows hide animation
+            // code required to bypass Windows' hide animation
             this.Opacity = 0.0;
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Minimized;
