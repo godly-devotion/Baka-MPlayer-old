@@ -1826,9 +1826,6 @@ namespace Baka_MPlayer.Forms
             SetAudioTracks();
             SetChapters();
             SetSubs();
-
-            // play video
-            mplayer.Play();
         }
 
         #endregion

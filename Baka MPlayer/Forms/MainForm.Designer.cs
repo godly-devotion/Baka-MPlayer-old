@@ -38,12 +38,6 @@ namespace Baka_MPlayer.Forms
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openDiscToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.playDVDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cDDVDISOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.specifyDriveLetterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
-            this.specifyBlurayDriveLetterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openLocationFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openLastFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -213,7 +207,6 @@ namespace Baka_MPlayer.Forms
             this.toolStripSeparator1,
             this.openFileToolStripMenuItem,
             this.openURLToolStripMenuItem,
-            this.openDiscToolStripMenuItem,
             this.openLocationFromClipboardToolStripMenuItem,
             this.openLastFileToolStripMenuItem,
             this.toolStripSeparator2,
@@ -257,52 +250,6 @@ namespace Baka_MPlayer.Forms
             this.openURLToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.openURLToolStripMenuItem.Text = "Open &URL";
             this.openURLToolStripMenuItem.Click += new System.EventHandler(this.openURLToolStripMenuItem_Click);
-            // 
-            // openDiscToolStripMenuItem
-            // 
-            this.openDiscToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.playDVDToolStripMenuItem,
-            this.cDDVDISOToolStripMenuItem,
-            this.specifyDriveLetterToolStripMenuItem,
-            this.toolStripSeparator19,
-            this.specifyBlurayDriveLetterToolStripMenuItem});
-            this.openDiscToolStripMenuItem.Name = "openDiscToolStripMenuItem";
-            this.openDiscToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
-            this.openDiscToolStripMenuItem.Text = "Open Disc";
-            this.openDiscToolStripMenuItem.Visible = false;
-            // 
-            // playDVDToolStripMenuItem
-            // 
-            this.playDVDToolStripMenuItem.Name = "playDVDToolStripMenuItem";
-            this.playDVDToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.playDVDToolStripMenuItem.Text = "Play &DVD";
-            this.playDVDToolStripMenuItem.Click += new System.EventHandler(this.playDVDToolStripMenuItem_Click);
-            // 
-            // cDDVDISOToolStripMenuItem
-            // 
-            this.cDDVDISOToolStripMenuItem.Name = "cDDVDISOToolStripMenuItem";
-            this.cDDVDISOToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.cDDVDISOToolStripMenuItem.Text = "CD/DVD &ISO";
-            this.cDDVDISOToolStripMenuItem.Click += new System.EventHandler(this.cDDVDISOToolStripMenuItem_Click);
-            // 
-            // specifyDriveLetterToolStripMenuItem
-            // 
-            this.specifyDriveLetterToolStripMenuItem.Name = "specifyDriveLetterToolStripMenuItem";
-            this.specifyDriveLetterToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.specifyDriveLetterToolStripMenuItem.Text = "&Specify DVD Drive Letter...";
-            this.specifyDriveLetterToolStripMenuItem.Click += new System.EventHandler(this.specifyDriveLetterToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator19
-            // 
-            this.toolStripSeparator19.Name = "toolStripSeparator19";
-            this.toolStripSeparator19.Size = new System.Drawing.Size(216, 6);
-            // 
-            // specifyBlurayDriveLetterToolStripMenuItem
-            // 
-            this.specifyBlurayDriveLetterToolStripMenuItem.Name = "specifyBlurayDriveLetterToolStripMenuItem";
-            this.specifyBlurayDriveLetterToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
-            this.specifyBlurayDriveLetterToolStripMenuItem.Text = "S&pecify Blu-ray Drive Letter...";
-            this.specifyBlurayDriveLetterToolStripMenuItem.Click += new System.EventHandler(this.specifyBlurayDriveLetterToolStripMenuItem_Click);
             // 
             // openLocationFromClipboardToolStripMenuItem
             // 
@@ -1560,9 +1507,6 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem openFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openURLToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openDiscToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cDDVDISOToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem specifyDriveLetterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openLocationFromClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openLastFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
@@ -1651,9 +1595,6 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
         private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.Timer statusTimer;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator19;
-        private System.Windows.Forms.ToolStripMenuItem specifyBlurayDriveLetterToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem playDVDToolStripMenuItem;
         private System.Windows.Forms.Timer cursorTimer;
         private System.Windows.Forms.ToolStripMenuItem frameStepToolStripMenuItem;
         private MediaButton playlistButton;

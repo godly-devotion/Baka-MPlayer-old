@@ -19,6 +19,7 @@ public class MPlayer
     private readonly string execName;
     private bool parsingHeader;
     private bool parsingClipInfo = false;
+    private bool cachingFonts;
 
     #endregion
 
@@ -48,6 +49,9 @@ public class MPlayer
                 mainForm.ClearOutput();
                 return true;
             }
+            // instructs fontconfig to show debug messages regarding font caching
+            Environment.SetEnvironmentVariable("FC_DEBUG", "128");
+
             // mplayer is not running, so start mplayer then load url
             var args = new StringBuilder();
             args.AppendFormat("-vo={0} -ao={1}", "direct3d", "dsound");
@@ -261,6 +265,7 @@ public class MPlayer
     private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
     {
         Debug.WriteLine("-stderr:" + e.Data);
+
         if (!parsingHeader && e.Data.StartsWith("no-AV:"))
         {
             if (Info.Current.PlayState != PlayStates.Playing)
@@ -274,8 +279,7 @@ public class MPlayer
             SetPlayState(PlayStates.Paused, true);
         }
 
-        /*
-        //[fontconfig] Scanning dir C:/Windows/Fonts (works only in lachs0r's builds)
+        //[fontconfig] Scanning dir C:/Windows/Fonts (must set FC_DEBUG to show)
         if (!cachingFonts && e.Data.StartsWith("[fontconfig]"))
 		{
             cachingFonts = true;
@@ -291,14 +295,13 @@ public class MPlayer
             else
                 mainForm.CallSetStatus("Caching fonts: " + e.Data, true);
 		}
-        */
     }
 
     private void OutputDataReceived(object sender, DataReceivedEventArgs e)
     {
         Debug.WriteLine(e.Data);
 
-        if (e.Data.StartsWith("get_data("))
+        if (e.Data.StartsWith("get_data(")) // ignore get_path(...) (result from msglevel global=6)
             return;
 
         // show output
