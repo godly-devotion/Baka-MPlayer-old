@@ -20,6 +20,7 @@ public class MPlayer
     private bool parsingHeader;
     private bool parsingClipInfo = false;
     private bool cachingFonts;
+    private bool ignoreStatus;
 
     #endregion
 
@@ -56,7 +57,7 @@ public class MPlayer
             var args = new StringBuilder();
             args.AppendFormat("-vo={0} -ao={1}", "direct3d", "dsound");
             args.Append(" -slave-broken");         		 		// switch on slave mode for frontend
-            args.Append(" -idle");                 		 	    // wait insead of quit
+            args.Append(" -idle");                 		        // wait insead of quit
             args.Append(" -volstep=5");			  		 		// change volume step
             args.Append(" -msglevel identify=6:global=6");      // set msglevel
             args.Append(" -status-msg=${=pause}-AV:${=time-pos}");
@@ -176,20 +177,18 @@ public class MPlayer
 
     public bool Play()
     {
-        if (Info.Current.PlayState != PlayStates.Playing)
-            return SendCommand("pause"); // pause command toggles between pause and play
-        return false;
+        return SendCommand("set pause no");
     }
     public bool Pause(bool toggle)
     {
-        if (toggle || Info.Current.PlayState == PlayStates.Playing)
-            return SendCommand("pause"); // pause command toggles between pause and play
-        return false;
+        if (toggle && Info.Current.PlayState == PlayStates.Paused)
+            return SendCommand("set pause no");
+        return SendCommand("set pause yes");
     }
     public bool Stop()
     {
         SetPlayState(PlayStates.Stopped, true);
-        return SendCommand("pausing seek 0 2");
+        return SendCommand("pausing seek 0 2 1");
     }
     public bool Restart()
     {
@@ -197,11 +196,11 @@ public class MPlayer
     }
     public bool Rewind()
     {
-        return SendCommand("seek 0 2");
+        return SendCommand("seek 0 2 1");
     }
-    public bool Mute(bool mute) // true = mute, false = unmute
+    public bool Mute(bool mute) // 1 = mute, 0 = unmute
     {
-        return SendCommand("mute {0}", mute ? 1 : 0);
+        return SendCommand("set mute {0}", mute ? "yes" : "no");
     }
     public bool SkipChapter(bool ahead) // true = skip ahead, false = skip back
     {
@@ -209,21 +208,23 @@ public class MPlayer
     }
     public bool Seek(double sec)
     {
-        return SendCommand("seek {0} 2", (int)sec); // set position to time specified
+        ignoreStatus = true;
+        return SendCommand("seek {0} 2 0", (int)sec);
     }
     public bool SeekFrame(double frame)
     {
+        ignoreStatus = true;
         // seek <value> [type] [hr-seek] <- force precise seek if possible
-        return SendCommand("seek {0} 2", frame / Info.VideoInfo.FPS);
+        return SendCommand("seek {0} 2 1", frame / Info.VideoInfo.FPS);
     }
 
-    public bool SetPlayRate(float ratio) // 1 = 100%, normal speed; .5 = 50% speed; 2 = 200% double speed.
+    public bool SetPlayRate(float ratio) // factor of 0.01-100
     {
-        return ratio > 0 && SendCommand("speed_mult {0}", ratio); // set the play rate
+        return ratio > 0 && SendCommand("set speed {0}", ratio); // set the play rate
     }
     public bool SetVolume(int volume)
     {
-        return volume >= 0 && SendCommand("volume {0} 1", volume);
+        return volume >= 0 && SendCommand("set volume {0}", volume);
     }
     /// <summary>
     /// Switches the audio track to the index specified
@@ -231,31 +232,35 @@ public class MPlayer
     /// <param name="index">Based on zero index</param>
     public bool SetAudioTrack(int index)
     {
-        return SendCommand("switch_audio {0}", index);
+        return SendCommand("set audio {0}", index);
     }
     /// <summary>
-    /// Set to -1 to hide subs.
+    /// Shows or hides subs.
+    /// </summary>
+    public bool ShowSubs(bool show)
+    {
+        return SendCommand("set sub-visibility {0}", show ? "yes" : "no");
+    }
+    /// <summary>
+    /// Set subtitle track.
     /// </summary>
     public bool SetSubs(int index)
     {
-        // sub_visibility [value]
-        return SendCommand("sub_select {0}", index);
+        return SendCommand("set sub {0}", index);
     }
     /// <summary>
     /// Sets chapter
     /// </summary>
-    /// <param name="index">Based on zero index</param>
     public bool SetChapter(int index)
     {
-        //seek_chapter <value> [type]
-        return SendCommand("seek_chapter {0} 1", index);
+        return SendCommand("set chapter {0}", index);
     }
     /// <summary>
     /// Shows [text] on the OSD (on screen display)
     /// </summary>
     public bool ShowStatus(string text)
     {
-        return SendCommand(string.Format("osd_show_text {0} {1} {2}", text, '4', '1'));
+        return SendCommand(string.Format("show_text {0} {1} {2}", text, "4000", '1'));
     }
 
     #endregion
@@ -265,6 +270,12 @@ public class MPlayer
     private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
     {
         Debug.WriteLine("-stderr:" + e.Data);
+
+        if (ignoreStatus)
+        {
+            ignoreStatus = false;
+            return;
+        }
 
         if (!parsingHeader && e.Data.StartsWith("no-AV:"))
         {

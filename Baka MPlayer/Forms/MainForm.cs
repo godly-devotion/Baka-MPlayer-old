@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -1343,24 +1344,24 @@ namespace Baka_MPlayer.Forms
 
         private void showSubtitlesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.SetSubs(showSubtitlesToolStripMenuItem.Checked ? 0 : -1);
+            mplayer.ShowSubs(showSubtitlesToolStripMenuItem.Checked);
         }
 
         private void sizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // increase size
-            mplayer.SendCommand("sub_scale +.1 0");
+            mplayer.SendCommand("set sub_scale +.2");
         }
 
         private void sizeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             // decrease size
-            mplayer.SendCommand("sub_scale -.1 0");
+            mplayer.SendCommand("set sub_scale -.2");
         }
 
         private void resetSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.SendCommand("sub_scale 1 1");
+            mplayer.SendCommand("set sub_scale 1");
         }
 
         private void subtitleMenuItem_Click(object sender, EventArgs e)
@@ -1950,7 +1951,7 @@ namespace Baka_MPlayer.Forms
             
             if (Info.Current.TotalLength > 0.0)
             {
-                seekBar.Value = Convert.ToInt32((Info.Current.Duration * 1000000) / Info.Current.TotalLength); // %
+                seekBar.Value = Convert.ToInt32((Info.Current.Duration * seekBar.Maximum) / Info.Current.TotalLength); // %
                 durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
             }
 
@@ -2142,7 +2143,7 @@ namespace Baka_MPlayer.Forms
             { // not mute
                 if (mplayer.MPlayerIsRunning())
                     mplayer.Mute(false);
-                volumeToolStripTextBox.Text = newVol.ToString();
+                volumeToolStripTextBox.Text = newVol.ToString(CultureInfo.InvariantCulture);
 
                 volumeBar.ThumbInnerColor = Color.DarkGray;
                 volumeBar.ThumbOuterColor = Color.Silver;
