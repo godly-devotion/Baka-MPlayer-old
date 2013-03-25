@@ -1226,7 +1226,7 @@ namespace Baka_MPlayer.Forms
         {
             audioTracksToolStripMenuItem.DropDownItems.Clear();
 
-            if (Info.AudioInfo.AudioTracks.Count < 2)
+            if (Info.AudioTracks.Count < 2)
             {
                 var item = new ToolStripMenuItem("0: [ main ]", null);
                 item.Enabled = false;
@@ -1234,7 +1234,7 @@ namespace Baka_MPlayer.Forms
                 return;
             }
 
-            foreach (AudioTrack track in Info.AudioInfo.AudioTracks)
+            foreach (AudioTrack track in Info.AudioTracks)
             {
                 var text = string.Format("{0}: {1} ({2})", track.ID, track.Name, track.Lang);
                 var item = new ToolStripMenuItem(text, null, audioTracksMenuItem_Click);
@@ -1256,7 +1256,7 @@ namespace Baka_MPlayer.Forms
         {
             chaptersToolStripMenuItem.DropDownItems.Clear();
 
-            if (Info.MiscInfo.Chapters.Count.Equals(0))
+            if (Info.Chapters.Count.Equals(0))
             {
                 var item = new ToolStripMenuItem("[ none ]", null);
                 item.Enabled = false;
@@ -1264,20 +1264,14 @@ namespace Baka_MPlayer.Forms
                 return;
             }
 
-            for (int i = 0; i < Info.MiscInfo.Chapters.Count; i++)
+            for (int i = 0; i < Info.Chapters.Count; i++)
             {
-                var text = string.Format("{0}: {1}", i+1, Info.MiscInfo.Chapters[i].ChapterName);
+                var text = string.Format("{0}: {1}", i+1, Info.Chapters[i].ChapterName);
                 var item = new ToolStripMenuItem(text, null, chaptersMenuItem_Click);
                 if (i < 9)
                     item.ShortcutKeys = Keys.Control | KeysClass.GetNumKey(i+1);
                 chaptersToolStripMenuItem.DropDownItems.Add(item);
             }
-        }
-
-        private void monoAudioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // af_cmdline
-            // -af channels=1
         }
 
         private void increaseVolumeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1298,8 +1292,7 @@ namespace Baka_MPlayer.Forms
 
         private void volumeToolStripTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            int newVol;
-            int.TryParse(volumeToolStripTextBox.Text, out newVol);
+            var newVol = Functions.TryParse.ParseInt(volumeToolStripTextBox.Text);
 
             switch (e.KeyCode)
             {
@@ -1323,11 +1316,11 @@ namespace Baka_MPlayer.Forms
                     break;
                 case Keys.Up:
                     if (newVol >= 0 && newVol < 100)
-                        volumeToolStripTextBox.Text = (newVol + 1).ToString();
+                        volumeToolStripTextBox.Text = (newVol + 1).ToString(CultureInfo.InvariantCulture);
                     break;
                 case Keys.Down:
                     if (newVol > 0 && newVol <= 100)
-                        volumeToolStripTextBox.Text = (newVol - 1).ToString();
+                        volumeToolStripTextBox.Text = (newVol - 1).ToString(CultureInfo.InvariantCulture);
                     break;
             }
         }
@@ -1371,7 +1364,7 @@ namespace Baka_MPlayer.Forms
         {
             subtitleTrackToolStripMenuItem.DropDownItems.Clear();
 
-            if (Info.MiscInfo.Subs.Count > 0)
+            if (Info.Subs.Count > 0)
             {
                 showSubtitlesToolStripMenuItem.Enabled = true;
                 showSubtitlesToolStripMenuItem.Checked = true;
@@ -1395,7 +1388,7 @@ namespace Baka_MPlayer.Forms
                 return;
             }
 
-            foreach (Sub sub in Info.MiscInfo.Subs)
+            foreach (Sub sub in Info.Subs)
             {
                 var text = string.Format("{0}: {1} ({2})", sub.TrackID, sub.Name, sub.Lang);
                 var item = new ToolStripMenuItem(text, null, subtitleMenuItem_Click);
@@ -2055,14 +2048,14 @@ namespace Baka_MPlayer.Forms
 
             if (Info.VideoInfo.HasVideo)
             {
-                var now_aspect = (double)bodySplitContainer.Panel1.Width / bodySplitContainer.Panel1.Height;
+                var nowAspect = (double)bodySplitContainer.Panel1.Width / bodySplitContainer.Panel1.Height;
                 int newWidth, newHeight;
 
                 var ratio = Info.VideoInfo.AspectRatio;
                 if (ratio.Equals(0.0))
                     ratio = (double)Info.VideoInfo.Width / Info.VideoInfo.Height;
 
-                if (now_aspect < ratio)
+                if (nowAspect < ratio)
                 {
                     newWidth = bodySplitContainer.Panel1.Width;
                     newHeight = (int)(newWidth / ratio);

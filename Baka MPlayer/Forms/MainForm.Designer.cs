@@ -77,7 +77,6 @@ namespace Baka_MPlayer.Forms
             this.chaptersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.noneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
-            this.monoAudioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.increaseVolumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decreaseVolumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
@@ -467,7 +466,6 @@ namespace Baka_MPlayer.Forms
             this.audioTracksToolStripMenuItem,
             this.chaptersToolStripMenuItem,
             this.toolStripSeparator10,
-            this.monoAudioToolStripMenuItem,
             this.increaseVolumeToolStripMenuItem,
             this.decreaseVolumeToolStripMenuItem,
             this.toolStripSeparator17,
@@ -580,15 +578,6 @@ namespace Baka_MPlayer.Forms
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
             this.toolStripSeparator10.Size = new System.Drawing.Size(223, 6);
-            // 
-            // monoAudioToolStripMenuItem
-            // 
-            this.monoAudioToolStripMenuItem.CheckOnClick = true;
-            this.monoAudioToolStripMenuItem.Name = "monoAudioToolStripMenuItem";
-            this.monoAudioToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.monoAudioToolStripMenuItem.Text = "&Mono Audio";
-            this.monoAudioToolStripMenuItem.Visible = false;
-            this.monoAudioToolStripMenuItem.Click += new System.EventHandler(this.monoAudioToolStripMenuItem_Click);
             // 
             // increaseVolumeToolStripMenuItem
             // 
@@ -1542,7 +1531,6 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem bakaMPlayerHelpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutBakaMPlayerToolStripMenuItem;
         private System.Windows.Forms.PictureBox speechButton;
-        private System.Windows.Forms.ToolStripMenuItem monoAudioToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem increaseVolumeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decreaseVolumeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem audioTracksToolStripMenuItem;

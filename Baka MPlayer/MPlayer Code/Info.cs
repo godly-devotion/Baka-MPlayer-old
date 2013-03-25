@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// Enum for mplayer's current playStates
@@ -99,19 +100,18 @@ public static class Info
     public static string GetDirectoryName { get; set; } // Path.GetDirectoryName(...)
     public static bool FileExists { get; set; } // File.Exists(...)
 
+    // MiscInfo
+    public static List<Sub> Subs;
+    public static List<Chapter> Chapters;
+    public static List<AudioTrack> AudioTracks;
+    public static List<ID_Info> OtherInfo;
+
     public static class Current
     {
         public static double Duration { get; set; }
         public static double TotalLength { get; set; }
 		public static int Volume { get; set; }
         public static PlayStates PlayState = PlayStates.Unidentified;
-    }
-
-    public static class MiscInfo
-    {
-		public static List<Sub> Subs;
-		public static List<Chapter> Chapters;
-        public static List<ID_Info> OtherInfo;
     }
 	
 	public static class VideoInfo
@@ -121,11 +121,6 @@ public static class Info
 	    public static int Height { get; set; }
 	    public static double AspectRatio { get; set;} // ex. 1.7778
 		public static double FPS { get; set; } // ex. 23.976
-	}
-	
-	public static class AudioInfo
-	{
-		public static List<AudioTrack> AudioTracks;
 	}
 
     public static class ID3Tags
@@ -158,9 +153,10 @@ public static class Info
         Current.PlayState = PlayStates.Unidentified;
 		
         // MiscInfo
-        MiscInfo.Subs = new List<Sub>();
-        MiscInfo.Chapters = new List<Chapter>();
-        MiscInfo.OtherInfo = new List<ID_Info>();
+        Subs = new List<Sub>();
+        Chapters = new List<Chapter>();
+        AudioTracks = new List<AudioTrack>();
+        OtherInfo = new List<ID_Info>();
 
         // VideoInfo
         VideoInfo.HasVideo = true;
@@ -169,21 +165,18 @@ public static class Info
         VideoInfo.AspectRatio = 0;
         VideoInfo.FPS = 0;
 
-        // AudioInfo
-        AudioInfo.AudioTracks = new List<AudioTrack>();
-
 		// ID3Tags
-		ID3Tags.Album_Artist = string.Empty;
-		ID3Tags.Encoder = string.Empty;
-		ID3Tags.Artist = string.Empty;
-		ID3Tags.Genre = string.Empty;
-		ID3Tags.Track = string.Empty;
+		ID3Tags.Album_Artist = String.Empty;
+		ID3Tags.Encoder = String.Empty;
+		ID3Tags.Artist = String.Empty;
+		ID3Tags.Genre = String.Empty;
+		ID3Tags.Track = String.Empty;
 		ID3Tags.Disc = 0;
-		ID3Tags.Title = string.Empty;
-		ID3Tags.Album = string.Empty;
-		ID3Tags.Date = string.Empty;
-        ID3Tags.Comment = string.Empty;
-        ID3Tags.Description = string.Empty;
+		ID3Tags.Title = String.Empty;
+		ID3Tags.Album = String.Empty;
+		ID3Tags.Date = String.Empty;
+        ID3Tags.Comment = String.Empty;
+        ID3Tags.Description = String.Empty;
         // album art tag
         ID3Tags.AlbumArtTag = null;
     }

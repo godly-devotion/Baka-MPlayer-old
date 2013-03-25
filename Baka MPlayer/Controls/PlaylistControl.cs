@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using Baka_MPlayer.Forms;
@@ -346,7 +347,7 @@ namespace Baka_MPlayer.Controls
         {
             if (char.IsLetterOrDigit(e.KeyChar))
             {
-                searchTextBox.AppendText(e.KeyChar.ToString());
+                searchTextBox.AppendText(e.KeyChar.ToString(CultureInfo.InvariantCulture));
                 searchTextBox.Focus();
             }
         }
@@ -372,13 +373,12 @@ namespace Baka_MPlayer.Controls
             var inputBox = new InputForm(
                 "Enter the file number you want to play:\nNote: Value must be between 1 - " + GetTotalItems,
                 "Enter File Number",
-                (GetPlayingItem.Index + 1).ToString());
+                (GetPlayingItem.Index + 1).ToString(CultureInfo.InvariantCulture));
 
             if (inputBox.ShowDialog(this) == DialogResult.OK)
             {
-                int i;
-                int.TryParse(inputBox.GetInputText, out i);
-                --i;
+                var i = Functions.TryParse.ParseInt(inputBox.GetInputText) - 1;
+
                 if (i >= 0 && i < GetTotalItems)
                 {
                     SelectedIndex = i;

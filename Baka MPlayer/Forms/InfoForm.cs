@@ -100,7 +100,7 @@ namespace Baka_MPlayer.Forms
 
         private void SetTagsInfo()
         {
-            foreach (ID_Info info in Info.MiscInfo.OtherInfo)
+            foreach (ID_Info info in Info.OtherInfo)
             {
                 var item = new ListViewItem(info.ID, infoList.Groups[1]);
                 item.SubItems.Add(info.Value);

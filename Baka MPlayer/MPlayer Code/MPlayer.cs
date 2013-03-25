@@ -3,7 +3,6 @@
 * by Joshua Park & u8sand *
 **************************/
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -18,8 +17,7 @@ public class MPlayer
     private readonly MainForm mainForm;
     private readonly ID3Tag id3Tag = new ID3Tag();
     private readonly string execName;
-    private bool parsingHeader;
-    private bool parsingClipInfo = false;
+    private bool parsingClipInfo;
     private bool cachingFonts;
     private bool ignoreStatus;
 
@@ -47,7 +45,6 @@ public class MPlayer
             if (mplayer != null)
             {
                 SendCommand("loadfile \"{0}\"", url.Replace("\\", "\\\\")); // open file
-                parsingHeader = true;
                 mainForm.ClearOutput();
                 return true;
             }
@@ -66,7 +63,7 @@ public class MPlayer
             args.Append(" -no-keepaspect");         		 	// doesn't keep window aspect ratio when resizing windows
             args.Append(" -framedrop=yes");                     // enables soft framedrop
             //args.Append(" -no-cache");                        // disables caching
-            args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=width};HEIGHT=${=height};");
+            args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=width};HEIGHT=${=height}");
             args.AppendFormat(" -volume={0}", Info.Current.Volume); // retrieves last volume
             args.AppendFormat(" -wid={0}", mainForm.mplayerPanel.Handle); // output handle
             
@@ -85,7 +82,6 @@ public class MPlayer
                     Arguments = args.AppendFormat(" \"{0}\"", url).ToString()
                 }
             };
-            parsingHeader = true;
             mplayer.Start();
             mplayer.EnableRaisingEvents = true;
 
@@ -278,9 +274,9 @@ public class MPlayer
             return;
         }
 
-        if (!parsingHeader && e.Data.StartsWith("status:"))
+        if (e.Data.StartsWith("status:"))
         {
-            ProcessStatusMsg(e.Data.Substring(7)); // get rid of 'status:'
+            ParseStatusMsg(e.Data.Substring(7)); // get rid of 'status:'
             return;
         }
 
@@ -306,19 +302,16 @@ public class MPlayer
     {
         Debug.WriteLine(e.Data);
 
-        if (e.Data.StartsWith("get_data(")) // ignore get_path(...) (result from msglevel global=6)
+        if (e.Data.StartsWith("get_path(")) // ignore get_path(...) (result from msglevel global=6)
             return;
 
         // show output
         mainForm.SetOutput(e.Data);
         
-        if (!parsingHeader)
+        if (e.Data.StartsWith("EOF code: 1")) // reached end of file
         {
-            if (e.Data.StartsWith("EOF code: 1")) // reached end of file
-            {
-                Info.Current.PlayState = PlayStates.Ended;
-                mainForm.CallMediaEnded();
-            }
+            Info.Current.PlayState = PlayStates.Ended;
+            mainForm.CallMediaEnded();
             return;
         }
 
@@ -341,7 +334,7 @@ public class MPlayer
             var value = e.Data.Substring(i + 1);
 
             ProcessDetails(key, value);
-            Info.MiscInfo.OtherInfo.Add(new ID_Info(key, value));
+            Info.OtherInfo.Add(new ID_Info(key, value));
             return;
         }
 
@@ -350,7 +343,6 @@ public class MPlayer
 
         if ((e.Data.StartsWith("AO: [dsound]") && !Info.VideoInfo.HasVideo) || e.Data.StartsWith("VO: [direct3d]"))
         {
-            parsingHeader = false;
             mainForm.CallHideStatusLabel();
 
             // get album picture tag
@@ -364,38 +356,34 @@ public class MPlayer
         }
     }
 
-    private void ProcessStatusMsg(string line)
+    private void ParseStatusMsg(string line)
     {
         //PAUSED=no;AV=123.456789;WIDTH=1920;HEIGHT=1080;
-        var info = new List<string>();
-        var startIndex = line.IndexOf('=');
+        string[] info = line.Split(';');
 
-        for (var endIndex = line.IndexOf(';'); endIndex != -1; endIndex = line.IndexOf(';', endIndex + 1))
+        foreach (var s in info)
         {
-            info.Add(line.Substring(startIndex + 1, endIndex - startIndex - 1));
-            startIndex = line.IndexOf('=', endIndex + 1);
+            var i = s.IndexOf('=');
+            var value = s.Substring(i + 1, s.Length - i - 1);
+            switch (s.Substring(0, i))
+            {
+                case "PAUSED":
+                    if (value.Equals("yes"))
+                        SetPlayState(PlayStates.Paused, true);
+                    else
+                        SetPlayState(PlayStates.Playing, true);
+                    break;
+                case "AV":
+                    ProcessProgress(Functions.TryParse.ParseDouble(value));
+                    break;
+                case "WIDTH":
+                    Info.VideoInfo.Width = Functions.TryParse.ParseInt(value);
+                    break;
+                case "HEIGHT":
+                    Info.VideoInfo.Height = Functions.TryParse.ParseInt(value);
+                    break;
+            }
         }
-
-        // PAUSED
-        if (info[0].Equals("yes"))
-            SetPlayState(PlayStates.Paused, true);
-        else
-            SetPlayState(PlayStates.Playing, true);
-
-        // AV (time-pos)
-        double sec;
-        Double.TryParse(info[1], out sec);
-        ProcessProgress(sec);
-
-        // WIDTH
-        int width;
-        int.TryParse(info[2], out width);
-        Info.VideoInfo.Width = width;
-
-        // HEIGHT
-        int height;
-        int.TryParse(info[3], out height);
-        Info.VideoInfo.Height = height;
     }
     private void ProcessProgress(double sec)
     {
@@ -417,80 +405,68 @@ public class MPlayer
                 Info.FileExists = File.Exists(value);
                 break;
             case "ID_VIDEO_WIDTH":
-                int width;
-                int.TryParse(value, out width);
-                Info.VideoInfo.Width = width;
+                Info.VideoInfo.Width = Functions.TryParse.ParseInt(value);
                 break;
             case "ID_VIDEO_HEIGHT":
-                int height;
-                int.TryParse(value, out height);
-                Info.VideoInfo.Height = height;
+                Info.VideoInfo.Height = Functions.TryParse.ParseInt(value);
                 break;
             case "ID_VIDEO_FPS":
-                double fps;
-                double.TryParse(value, out fps);
-                Info.VideoInfo.FPS = fps;
+                Info.VideoInfo.FPS = Functions.TryParse.ParseDouble(value);
                 break;
             case "ID_VIDEO_ASPECT":
-                double ratio;
-                double.TryParse(value, out ratio);
-                Info.VideoInfo.AspectRatio = ratio;
+                Info.VideoInfo.AspectRatio = Functions.TryParse.ParseDouble(value);
                 break;
             case "ID_LENGTH":
-                double length;
-                double.TryParse(value, out length);
-                Info.Current.TotalLength = length;
+                Info.Current.TotalLength = Functions.TryParse.ParseDouble(value);
                 break;
             default:
 				if (key.StartsWith("ID_CHAPTER_ID")) // Chapters
                 {
-                    Info.MiscInfo.Chapters.Add(new Chapter());
+                    Info.Chapters.Add(new Chapter());
                 }
                 else if (key.StartsWith("ID_CHAPTER_")) // Chapters
                 {
                     if (key.Contains("_START"))
                     {
-                        long frame;
-                        long.TryParse(value, out frame);
-                        Info.MiscInfo.Chapters[Info.MiscInfo.Chapters.Count - 1].StartFrame = frame;
+                        Info.Chapters[Info.Chapters.Count - 1].StartFrame = Functions.TryParse.ParseLong(value);
                     }
                     else if (key.Contains("_NAME"))
                     {
-                        Info.MiscInfo.Chapters[Info.MiscInfo.Chapters.Count - 1].ChapterName = value;
+                        Info.Chapters[Info.Chapters.Count - 1].ChapterName = value;
                     }
                     return true;
                 }
 				
 				else if (key.StartsWith("ID_SUBTITLE_ID")) // Subtitles
                 {
-                    Info.MiscInfo.Subs.Add(new Sub(value));
+                    Info.Subs.Add(new Sub(value));
                 }
                 else if (key.StartsWith("ID_SID_")) // Subtitles
                 {
                     if (key.Contains("_NAME"))
                     {
-                        Info.MiscInfo.Subs[Info.MiscInfo.Subs.Count - 1].Name = value;
+                        Info.Subs[Info.Subs.Count - 1].Name = value;
                     }
                     else if (key.Contains("_LANG"))
                     {
-                        Info.MiscInfo.Subs[Info.MiscInfo.Subs.Count - 1].Lang = value;
+                        Info.Subs[Info.Subs.Count - 1].Lang = value;
                     }
                     return true;
                 }
                 
 				else if (key.StartsWith("ID_AUDIO_ID")) // Audio tracks
                 {
-                    Info.AudioInfo.AudioTracks.Add(new AudioTrack(value));
+                    Info.AudioTracks.Add(new AudioTrack(value));
                 }
                 else if (key.StartsWith("ID_AID_"))
                 {
                     if (key.Contains("_NAME"))
                     {
-                        Info.AudioInfo.AudioTracks[Info.AudioInfo.AudioTracks.Count - 1].Name = value;
+                        Info.AudioTracks[Info.AudioTracks.Count - 1].Name = value;
                     }
                     else if (key.Contains("_LANG"))
                     {
-                        Info.AudioInfo.AudioTracks[Info.AudioInfo.AudioTracks.Count - 1].Lang = value;
+                        Info.AudioTracks[Info.AudioTracks.Count - 1].Lang = value;
                     }
                     return true;
                 }
@@ -536,11 +512,7 @@ public class MPlayer
         else if (data.StartsWith("encoder:"))
             Info.ID3Tags.Encoder = s;
         else if (data.StartsWith("disk:"))
-        {
-            int disk;
-            int.TryParse(s, out disk);
-            Info.ID3Tags.Disc = disk;
-        }
+            Info.ID3Tags.Disc = Functions.TryParse.ParseInt(s);
     }
     private void Exited(object sender, EventArgs e)
     {

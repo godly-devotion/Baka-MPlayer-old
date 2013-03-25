@@ -2,6 +2,7 @@
 * Functions (by Joshua Park) *
 *****************************/
 using System;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
@@ -124,6 +125,37 @@ public static class Functions
             {
                 return ex.Message;
             }
+        }
+    }
+
+    public static class TryParse
+    {
+        /// <summary>
+        /// Parses to double with InvariantCulture
+        /// </summary>
+        public static double ParseDouble(string value)
+        {
+            double result;
+            double.TryParse(value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
+            return result;
+        }
+        /// <summary>
+        /// Parses to int with InvariantCulture
+        /// </summary>
+        public static int ParseInt(string value)
+        {
+            int result;
+            int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);
+            return result;
+        }
+        /// <summary>
+        /// Parses to long with InvariantCulture
+        /// </summary>
+        public static long ParseLong(string value)
+        {
+            long result;
+            long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);
+            return result;
         }
     }
 

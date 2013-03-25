@@ -39,14 +39,9 @@ namespace Baka_MPlayer.Forms
 
         private void CheckTimes_ValueChanged(object sender, EventArgs e)
         {
-            // parse new times
-            /*int hour, min, sec;
-            int.TryParse(hourBox.Value.ToString(), out hour);
-            int.TryParse(minBox.Value.ToString(), out min);
-            int.TryParse(secBox.Value.ToString(), out sec);*/
-            int hour = Convert.ToInt32(hourBox.Value);
-            int min = Convert.ToInt32(minBox.Value);
-            int sec = Convert.ToInt32(secBox.Value);
+            var hour = Convert.ToInt32(hourBox.Value);
+            var min = Convert.ToInt32(minBox.Value);
+            var sec = Convert.ToInt32(secBox.Value);
             double calculatedTotal = (hour * 3600) + (min * 60) + sec;
 
             if (goToRadioButton.Checked)
