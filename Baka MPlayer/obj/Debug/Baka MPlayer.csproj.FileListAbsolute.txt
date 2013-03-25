@@ -76,11 +76,12 @@ C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.HelpForm.resources
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\bin\Debug\UltraID3Lib.dll
 C:\Users\Joshua Park\Desktop\Files\Lab\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Controls.PlaylistControl.resources
-C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.exe
-C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.pdb
+C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git) - OLD\Baka MPlayer\obj\Debug\Baka MPlayer.exe
+C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git) - OLD\Baka MPlayer\obj\Debug\Baka MPlayer.pdb
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\bin\Debug\Baka MPlayer.exe
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\bin\Debug\Baka MPlayer.pdb
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\bin\Debug\UltraID3Lib.dll
+C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.csprojResolveAssemblyReference.cache
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\WinAPI Code Pack\Shell\Controls\CommandLinkWPF.baml
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowser.WPF.baml
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\WinAPI Code Pack\Shell\Controls\CommandLinkWPF.g.cs
@@ -88,6 +89,7 @@ C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\o
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer_Content.g.cs
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer_MarkupCompile.cache
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.g.resources
+C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Controls.SimpleButton.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Controls.PlaylistControl.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.AboutForm.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.BlackForm.resources
@@ -103,7 +105,5 @@ C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\o
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.WinAPI_Code_Pack.Core.Resources.LocalizedMessages.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.WinAPI_Code_Pack.Shell.Resources.LocalizedMessages.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.csproj.GenerateResource.Cache
-C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git) - OLD\Baka MPlayer\obj\Debug\Baka MPlayer.exe
-C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git) - OLD\Baka MPlayer\obj\Debug\Baka MPlayer.pdb
-C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Controls.SimpleButton.resources
-C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.csprojResolveAssemblyReference.cache
+C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.exe
+C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.pdb

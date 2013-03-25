@@ -30,7 +30,7 @@ public enum SettingEnum
     HidePopup
 }
 
-public class Settings
+public class Settings : IDisposable
 {
     /// <summary>
     /// NOTE : SET THE DEFAULT VALUES BEFORE HAND HERE!
@@ -57,8 +57,8 @@ public class Settings
     private int ExceptionRetries;
 
     // used datasets to do the writing of the information.
-    DataSet configDataSet;
     DataTable configDataTable;
+    DataSet configDataSet;
 
     #endregion
 
@@ -185,6 +185,23 @@ public class Settings
         // clean up
         configDataTable.Dispose();
         configDataSet.Dispose();
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            // dispose managed resources
+            configDataTable.Dispose();
+            configDataSet.Dispose();
+        }
+        // free native resources
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 
     #endregion

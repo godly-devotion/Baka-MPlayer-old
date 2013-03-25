@@ -11,23 +11,23 @@ namespace Baka_MPlayer.Forms
         #region GetFileType Code
 
         [DllImport("shell32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHFILEINFO psfi, uint cbFileInfo, uint uFlags);
+        private static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHFILEINFO psfi, uint cbFileInfo, uint uFlags);
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        public struct SHFILEINFO
+        private struct SHFILEINFO
         {
-            public IntPtr hIcon;
-            public int iIcon;
-            public uint dwAttributes;
+            private readonly IntPtr hIcon;
+            private readonly int iIcon;
+            private readonly uint dwAttributes;
 
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-            public string szDisplayName;
+            private readonly string szDisplayName;
 
             [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
-            public string szTypeName;
+            public readonly string szTypeName;
         };
 
-        private string getFileType(string path)
+        private static string getFileType(string path)
         {
             var x = new SHFILEINFO();
             SHGetFileInfo(path, 0, ref x, (uint)Marshal.SizeOf(x), 0x400);

@@ -1,16 +1,17 @@
 ﻿using Baka_MPlayer.Forms;
-using System.Speech.Recognition;
+using System;
 using System.Media;
+using System.Speech.Recognition;
 
 public enum VoiceState
 {
     SpeechRecognized,
     SpeechDetected,
-    SpeechRejected, 
+    SpeechRejected,
     SpeechCompleted
 }
 
-public class Voice
+public class Voice : IDisposable
 {
     private readonly SpeechRecognitionEngine engine;
     private readonly SoundPlayer sfx = new SoundPlayer();
@@ -87,5 +88,22 @@ public class Voice
     private void engine_SpeechDetected(object sender, SpeechDetectedEventArgs e)
     {
         mainForm.CallStateChanged(VoiceState.SpeechDetected);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            // dispose managed resources
+            engine.Dispose();
+            sfx.Dispose();
+        }
+        // free native resources
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }
