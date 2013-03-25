@@ -1,8 +1,9 @@
 ﻿/**************************
-* MPlayer Wrapper         *
+* mpv wrapper             *
 * by Joshua Park & u8sand *
 **************************/
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -60,12 +61,12 @@ public class MPlayer
             args.Append(" -idle");                 		        // wait insead of quit
             args.Append(" -volstep=5");			  		 		// change volume step
             args.Append(" -msglevel identify=6:global=6");      // set msglevel
-            args.Append(" -status-msg=${=pause}-AV:${=time-pos}");
             args.Append(" -no-mouseinput");         		 	// disable mouse input events
             args.Append(" -ass");                  		 		// enable .ass subtitle support
             args.Append(" -no-keepaspect");         		 	// doesn't keep window aspect ratio when resizing windows
             args.Append(" -framedrop=yes");                     // enables soft framedrop
             //args.Append(" -no-cache");                        // disables caching
+            args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=width};HEIGHT=${=height};");
             args.AppendFormat(" -volume={0}", Info.Current.Volume); // retrieves last volume
             args.AppendFormat(" -wid={0}", mainForm.mplayerPanel.Handle); // output handle
             
@@ -277,17 +278,10 @@ public class MPlayer
             return;
         }
 
-        if (!parsingHeader && e.Data.StartsWith("no-AV:"))
+        if (!parsingHeader && e.Data.StartsWith("status:"))
         {
-            if (Info.Current.PlayState != PlayStates.Playing)
-                SetPlayState(PlayStates.Playing, true);
-
-            ProcessProgress(e.Data);
+            ProcessStatusMsg(e.Data.Substring(7)); // get rid of 'status:'
             return;
-        }
-        if (e.Data.StartsWith("yes-AV:"))
-        {
-            SetPlayState(PlayStates.Paused, true);
         }
 
         //[fontconfig] Scanning dir C:/Windows/Fonts (must set FC_DEBUG to show)
@@ -354,7 +348,7 @@ public class MPlayer
         if (e.Data.StartsWith("Video: no video"))
             Info.VideoInfo.HasVideo = false;
 
-        if (e.Data.StartsWith("VO: [direct3d]")) // mpv initializes video output
+        if ((e.Data.StartsWith("AO: [dsound]") && !Info.VideoInfo.HasVideo) || e.Data.StartsWith("VO: [direct3d]"))
         {
             parsingHeader = false;
             mainForm.CallHideStatusLabel();
@@ -370,15 +364,41 @@ public class MPlayer
         }
     }
 
-    private void ProcessProgress(string time)
+    private void ProcessStatusMsg(string line)
     {
-        //no-AV:321.123456
-        var i = time.IndexOf(':') + 1;
-        time = time.Substring(i, time.Length - i);
+        //PAUSED=no;AV=123.456789;WIDTH=1920;HEIGHT=1080;
+        var info = new List<string>();
+        var startIndex = line.IndexOf('=');
 
+        for (var endIndex = line.IndexOf(';'); endIndex != -1; endIndex = line.IndexOf(';', endIndex + 1))
+        {
+            info.Add(line.Substring(startIndex + 1, endIndex - startIndex - 1));
+            startIndex = line.IndexOf('=', endIndex + 1);
+        }
+
+        // PAUSED
+        if (info[0].Equals("yes"))
+            SetPlayState(PlayStates.Paused, true);
+        else
+            SetPlayState(PlayStates.Playing, true);
+
+        // AV (time-pos)
         double sec;
-        double.TryParse(time, out sec);
+        Double.TryParse(info[1], out sec);
+        ProcessProgress(sec);
 
+        // WIDTH
+        int width;
+        int.TryParse(info[2], out width);
+        Info.VideoInfo.Width = width;
+
+        // HEIGHT
+        int height;
+        int.TryParse(info[3], out height);
+        Info.VideoInfo.Height = height;
+    }
+    private void ProcessProgress(double sec)
+    {
         if (sec > 0.0)
         {
             Info.Current.Duration = sec;

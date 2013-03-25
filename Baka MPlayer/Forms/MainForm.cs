@@ -453,7 +453,7 @@ namespace Baka_MPlayer.Forms
         private int callbackFunction_KeyboardHook(int code, IntPtr wParam, IntPtr lParam)
         {
             if (!(code.Equals(3) && Convert.ToString(lParam.ToInt64(), 2).StartsWith("10"))
-                || playlist.searchTextBox.Focused || string.IsNullOrEmpty(Info.URL) || code < 0)
+                || playlist.searchTextBox.Focused || inputTextbox.Focused || string.IsNullOrEmpty(Info.URL) || code < 0)
             {
                 // you need to call CallNextHookEx without further processing
                 // and return the value returned by CallNextHookEx
@@ -467,9 +467,7 @@ namespace Baka_MPlayer.Forms
                 case 37:
                     // left arrow key
                     if (Info.Current.Duration - 5 > -1)
-                    {
                         mplayer.Seek(Info.Current.Duration - 5);
-                    }
                     else //if (mplayer.currentPosition < 5)
                         mplayer.Seek(0);
                     break;
@@ -1043,11 +1041,6 @@ namespace Baka_MPlayer.Forms
                 mplayer.OpenFile(lastFile);
         }
 
-        private void saveMediaAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void showInWindowsExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Info.FileExists)
@@ -1197,7 +1190,7 @@ namespace Baka_MPlayer.Forms
 
         private void autodetectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Info.VideoInfo.AspectRatio = (double)Info.VideoInfo.Width / Info.VideoInfo.Height;
+            Info.VideoInfo.AspectRatio = Math.Round((double) Info.VideoInfo.Width/Info.VideoInfo.Height, 5);
             ResizeMplayerPanel();
         }
 
@@ -1350,18 +1343,18 @@ namespace Baka_MPlayer.Forms
         private void sizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // increase size
-            mplayer.SendCommand("set sub_scale +.2");
+            mplayer.SendCommand("add sub-scale 0.2");
         }
 
         private void sizeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             // decrease size
-            mplayer.SendCommand("set sub_scale -.2");
+            mplayer.SendCommand("add sub-scale -0.2");
         }
 
         private void resetSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.SendCommand("set sub_scale 1");
+            mplayer.SendCommand("set sub-scale 1");
         }
 
         private void subtitleMenuItem_Click(object sender, EventArgs e)
@@ -1805,16 +1798,8 @@ namespace Baka_MPlayer.Forms
             ResizeMplayerPanel();
 
             // check if media is online
-            if (Info.FileExists)
-            {
-                saveMediaAsToolStripMenuItem.Enabled = false;
-                showInWindowsExplorerToolStripMenuItem.Enabled = true;
-            }
-            else
-            {
-                saveMediaAsToolStripMenuItem.Enabled = true;
-                showInWindowsExplorerToolStripMenuItem.Enabled = false;
-            }
+            showInWindowsExplorerToolStripMenuItem.Enabled = Info.FileExists;
+
             // set previous volume (output drivers fault for not saving volume)
             SetVolume(Info.Current.Volume);
 
@@ -1827,6 +1812,8 @@ namespace Baka_MPlayer.Forms
             SetAudioTracks();
             SetChapters();
             SetSubs();
+
+            mplayer.Play();
         }
 
         #endregion

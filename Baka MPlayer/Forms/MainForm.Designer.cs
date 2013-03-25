@@ -41,7 +41,6 @@ namespace Baka_MPlayer.Forms
             this.openLocationFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openLastFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.saveMediaAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showInWindowsExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.playNextFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -210,7 +209,6 @@ namespace Baka_MPlayer.Forms
             this.openLocationFromClipboardToolStripMenuItem,
             this.openLastFileToolStripMenuItem,
             this.toolStripSeparator2,
-            this.saveMediaAsToolStripMenuItem,
             this.showInWindowsExplorerToolStripMenuItem,
             this.toolStripSeparator3,
             this.playNextFileToolStripMenuItem,
@@ -272,16 +270,6 @@ namespace Baka_MPlayer.Forms
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(268, 6);
-            // 
-            // saveMediaAsToolStripMenuItem
-            // 
-            this.saveMediaAsToolStripMenuItem.Enabled = false;
-            this.saveMediaAsToolStripMenuItem.Name = "saveMediaAsToolStripMenuItem";
-            this.saveMediaAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.S)));
-            this.saveMediaAsToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
-            this.saveMediaAsToolStripMenuItem.Text = "&Save Media As...";
-            this.saveMediaAsToolStripMenuItem.Click += new System.EventHandler(this.saveMediaAsToolStripMenuItem_Click);
             // 
             // showInWindowsExplorerToolStripMenuItem
             // 
@@ -1510,7 +1498,6 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem openLocationFromClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openLastFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem saveMediaAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showInWindowsExplorerToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem playNextFileToolStripMenuItem;

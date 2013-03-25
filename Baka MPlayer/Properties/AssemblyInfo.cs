@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Baka MPlayer")]
-[assembly: AssemblyDescription("The mplayer2 based anime player")]
+[assembly: AssemblyDescription("The mpv based anime player")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Joshua Park")]
 [assembly: AssemblyProduct("Baka MPlayer")]
