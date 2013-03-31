@@ -23,7 +23,7 @@ namespace Baka_MPlayer.Forms
         // global key hook
         public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
         private readonly HookProc myCallbackDelegate;
-        static IntPtr hHook;
+        private static IntPtr hHook;
 
         [DllImport("user32.dll")]
         protected static extern IntPtr SetWindowsHookEx(int code, HookProc func, IntPtr hInstance, int threadID);
@@ -1012,6 +1012,17 @@ namespace Baka_MPlayer.Forms
             OpenFile();
         }
 
+        private void openFileWithExternalSubsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var subForm = new OpenSubForm();
+
+            if (subForm.ShowDialog(this) == DialogResult.OK)
+            {
+                mplayer.Close(false);
+                mplayer.OpenFile(subForm.MediaFile, string.Format(" -sub=\"{0}\"", subForm.SubFile));
+            }
+        }
+
         private void openURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var webForm = new WebForm();
@@ -1708,7 +1719,7 @@ namespace Baka_MPlayer.Forms
             if (!string.IsNullOrEmpty(Info.URL))
                 settings.SetConfig(Info.URL, SettingEnum.LastFile);
             settings.SaveConfig();
-            mplayer.Close();
+            mplayer.Close(false);
         }
 
         #endregion
@@ -1959,7 +1970,7 @@ namespace Baka_MPlayer.Forms
                 ofd.FileName = string.Empty;
 
             if (ofd.ShowDialog() == DialogResult.OK && File.Exists(ofd.FileName))
-                mplayer.OpenFile(ofd.FileName);
+                mplayer.OpenFile(ofd.FileName, string.Empty);
         }
 
         private void HidePlayer()

@@ -20,6 +20,7 @@ public class MPlayer
     private bool parsingClipInfo;
     private bool cachingFonts;
     private bool ignoreStatus;
+    private bool killParent;
 
     #endregion
 
@@ -42,7 +43,7 @@ public class MPlayer
             Info.ResetInfo();
             mainForm.CallSetStatus("Loading file...", true);
 
-            if (mplayer != null)
+            if (MPlayerIsRunning())
             {
                 SendCommand("loadfile \"{0}\"", url.Replace("\\", "\\\\")); // open file
                 mainForm.ClearOutput();
@@ -67,6 +68,71 @@ public class MPlayer
             args.AppendFormat(" -volume={0}", Info.Current.Volume); // retrieves last volume
             args.AppendFormat(" -wid={0}", mainForm.mplayerPanel.Handle); // output handle
             
+            mplayer = new Process
+            {
+                StartInfo =
+                {
+                    FileName = execName,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    StandardOutputEncoding = Encoding.UTF8,
+                    StandardErrorEncoding = Encoding.UTF8,
+                    Arguments = args.AppendFormat(" \"{0}\"", url).ToString()
+                }
+            };
+            mplayer.Start();
+            mplayer.EnableRaisingEvents = true;
+
+            mplayer.OutputDataReceived += OutputDataReceived;
+            mplayer.ErrorDataReceived += ErrorDataReceived;
+            mplayer.Exited += Exited;
+            mplayer.BeginOutputReadLine();
+            mplayer.BeginErrorReadLine();
+        }
+        catch (Exception) { return false; }
+        return true;
+    }
+    /// <summary>
+    /// Opens file with optional args
+    /// </summary>
+    public bool OpenFile(string url, string optionalArgs)
+    {
+        try
+        {
+            Info.ResetInfo();
+            mainForm.CallSetStatus("Loading file...", true);
+
+            if (MPlayerIsRunning())
+            {
+                SendCommand("loadfile \"{0}\"", url.Replace("\\", "\\\\")); // open file
+                mainForm.ClearOutput();
+                return true;
+            }
+            // instructs fontconfig to show debug messages regarding font caching
+            Environment.SetEnvironmentVariable("FC_DEBUG", "128");
+
+            // mplayer is not running, so start mplayer then load url
+            var args = new StringBuilder();
+            args.AppendFormat("-vo={0} -ao={1}", "direct3d", "dsound");
+            args.Append(" -slave-broken");         		 		// switch on slave mode for frontend
+            args.Append(" -idle");                 		        // wait insead of quit
+            args.Append(" -volstep=5");			  		 		// change volume step
+            args.Append(" -msglevel identify=6:global=6");      // set msglevel
+            args.Append(" -no-mouseinput");         		 	// disable mouse input events
+            args.Append(" -ass");                  		 		// enable .ass subtitle support
+            args.Append(" -no-keepaspect");         		 	// doesn't keep window aspect ratio when resizing windows
+            args.Append(" -framedrop=yes");                     // enables soft framedrop
+            //args.Append(" -no-cache");                        // disables caching
+            args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=width};HEIGHT=${=height}");
+            args.AppendFormat(" -volume={0}", Info.Current.Volume); // retrieves last volume
+            args.AppendFormat(" -wid={0}", mainForm.mplayerPanel.Handle); // output handle
+
+            if (!string.IsNullOrEmpty(optionalArgs))
+                args.Append(optionalArgs);
+
             mplayer = new Process
             {
                 StartInfo =
@@ -153,13 +219,14 @@ public class MPlayer
             mainForm.CallPlayStateChanged();
     }
 
-    public bool Close()
+    public bool Close(bool alsoKillParent)
     {
         try
         {
             if (mplayer == null || mplayer.HasExited)
                 return true;
 
+            killParent = alsoKillParent;
             mplayer.CancelOutputRead();
             mplayer.CancelErrorRead();
             mplayer.Kill();
@@ -516,7 +583,9 @@ public class MPlayer
     }
     private void Exited(object sender, EventArgs e)
     {
-        Application.Exit();
+        if (killParent)
+            Application.Exit();
+        killParent = false;
     }
 
     #endregion

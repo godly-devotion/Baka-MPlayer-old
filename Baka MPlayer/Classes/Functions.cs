@@ -69,7 +69,7 @@ public static class Functions
         }
         public static string ToTitleCase(string input)
         {
-            return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(input);
+            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(input);
         }
     }
 

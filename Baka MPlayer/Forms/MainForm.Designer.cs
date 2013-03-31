@@ -157,6 +157,7 @@ namespace Baka_MPlayer.Forms
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
+            this.openFileWithExternalSubsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.quickButton)).BeginInit();
@@ -204,6 +205,7 @@ namespace Baka_MPlayer.Forms
             this.newPlayerToolStripMenuItem,
             this.toolStripSeparator1,
             this.openFileToolStripMenuItem,
+            this.openFileWithExternalSubsToolStripMenuItem,
             this.openURLToolStripMenuItem,
             this.openLocationFromClipboardToolStripMenuItem,
             this.openLastFileToolStripMenuItem,
@@ -634,21 +636,21 @@ namespace Baka_MPlayer.Forms
             this.showSubtitlesToolStripMenuItem.CheckOnClick = true;
             this.showSubtitlesToolStripMenuItem.Enabled = false;
             this.showSubtitlesToolStripMenuItem.Name = "showSubtitlesToolStripMenuItem";
-            this.showSubtitlesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.showSubtitlesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.showSubtitlesToolStripMenuItem.Text = "&Show Subtitles";
             this.showSubtitlesToolStripMenuItem.Click += new System.EventHandler(this.showSubtitlesToolStripMenuItem_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(148, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(149, 6);
             // 
             // subtitleTrackToolStripMenuItem
             // 
             this.subtitleTrackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.noneToolStripMenuItem});
             this.subtitleTrackToolStripMenuItem.Name = "subtitleTrackToolStripMenuItem";
-            this.subtitleTrackToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.subtitleTrackToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.subtitleTrackToolStripMenuItem.Text = "Subtitle &Track";
             // 
             // noneToolStripMenuItem
@@ -665,7 +667,7 @@ namespace Baka_MPlayer.Forms
             this.sizeToolStripMenuItem1,
             this.resetSizeToolStripMenuItem});
             this.fontSizeToolStripMenuItem.Name = "fontSizeToolStripMenuItem";
-            this.fontSizeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.fontSizeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fontSizeToolStripMenuItem.Text = "&Font Size";
             // 
             // sizeToolStripMenuItem
@@ -1405,6 +1407,13 @@ namespace Baka_MPlayer.Forms
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
             // 
+            // openFileWithExternalSubsToolStripMenuItem
+            // 
+            this.openFileWithExternalSubsToolStripMenuItem.Name = "openFileWithExternalSubsToolStripMenuItem";
+            this.openFileWithExternalSubsToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.openFileWithExternalSubsToolStripMenuItem.Text = "Open File with External Subs";
+            this.openFileWithExternalSubsToolStripMenuItem.Click += new System.EventHandler(this.openFileWithExternalSubsToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -1582,6 +1591,7 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem force43ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem force169ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem force2351ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openFileWithExternalSubsToolStripMenuItem;
     }
 }
 

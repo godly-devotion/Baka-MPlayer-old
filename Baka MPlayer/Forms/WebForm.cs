@@ -100,29 +100,29 @@ namespace Baka_MPlayer.Forms
             {
                 if (string.IsNullOrEmpty(URL))
                 {
-                    checkValid(false);
+                    CheckValid(false);
                     return;
                 }
 
                 if (File.Exists(URL) || Functions.URL.ValidateURL(URL))
                 {
                     // local file or web file
-                    checkValid(true);
+                    CheckValid(true);
                 }
                 else
                 {
                     fileTypeLabel.Text = "*.*";
-                    checkValid(false);
+                    CheckValid(false);
                 }
             }
             catch (ArgumentException)
             {
                 fileTypeLabel.Text = "*.*";
-                checkValid(false);
+                CheckValid(false);
             }
         }
 
-        private void checkValid(bool isValid)
+        private void CheckValid(bool isValid)
         {
             if (isValid)
             {
