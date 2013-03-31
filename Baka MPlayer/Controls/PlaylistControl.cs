@@ -92,14 +92,14 @@ namespace Baka_MPlayer.Controls
 
                 if (forceRefresh)
                 {
-                    mainForm.SetShuffleCheckState(false);
+                    mainForm.CheckShuffleToolStripMenuItem = false;
                     FillPlaylist();
                 }
                 
                 GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
                 SelectedIndex = GetPlayingItem.Index;
 
-                mainForm.SetPlaylistButtonEnable(true);
+                mainForm.EnablePlaylistButton = true;
                 mainForm.ShowPlaylist = (forceRefresh || mainForm.ShowPlaylist) && GetTotalItems > 1;
             }
             else
@@ -110,7 +110,7 @@ namespace Baka_MPlayer.Controls
                 GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
                 SelectedIndex = GetPlayingItem.Index;
 
-                mainForm.SetPlaylistButtonEnable(false);
+                mainForm.EnablePlaylistButton = false;
                 mainForm.ShowPlaylist = false;
             }
 

@@ -452,8 +452,7 @@ namespace Baka_MPlayer.Forms
 
         private int callbackFunction_KeyboardHook(int code, IntPtr wParam, IntPtr lParam)
         {
-            if (!(code.Equals(3) && Convert.ToString(lParam.ToInt64(), 2).StartsWith("10"))
-                || playlist.searchTextBox.Focused || inputTextbox.Focused || string.IsNullOrEmpty(Info.URL) || code < 0)
+            if (!(code.Equals(3) && Convert.ToString(lParam.ToInt64(), 2).StartsWith("10") && NotFocusedOnTextbox) || code < 0)
             {
                 // you need to call CallNextHookEx without further processing
                 // and return the value returned by CallNextHookEx
@@ -578,19 +577,6 @@ namespace Baka_MPlayer.Forms
 
         #region Accessors
 
-        public void SetShuffleCheckState(bool check)
-        {
-            Invoke((MethodInvoker)(() => shuffleToolStripMenuItem.Checked = check));
-        }
-
-        public void SetPlaylistButtonEnable(bool enable)
-        {
-            Invoke((MethodInvoker)(() => playlistButton.Enabled = enable));
-        }
-
-        #endregion
-        #region Properties
-
         private bool _voiceEnabled;
         private bool VoiceEnabled
         {
@@ -647,6 +633,21 @@ namespace Baka_MPlayer.Forms
         {
             get { return !bodySplitContainer.Panel2Collapsed; }
             set { bodySplitContainer.Panel2Collapsed = !value; }
+        }
+
+        public bool CheckShuffleToolStripMenuItem
+        {
+            set { Invoke((MethodInvoker)(() => shuffleToolStripMenuItem.Checked = value)); }
+        }
+
+        public bool EnablePlaylistButton
+        {
+            set { Invoke((MethodInvoker)(() => playlistButton.Enabled = value)); }
+        }
+
+        private bool NotFocusedOnTextbox
+        {
+            get { return !(string.IsNullOrEmpty(Info.URL) || playlist.searchTextBox.Focused || inputTextbox.Focused); }
         }
 
         #endregion
@@ -1018,8 +1019,9 @@ namespace Baka_MPlayer.Forms
 
             if (subForm.ShowDialog(this) == DialogResult.OK)
             {
-                mplayer.Close(false);
-                mplayer.OpenFile(subForm.MediaFile, string.Format(" -sub=\"{0}\"", subForm.SubFile));
+                mplayer.Kill();
+                mplayer.loadExternalSub = subForm.SubFile;
+                mplayer.OpenFile(subForm.MediaFile);
             }
         }
 
@@ -1041,7 +1043,7 @@ namespace Baka_MPlayer.Forms
             if (File.Exists(clipText) || Functions.URL.ValidateURL(clipText))
                 mplayer.OpenFile(clipText);
             else
-                MessageBox.Show(string.Format("The location \"{0}\" cannot be openend.", clipText),
+                MessageBox.Show(string.Format("The location \"{0}\" cannot be opened.", clipText),
                     "Error Opening Location", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
@@ -1676,7 +1678,7 @@ namespace Baka_MPlayer.Forms
             {
                 case Keys.Space: // play or pause
                     // make sure its not focused on anything else
-                    if (!string.IsNullOrEmpty(Info.URL) && !playlist.searchTextBox.Focused)
+                    if (NotFocusedOnTextbox)
                         mplayer.Pause(true);
                     break;
                 case Keys.Escape:
@@ -1719,7 +1721,7 @@ namespace Baka_MPlayer.Forms
             if (!string.IsNullOrEmpty(Info.URL))
                 settings.SetConfig(Info.URL, SettingEnum.LastFile);
             settings.SaveConfig();
-            mplayer.Close(false);
+            mplayer.Kill();
         }
 
         #endregion
@@ -1970,7 +1972,7 @@ namespace Baka_MPlayer.Forms
                 ofd.FileName = string.Empty;
 
             if (ofd.ShowDialog() == DialogResult.OK && File.Exists(ofd.FileName))
-                mplayer.OpenFile(ofd.FileName, string.Empty);
+                mplayer.OpenFile(ofd.FileName);
         }
 
         private void HidePlayer()
