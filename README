@@ -3,5 +3,4 @@ http://bakamplayer.netii.net
 
 This project requires Visual Studio 2012 or newer.
 
-Note: mpv.exe is using the x86_64 build, so it wont run on 32-bit OS's.
-As of 3/20/2013, mpv is not yet available for 32-bit OS's.
+Note: The mpv.exe included in the Debug folder is 64-bit!
