@@ -173,11 +173,7 @@ namespace Baka_MPlayer.Forms
                 var fullFileName = Functions.String.AutoEllipsis(25, Path.GetFileNameWithoutExtension(Info.FullFileName));
 
                 titleMenuItem.Text = string.Format("  {0}", fullFileName);
-
-                if (File.Exists(Info.URL))
-                    artistMenuItem.Text = "  Unknown Artist";
-                else
-                    artistMenuItem.Text = "  Online Media";
+                artistMenuItem.Text = File.Exists(Info.URL) ? "  Unknown Artist" : "  Online Media";
 
                 SetNotifyIconText(string.Format("{0}\n{1}", fullFileName, lastPart));
 
@@ -1019,7 +1015,6 @@ namespace Baka_MPlayer.Forms
 
             if (subForm.ShowDialog(this) == DialogResult.OK)
             {
-                mplayer.Kill();
                 mplayer.loadExternalSub = subForm.SubFile;
                 mplayer.OpenFile(subForm.MediaFile);
             }

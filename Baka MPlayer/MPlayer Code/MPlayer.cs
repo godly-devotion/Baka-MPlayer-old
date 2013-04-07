@@ -17,11 +17,11 @@ public class MPlayer
     private readonly MainForm mainForm;
     private readonly ID3Tag id3Tag = new ID3Tag();
     private readonly string execName;
-    public string loadExternalSub { get; set; }
-    private bool parsingClipInfo;
     private bool cachingFonts;
+    private bool parsingClipInfo;
     private bool ignoreStatus;
     private bool properlyClosed;
+    public string loadExternalSub { get; set; }
 
     #endregion
 
@@ -60,6 +60,7 @@ public class MPlayer
             args.Append(" -idle");                 		        // wait insead of quit
             args.Append(" -volstep=5");			  		 		// change volume step
             args.Append(" -msglevel identify=6:global=6");      // set msglevel
+            args.Append(" -osd-level=0");                       // do not show volume + seek on OSD
             args.Append(" -no-mouseinput");         		 	// disable mouse input events
             args.Append(" -ass");                  		 		// enable .ass subtitle support
             args.Append(" -no-keepaspect");         		 	// doesn't keep window aspect ratio when resizing windows
@@ -187,6 +188,7 @@ public class MPlayer
     }
     public bool Stop()
     {
+        ignoreStatus = true;
         SetPlayState(PlayStates.Stopped, true);
         return SendCommand("pausing seek 0 2 1");
     }
@@ -198,13 +200,13 @@ public class MPlayer
     {
         return SendCommand("seek 0 2 1");
     }
-    public bool Mute(bool mute) // 1 = mute, 0 = unmute
+    public bool Mute(bool mute)
     {
         return SendCommand("set mute {0}", mute ? "yes" : "no");
     }
-    public bool SkipChapter(bool ahead) // true = skip ahead, false = skip back
+    public bool SkipChapter(bool skipAhead)
     {
-        return SendCommand("seek_chapter {0} 0", ahead ? 1 : -1);
+        return SendCommand("add chapter {0}", skipAhead ? 1 : -1);
     }
     public bool Seek(double sec)
     {
@@ -388,7 +390,8 @@ public class MPlayer
                         SetPlayState(PlayStates.Playing, true);
                     break;
                 case "AV":
-                    ProcessProgress(Functions.TryParse.ParseDouble(value));
+                    if (Info.Current.PlayState == PlayStates.Playing)
+                        ProcessProgress(Functions.TryParse.ParseDouble(value));
                     break;
                 case "WIDTH":
                     Info.VideoInfo.Width = Functions.TryParse.ParseInt(value);
