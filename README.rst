@@ -19,3 +19,5 @@ Bug reports
 ===========
 Please use the `issues tracker`_ provided by GitHub to send us bug reports or
 feature requests.
+
+.. _issues tracker: https://github.com/mpv-player/mpv/issues
