@@ -5,6 +5,7 @@ Baka MPlayer
 Develop
 =======
 In order to open this project, you require:
+
 - Windows 7 or newer
 - Visual Studio 2012 or newer.
 
