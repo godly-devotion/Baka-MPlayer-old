@@ -1,6 +1,6 @@
 ﻿namespace Baka_MPlayer.Forms
 {
-    partial class WebForm
+    partial class UrlForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WebForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UrlForm));
             this.checkPicbox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.urlTextbox = new System.Windows.Forms.TextBox();
@@ -48,6 +48,7 @@
             this.checkPicbox.Location = new System.Drawing.Point(12, 12);
             this.checkPicbox.Name = "checkPicbox";
             this.checkPicbox.Size = new System.Drawing.Size(27, 27);
+            this.checkPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.checkPicbox.TabIndex = 0;
             this.checkPicbox.TabStop = false;
             // 
@@ -186,7 +187,7 @@
             this.clearButton.UseVisualStyleBackColor = true;
             this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
-            // WebForm
+            // UrlForm
             // 
             this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -210,7 +211,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "WebForm";
+            this.Name = "UrlForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Open URL Location";
             this.Load += new System.EventHandler(this.WebForm_Load);

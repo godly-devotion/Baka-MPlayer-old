@@ -75,8 +75,10 @@ namespace Baka_MPlayer.Forms
 
             // file type
             var type = getFileType(Info.URL);
-            if (string.IsNullOrEmpty(type)) {
-                type = Path.GetExtension(Info.FullFileName).Substring(1);
+            if (string.IsNullOrEmpty(type))
+            {
+                type = Path.GetExtension(Info.FullFileName);
+                type = string.IsNullOrEmpty(type) ? "Not Available" : type.Substring(1);
             }
             var typeItem = new ListViewItem("File type", infoList.Groups[0]);
             typeItem.SubItems.Add(type);

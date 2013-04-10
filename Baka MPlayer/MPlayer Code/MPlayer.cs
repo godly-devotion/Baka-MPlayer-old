@@ -66,7 +66,7 @@ public class MPlayer
             args.Append(" -no-keepaspect");         		 	// doesn't keep window aspect ratio when resizing windows
             args.Append(" -framedrop=yes");                     // enables soft framedrop
             //args.Append(" -no-cache");                        // disables caching
-            args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=width};HEIGHT=${=height}");
+            args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=dwidth};HEIGHT=${=dheight}");
             args.AppendFormat(" -volume={0}", Info.Current.Volume); // retrieves last volume
             args.AppendFormat(" -wid={0}", mainForm.mplayerPanel.Handle); // output handle
             

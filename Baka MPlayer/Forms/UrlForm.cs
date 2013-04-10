@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Baka_MPlayer.Forms
 {
-    public partial class WebForm : Form
+    public partial class UrlForm : Form
     {
         #region Buttons
 
@@ -58,7 +58,7 @@ namespace Baka_MPlayer.Forms
             set { urlTextbox.Text = value; }
         }
 
-        public WebForm()
+        public UrlForm()
         {
             InitializeComponent();
 
@@ -100,29 +100,29 @@ namespace Baka_MPlayer.Forms
             {
                 if (string.IsNullOrEmpty(URL))
                 {
-                    CheckValid(false);
+                    SetControls(false);
                     return;
                 }
 
                 if (File.Exists(URL) || Functions.URL.ValidateURL(URL))
                 {
                     // local file or web file
-                    CheckValid(true);
+                    SetControls(true);
                 }
                 else
                 {
                     fileTypeLabel.Text = "*.*";
-                    CheckValid(false);
+                    SetControls(false);
                 }
             }
             catch (ArgumentException)
             {
                 fileTypeLabel.Text = "*.*";
-                CheckValid(false);
+                SetControls(false);
             }
         }
 
-        private void CheckValid(bool isValid)
+        private void SetControls(bool isValid)
         {
             if (isValid)
             {

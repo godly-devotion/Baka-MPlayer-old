@@ -100,10 +100,11 @@ C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\o
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.OpenSubForm.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.SnapshotForm.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.UpdateForm.resources
-C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.WebForm.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Properties.Resources.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.WinAPI_Code_Pack.Core.Resources.LocalizedMessages.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.WinAPI_Code_Pack.Shell.Resources.LocalizedMessages.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.csproj.GenerateResource.Cache
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.exe
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.pdb
+C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.csprojResolveAssemblyReference.cache
+C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.Forms.UrlForm.resources

@@ -778,7 +778,7 @@ namespace Baka_MPlayer.Forms
                     }
                     break;
                 case MouseButtons.Right:
-                    var webForm = new WebForm();
+                    var webForm = new UrlForm();
                     if (webForm.ShowDialog(this) == DialogResult.OK)
                     {
                         mplayer.OpenFile(webForm.URL);
@@ -1022,7 +1022,7 @@ namespace Baka_MPlayer.Forms
 
         private void openURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var webForm = new WebForm();
+            var webForm = new UrlForm();
 
             if (webForm.ShowDialog(this) == DialogResult.OK)
             {
