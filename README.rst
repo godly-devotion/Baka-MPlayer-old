@@ -1,6 +1,5 @@
-Baka MPlayer
-################
-`Main Website`_
+`Baka MPlayer`_
+###############
 
 Develop
 =======
@@ -20,5 +19,5 @@ Bug reports
 Please use the `issues tracker`_ provided by GitHub to send us bug reports or
 feature requests.
 
-.. _Main Website: http://bakamplayer.netii.net
-.. _issues tracker: https://github.com/mpv-player/mpv/issues
+.. _Baka MPlayer: http://bakamplayer.netii.net
+.. _issues tracker: https://github.com/godly-devotion/Baka-MPlayer/issues
