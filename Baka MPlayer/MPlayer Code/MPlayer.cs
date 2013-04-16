@@ -7,16 +7,15 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using Baka_MPlayer.Forms;
 
 public class MPlayer
 {
     #region Variables
 
     private Process mplayer;
-    private readonly MainForm mainForm;
     private readonly ID3Tag id3Tag = new ID3Tag();
     private readonly string execName;
+    private readonly int wid;
     private bool cachingFonts;
     private bool parsingClipInfo;
     private bool ignoreStatus;
@@ -25,12 +24,71 @@ public class MPlayer
 
     #endregion
 
+    #region Events
+
+    public event EventHandler<StdOutEventArgs> StdOutEvent;
+
+    protected virtual void OnStdOut(StdOutEventArgs e)
+    {
+        var handler = this.StdOutEvent;
+        if (handler != null)
+        {
+            StdOutEvent(this, e);
+        }
+    }
+
+    public event EventHandler<StatusChangedEventArgs> StatusChangedEvent;
+
+    protected virtual void OnStatusChanged(StatusChangedEventArgs e)
+    {
+        var handler = this.StatusChangedEvent;
+        if (handler != null)
+        {
+            StatusChangedEvent(this, e);
+        }
+    }
+
+    public event EventHandler<EventArgs> FileOpenedEvent;
+
+    protected virtual void OnFileOpened(EventArgs e)
+    {
+        var handler = this.FileOpenedEvent;
+        if (handler != null)
+        {
+            FileOpenedEvent(this, e);
+        }
+    }
+
+    public event EventHandler<EventArgs> PlayStateChangedEvent;
+
+    protected virtual void OnPlayStateChanged(EventArgs e)
+    {
+        var handler = this.PlayStateChangedEvent;
+        if (handler != null)
+        {
+            PlayStateChangedEvent(this, e);
+        }
+    }
+
+    public event EventHandler<EventArgs> DurationChangedEvent;
+
+    protected virtual void OnDurationChanged(EventArgs e)
+    {
+        var handler = this.DurationChangedEvent;
+        if (handler != null)
+        {
+            DurationChangedEvent(this, e);
+        }
+    }
+
+    #endregion
+
     #region Constructor
 
-    public MPlayer(MainForm mainForm, string execName)
+    public MPlayer(string execName, int wid)
     {
-        this.mainForm = mainForm;
         this.execName = execName;
+        this.wid = wid;
     }
 
     #endregion
@@ -42,12 +100,12 @@ public class MPlayer
         try
         {
             Info.ResetInfo();
-            mainForm.CallSetStatus("Loading file...", true);
+            OnStatusChanged(new StatusChangedEventArgs("Loading file...", false));
+            OnStdOut(new StdOutEventArgs("[MPlayerClass] CLEAR_OUTPUT"));
 
             if (MPlayerIsRunning())
             {
                 SendCommand("loadfile \"{0}\"", url.Replace("\\", "\\\\")); // open file
-                mainForm.ClearOutput();
                 return true;
             }
             // instructs fontconfig to show debug messages regarding font caching
@@ -58,7 +116,7 @@ public class MPlayer
             args.AppendFormat("-vo={0} -ao={1}", "direct3d", "dsound");
             args.Append(" -slave-broken");         		 		// switch on slave mode for frontend
             args.Append(" -idle");                 		        // wait insead of quit
-            args.Append(" -volstep=5");			  		 		// change volume step
+            args.Append(" -volstep=5");			  		 		// volume step
             args.Append(" -msglevel identify=6:global=6");      // set msglevel
             args.Append(" -osd-level=0");                       // do not show volume + seek on OSD
             args.Append(" -no-mouseinput");         		 	// disable mouse input events
@@ -67,8 +125,8 @@ public class MPlayer
             args.Append(" -framedrop=yes");                     // enables soft framedrop
             //args.Append(" -no-cache");                        // disables caching
             args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=dwidth};HEIGHT=${=dheight}");
-            args.AppendFormat(" -volume={0}", Info.Current.Volume); // retrieves last volume
-            args.AppendFormat(" -wid={0}", mainForm.mplayerPanel.Handle); // output handle
+            args.AppendFormat(" -volume={0}", Info.Current.Volume); // sets previous volume
+            args.AppendFormat(" -wid={0}", wid); // output handle
             
             mplayer = new Process
             {
@@ -153,7 +211,7 @@ public class MPlayer
 
         Info.Current.PlayState = newState;
         if (callPlayStateChanged)
-            mainForm.CallPlayStateChanged();
+            OnPlayStateChanged(new EventArgs());
     }
 
     public bool Kill()
@@ -267,7 +325,7 @@ public class MPlayer
 
     #endregion
 
-    #region Events
+    #region Standard Streams
 
     private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
     {
@@ -289,17 +347,17 @@ public class MPlayer
         if (!cachingFonts && e.Data.StartsWith("[fontconfig]"))
 		{
             cachingFonts = true;
-            mainForm.CallSetStatus("Caching fonts...", true);
+            OnStatusChanged(new StatusChangedEventArgs("Caching fonts...", false));
 		}
 		else if (cachingFonts && e.Data.StartsWith("["))
 		{
             if (e.Data.StartsWith("[fontconfig]"))
             {
                 cachingFonts = false;
-                mainForm.CallSetStatus("Fonts finished caching", false);
+                OnStatusChanged(new StatusChangedEventArgs("Fonts finished caching", true));
             }
             else
-                mainForm.CallSetStatus("Caching fonts: " + e.Data, true);
+                OnStatusChanged(new StatusChangedEventArgs("Caching fonts: " + e.Data, false));
 		}
     }
 
@@ -311,12 +369,12 @@ public class MPlayer
             return;
 
         // show output
-        mainForm.SetOutput(e.Data);
-        
+        OnStdOut(new StdOutEventArgs(e.Data));
+
         if (e.Data.StartsWith("EOF code: 1")) // reached end of file
         {
             Info.Current.PlayState = PlayStates.Ended;
-            mainForm.CallMediaEnded();
+            OnPlayStateChanged(new EventArgs());
             return;
         }
 
@@ -348,16 +406,13 @@ public class MPlayer
 
         if ((e.Data.StartsWith("AO: [dsound]") && !Info.VideoInfo.HasVideo) || e.Data.StartsWith("VO: [direct3d]"))
         {
-            mainForm.CallHideStatusLabel();
+            OnStatusChanged(new StatusChangedEventArgs("[MPlayerClass] HIDE_STATUS_LABEL", false));
 
-            // load external file if needed
+            // load external file if requested
             if (!string.IsNullOrEmpty(loadExternalSub))
             {
                 SendCommand("sub_add \"{0}\"", loadExternalSub.Replace("\\", "\\\\"));
-                if (Info.Subs.Count.Equals(0))
-                    SetSubs(0);
-                else
-                    SetSubs(Info.Subs.Count - 1);
+                SetSubs(Info.Subs.Count.Equals(0) ? 0 : Info.Subs.Count);
                 loadExternalSub = string.Empty;
             }
 
@@ -368,7 +423,7 @@ public class MPlayer
                 Info.VideoInfo.HasVideo = false;
 
             // tell mainform that new file was opened
-            mainForm.CallMediaOpened();
+            OnFileOpened(new EventArgs());
         }
     }
 
@@ -407,7 +462,7 @@ public class MPlayer
         if (sec > 0.0)
         {
             Info.Current.Duration = sec;
-            mainForm.CallDurationChanged();
+            OnDurationChanged(new EventArgs());
         }
     }
 
@@ -421,14 +476,14 @@ public class MPlayer
                 Info.GetDirectoryName = Functions.IO.GetDirectoryName(value);
                 Info.FileExists = File.Exists(value);
                 break;
+            case "ID_LENGTH":
+                Info.Current.TotalLength = Functions.TryParse.ParseDouble(value);
+                break;
             case "ID_VIDEO_FPS":
                 Info.VideoInfo.FPS = Functions.TryParse.ParseDouble(value);
                 break;
             case "ID_VIDEO_ASPECT":
                 Info.VideoInfo.AspectRatio = Functions.TryParse.ParseDouble(value);
-                break;
-            case "ID_LENGTH":
-                Info.Current.TotalLength = Functions.TryParse.ParseDouble(value);
                 break;
             default:
 				if (key.StartsWith("ID_CHAPTER_ID")) // Chapters

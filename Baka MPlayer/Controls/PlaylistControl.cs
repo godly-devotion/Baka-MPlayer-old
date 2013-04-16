@@ -85,24 +85,7 @@ namespace Baka_MPlayer.Controls
         {
             playlistList.BeginUpdate();
 
-            if (Info.FileExists)
-            {
-                if (!forceRefresh)
-                    forceRefresh = playlistList.FindItemWithText(Info.FullFileName) == null;
-
-                if (forceRefresh)
-                {
-                    mainForm.CheckShuffleToolStripMenuItem = false;
-                    FillPlaylist();
-                }
-                
-                GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
-                SelectedIndex = GetPlayingItem.Index;
-
-                mainForm.EnablePlaylistButton = true;
-                mainForm.ShowPlaylist = (forceRefresh || mainForm.ShowPlaylist) && GetTotalItems > 1;
-            }
-            else
+            if (Functions.URL.ValidateURL(Info.URL))
             {
                 playlistList.Items.Clear();
                 playlistList.Items.Add(Info.FullFileName);
@@ -112,6 +95,23 @@ namespace Baka_MPlayer.Controls
 
                 mainForm.EnablePlaylistButton = false;
                 mainForm.ShowPlaylist = false;
+            }
+            else
+            {
+                if (!forceRefresh && (playlistList.FindItemWithText(Info.FullFileName) == null || !File.Exists(Info.URL)))
+                    forceRefresh = true;
+
+                if (forceRefresh)
+                {
+                    mainForm.CheckShuffleToolStripMenuItem = false;
+                    FillPlaylist();
+                }
+
+                GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
+                SelectedIndex = GetPlayingItem.Index;
+
+                mainForm.EnablePlaylistButton = true;
+                mainForm.ShowPlaylist = (forceRefresh || mainForm.ShowPlaylist) && GetTotalItems > 1;
             }
 
             playlistList.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -216,8 +216,7 @@ namespace Baka_MPlayer.Controls
                     mplayer.Stop();
                 else
                 {
-                    //PlayNextFile();
-                    MessageBox.Show("You can't remove the playing file!", "A no no", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("You can't remove the playing file.", "I'm afraid you can't do that", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
             }

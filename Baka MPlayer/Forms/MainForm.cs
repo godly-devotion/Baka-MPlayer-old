@@ -40,7 +40,7 @@ namespace Baka_MPlayer.Forms
 
         private BlackForm blackForm;
         private InfoForm infoForm;
-        // class instances
+
         private readonly MPlayer mplayer;
         private readonly Settings settings = new Settings();
         private Voice voice;
@@ -53,7 +53,7 @@ namespace Baka_MPlayer.Forms
         private ThumbnailToolBarButton nextToolButton =
             new ThumbnailToolBarButton(Properties.Resources.tool_next, "Next file");
 
-        // lastFile
+        // lastFile feature
         private bool firstFile = true;
         private string tempURL = string.Empty;
 
@@ -208,87 +208,6 @@ namespace Baka_MPlayer.Forms
             // release mainNotifyIcon's resources
             trayIcon.Visible = false;
             trayIcon.Dispose();
-        }
-
-        #endregion
-        #region Set Status
-
-        public void CallSetStatus(string status, bool noAutoHide)
-        {
-            Invoke((MethodInvoker)(() => SetStatus(status, noAutoHide)));
-        }
-        private void SetStatus(string status, bool noAutoHide)
-        {
-            statusLabel.Text = status;
-            statusLabel.Show();
-
-            if (!noAutoHide)
-                statusTimer.Enabled = true;
-        }
-        public void CallHideStatusLabel()
-        {
-            Invoke((MethodInvoker)HideStatusLabel);
-        }
-        private void HideStatusLabel()
-        {
-            statusLabel.Hide();
-            statusTimer.Enabled = false;
-        }
-
-        private void statusLabel_MouseClick(object sender, MouseEventArgs e)
-        {
-            HideStatusLabel();
-        }
-        private void statusTimer_Tick(object sender, EventArgs e)
-        {
-            HideStatusLabel();
-        }
-
-        #endregion
-        #region CLI Code
-
-        private void inputTextbox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode != Keys.Enter)
-                return;
-
-            var input = inputTextbox.Text.Trim().ToLower();
-            if (input.Length > 0)
-            {
-                switch (input)
-                {
-                    case "clear":
-                        ClearOutput();
-                        break;
-                    case "exit":
-                        Application.Exit();
-                        break;
-                    default:
-                        mplayer.SendCommand(inputTextbox.Text);
-                        break;
-                }
-                inputTextbox.SelectionStart = 0;
-                inputTextbox.SelectionLength = inputTextbox.TextLength;
-            }
-        }
-
-        public void SetOutput(string output)
-        {
-            Invoke((MethodInvoker)delegate
-            {
-                outputTextbox.AppendText("\n" + output);
-                // auto scroll to end
-                outputTextbox.SelectionStart = outputTextbox.TextLength;
-                outputTextbox.ScrollToCaret();
-            });
-        }
-
-        public void ClearOutput()
-        {
-            Invoke((MethodInvoker)delegate
-            {
-                outputTextbox.Text = string.Empty;
-            });
         }
 
         #endregion
@@ -674,7 +593,7 @@ namespace Baka_MPlayer.Forms
         }
         private void TakeAction(string speechCommand)
         {
-            SetStatus("Voice Command: " + Functions.String.ToTitleCase(speechCommand), false);
+            SetStatusMsg("Voice Command: " + Functions.String.ToTitleCase(speechCommand), true);
 
             switch (speechCommand)
             {
@@ -1586,11 +1505,13 @@ namespace Baka_MPlayer.Forms
 
             InitializeComponent();
 
-            mplayer = new MPlayer(this, settings.GetStringValue(SettingEnum.Exec));
-            playlist.Init(this, mplayer);
+            mplayer = new MPlayer(settings.GetStringValue(SettingEnum.Exec), mplayerPanel.Handle.ToInt32());
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
+            RegisterMPlayerEvents();
+            playlist.Init(this, mplayer);
+
             // check for player exec
             if (!File.Exists(Application.StartupPath + "\\" + settings.GetStringValue(SettingEnum.Exec)))
             {
@@ -1637,6 +1558,15 @@ namespace Baka_MPlayer.Forms
                 }
             }
         }
+        private void RegisterMPlayerEvents()
+        {
+            mplayer.StdOutEvent += mplayer_StdOutEvent;
+            mplayer.StatusChangedEvent += mplayer_StatusChangedEvent;
+            mplayer.FileOpenedEvent += mplayer_FileOpenedEvent;
+            mplayer.PlayStateChangedEvent += mplayer_PlayStateChangedEvent;
+            mplayer.DurationChangedEvent += mplayer_DurationChangedEvent;
+        }
+
         private void MainForm_Shown(object sender, EventArgs e)
         {
             if (Functions.OS.RunningOnWin7)
@@ -1720,109 +1650,184 @@ namespace Baka_MPlayer.Forms
         }
 
         #endregion
+        #region MPlayer Events
 
-        #region Media Opened
-
-        public void CallMediaOpened()
+        private void mplayer_StdOutEvent(object sender, StdOutEventArgs e)
         {
-            Invoke((MethodInvoker)MediaOpened);
-        }
-        private void MediaOpened()
-        {
-            if (firstFile)
+            Invoke((MethodInvoker)delegate
             {
-                firstFile = false;
-                playlist.SetPlaylist(true);
-                settings.SetConfig(Info.URL, SettingEnum.LastFile);
-            }
-            else
-            {
-                settings.SetConfig(tempURL, SettingEnum.LastFile);
-                openLastFileToolStripMenuItem.ToolTipText = Path.GetFileName(tempURL);
-                openLastFileToolStripMenuItem.Enabled = true;
-                playlist.SetPlaylist(false);
-                //refreshRequired = Functions.IO.GetDirectoryName(tempURL) != Info.GetDirectoryName;
-            }
-            settings.SaveConfig();
-            tempURL = Info.URL;
-
-            // set file name texts
-            this.Text = Functions.URL.DecodeURL(Info.FullFileName);
-
-            folderToolStripMenuItem.Text = Info.FileExists ?
-                Functions.String.AutoEllipsis(32, Functions.IO.GetFolderName(Info.URL)) : new Uri(Info.URL).Host;
-
-            if (blackForm != null)
-                blackForm.RefreshTitle();
-
-            if (infoForm != null && !infoForm.IsDisposed)
-                infoForm.RefreshInfo();
-
-            if (Info.VideoInfo.HasVideo)
-            {
-                // video file
-                albumArtPicbox.Visible = false;
-                mplayerPanel.Visible = true;
-
-                frameStepToolStripMenuItem.Enabled = true;
-                fullScreenToolStripMenuItem.Enabled = true;
-                hideAlbumArtToolStripMenuItem.Checked = false;
-                hideAlbumArtToolStripMenuItem_Click(null, null);
-                hideAlbumArtToolStripMenuItem.Enabled = false;
-                takeSnapshotToolStripMenuItem.Enabled = true;
-
-                for (var i = 0; i < aspectRatioToolStripMenuItem.DropDownItems.Count; i++)
+                if (e.StdOut.Equals("[MPlayerClass] CLEAR_OUTPUT", StringComparison.InvariantCulture))
                 {
-                    aspectRatioToolStripMenuItem.DropDownItems[i].Enabled = true;
+                    outputTextbox.Clear();
+                    return;
                 }
-            }
-            else
-            {
-                // music file
-                mplayerPanel.Visible = false;
-                albumArtPicbox.Visible = true;
 
-                frameStepToolStripMenuItem.Enabled = false;
-                fullScreenToolStripMenuItem.Enabled = false;
-                hideAlbumArtToolStripMenuItem.Enabled = true;
-                takeSnapshotToolStripMenuItem.Enabled = false;
-
-                // show album art (if it exists);
-                albumArtPicbox.Image = Info.ID3Tags.AlbumArtTag.AlbumArt ?? Properties.Resources.Music_128;
-                albumArtPicbox_SizeChanged(null, null);
-
-                for (var i = 0; i < aspectRatioToolStripMenuItem.DropDownItems.Count; i++)
-                {
-                    aspectRatioToolStripMenuItem.DropDownItems[i].Enabled = false;
-                }
-            }
-            ResizeMplayerPanel();
-
-            // check if media is online
-            showInWindowsExplorerToolStripMenuItem.Enabled = Info.FileExists;
-
-            // set previous volume (output drivers fault for not saving volume)
-            SetVolume(Info.Current.Volume);
-
-            // call other methods
-            SetSystemTray();
-            EnableControls();
-            SetBackForwardControls();
-
-            // create menu items
-            SetAudioTracks();
-            SetChapters();
-            SetSubs();
-
-            mplayer.Play();
+                outputTextbox.AppendText("\n" + e.StdOut);
+                // auto scroll to end
+                outputTextbox.SelectionStart = outputTextbox.TextLength;
+                outputTextbox.ScrollToCaret();
+            });
         }
 
-        #endregion
-        #region Media Ended
-
-        public void CallMediaEnded()
+        private void mplayer_StatusChangedEvent(object sender, StatusChangedEventArgs e)
         {
-            Invoke((MethodInvoker)MediaEnded);
+            Invoke((MethodInvoker)delegate
+            {
+                if (e.Status.Equals("[MPlayerClass] HIDE_STATUS_LABEL", StringComparison.InvariantCulture))
+                {
+                    HideStatusLabel();
+                    return;
+                }
+
+                SetStatusMsg(e.Status, e.AutoHide);
+            });
+        }
+        private void SetStatusMsg(string message, bool autoHide)
+        {
+            statusLabel.Text = message;
+            statusLabel.Show();
+
+            if (autoHide)
+                statusTimer.Enabled = true;
+        }
+
+        private void mplayer_FileOpenedEvent(object sender, EventArgs e)
+        {
+            Invoke((MethodInvoker)delegate
+            {
+                if (firstFile)
+                {
+                    firstFile = false;
+                    playlist.SetPlaylist(true);
+                    settings.SetConfig(Info.URL, SettingEnum.LastFile);
+                }
+                else
+                {
+                    settings.SetConfig(tempURL, SettingEnum.LastFile);
+                    openLastFileToolStripMenuItem.ToolTipText = Path.GetFileName(tempURL);
+                    openLastFileToolStripMenuItem.Enabled = true;
+                    playlist.SetPlaylist(false);
+                }
+                settings.SaveConfig();
+                tempURL = Info.URL;
+
+                // set this form's caption
+                this.Text = Functions.URL.DecodeURL(Info.FullFileName);
+
+                folderToolStripMenuItem.Text = Info.FileExists ?
+                    Functions.String.AutoEllipsis(32, Functions.IO.GetFolderName(Info.URL)) : new Uri(Info.URL).Host;
+
+                if (blackForm != null)
+                    blackForm.RefreshTitle();
+
+                if (infoForm != null && !infoForm.IsDisposed)
+                    infoForm.RefreshInfo();
+
+                if (Info.VideoInfo.HasVideo)
+                {
+                    // video file
+                    albumArtPicbox.Visible = false;
+                    mplayerPanel.Visible = true;
+
+                    frameStepToolStripMenuItem.Enabled = true;
+                    fullScreenToolStripMenuItem.Enabled = true;
+                    hideAlbumArtToolStripMenuItem.Checked = false;
+                    hideAlbumArtToolStripMenuItem_Click(null, null);
+                    hideAlbumArtToolStripMenuItem.Enabled = false;
+                    takeSnapshotToolStripMenuItem.Enabled = true;
+
+                    for (var i = 0; i < aspectRatioToolStripMenuItem.DropDownItems.Count; i++)
+                    {
+                        aspectRatioToolStripMenuItem.DropDownItems[i].Enabled = true;
+                    }
+                }
+                else
+                {
+                    // music file
+                    mplayerPanel.Visible = false;
+                    albumArtPicbox.Visible = true;
+
+                    frameStepToolStripMenuItem.Enabled = false;
+                    fullScreenToolStripMenuItem.Enabled = false;
+                    hideAlbumArtToolStripMenuItem.Enabled = true;
+                    takeSnapshotToolStripMenuItem.Enabled = false;
+
+                    // show album art (if it exists);
+                    albumArtPicbox.Image = Info.ID3Tags.AlbumArtTag.AlbumArt ?? Properties.Resources.Music_128;
+                    albumArtPicbox_SizeChanged(null, null);
+
+                    for (var i = 0; i < aspectRatioToolStripMenuItem.DropDownItems.Count; i++)
+                    {
+                        aspectRatioToolStripMenuItem.DropDownItems[i].Enabled = false;
+                    }
+                }
+                ResizeMplayerPanel();
+
+                // check if media is online
+                showInWindowsExplorerToolStripMenuItem.Enabled = Info.FileExists;
+
+                // set previous volume (output drivers fault for not saving volume)
+                SetVolume(Info.Current.Volume);
+
+                // call other methods
+                SetSystemTray();
+                EnableControls();
+                SetBackForwardControls();
+
+                // create menu items
+                SetAudioTracks();
+                SetChapters();
+                SetSubs();
+
+                mplayer.Play();
+            });
+        }
+
+        private void mplayer_PlayStateChangedEvent(object sender, EventArgs e)
+        {
+            Invoke((MethodInvoker)delegate
+            {
+                setOnTop();
+
+                switch (Info.Current.PlayState)
+                {
+                    case PlayStates.Unidentified:
+                        seekBar.Enabled = false;
+                        rewindButton.Enabled = false;
+                        playButton.Enabled = false;
+                        playToolButton.Enabled = false;
+                        break;
+                    case PlayStates.Playing:
+                        playButton.Image = Properties.Resources.default_pause;
+                        playToolButton.Icon = Properties.Resources.tool_pause;
+
+                        playToolStripMenuItem.Text = "&Pause";
+                        playMenuItem.Text = "&Pause";
+                        playToolButton.Tooltip = "Pause";
+                        break;
+                    case PlayStates.Paused:
+                        playButton.Image = Properties.Resources.default_play;
+                        playToolButton.Icon = Properties.Resources.tool_play;
+
+                        playToolStripMenuItem.Text = "&Play";
+                        playMenuItem.Text = "&Play";
+                        playToolButton.Tooltip = "Play";
+                        break;
+                    case PlayStates.Stopped:
+                        seekBar.Value = 0;
+                        playButton.Image = Properties.Resources.default_play;
+                        playToolButton.Icon = Properties.Resources.tool_play;
+
+                        playToolStripMenuItem.Text = "&Play";
+                        playMenuItem.Text = "&Play";
+                        playToolButton.Tooltip = "Play";
+                        durationLabel.Text = "STOPPED";
+                        break;
+                    case PlayStates.Ended:
+                        MediaEnded();
+                        break;
+                }
+            });
         }
         private void MediaEnded()
         {
@@ -1854,12 +1859,11 @@ namespace Baka_MPlayer.Forms
             {
                 // repeat off/default
                 if (playlist.GetPlayingItem.Index < playlist.GetTotalItems - 1)
-                    playlist.PlayFile(playlist.GetPlayingItem.Index + 1);
+                    playlist.PlayNextFile();
                 else
                     LastFile();
             }
         }
-
         private void LastFile()
         {
             seekBar.Enabled = false;
@@ -1868,85 +1872,26 @@ namespace Baka_MPlayer.Forms
             nextButton.Enabled = false;
         }
 
-        #endregion
-        #region PlayState Changed
-
-        public void CallPlayStateChanged()
+        private void mplayer_DurationChangedEvent(object sender, EventArgs e)
         {
-            Invoke((MethodInvoker)PlayStateChanged);
-        }
-        private void PlayStateChanged()
-        {
-            setOnTop();
-
-            switch (Info.Current.PlayState)
+            Invoke((MethodInvoker)delegate
             {
-                case PlayStates.Unidentified:
-                    seekBar.Enabled = false;
-                    rewindButton.Enabled = false;
-                    playButton.Enabled = false;
-                    playToolButton.Enabled = false;
-                    break;
-                case PlayStates.Playing:
-                    playButton.Image = Properties.Resources.default_pause;
-                    playToolButton.Icon = Properties.Resources.tool_pause;
+                UpdateNowPlayingInfo();
 
-                    playToolStripMenuItem.Text = "&Pause";
-                    playMenuItem.Text = "&Pause";
-                    playToolButton.Tooltip = "Pause";
-                    break;
-                case PlayStates.Paused:
-                    playButton.Image = Properties.Resources.default_play;
-                    playToolButton.Icon = Properties.Resources.tool_play;
+                if (seekBar_IsMouseDown)
+                    return;
 
-                    playToolStripMenuItem.Text = "&Play";
-                    playMenuItem.Text = "&Play";
-                    playToolButton.Tooltip = "Play";
-                    break;
-                case PlayStates.Stopped:
-                    seekBar.Value = 0;
-                    playButton.Image = Properties.Resources.default_play;
-                    playToolButton.Icon = Properties.Resources.tool_play;
+                if (Info.Current.TotalLength > 0.0)
+                {
+                    seekBar.Value = Convert.ToInt32((Info.Current.Duration * seekBar.Maximum) / Info.Current.TotalLength); // %
+                    durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
+                }
 
-                    playToolStripMenuItem.Text = "&Play";
-                    playMenuItem.Text = "&Play";
-                    playToolButton.Tooltip = "Play";
-                    durationLabel.Text = "STOPPED";
-                    break;
-            }
-        }
-
-        #endregion
-        #region Duration Changed
-
-        public void CallDurationChanged()
-        {
-            try
-            {
-                Invoke((MethodInvoker)DurationChanged);
-            }
-            catch (ObjectDisposedException ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-        }
-        private void DurationChanged()
-        {
-            UpdateNowPlayingInfo();
-
-            if (seekBar_IsMouseDown)
-                return;
-            
-            if (Info.Current.TotalLength > 0.0)
-            {
-                seekBar.Value = Convert.ToInt32((Info.Current.Duration * seekBar.Maximum) / Info.Current.TotalLength); // %
-                durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
-            }
-
-            if (settings.GetBoolValue(SettingEnum.ShowTimeRemaining))
-                timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength - Info.Current.Duration));
-            else
-                timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength);
+                if (settings.GetBoolValue(SettingEnum.ShowTimeRemaining))
+                    timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength - Info.Current.Duration));
+                else
+                    timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength);
+            });
         }
 
         #endregion
@@ -2206,6 +2151,45 @@ namespace Baka_MPlayer.Forms
             }
             previousButton.Refresh();
             nextButton.Refresh();
+        }
+
+        private void HideStatusLabel()
+        {
+            statusLabel.Hide();
+            statusTimer.Enabled = false;
+        }
+        private void statusLabel_MouseClick(object sender, MouseEventArgs e)
+        {
+            HideStatusLabel();
+        }
+        private void statusTimer_Tick(object sender, EventArgs e)
+        {
+            HideStatusLabel();
+        }
+
+        private void inputTextbox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter)
+                return;
+
+            var input = inputTextbox.Text.Trim().ToLower();
+            if (input.Length > 0)
+            {
+                switch (input)
+                {
+                    case "clear":
+                        outputTextbox.Clear();
+                        break;
+                    case "exit":
+                        Application.Exit();
+                        break;
+                    default:
+                        mplayer.SendCommand(inputTextbox.Text);
+                        break;
+                }
+                inputTextbox.SelectionStart = 0;
+                inputTextbox.SelectionLength = inputTextbox.TextLength;
+            }
         }
     }
 }
