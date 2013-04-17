@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
 
@@ -32,8 +31,7 @@ namespace Baka_MPlayer.Forms
         {
             // set file name
             var fileName = cleanNameCheckbox.Checked ?
-                cleanName(Path.GetFileNameWithoutExtension(Info.FullFileName)) :
-                Path.GetFileNameWithoutExtension(Info.FullFileName);
+                cleanName(Info.FileName) : Info.FileName;
 
             var sfd = new SaveFileDialog();
             sfd.FileName = fileName + "_snapshot[1].png";

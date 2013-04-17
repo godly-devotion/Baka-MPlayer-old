@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Speech.Synthesis;
 using System.Windows.Forms;
 
@@ -26,7 +25,7 @@ public static class Speech
                     Speak(title);
             }
             else
-                Speak(Path.GetFileNameWithoutExtension(Info.FullFileName));
+                Speak(Info.FileName);
         }
         catch (Exception ex)
         {

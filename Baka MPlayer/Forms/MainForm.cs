@@ -144,10 +144,9 @@ namespace Baka_MPlayer.Forms
         {
             if (!File.Exists(Info.URL))
             {
-                var fullFileName = Path.GetFileNameWithoutExtension(Info.FullFileName);
-                titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, fullFileName));
+                titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, Info.FileName));
                 artistMenuItem.Text = "  Online Media";
-                SetNotifyIconText(string.Format("{0}\n{1}", fullFileName, "Online Media"));
+                SetNotifyIconText(string.Format("{0}\n{1}", Info.FileName, "Online Media"));
                 return;
             }
 
@@ -170,15 +169,15 @@ namespace Baka_MPlayer.Forms
             else
             {
                 // no title & artist (no artist assumed)
-                var fullFileName = Functions.String.AutoEllipsis(25, Path.GetFileNameWithoutExtension(Info.FullFileName));
+                var fileName = Functions.String.AutoEllipsis(25, Info.FileName);
 
-                titleMenuItem.Text = string.Format("  {0}", fullFileName);
+                titleMenuItem.Text = string.Format("  {0}", fileName);
                 artistMenuItem.Text = File.Exists(Info.URL) ? "  Unknown Artist" : "  Online Media";
 
-                SetNotifyIconText(string.Format("{0}\n{1}", fullFileName, lastPart));
+                SetNotifyIconText(string.Format("{0}\n{1}", fileName, lastPart));
 
                 if (!Info.VideoInfo.HasVideo && !hidePopupToolStripMenuItem.Checked)
-                    trayIcon.ShowBalloonTip(4000, fullFileName, lastPart, ToolTipIcon.None);
+                    trayIcon.ShowBalloonTip(4000, fileName, lastPart, ToolTipIcon.None);
             }
         }
 
@@ -1647,7 +1646,7 @@ namespace Baka_MPlayer.Forms
             while (mplayer != null && mplayer.MPlayerIsRunning())
             {
                 e.Cancel = true;
-                System.Threading.Thread.Sleep(500);
+                System.Threading.Thread.Sleep(200);
             }
             Application.Exit();
         }
@@ -1871,6 +1870,8 @@ namespace Baka_MPlayer.Forms
             previousButton.Enabled = false;
             playButton.Enabled = false;
             nextButton.Enabled = false;
+
+            SetStatusMsg("Reached end of playlist", true);
         }
 
         private void mplayer_DurationChangedEvent(object sender, EventArgs e)
@@ -2109,7 +2110,7 @@ namespace Baka_MPlayer.Forms
             }
 
             // next buttons
-            if (playlist.GetPlayingItem.Index < playlist.GetTotalItems)
+            if (playlist.GetPlayingItem.Index < playlist.GetTotalItems - 1)
             {
                 nextButton.Enabled = true;
                 playNextFileToolStripMenuItem.Enabled = true;

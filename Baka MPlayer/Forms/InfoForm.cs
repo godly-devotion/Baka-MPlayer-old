@@ -149,7 +149,7 @@ namespace Baka_MPlayer.Forms
 
         public void RefreshInfo()
         {
-            nameLabel.Text = Path.GetFileNameWithoutExtension(Info.FullFileName);
+            nameLabel.Text = Info.FileName;
 
             // set Media Info tagpage
             infoList.BeginUpdate();
@@ -272,11 +272,10 @@ namespace Baka_MPlayer.Forms
 
         private void saveImgLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            var fileName = Path.GetFileNameWithoutExtension(Info.FullFileName);
             var sfd = new SaveFileDialog
             {
                 SupportMultiDottedExtensions = true,
-                FileName = string.Format("{0} (Album Art).{1}", fileName, Info.ID3Tags.AlbumArtTag.GetPictureExt()),
+                FileName = string.Format("{0} (Album Art).{1}", Info.FileName, Info.ID3Tags.AlbumArtTag.GetPictureExt()),
                 Filter = string.Format("Image File (*.{0})|*.{0}", Info.ID3Tags.AlbumArtTag.GetPictureExt())
             };
 

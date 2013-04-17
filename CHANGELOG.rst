@@ -1,8 +1,8 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 0.5.1.0 Beta (April --, 2013)
---------------------------------------------
+Latest Version 1.0.0.0 (April --, 2013)
+---------------------------------------
 
 - Note: You MUST remove all previous files before version 0.5
 - Fixed: Crashes when viewing online file's Media Info

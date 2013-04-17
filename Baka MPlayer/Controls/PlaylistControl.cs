@@ -92,7 +92,7 @@ namespace Baka_MPlayer.Controls
                 if (value)
                 {
                     RandomizeItems();
-                    UpdateUI();
+                    UpdateUI(true);
                 }
                 else
                     RefreshPlaylist(true);
@@ -106,8 +106,6 @@ namespace Baka_MPlayer.Controls
             if (i < GetTotalItems && File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[i].Text))
             {
                 mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[i].Text));
-                GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
-                SelectedIndex = GetPlayingItem.Index;
                 return;
             }
 
@@ -122,8 +120,6 @@ namespace Baka_MPlayer.Controls
             if (i < GetTotalItems && File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[i].Text))
             {
                 mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[i].Text));
-                GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
-                SelectedIndex = GetPlayingItem.Index;
                 return;
             }
 
@@ -134,11 +130,9 @@ namespace Baka_MPlayer.Controls
 
         public void PlayFile(int index)
         {
-            if (index < GetTotalItems && File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[index].Text))
+            if (index < GetTotalItems && index > -1 && File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[index].Text))
             {
                 mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[index].Text));
-                GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
-                SelectedIndex = GetPlayingItem.Index;
                 return;
             }
             MessageBox.Show("The file cannot be played because it does not exist.", "Error", MessageBoxButtons.OK,
@@ -152,10 +146,7 @@ namespace Baka_MPlayer.Controls
                 FillPlaylist();
                 mainForm.CheckShuffleToolStripMenuItem = false;
             }
-
-            GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
-            SelectedIndex = GetPlayingItem.Index;
-            UpdateUI();
+            UpdateUI(true);
         }
 
         public bool DisableInteraction
@@ -180,20 +171,29 @@ namespace Baka_MPlayer.Controls
         {
             playlistList.BeginUpdate();
             playlistList.Items.Clear();
-            var dirInfo = new DirectoryInfo(Info.GetDirectoryName);
-            FileInfo[] files;
 
-            if (showAllFilesToolStripMenuItem.Checked)
-                files = dirInfo.GetFiles("*.*");
-            else
-                files = dirInfo.GetFiles('*' + Path.GetExtension(Info.FullFileName));
-
-            for (var i = 0; i <= files.Length - 1; i++)
+            if (Info.FileExists)
             {
-                // skip .db files (useless files)
-                if (!files[i].Name.EndsWith(".db"))
-                    playlistList.Items.Add(files[i].Name);
+                var dirInfo = new DirectoryInfo(Info.GetDirectoryName);
+                FileInfo[] files;
+
+                if (showAllFilesToolStripMenuItem.Checked)
+                    files = dirInfo.GetFiles("*.*");
+                else
+                    files = dirInfo.GetFiles('*' + Path.GetExtension(Info.FullFileName));
+
+                for (var i = 0; i <= files.Length - 1; i++)
+                {
+                    // skip .db files (useless files)
+                    if (!files[i].Name.EndsWith(".db"))
+                        playlistList.Items.Add(files[i].Name);
+                }
             }
+            else
+            {
+                playlistList.Items.Add(Info.FullFileName);
+            }
+
             playlistList.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
             playlistList.EndUpdate();
         }
@@ -216,29 +216,27 @@ namespace Baka_MPlayer.Controls
                 playlistList.Items.Remove(item);
             }
             playlistList.EndUpdate();
-
-            // current playing file is now first
-            SelectedIndex = 0;
         }
 
         private void RemoveAt(int index)
         {
-            if (GetPlayingItem.Index.Equals(index))
+            if (GetPlayingItem.Index == index)
             {
-                if (SelectedIndex + 1 >= GetTotalItems)
-                    mplayer.Stop();
-                else
-                {
-                    MessageBox.Show("You can't remove the playing file.", "I'm afraid you can't do that", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
+                MessageBox.Show("You can't remove the playing file.", "I'm afraid you can't do that", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
+
             playlistList.Items.RemoveAt(index);
-            UpdateUI();
+            UpdateUI(false);
         }
 
-        private void UpdateUI()
+        private void UpdateUI(bool selectCurrentFile)
         {
+            GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
+
+            if (selectCurrentFile)
+                SelectedIndex = GetPlayingItem.Index;
+
             mainForm.ShowPlaylist = GetTotalItems > 1;
             mainForm.CallSetBackForwardControls();
             playlistList_SelectedIndexChanged(null, null);
@@ -297,11 +295,7 @@ namespace Baka_MPlayer.Controls
 
         private void playlistList_DoubleClick(object sender, EventArgs e)
         {
-            // play selected item
-            var newURL = string.Format("{0}\\{1}", Info.GetDirectoryName, GetSelectedItem.Text);
-
-            if (File.Exists(newURL) && SelectedIndex != GetPlayingItem.Index)
-                OpenFile(newURL);
+            PlayFile(GetSelectedItem.Index);
         }
         private void playlistList_DragDrop(object sender, DragEventArgs e)
         {
@@ -310,9 +304,7 @@ namespace Baka_MPlayer.Controls
                 // Retrieve the index of the insertion mark;
                 //int targetIndex = Playlist.InsertionMark.Index;
                 var targetPoint = playlistList.PointToClient(new Point(e.X, e.Y));
-
                 var targetItem = playlistList.GetItemAt(targetPoint.X, targetPoint.Y);
-
                 var targetIndex = playlistList.Items.IndexOf(targetItem);
 
                 // If the insertion mark is not visible, exit the method.
@@ -330,7 +322,7 @@ namespace Baka_MPlayer.Controls
                 // Remove the original copy of the dragged item.
                 draggedItem.Remove();
 
-                UpdateUI();
+                UpdateUI(false);
             }
         }
         private void playlistList_DragEnter(object sender, DragEventArgs e)

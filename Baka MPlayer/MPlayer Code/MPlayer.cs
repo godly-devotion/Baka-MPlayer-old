@@ -124,6 +124,7 @@ public class MPlayer
             args.Append(" -no-keepaspect");         		 	// doesn't keep window aspect ratio when resizing windows
             args.Append(" -framedrop=yes");                     // enables soft framedrop
             //args.Append(" -no-cache");                        // disables caching
+            args.Append(" -playing-msg=PLAYING_FILE:${media-title}");
             args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=dwidth};HEIGHT=${=dheight}");
             args.AppendFormat(" -volume={0}", Info.Current.Volume); // sets previous volume
             args.AppendFormat(" -wid={0}", wid); // output handle
@@ -404,9 +405,17 @@ public class MPlayer
         if (e.Data.StartsWith("Video: no video"))
             Info.VideoInfo.HasVideo = false;
 
-        if ((e.Data.StartsWith("AO: [dsound]") && !Info.VideoInfo.HasVideo) || e.Data.StartsWith("VO: [direct3d]"))
+        if (e.Data.StartsWith("PLAYING_FILE:"))
         {
             OnStatusChanged(new StatusChangedEventArgs("[MPlayerClass] HIDE_STATUS_LABEL", false));
+
+            // sets appropriate file name (e.g. File.mkv or Youtube title)
+            Info.FullFileName = e.Data.Substring(13);
+
+            if (Functions.URL.ValidateURL(Info.URL))
+                Info.FileName = Info.FullFileName;
+            else
+                Info.FileName = Path.GetFileNameWithoutExtension(Info.FullFileName);
 
             // load external file if requested
             if (!string.IsNullOrEmpty(loadExternalSub))
@@ -472,7 +481,6 @@ public class MPlayer
         {
             case "ID_FILENAME":
                 Info.URL = value;
-                Info.FullFileName = Path.GetFileName(value);
                 Info.GetDirectoryName = Functions.IO.GetDirectoryName(value);
                 Info.FileExists = File.Exists(value);
                 break;

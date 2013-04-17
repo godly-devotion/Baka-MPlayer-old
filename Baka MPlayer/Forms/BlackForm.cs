@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace Baka_MPlayer.Forms
@@ -23,7 +22,7 @@ namespace Baka_MPlayer.Forms
 
         public void RefreshTitle()
         {
-            titleLabel.Text = Path.GetFileNameWithoutExtension(Functions.URL.DecodeURL(Info.FullFileName));
+            titleLabel.Text = Functions.URL.DecodeURL(Info.FileName);
         }
 
         #region Events

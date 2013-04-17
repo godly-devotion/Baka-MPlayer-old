@@ -97,6 +97,10 @@ public static class Info
     // FileInfo
     public static string URL { set; get; }
     /// <summary>
+    /// Returns file name without extension
+    /// </summary>
+    public static string FileName { set; get; }
+    /// <summary>
     /// Returns file name with extension
     /// </summary>
     public static string FullFileName { set; get; }
