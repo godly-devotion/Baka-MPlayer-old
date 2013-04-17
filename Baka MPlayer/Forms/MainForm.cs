@@ -1871,7 +1871,7 @@ namespace Baka_MPlayer.Forms
             playButton.Enabled = false;
             nextButton.Enabled = false;
 
-            SetStatusMsg("Reached end of playlist", true);
+            SetStatusMsg("Reached the end", true);
         }
 
         private void mplayer_DurationChangedEvent(object sender, EventArgs e)

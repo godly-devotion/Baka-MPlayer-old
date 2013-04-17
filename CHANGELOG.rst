@@ -1,10 +1,13 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.0.0.0 (April --, 2013)
+Latest Version 1.0.0.0 (April 17, 2013)
 ---------------------------------------
 
 - Note: You MUST remove all previous files before version 0.5
+- Fixed: Small bugs
+- Fixed: Playlist code has been painfully rewritten (e.g. playlist wont crash if file doesn't exist on playlist anymore)
+- Fixed: Properly gets the media title on quvi supported sites (e.g. Youtube)
 - Fixed: Crashes when viewing online file's Media Info
 
 Version 0.5.0.0 Beta (April 6, 2013)
