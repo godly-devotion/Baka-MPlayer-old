@@ -13,7 +13,6 @@ namespace Baka_MPlayer.Controls
 
         private MainForm mainForm;
         private MPlayer mplayer;
-        public ListViewItem GetPlayingItem;
 
         #endregion
 
@@ -35,6 +34,11 @@ namespace Baka_MPlayer.Controls
         #endregion
 
         #region Accessors
+
+        /// <summary>
+        /// Gets the currently playing item
+        /// </summary>
+        public ListViewItem GetPlayingItem { get; private set; }
 
         /// <summary>
         /// Gets the selected item (if none returns null)
@@ -81,97 +85,86 @@ namespace Baka_MPlayer.Controls
 
         #region API
 
-        public void SetPlaylist(bool forceRefresh)
+        public bool Shuffle
         {
-            playlistList.BeginUpdate();
-
-            if (Functions.URL.ValidateURL(Info.URL))
+            set
             {
-                playlistList.Items.Clear();
-                playlistList.Items.Add(Info.FullFileName);
-
-                GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
-                SelectedIndex = GetPlayingItem.Index;
-
-                mainForm.EnablePlaylistButton = false;
-                mainForm.ShowPlaylist = false;
-            }
-            else
-            {
-                if (!forceRefresh && (playlistList.FindItemWithText(Info.FullFileName) == null || !File.Exists(Info.URL)))
-                    forceRefresh = true;
-
-                if (forceRefresh)
+                if (value)
                 {
-                    mainForm.CheckShuffleToolStripMenuItem = false;
-                    FillPlaylist();
+                    RandomizeItems();
+                    UpdateUI();
                 }
+                else
+                    RefreshPlaylist(true);
+            }
+        }
 
+        public void PlayPrevious()
+        {
+            var i = GetPlayingItem.Index - 1;
+
+            if (i < GetTotalItems && File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[i].Text))
+            {
+                mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[i].Text));
                 GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
                 SelectedIndex = GetPlayingItem.Index;
-
-                mainForm.EnablePlaylistButton = true;
-                mainForm.ShowPlaylist = (forceRefresh || mainForm.ShowPlaylist) && GetTotalItems > 1;
+                return;
             }
 
-            playlistList.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
-            playlistList.EndUpdate();
-
-            // playlist complete, do other stuff
-            mainForm.CallSetBackForwardControls();
+            // file/index was invalid (e.g. deleted file)
+            RefreshPlaylist(true);
+            PlayFile(GetPlayingItem.Index - 1);
         }
-
-        public void PlayNextFile()
+        public void PlayNext()
         {
-            if (GetPlayingItem.Index < GetTotalItems - 1)
-                PlayFile(GetPlayingItem.Index + 1);
-        }
+            var i = GetPlayingItem.Index + 1;
 
-        public void PlayPreviousFile()
-        {
-            if (GetPlayingItem.Index > 0)
-                PlayFile(GetPlayingItem.Index - 1);
+            if (i < GetTotalItems && File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[i].Text))
+            {
+                mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[i].Text));
+                GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
+                SelectedIndex = GetPlayingItem.Index;
+                return;
+            }
+
+            // file/index was invalid (e.g. deleted file)
+            RefreshPlaylist(true);
+            PlayFile(GetPlayingItem.Index + 1);
         }
 
         public void PlayFile(int index)
         {
-            mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[index].Text));
-        }
-
-        public void PlayFile(string name)
-        {
-            var fileName = playlistList.FindItemWithText(name).Text;
-            mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, fileName));
-        }
-
-        public void RandomizeItems()
-        {
-            playlistList.BeginUpdate();
-
-            // make current file's index 0
-            playlistList.Items.Insert(0, (ListViewItem) GetPlayingItem.Clone());
-            GetPlayingItem.Remove();
-
-            var randomGen = new Random();
-            for (int i = 1; i <= GetTotalItems - 1; i++)
+            if (index < GetTotalItems && File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[index].Text))
             {
-                // generate random number
-                var index = randomGen.Next(1, GetTotalItems);
-                var item = playlistList.Items[i];
-                playlistList.Items.Insert(index, (ListViewItem) item.Clone());
-                playlistList.Items.Remove(item);
+                mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[index].Text));
+                GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
+                SelectedIndex = GetPlayingItem.Index;
+                return;
             }
-            playlistList.EndUpdate();
-
-            // current playing file is now first
-            SelectedIndex = 0;
-            GetPlayingItem = playlistList.Items[0];
+            MessageBox.Show("The file cannot be played because it does not exist.", "Error", MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
         }
 
-        public void DisableInteraction(bool disable)
+        public void RefreshPlaylist(bool forceAll)
         {
-            searchTextBox.Enabled = !disable;
-            playlistList.Enabled = !disable;
+            if (forceAll || playlistList.FindItemWithText(Info.FullFileName) == null)
+            {
+                FillPlaylist();
+                mainForm.CheckShuffleToolStripMenuItem = false;
+            }
+
+            GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
+            SelectedIndex = GetPlayingItem.Index;
+            UpdateUI();
+        }
+
+        public bool DisableInteraction
+        {
+            set
+            {
+                searchTextBox.Enabled = !value;
+                playlistList.Enabled = !value;
+            }
         }
 
         #endregion
@@ -185,6 +178,7 @@ namespace Baka_MPlayer.Controls
 
         private void FillPlaylist()
         {
+            playlistList.BeginUpdate();
             playlistList.Items.Clear();
             var dirInfo = new DirectoryInfo(Info.GetDirectoryName);
             FileInfo[] files;
@@ -194,18 +188,37 @@ namespace Baka_MPlayer.Controls
             else
                 files = dirInfo.GetFiles('*' + Path.GetExtension(Info.FullFileName));
 
-            for (var i = 0; i <= files.Length - 1; i++) {
+            for (var i = 0; i <= files.Length - 1; i++)
+            {
                 // skip .db files (useless files)
                 if (!files[i].Name.EndsWith(".db"))
                     playlistList.Items.Add(files[i].Name);
             }
+            playlistList.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
+            playlistList.EndUpdate();
         }
 
-        private void UpdateUI()
+        private void RandomizeItems()
         {
-            GetPlayingItem = playlistList.FindItemWithText(Info.FullFileName);
-            playlistList_SelectedIndexChanged(null, null);
-            mainForm.CallSetBackForwardControls();
+            playlistList.BeginUpdate();
+
+            // make current file's index 0
+            playlistList.Items.Insert(0, (ListViewItem)GetPlayingItem.Clone());
+            GetPlayingItem.Remove();
+
+            var randomGen = new Random();
+            for (int i = 1; i <= GetTotalItems - 1; i++)
+            {
+                // generate random number
+                var index = randomGen.Next(1, GetTotalItems);
+                var item = playlistList.Items[i];
+                playlistList.Items.Insert(index, (ListViewItem)item.Clone());
+                playlistList.Items.Remove(item);
+            }
+            playlistList.EndUpdate();
+
+            // current playing file is now first
+            SelectedIndex = 0;
         }
 
         private void RemoveAt(int index)
@@ -222,6 +235,13 @@ namespace Baka_MPlayer.Controls
             }
             playlistList.Items.RemoveAt(index);
             UpdateUI();
+        }
+
+        private void UpdateUI()
+        {
+            mainForm.ShowPlaylist = GetTotalItems > 1;
+            mainForm.CallSetBackForwardControls();
+            playlistList_SelectedIndexChanged(null, null);
         }
 
         #endregion
@@ -392,11 +412,11 @@ namespace Baka_MPlayer.Controls
         }
         private void showAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetPlaylist(true);
+            RefreshPlaylist(true);
         }
         private void refreshPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetPlaylist(true);
+            RefreshPlaylist(true);
         }
 
         // context menu
@@ -422,7 +442,7 @@ namespace Baka_MPlayer.Controls
         private void menuItem2_Click(object sender, EventArgs e)
         {
             // Refresh
-            SetPlaylist(true);
+            RefreshPlaylist(true);
         }
 
         #endregion

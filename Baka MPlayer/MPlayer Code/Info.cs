@@ -96,7 +96,13 @@ public static class Info
 {
     // FileInfo
     public static string URL { set; get; }
-    public static string FullFileName { set; get; } // w/ extension
+    /// <summary>
+    /// Returns file name with extension
+    /// </summary>
+    public static string FullFileName { set; get; }
+    /// <summary>
+    /// Note: Returns 'null' if root dir ("C:\")
+    /// </summary>
     public static string GetDirectoryName { get; set; } // Path.GetDirectoryName(...)
     public static bool FileExists { get; set; } // File.Exists(...)
 

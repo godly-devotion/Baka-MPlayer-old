@@ -92,12 +92,12 @@ namespace Baka_MPlayer.Forms
 
         private void nextMenuItem_Click(object sender, EventArgs e)
         {
-            playlist.PlayNextFile();
+            playlist.PlayNext();
         }
 
         private void previousMenuItem_Click(object sender, EventArgs e)
         {
-            playlist.PlayPreviousFile();
+            playlist.PlayPrevious();
         }
 
         private void exitMenuItem_Click(object sender, EventArgs e)
@@ -390,15 +390,15 @@ namespace Baka_MPlayer.Forms
                     if (Info.Current.Duration + 5 < Info.Current.TotalLength)
                         mplayer.Seek(Info.Current.Duration + 5);
                     else
-                        playlist.PlayNextFile();
+                        playlist.PlayNext();
                     break;
                 case 176:
                     // media next button
-                    playlist.PlayNextFile();
+                    playlist.PlayNext();
                     break;
                 case 177:
                     // media previous button
-                    playlist.PlayPreviousFile();
+                    playlist.PlayPrevious();
                     break;
                 case 178:
                     // media stop button
@@ -460,7 +460,7 @@ namespace Baka_MPlayer.Forms
         #endregion
         #region Win 7 Thumbnail Toolbars
 
-        private void setThumbnailToolbars()
+        private void SetThumbnailToolbars()
         {
             playToolButton = new ThumbnailToolBarButton(Properties.Resources.tool_play, "Play") { Enabled = false };
             playToolButton.Click += playToolButton_Click;
@@ -480,12 +480,12 @@ namespace Baka_MPlayer.Forms
 
         private void nextToolButton_Click(Object sender, EventArgs e)
         {
-            playlist.PlayNextFile();
+            playlist.PlayNext();
         }
 
         private void previousToolButton_Click(Object sender, EventArgs e)
         {
-            playlist.PlayPreviousFile();
+            playlist.PlayPrevious();
         }
 
         #endregion
@@ -523,7 +523,7 @@ namespace Baka_MPlayer.Forms
                     mplayerSplitContainer.Panel2Collapsed = false;
                     showPlaylistToolStripMenuItem.Checked = true;
 
-                    playlist.DisableInteraction(false);
+                    playlist.DisableInteraction = false;
                     mplayerSplitContainer.IsSplitterFixed = false;
                 }
                 else
@@ -532,7 +532,7 @@ namespace Baka_MPlayer.Forms
                     showPlaylistToolStripMenuItem.Checked = false;
                     hideAlbumArtToolStripMenuItem.Checked = false;
 
-                    playlist.DisableInteraction(true);
+                    playlist.DisableInteraction = true;
                     mplayerSplitContainer.IsSplitterFixed = true;
                 }
             }
@@ -570,9 +570,9 @@ namespace Baka_MPlayer.Forms
 
         public void CallStateChanged(VoiceState e)
         {
-            //Invoke((MethodInvoker)(() => stateChanged(e)));
+            //Invoke((MethodInvoker)(() => StateChanged(e)));
         }
-        private void stateChanged(VoiceState e)
+        private void StateChanged(VoiceState e)
         {
             switch (e)
             {
@@ -617,11 +617,11 @@ namespace Baka_MPlayer.Forms
                     break;
                 case "next":
                 case "next file":
-                    playlist.PlayNextFile();
+                    playlist.PlayNext();
                     break;
                 case "previous":
                 case "previous file":
-                    playlist.PlayPreviousFile();
+                    playlist.PlayPrevious();
                     break;
                 case "hide":
                     HidePlayer();
@@ -742,7 +742,7 @@ namespace Baka_MPlayer.Forms
         private void previousButton_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
-                playlist.PlayPreviousFile();
+                playlist.PlayPrevious();
         }
         private void previousButton_Paint(object sender, PaintEventArgs e)
         {
@@ -758,7 +758,7 @@ namespace Baka_MPlayer.Forms
         private void nextButton_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
-                playlist.PlayNextFile();
+                playlist.PlayNext();
         }
         private void nextButton_Paint(object sender, PaintEventArgs e)
         {
@@ -1009,12 +1009,12 @@ namespace Baka_MPlayer.Forms
 
         private void playNextFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            playlist.PlayNextFile();
+            playlist.PlayNext();
         }
 
         private void playPreviousFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            playlist.PlayPreviousFile();
+            playlist.PlayPrevious();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1046,13 +1046,7 @@ namespace Baka_MPlayer.Forms
 
         private void shuffleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (shuffleToolStripMenuItem.Checked)
-            {
-                playlist.RandomizeItems();
-                SetBackForwardControls();
-            }
-            else
-                playlist.SetPlaylist(true);
+            playlist.Shuffle = shuffleToolStripMenuItem.Checked;
         }
 
         private void offToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1570,7 +1564,7 @@ namespace Baka_MPlayer.Forms
         private void MainForm_Shown(object sender, EventArgs e)
         {
             if (Functions.OS.RunningOnWin7)
-                setThumbnailToolbars();
+                SetThumbnailToolbars();
         }
         private void LoadSettings()
         {
@@ -1638,15 +1632,24 @@ namespace Baka_MPlayer.Forms
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // unhook windows keyboard hook
-            UnhookWindowsHookEx(hHook);
-            UnloadTray();
-
             // save LastFile
             if (!string.IsNullOrEmpty(Info.URL))
                 settings.SetConfig(Info.URL, SettingEnum.LastFile);
             settings.SaveConfig();
-            mplayer.Kill();
+
+            // unhook windows keyboard hook
+            UnhookWindowsHookEx(hHook);
+            UnloadTray();
+
+            if (mplayer.MPlayerIsRunning())
+                mplayer.Kill();
+            
+            while (mplayer != null && mplayer.MPlayerIsRunning())
+            {
+                e.Cancel = true;
+                System.Threading.Thread.Sleep(500);
+            }
+            Application.Exit();
         }
 
         #endregion
@@ -1698,7 +1701,6 @@ namespace Baka_MPlayer.Forms
                 if (firstFile)
                 {
                     firstFile = false;
-                    playlist.SetPlaylist(true);
                     settings.SetConfig(Info.URL, SettingEnum.LastFile);
                 }
                 else
@@ -1706,7 +1708,6 @@ namespace Baka_MPlayer.Forms
                     settings.SetConfig(tempURL, SettingEnum.LastFile);
                     openLastFileToolStripMenuItem.ToolTipText = Path.GetFileName(tempURL);
                     openLastFileToolStripMenuItem.Enabled = true;
-                    playlist.SetPlaylist(false);
                 }
                 settings.SaveConfig();
                 tempURL = Info.URL;
@@ -1770,9 +1771,9 @@ namespace Baka_MPlayer.Forms
                 SetVolume(Info.Current.Volume);
 
                 // call other methods
+                playlist.RefreshPlaylist(false);
                 SetSystemTray();
                 EnableControls();
-                SetBackForwardControls();
 
                 // create menu items
                 SetAudioTracks();
@@ -1847,7 +1848,7 @@ namespace Baka_MPlayer.Forms
                 else
                 {
                     // next file
-                    playlist.PlayNextFile();
+                    playlist.PlayNext();
                 }
             }
             else if (thisFileToolStripMenuItem.Checked)
@@ -1859,7 +1860,7 @@ namespace Baka_MPlayer.Forms
             {
                 // repeat off/default
                 if (playlist.GetPlayingItem.Index < playlist.GetTotalItems - 1)
-                    playlist.PlayNextFile();
+                    playlist.PlayNext();
                 else
                     LastFile();
             }
@@ -2091,64 +2092,38 @@ namespace Baka_MPlayer.Forms
         }
         private void SetBackForwardControls()
         {
-            if (playlist.GetTotalItems > 1)
+            // previous buttons
+            if (playlist.GetPlayingItem.Index > 0)
             {
-                if (playlist.GetPlayingItem.Index.Equals(0))
-                {
-                    previousButton.Enabled = false;
-                    nextButton.Enabled = true;
-                    playPreviousFileToolStripMenuItem.Enabled = false;
-                    playNextFileToolStripMenuItem.Enabled = true;
-                    // ThumbnailButtons
-                    previousToolButton.Enabled = false;
-                    nextToolButton.Enabled = true;
-                    // notification area
-                    previousMenuItem.Enabled = false;
-                    nextMenuItem.Enabled = true;
-                }
-                else if (playlist.GetPlayingItem.Index + 1 == playlist.GetTotalItems)
-                {
-                    previousButton.Enabled = true;
-                    nextButton.Enabled = false;
-                    playPreviousFileToolStripMenuItem.Enabled = true;
-                    playNextFileToolStripMenuItem.Enabled = false;
-                    // ThumbnailButtons
-                    previousToolButton.Enabled = true;
-                    nextToolButton.Enabled = false;
-                    // notification area
-                    previousMenuItem.Enabled = true;
-                    nextMenuItem.Enabled = false;
-                }
-                else
-                {
-                    previousButton.Enabled = true;
-                    nextButton.Enabled = true;
-                    playPreviousFileToolStripMenuItem.Enabled = true;
-                    playNextFileToolStripMenuItem.Enabled = true;
-                    // ThumbnailButtons
-                    previousToolButton.Enabled = true;
-                    nextToolButton.Enabled = true;
-                    // notification area
-                    previousMenuItem.Enabled = true;
-                    nextMenuItem.Enabled = true;
-                }
+                previousButton.Enabled = true;
+                playPreviousFileToolStripMenuItem.Enabled = true;
+                previousToolButton.Enabled = true;
+                previousMenuItem.Enabled = true;
             }
             else
             {
                 previousButton.Enabled = false;
-                nextButton.Enabled = false;
-                previousButton.Refresh();
-                nextButton.Refresh();
                 playPreviousFileToolStripMenuItem.Enabled = false;
-                playNextFileToolStripMenuItem.Enabled = false;
-                // ThumbnailButtons
                 previousToolButton.Enabled = false;
-                nextToolButton.Enabled = false;
-                // notification area
                 previousMenuItem.Enabled = false;
-                nextMenuItem.Enabled = false;
-                return;
             }
+
+            // next buttons
+            if (playlist.GetPlayingItem.Index < playlist.GetTotalItems)
+            {
+                nextButton.Enabled = true;
+                playNextFileToolStripMenuItem.Enabled = true;
+                nextToolButton.Enabled = true;
+                nextMenuItem.Enabled = true;
+            }
+            else
+            {
+                nextButton.Enabled = false;
+                playNextFileToolStripMenuItem.Enabled = false;
+                nextToolButton.Enabled = false;
+                nextMenuItem.Enabled = false;
+            }
+
             previousButton.Refresh();
             nextButton.Refresh();
         }
