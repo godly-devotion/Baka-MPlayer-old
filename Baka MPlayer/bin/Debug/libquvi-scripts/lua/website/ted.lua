@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2012  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2012,2013  Toni Gundogdu <legatvs@gmail.com>
 -- Copyright (C) 2011  Bastien Nocera <hadess@hadess.net>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
@@ -46,22 +46,17 @@ end
 -- Parse video URL.
 function parse(self)
     self.host_id = "ted"
+
     local p = quvi.fetch(self.page_url)
 
-    if Ted.is_external(self, p) then
-        return self
-    end
+    if Ted.is_external(self, p) then return self end
 
-    self.id = p:match('ti:"(%d+)"')
-                or error("no match: media ID")
+    self.id = p:match('ti:"(%d+)"') or error("no match: media ID")
 
-    self.title = p:match('<title>(.-)%s+|')
-                    or error("no match: media title")
+    self.title = p:match('<title>(.-)%s+|') or error("no match: media title")
 
-    self.thumbnail_url = p:match('rel="image_src" href="(.-)"') or ''
+    self.thumbnail_url = p:match('"og:image" content="(.-)"') or ''
 
-    self.url = {p:match('(http://download.-)"')
-                  or error("no match: media stream URL")}
     return self
 end
 
@@ -69,10 +64,17 @@ end
 -- Utility functions
 --
 
-function Ted.is_external(self, page)
-    -- Some of the videos are hosted elsewhere.
-    self.redirect_url = page:match('name="movie"%s+value="(.-)"') or ''
-    return #self.redirect_url > 0
+function Ted.is_external(self, p)
+    self.url = {p:match('(http://download.-)"') or ''}
+    if #self.url[1] ==0 then  -- Try the first iframe
+        self.redirect_url = p:match('<iframe src="(.-)"') or ''
+        if #self.redirect_url >0 then
+            return true
+        else
+          error('no match: media stream URL')
+        end
+    end
+    return false
 end
 
 -- vim: set ts=4 sw=4 tw=72 expandtab:

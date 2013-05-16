@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2011  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2011,2013  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -54,17 +54,8 @@ end
 
 function AcademicEarth.get_redirect_url(self)
     local p = quvi.fetch(self.page_url)
-    local s = p:match('ytID = "(.-)"')
-    if s then
-        self.redirect_url = 'http://youtube.com/e/' .. s
-    else
-        local s = p:match('embed src="(.-)"') -- blip
-        if s then
-            self.redirect_url = s
-        else
-            error('no match: blip or youtube pattern')
-        end
-    end
+    self.redirect_url = p:match('"(http://www%.youtube%.com/watch.-)"')
+                            or error('no match: unrecognized media source')
     return self
 end
 

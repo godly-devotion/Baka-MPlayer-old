@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2013  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -28,9 +28,8 @@ function ident(self)
     r.domain     = "sevenload%.com"
     r.formats    = "default"
     r.categories = C.proto_http
-    -- TODO: Use quvi/util:handles instead
-    r.handles    =
-        (self.page_url ~= nil and self.page_url:match(r.domain) ~= nil)
+    local U      = require 'quvi/util'
+    r.handles    = U.handles(self.page_url, {r.domain}, {'/videos/'})
     return r
 end
 
@@ -44,23 +43,17 @@ end
 function parse(self)
     self.host_id = "sevenload"
 
-    local p = quvi.fetch(self.page_url)
+    local p = quvi.fetch(self.page_url):gsub('&quot;','"')
 
-    local c_url = p:match('configPath=(.-)"')
-                    or error("no match: config URL")
-    local U = require 'quvi/util'
-    c_url = U.unescape(c_url)
+    self.thumbnail_url = p:match('"og:image" content="(.-)"') or ''
 
-    local c = quvi.fetch(c_url, {fetch_type = 'config'})
+    self.title = p:match('"og:title" content="(.-)"')
+                  or error('no match: media title')
 
-    self.title = c:match('<item id=.-<title>(.-)</title>')
-                  or error("no match: media title")
+    self.id = p:match('videoid":"(.-)"') or error("no match: media id")
 
-    self.id = c_url:match("itemId=(%w+)")
-                or error("no match: media id")
-
-    self.url = {c:match('<location seeking="yes">(.-)</')
-                or error("no match: media URL")}
+    self.url = {p:match('src.+"(http://.+%.mp4)"')
+                or error("no match: media stream URL")}
 
     return self
 end

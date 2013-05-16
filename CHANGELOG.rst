@@ -1,8 +1,15 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.0.0.0 (April 17, 2013)
----------------------------------------
+Latest Version 1.0.1.0 (May --, 2013)
+-------------------------------------
+
+- Fixed: Problems closing program on first try
+- Fixed: Crashes when a mic is not detected for voice command
+- Updated: mpv build
+
+Version 1.0.0.0 (April 17, 2013)
+--------------------------------
 
 - Note: You MUST remove all previous files before version 0.5
 - Fixed: Small bugs

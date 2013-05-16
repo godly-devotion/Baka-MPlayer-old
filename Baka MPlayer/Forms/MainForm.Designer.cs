@@ -37,6 +37,7 @@ namespace Baka_MPlayer.Forms
             this.newPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileWithExternalSubsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openLocationFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openLastFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -157,7 +158,6 @@ namespace Baka_MPlayer.Forms
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
-            this.openFileWithExternalSubsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.quickButton)).BeginInit();
@@ -241,6 +241,13 @@ namespace Baka_MPlayer.Forms
             this.openFileToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.openFileToolStripMenuItem.Text = "&Open File";
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
+            // 
+            // openFileWithExternalSubsToolStripMenuItem
+            // 
+            this.openFileWithExternalSubsToolStripMenuItem.Name = "openFileWithExternalSubsToolStripMenuItem";
+            this.openFileWithExternalSubsToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
+            this.openFileWithExternalSubsToolStripMenuItem.Text = "Open File with External Subs";
+            this.openFileWithExternalSubsToolStripMenuItem.Click += new System.EventHandler(this.openFileWithExternalSubsToolStripMenuItem_Click);
             // 
             // openURLToolStripMenuItem
             // 
@@ -657,7 +664,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.noneToolStripMenuItem.Enabled = false;
             this.noneToolStripMenuItem.Name = "noneToolStripMenuItem";
-            this.noneToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.noneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.noneToolStripMenuItem.Text = "[ none ]";
             // 
             // fontSizeToolStripMenuItem
@@ -674,7 +681,8 @@ namespace Baka_MPlayer.Forms
             // 
             this.sizeToolStripMenuItem.Enabled = false;
             this.sizeToolStripMenuItem.Name = "sizeToolStripMenuItem";
-            this.sizeToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.sizeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemplus)));
+            this.sizeToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.sizeToolStripMenuItem.Text = "&Size +";
             this.sizeToolStripMenuItem.Click += new System.EventHandler(this.sizeToolStripMenuItem_Click);
             // 
@@ -682,7 +690,8 @@ namespace Baka_MPlayer.Forms
             // 
             this.sizeToolStripMenuItem1.Enabled = false;
             this.sizeToolStripMenuItem1.Name = "sizeToolStripMenuItem1";
-            this.sizeToolStripMenuItem1.Size = new System.Drawing.Size(125, 22);
+            this.sizeToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.OemMinus)));
+            this.sizeToolStripMenuItem1.Size = new System.Drawing.Size(190, 22);
             this.sizeToolStripMenuItem1.Text = "S&ize -";
             this.sizeToolStripMenuItem1.Click += new System.EventHandler(this.sizeToolStripMenuItem1_Click);
             // 
@@ -690,7 +699,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.resetSizeToolStripMenuItem.Enabled = false;
             this.resetSizeToolStripMenuItem.Name = "resetSizeToolStripMenuItem";
-            this.resetSizeToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.resetSizeToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.resetSizeToolStripMenuItem.Text = "&Reset Size";
             this.resetSizeToolStripMenuItem.Click += new System.EventHandler(this.resetSizeToolStripMenuItem_Click);
             // 
@@ -1406,13 +1415,6 @@ namespace Baka_MPlayer.Forms
             // 
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
-            // 
-            // openFileWithExternalSubsToolStripMenuItem
-            // 
-            this.openFileWithExternalSubsToolStripMenuItem.Name = "openFileWithExternalSubsToolStripMenuItem";
-            this.openFileWithExternalSubsToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
-            this.openFileWithExternalSubsToolStripMenuItem.Text = "Open File with External Subs";
-            this.openFileWithExternalSubsToolStripMenuItem.Click += new System.EventHandler(this.openFileWithExternalSubsToolStripMenuItem_Click);
             // 
             // MainForm
             // 

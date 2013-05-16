@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2011  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2011,2013  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -61,12 +61,14 @@ end
 function parse(self)
     self.host_id = "spiegel"
 
+    local p = quvi.fetch(self.page_url)
+
+    self.title = p:match('"spVideoTitle">(.-)<')
+                    or error('no match: media title')
+
+    self.thumbnail_url = p:match('"og:image" content="(.-)"') or ''
+
     Spiegel.get_media_id(self)
-
-    local p = Spiegel.get_playlist(self)
-
-    self.title = p:match("<headline>(.-)</")
-                  or error ("no match: media title")
 
     local config  = Spiegel.get_config(self)
     local formats = Spiegel.iter_formats(config)
@@ -90,15 +92,6 @@ end
 function Spiegel.get_media_id(self)
     self.id = self.page_url:match("/video/.-video%-(.-)%.")
                 or error ("no match: media id")
-end
-
-function Spiegel.get_playlist(self)
-    local fmt_s = "http://www1.spiegel.de/active/playlist/fcgi/playlist.fcgi/"
-               .. "asset=flashvideo/mode=id/id=%s"
-
-    local playlist_url = string.format(fmt_s, self.id)
-
-    return quvi.fetch(playlist_url, {fetch_type = 'playlist'})
 end
 
 function Spiegel.get_config(self)
@@ -138,15 +131,8 @@ function Spiegel.choose_best(formats) -- Highest quality available
     return r
 end
 
-function Spiegel.choose_default(formats) -- Lowest quality available
-    local r = {width=0xffff, height=0xffff, bitrate=0xffff, url=nil}
-    local U = require 'quvi/util'
-    for _,v in pairs(formats) do
-        if U.is_lower_quality(v,r) then
-            r = v
-        end
-    end
-    return r
+function Spiegel.choose_default(formats)
+    return formats[1]
 end
 
 function Spiegel.to_s(t)

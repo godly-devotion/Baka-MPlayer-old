@@ -28,7 +28,7 @@ public class Voice : IDisposable
 
         // Configure input to the speech recognizer.
         engine.SetInputToDefaultAudioDevice();
-
+        
         var choice = new Choices(new[] {
             "open", "play", "pause", "stop", "mute", "unmute", "next", "next file",
             "previous", "previous file", "hide", "whats playing"

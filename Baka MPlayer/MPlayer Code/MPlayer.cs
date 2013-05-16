@@ -125,7 +125,7 @@ public class MPlayer
             args.Append(" -framedrop=yes");                     // enables soft framedrop
             //args.Append(" -no-cache");                        // disables caching
             args.Append(" -playing-msg=PLAYING_FILE:${media-title}");
-            args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=dwidth};HEIGHT=${=dheight}");
+            args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};TR=${=time-remaining};WIDTH=${=dwidth};HEIGHT=${=dheight}");
             args.AppendFormat(" -volume={0}", Info.Current.Volume); // sets previous volume
             args.AppendFormat(" -wid={0}", wid); // output handle
             
@@ -438,7 +438,7 @@ public class MPlayer
 
     private void ParseStatusMsg(string line)
     {
-        //PAUSED=no;AV=123.456789;WIDTH=1920;HEIGHT=1080;
+        //PAUSED=no;AV=123.456789;TR=123.456789;WIDTH=1920;HEIGHT=1080;
         string[] info = line.Split(';');
 
         foreach (var s in info)
@@ -456,6 +456,10 @@ public class MPlayer
                 case "AV":
                     if (Info.Current.PlayState == PlayStates.Playing)
                         ProcessProgress(Functions.TryParse.ParseDouble(value));
+                    break;
+                case "TR":
+                    if (Info.Current.PlayState == PlayStates.Playing)
+                        Info.Current.TimeRemaining = Functions.TryParse.ParseDouble(value);
                     break;
                 case "WIDTH":
                     Info.VideoInfo.Width = Functions.TryParse.ParseInt(value);

@@ -46,7 +46,7 @@ function parse(self)
 
     local p = quvi.fetch(self.page_url)
 
-    self.title = p:match('class="mTitle">.-<h1?.>(.-)</h1>')
+    self.title = p:match('<title>(.-)%s+%-%s+xHamster%.com')
                   or error("no match: media title")
 
     self.id = self.page_url:match("/movies/(.-)/")

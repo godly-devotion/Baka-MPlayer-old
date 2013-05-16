@@ -1,5 +1,6 @@
 
 -- libquvi-scripts
+-- Copyright (C) 2013  Toni Gundogdu <legatvs@gmail.com>
 -- Copyright (C) 2011-2012  quvi project
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
@@ -29,7 +30,7 @@ function ident(self)
     r.formats    = "default"
     r.categories = C.proto_http
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain})
+    r.handles    = U.handles(self.page_url, {r.domain}, {'/videos/.-%-%w+$'})
     return r
 end
 
@@ -43,20 +44,10 @@ end
 function parse(self)
     self.host_id  = "bikeradar"
 
-    self.id = self.page_url:match('bikeradar.com/.+-(%d+)$')
-                or error("no match: media ID")
-
     local p = quvi.fetch(self.page_url)
 
-    self.title = p:match('"og:title" content="(.-)"/>')
-                  or error("no match: media title")
-
-    self.thumbnail_url = p:match('"og:image" content="(.-)"') or ''
-
-    local fn = p:match('<param name="flashvars" value="vcode=(%w+)&')
-                or error("no match: file name")
-
-    self.url = {string.format("http://cdn.video.bikeradar.com/%s.flv",fn)}
+    self.redirect_url = p:match('"embedURL" href="(.-)"')
+                            or error('no match: embedURL')
 
     return self
 end

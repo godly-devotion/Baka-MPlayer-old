@@ -50,7 +50,7 @@ function parse(self)
     self.title = p:match('"og:title" content="(.-)"')
                   or error('no match: media title')
 
-    local u = p:match("(http://movies.-)'")
+    local u = p:match('(http://movies.-)["\']')
                 or error("no match: media stream URL")
 
     self.id = u:match("/%d+/(%d+)%.%w+") or error("no match: media ID")

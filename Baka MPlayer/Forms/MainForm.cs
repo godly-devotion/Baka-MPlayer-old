@@ -497,16 +497,27 @@ namespace Baka_MPlayer.Forms
             get { return _voiceEnabled; }
             set
             {
-                if (value)
+                try
                 {
-                    if (voice == null)
-                        voice = new Voice(this, "baka");
-                    voice.StartListening();
-                    _voiceEnabled = true;
+                    if (value)
+                    {
+                        if (voice == null)
+                            voice = new Voice(this, "baka");
+                        voice.StartListening();
+                        _voiceEnabled = true;
+                    }
+                    else
+                    {
+                        voice.StopListening();
+                        _voiceEnabled = false;
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    voice.StopListening();
+                    SetStatusMsg("There was a problem starting the voice command system. Check to see if your mic is plugged in.", true);
+                    
+                    if (voice != null)
+                        voice.StopListening();
                     _voiceEnabled = false;
                 }
             }
@@ -1640,15 +1651,13 @@ namespace Baka_MPlayer.Forms
             UnhookWindowsHookEx(hHook);
             UnloadTray();
 
-            if (mplayer.MPlayerIsRunning())
-                mplayer.Kill();
-            
-            while (mplayer != null && mplayer.MPlayerIsRunning())
+            if (mplayer != null && mplayer.MPlayerIsRunning())
             {
-                e.Cancel = true;
+                //e.Cancel = true;
+                mplayer.Kill();
                 System.Threading.Thread.Sleep(200);
+                //e.Cancel = false;
             }
-            Application.Exit();
         }
 
         #endregion
@@ -1888,9 +1897,9 @@ namespace Baka_MPlayer.Forms
                     seekBar.Value = Convert.ToInt32((Info.Current.Duration * seekBar.Maximum) / Info.Current.TotalLength); // %
                     durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
                 }
-
+                
                 if (settings.GetBoolValue(SettingEnum.ShowTimeRemaining))
-                    timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength - Info.Current.Duration));
+                    timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(Info.Current.TimeRemaining));
                 else
                     timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength);
             });
