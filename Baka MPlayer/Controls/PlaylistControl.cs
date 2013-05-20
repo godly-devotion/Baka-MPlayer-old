@@ -144,6 +144,7 @@ namespace Baka_MPlayer.Controls
             if (forceAll || playlistList.FindItemWithText(Info.FullFileName) == null)
             {
                 FillPlaylist();
+                mainForm.ShowPlaylist = true;
                 mainForm.CheckShuffleToolStripMenuItem = false;
             }
             UpdateUI(true);
@@ -237,7 +238,6 @@ namespace Baka_MPlayer.Controls
             if (selectCurrentFile)
                 SelectedIndex = GetPlayingItem.Index;
 
-            mainForm.ShowPlaylist = GetTotalItems > 1;
             mainForm.CallSetBackForwardControls();
             playlistList_SelectedIndexChanged(null, null);
         }
