@@ -149,7 +149,7 @@ namespace Baka_MPlayer.Forms
 
         public void RefreshInfo()
         {
-            nameLabel.Text = Info.FileName;
+            nameLabel.Text = Info.MovieName;
 
             // set Media Info tagpage
             infoList.BeginUpdate();

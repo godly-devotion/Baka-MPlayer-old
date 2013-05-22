@@ -1721,7 +1721,7 @@ namespace Baka_MPlayer.Forms
                 tempURL = Info.URL;
 
                 // set this form's caption
-                this.Text = Functions.URL.DecodeURL(Info.FullFileName);
+                this.Text = Info.FullFileName;
 
                 folderToolStripMenuItem.Text = Info.FileExists ?
                     Functions.String.AutoEllipsis(32, Functions.IO.GetFolderName(Info.URL)) : new Uri(Info.URL).Host;

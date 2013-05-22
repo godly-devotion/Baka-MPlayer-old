@@ -409,13 +409,14 @@ public class MPlayer
         {
             OnStatusChanged(new StatusChangedEventArgs("[MPlayerClass] HIDE_STATUS_LABEL", false));
 
-            // sets appropriate file name (e.g. File.mkv or Youtube title)
-            Info.FullFileName = e.Data.Substring(13);
+            // sets appropriate movie name (e.g. internel file name or Youtube title)
+            Info.MovieName = e.Data.Substring(13);
 
             if (Functions.URL.ValidateURL(Info.URL))
-                Info.FileName = Info.FullFileName;
-            else
-                Info.FileName = Path.GetFileNameWithoutExtension(Info.FullFileName);
+            {
+                Info.FileName = Info.MovieName;
+                Info.FullFileName = Info.MovieName;
+            }
 
             // load external file if requested
             if (!string.IsNullOrEmpty(loadExternalSub))
@@ -485,8 +486,10 @@ public class MPlayer
         {
             case "ID_FILENAME":
                 Info.URL = value;
-                Info.GetDirectoryName = Functions.IO.GetDirectoryName(value);
                 Info.FileExists = File.Exists(value);
+                Info.FullFileName = Path.GetFileName(Functions.URL.DecodeURL(value));
+                Info.FileName = Path.GetFileNameWithoutExtension(Info.FullFileName);
+                Info.GetDirectoryName = Functions.IO.GetDirectoryName(value);
                 break;
             case "ID_LENGTH":
                 Info.Current.TotalLength = Functions.TryParse.ParseDouble(value);
@@ -498,7 +501,7 @@ public class MPlayer
                 Info.VideoInfo.AspectRatio = Functions.TryParse.ParseDouble(value);
                 break;
             default:
-				if (key.StartsWith("ID_CHAPTER_ID")) // Chapters
+                if (key.StartsWith("ID_CHAPTER_ID")) // Chapters
                 {
                     Info.Chapters.Add(new Chapter());
                 }
@@ -515,7 +518,7 @@ public class MPlayer
                     return true;
                 }
 				
-				else if (key.StartsWith("ID_SUBTITLE_ID")) // Subtitles
+				else if (key.StartsWith("ID_SID_ID")) // Subtitles
                 {
                     Info.Subs.Add(new Sub(value));
                 }
@@ -532,7 +535,7 @@ public class MPlayer
                     return true;
                 }
                 
-				else if (key.StartsWith("ID_AUDIO_ID")) // Audio tracks
+				else if (key.StartsWith("ID_AID_ID")) // Audio tracks
                 {
                     Info.AudioTracks.Add(new AudioTrack(value));
                 }

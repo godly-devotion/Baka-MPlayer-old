@@ -97,6 +97,10 @@ public static class Info
     // FileInfo
     public static string URL { set; get; }
     /// <summary>
+    /// Returns the internal movie name (not necessarily the file name)
+    /// </summary>
+    public static string MovieName { set; get; }
+    /// <summary>
     /// Returns file name without extension
     /// </summary>
     public static string FileName { set; get; }
