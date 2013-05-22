@@ -1,7 +1,7 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.1.0.0 (May --, 2013)
+Latest Version 1.1.0.0 (May 22, 2013)
 -------------------------------------
 
 - Fixed: Small bugs
