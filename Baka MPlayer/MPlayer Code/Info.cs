@@ -124,7 +124,6 @@ public static class Info
     {
         public static double Duration { get; set; }
         public static double TotalLength { get; set; }
-        public static double TimeRemaining { get; set; }
 		public static int Volume { get; set; }
         public static PlayStates PlayState = PlayStates.Unidentified;
     }
@@ -165,7 +164,6 @@ public static class Info
         // Current
         Current.Duration = 0;
         Current.TotalLength = 0;
-        Current.TimeRemaining = 0;
         Current.PlayState = PlayStates.Unidentified;
 		
         // MiscInfo

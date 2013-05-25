@@ -1899,7 +1899,7 @@ namespace Baka_MPlayer.Forms
                 }
                 
                 if (settings.GetBoolValue(SettingEnum.ShowTimeRemaining))
-                    timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(Info.Current.TimeRemaining));
+                    timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength - Info.Current.Duration));
                 else
                     timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength);
             });
