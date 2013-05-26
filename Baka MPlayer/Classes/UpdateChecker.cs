@@ -92,6 +92,9 @@ public class UpdateChecker
                 }
             }
 
+            if (string.IsNullOrEmpty(version))
+                throw new Exception("No valid version number was returned.");
+
             if (version.Equals(Application.ProductVersion))
             {
                 if (!(bool) isSilent)
