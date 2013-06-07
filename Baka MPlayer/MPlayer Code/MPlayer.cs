@@ -290,31 +290,42 @@ public class MPlayer
     /// <summary>
     /// Switches the audio track to the index specified
     /// </summary>
-    /// <param name="index">Based on zero index</param>
-    public bool SetAudioTrack(int index)
+    /// <param name="i">The audio index (zero based)</param>
+    public bool SetAudioTrack(int i)
     {
-        return SendCommand("set audio {0}", index);
+        OnStatusChanged(new StatusChangedEventArgs(
+            string.Format("Audio {0}: \"{1} ({2})\"",
+            Info.AudioTracks[i].ID, Info.AudioTracks[i].Name, Info.AudioTracks[i].Lang), true));
+        return SendCommand("set audio {0}", i);
     }
     /// <summary>
     /// Shows or hides subs.
     /// </summary>
     public bool ShowSubs(bool show)
     {
+        OnStatusChanged(new StatusChangedEventArgs("Subs " + (show ? "shown" : "hidden"), true));
         return SendCommand("set sub-visibility {0}", show ? "yes" : "no");
     }
     /// <summary>
     /// Set subtitle track.
     /// </summary>
-    public bool SetSubs(int index)
+    /// <param name="i">The subtitle index (zero based)</param>
+    public bool SetSubs(int i)
     {
-        return SendCommand("set sub {0}", index);
+        OnStatusChanged(new StatusChangedEventArgs(
+            string.Format("Sub {0}: \"{1} ({2})\"",
+            Info.Subs[i].TrackID, Info.Subs[i].Name, Info.Subs[i].Lang), true));
+        return SendCommand("set sub {0}", i);
     }
     /// <summary>
     /// Sets chapter
     /// </summary>
-    public bool SetChapter(int index)
+    /// <param name="i">The chapter index (zero based)</param>
+    public bool SetChapter(int i)
     {
-        return SendCommand("set chapter {0}", index);
+        OnStatusChanged(new StatusChangedEventArgs(
+            string.Format("Chapter {0}: \"{1}\"", i+1, Info.Chapters[i].ChapterName), true));
+        return SendCommand("set chapter {0}", i);
     }
     /// <summary>
     /// Shows [text] on the OSD (on screen display)

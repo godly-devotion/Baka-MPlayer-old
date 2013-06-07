@@ -130,7 +130,7 @@
             this.demensionsLabel.Padding = new System.Windows.Forms.Padding(0, 3, 0, 3);
             this.demensionsLabel.Size = new System.Drawing.Size(176, 25);
             this.demensionsLabel.TabIndex = 0;
-            this.demensionsLabel.Text = "Demensions: 9000 x 9000";
+            this.demensionsLabel.Text = "Dimensions: 9000 x 9000";
             // 
             // snapshotPicbox
             // 
