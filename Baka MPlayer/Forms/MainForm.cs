@@ -1642,6 +1642,11 @@ namespace Baka_MPlayer.Forms
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (mplayer.MPlayerIsRunning())
+                e.Cancel = true;
+            else
+                return;
+
             // save LastFile
             if (!string.IsNullOrEmpty(Info.URL))
                 settings.SetConfig(Info.URL, SettingEnum.LastFile);
@@ -1651,13 +1656,7 @@ namespace Baka_MPlayer.Forms
             UnhookWindowsHookEx(hHook);
             UnloadTray();
 
-            if (mplayer != null && mplayer.MPlayerIsRunning())
-            {
-                //e.Cancel = true;
-                mplayer.Kill();
-                System.Threading.Thread.Sleep(200);
-                //e.Cancel = false;
-            }
+            mplayer.Kill();
         }
 
         #endregion
@@ -1935,7 +1934,8 @@ namespace Baka_MPlayer.Forms
             }
             
             // boss mode
-            mplayer.Pause(false);
+            if (mplayer.MPlayerIsRunning())
+                mplayer.Pause(false);
 
             if (FullScreen)
                 fullScreenToolStripMenuItem.PerformClick();

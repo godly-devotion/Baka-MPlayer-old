@@ -24,7 +24,7 @@ namespace Baka_MPlayer.Forms
         private void SnapshotForm_Load(object sender, EventArgs e)
         {
             this.MinimumSize = new Size(this.Width, 50);
-            demensionsLabel.Text = string.Format("Demensions: {0} x {1}", image.Width, image.Height);
+            dimensionsLabel.Text = string.Format("Demensions: {0} x {1}", image.Width, image.Height);
         }
 
         private void saveButton_Click(object sender, EventArgs e)

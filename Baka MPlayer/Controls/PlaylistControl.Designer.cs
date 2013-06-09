@@ -122,7 +122,7 @@
             this.optionsDropDownButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showAllFilesToolStripMenuItem,
             this.refreshPlaylistToolStripMenuItem});
-            this.optionsDropDownButton.Image = ((System.Drawing.Image)(resources.GetObject("optionsDropDownButton.Image")));
+            this.optionsDropDownButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.optionsDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.optionsDropDownButton.Name = "optionsDropDownButton";
             this.optionsDropDownButton.Size = new System.Drawing.Size(30, 21);

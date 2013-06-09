@@ -19,7 +19,6 @@ public class MPlayer
     private bool cachingFonts;
     private bool parsingClipInfo;
     private bool ignoreStatus;
-    private bool properlyClosed;
     public string loadExternalSub { get; set; }
 
     #endregion
@@ -131,6 +130,7 @@ public class MPlayer
             
             mplayer = new Process
             {
+                EnableRaisingEvents = true,
                 StartInfo =
                 {
                     FileName = execName,
@@ -199,6 +199,11 @@ public class MPlayer
     {
         return mplayer != null && !mplayer.HasExited;
     }
+    public void WaitForExit()
+    {
+        mplayer.WaitForExit();
+    }
+
     public string GetMPlayerInfo()
     {
         string strResp = mplayer.Responding ? "" : " - Not Responding";
@@ -222,13 +227,16 @@ public class MPlayer
             if (!MPlayerIsRunning())
                 return true;
 
-            properlyClosed = true;
             mplayer.CancelOutputRead();
             mplayer.CancelErrorRead();
             mplayer.Kill();
         }
         catch (Exception) { return false; }
         return true;
+    }
+    private void Exited(object sender, EventArgs e)
+    {
+        Application.Exit();
     }
 
     #endregion
@@ -601,12 +609,6 @@ public class MPlayer
             Info.ID3Tags.Encoder = s;
         else if (data.StartsWith("disk:"))
             Info.ID3Tags.Disc = Functions.TryParse.ParseInt(s);
-    }
-    private void Exited(object sender, EventArgs e)
-    {
-        if (!properlyClosed)
-            Application.Exit();
-        properlyClosed = false;
     }
 
     #endregion

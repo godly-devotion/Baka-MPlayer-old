@@ -1,10 +1,13 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.2.0.0 (June --, 2013)
+Latest Version 1.2.0.0 (June 9, 2013)
 -------------------------------------
 
-- 
+- Fixed: Some bugs
+- Fixed: Better memory usage
+- Fixed: Crashes when closing program
+- Added: status output for Audio, Sub, or Chapter change
 
 Version 1.1.0.0 (May 22, 2013)
 ------------------------------
