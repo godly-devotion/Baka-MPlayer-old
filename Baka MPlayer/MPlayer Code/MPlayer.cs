@@ -122,6 +122,7 @@ public class MPlayer
             args.Append(" -ass");                  		 		// enable .ass subtitle support
             args.Append(" -no-keepaspect");         		 	// doesn't keep window aspect ratio when resizing windows
             args.Append(" -framedrop=yes");                     // enables soft framedrop
+            args.Append(" -cursor-autohide=no");                // disable cursor autohide
             //args.Append(" -no-cache");                        // disables caching
             args.Append(" -playing-msg=PLAYING_FILE:${media-title}");
             args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=dwidth};HEIGHT=${=dheight}");
