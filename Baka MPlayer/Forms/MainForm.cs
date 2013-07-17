@@ -1514,7 +1514,18 @@ namespace Baka_MPlayer.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             RegisterMPlayerEvents();
+            this.MouseWheel += MainForm_MouseWheel;
             playlist.Init(this, mplayer);
+            trayIcon.ContextMenu = trayContextMenu;
+            folderToolStripMenuItem.Text = "Build " + Application.ProductVersion;
+            this.MinimumSize = new Size(this.Width, this.Height - this.ClientSize.Height
+                + mainMenuStrip.Height + seekPanel.Height + controlPanel.Height);
+
+            SetLCDFont(); // Embbeding Font (LCD.ttf)
+            ShowConsole = false;
+            ShowPlaylist = false;
+
+            LoadSettings();
 
             // check for player exec
             if (!File.Exists(Application.StartupPath + "\\" + settings.GetStringValue(SettingEnum.Exec)))
@@ -1523,19 +1534,6 @@ namespace Baka_MPlayer.Forms
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }
-
-            // set gui environment
-            folderToolStripMenuItem.Text = "Build " + Application.ProductVersion;
-            this.MinimumSize = new Size(this.Width, this.Height - this.ClientSize.Height
-                + mainMenuStrip.Height + seekPanel.Height + controlPanel.Height);
-            this.MouseWheel += MainForm_MouseWheel;
-            trayIcon.ContextMenu = trayContextMenu;
-
-            SetLCDFont(); // Embbeding Font (LCD.ttf)
-            ShowConsole = false;
-            ShowPlaylist = false;
-
-            LoadSettings();
 
             // check for updates
             var checker = new UpdateChecker();
@@ -1606,7 +1604,6 @@ namespace Baka_MPlayer.Forms
             switch (e.KeyCode)
             {
                 case Keys.Space: // play or pause
-                    // make sure its not focused on anything else
                     if (NotFocusedOnTextbox)
                         mplayer.Pause(true);
                     break;
@@ -1652,7 +1649,6 @@ namespace Baka_MPlayer.Forms
                 settings.SetConfig(Info.URL, SettingEnum.LastFile);
             settings.SaveConfig();
 
-            // unhook windows keyboard hook
             UnhookWindowsHookEx(hHook);
             UnloadTray();
 
@@ -1933,7 +1929,6 @@ namespace Baka_MPlayer.Forms
                 return;
             }
             
-            // boss mode
             if (mplayer.MPlayerIsRunning())
                 mplayer.Pause(false);
 

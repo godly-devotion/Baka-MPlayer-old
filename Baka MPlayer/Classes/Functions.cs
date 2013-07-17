@@ -38,7 +38,7 @@ public static class Functions
             return ConvertTime(hour, min, sec);
         }
     }
-
+    
     public static class URL
     {
         [DllImport("shlwapi.dll", CharSet = CharSet.Auto)]
@@ -50,10 +50,12 @@ public static class Functions
         }
         public static string DecodeURL(string input)
         {
-            return System.Web.HttpUtility.UrlDecode(input);
+            if (ValidateURL(input))
+                return System.Web.HttpUtility.UrlDecode(input);
+            return input;
         }
     }
-
+    
     public static class String
     {
         public static string AutoEllipsis(int max, string toUse)

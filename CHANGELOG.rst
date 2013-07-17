@@ -1,8 +1,14 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.2.0.0 (June 9, 2013)
--------------------------------------
+Latest Version 1.2.1.0 (-- -, 2013)
+-----------------------------------
+
+- Updated: mpv build
+- 
+
+Version 1.2.0.0 (June 9, 2013)
+------------------------------
 
 - Fixed: Some bugs
 - Fixed: Better memory usage
