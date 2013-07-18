@@ -1498,10 +1498,9 @@ namespace Baka_MPlayer.Forms
         public MainForm()
         {
             // set keyboard hook
-            //  initialize our delegate
             this.myCallbackDelegate = this.callbackFunction_KeyboardHook;
-            //  setup a keyboard hook
-            hHook = SetWindowsHookEx(2, this.myCallbackDelegate, IntPtr.Zero, AppDomain.GetCurrentThreadId()); //AppDomain.GetCurrentThreadID()
+            hHook = SetWindowsHookEx(2, this.myCallbackDelegate, IntPtr.Zero, AppDomain.GetCurrentThreadId());
+            
             // set mouse hook
             var mouseHandler = new GlobalMouseHandler();
             mouseHandler.TheMouseMoved += MouseMoved;
@@ -1528,16 +1527,24 @@ namespace Baka_MPlayer.Forms
             LoadSettings();
 
             // check for player exec
-            if (!File.Exists(Application.StartupPath + "\\" + settings.GetStringValue(SettingEnum.Exec)))
+            var exec = settings.GetStringValue(SettingEnum.Exec);
+            if (!File.Exists(Application.StartupPath + "\\" + exec))
             {
-                MessageBox.Show(string.Format("Baka MPlayer cannot load without {0}!", settings.GetStringValue(SettingEnum.Exec)),
+                MessageBox.Show(string.Format("Baka MPlayer cannot load without {0}!", exec),
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }
 
             // check for updates
-            var checker = new UpdateChecker();
-            checker.Check(true);
+            var lastCheck = settings.GetIntValue(SettingEnum.LastUpdateCheck);
+            if (DateTime.Now.Month != lastCheck)
+            {
+                var checker = new UpdateChecker();
+                checker.Check(true);
+
+                settings.SetConfig(DateTime.Now.Month, SettingEnum.LastUpdateCheck);
+                settings.SaveConfig();
+            }
 
             // check for command line args
             var arg = Environment.GetCommandLineArgs();

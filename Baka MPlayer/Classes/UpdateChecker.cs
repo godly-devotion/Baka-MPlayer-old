@@ -30,11 +30,17 @@ public class UpdateChecker
 {
     private const string website = "bakamplayer.netii.net";
     private const string versionPath = "/version";
+    private volatile bool checkSuccessful = false;
 
-    public void Check(bool isSilent)
+    public bool Check(bool isSilent)
     {
         var checkThread = new Thread(check);
         checkThread.Start(isSilent);
+
+        while (checkThread.IsAlive)
+            Thread.Sleep(500);
+
+        return checkSuccessful;
     }
 
     private void check(object isSilent)
@@ -65,9 +71,9 @@ public class UpdateChecker
             }
             client.Close();
 
-            string version = string.Empty;
-            string date = string.Empty;
-            string bugfixes = string.Empty;
+            var version = string.Empty;
+            var date = string.Empty;
+            var bugfixes = string.Empty;
 
             using (var reader = new StringReader(data.ToString()))
             {
@@ -94,6 +100,9 @@ public class UpdateChecker
 
             if (string.IsNullOrEmpty(version))
                 throw new Exception("No valid version number was returned.");
+
+            // at this point, checking for updates should have been successful
+            checkSuccessful = true;
 
             if (version.Equals(Application.ProductVersion))
             {

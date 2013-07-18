@@ -1,11 +1,13 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.2.1.0 (-- -, 2013)
------------------------------------
+Latest Version 1.2.1.0 (July -, 2013)
+-------------------------------------
 
+- Fixed: Crashes when filename contained certain characters
+- Changed: mpv no longer needs to cache font
+- Changed: Updates are only checked once a month (you can still manually check)
 - Updated: mpv build
-- 
 
 Version 1.2.0.0 (June 9, 2013)
 ------------------------------
@@ -13,7 +15,7 @@ Version 1.2.0.0 (June 9, 2013)
 - Fixed: Some bugs
 - Fixed: Better memory usage
 - Fixed: Crashes when closing program
-- Added: status output for Audio, Sub, or Chapter change
+- Added: Status output for Audio, Sub, or Chapter change
 
 Version 1.1.0.0 (May 22, 2013)
 ------------------------------
@@ -21,7 +23,7 @@ Version 1.1.0.0 (May 22, 2013)
 - Fixed: Small bugs
 - Fixed: Problems closing program on first try
 - Fixed: Crashes when a mic is not detected for voice command
-- Changed: Playlist doesnt auto show unless it needs to now
+- Changed: Playlist doesn't auto show unless it needs to now
 - Updated: mpv build
 
 Version 1.0.0.0 (April 17, 2013)
@@ -39,7 +41,7 @@ Version 0.5.0.0 Beta (April 6, 2013)
 - Note: You MUST remove all previous files
 - Changed: Using mpv (fork of mplayer2) as backend now
 - Changed: Cleaned up code
-- Fixed: Problems with cultures that use '.' as ',' (i.e. Brazil)
+- Fixed: Problems with cultures that use '.' as ',' (e.g. Brazil)
 - Fixed: Crashes when opening online URLs
 - Added: Can exit fullscreen mode by Escape key
 - Added: Ability to open external subtitle files
