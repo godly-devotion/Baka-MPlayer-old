@@ -1,8 +1,8 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.2.1.0 (July -, 2013)
--------------------------------------
+Latest Version 1.2.1.0 (July 18, 2013)
+--------------------------------------
 
 - Fixed: Crashes when filename contained certain characters
 - Changed: mpv no longer needs to cache font
