@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
-public static class Functions
+namespace Functions
 {
     public static class Time
     {

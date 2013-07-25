@@ -213,11 +213,6 @@ namespace Baka_MPlayer.Forms
         #region Snap-to-Border + Minimize to Tray
 
         private const int SnapOffset = 10; // pixels
-        private const int WM_WINDOWPOSCHANGING = 0x46;
-        // minimize to notification area constants
-        private const Int32 WM_SYSCOMMAND = 0x112;
-        private const Int32 SC_MINIMIZE = 0xf020;
-        //const Int32 SC_RESTORE = 0xf120;
 
         // snap to border constants
         public struct WINDOWPOS
@@ -245,30 +240,6 @@ namespace Baka_MPlayer.Forms
             NoReposition = NoOwnerZOrder,
             DeferErase = 0x2000,
             AsyncWindowPos = 0x4000
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            // Listen for operating system messages
-            switch (m.Msg)
-            {
-                case WM_WINDOWPOSCHANGING:
-                    // Snap to desktop border
-                    SnapToDesktopBorder(m.LParam);
-                    break;
-                case WM_SYSCOMMAND:
-                    if (m.WParam.ToInt32() == SC_MINIMIZE)
-                    {
-                        // mainForm minimize
-                        if (blackForm != null)
-                            blackForm.Hide();
-                        dimLightsToolStripMenuItem.Checked = false;
-                        if (minimizeToTrayToolStripMenuItem.Enabled && minimizeToTrayToolStripMenuItem.Checked)
-                            ToggleToTaskbar(true);
-                    }
-                    break;
-            }
-            base.WndProc(ref m);
         }
 
         private void SnapToDesktopBorder(IntPtr LParam)
@@ -874,15 +845,15 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private bool IsCursorShown = true;
+        private bool cursorVisible = true;
         private bool CursorShown
         {
-            get { return IsCursorShown; }
+            get { return cursorVisible; }
             set
             {
-                if (value != IsCursorShown)
+                if (value != cursorVisible)
                 {
-                    IsCursorShown = value;
+                    cursorVisible = value;
                     if (value)
                         Cursor.Show();
                     else
@@ -1908,6 +1879,29 @@ namespace Baka_MPlayer.Forms
         }
 
         #endregion
+
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM.WINDOWPOSCHANGING:
+                    // snap to desktop border
+                    SnapToDesktopBorder(m.LParam);
+                    break;
+                case WM.SYSCOMMAND:
+                    if (m.WParam.ToInt32() == SC.MINIMIZE)
+                    {
+                        // this.minimize event
+                        if (blackForm != null)
+                            blackForm.Hide();
+                        dimLightsToolStripMenuItem.Checked = false;
+                        if (minimizeToTrayToolStripMenuItem.Enabled && minimizeToTrayToolStripMenuItem.Checked)
+                            ToggleToTaskbar(true);
+                    }
+                    break;
+            }
+            base.WndProc(ref m);
+        }
 
         private void OpenFile()
         {
