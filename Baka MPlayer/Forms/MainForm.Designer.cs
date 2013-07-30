@@ -643,21 +643,22 @@ namespace Baka_MPlayer.Forms
             this.showSubtitlesToolStripMenuItem.CheckOnClick = true;
             this.showSubtitlesToolStripMenuItem.Enabled = false;
             this.showSubtitlesToolStripMenuItem.Name = "showSubtitlesToolStripMenuItem";
-            this.showSubtitlesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.showSubtitlesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
+            this.showSubtitlesToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.showSubtitlesToolStripMenuItem.Text = "&Show Subtitles";
             this.showSubtitlesToolStripMenuItem.Click += new System.EventHandler(this.showSubtitlesToolStripMenuItem_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(148, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(192, 6);
             // 
             // subtitleTrackToolStripMenuItem
             // 
             this.subtitleTrackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.noneToolStripMenuItem});
             this.subtitleTrackToolStripMenuItem.Name = "subtitleTrackToolStripMenuItem";
-            this.subtitleTrackToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.subtitleTrackToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.subtitleTrackToolStripMenuItem.Text = "Subtitle &Track";
             // 
             // noneToolStripMenuItem
@@ -674,7 +675,7 @@ namespace Baka_MPlayer.Forms
             this.sizeToolStripMenuItem1,
             this.resetSizeToolStripMenuItem});
             this.fontSizeToolStripMenuItem.Name = "fontSizeToolStripMenuItem";
-            this.fontSizeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.fontSizeToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.fontSizeToolStripMenuItem.Text = "&Font Size";
             // 
             // sizeToolStripMenuItem
