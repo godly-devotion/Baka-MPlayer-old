@@ -16,10 +16,6 @@ namespace Baka_MPlayer.Forms
     {
         #region DLL Imports
 
-        // used to get the virtual keys
-        /*[DllImport("user32.dll")]
-        private static extern short GetAsyncKeyState(Keys vKey);*/
-
         // global key hook
         public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
         private readonly HookProc myCallbackDelegate;
@@ -337,7 +333,7 @@ namespace Baka_MPlayer.Forms
 
         private int callbackFunction_KeyboardHook(int code, IntPtr wParam, IntPtr lParam)
         {
-            if (!(code.Equals(3) && Convert.ToString(lParam.ToInt64(), 2).StartsWith("10") && NotFocusedOnTextbox) || code < 0)
+            if (!(code.Equals(3) && Convert.ToString(lParam.ToInt64(), 2).StartsWith("10") && NotFocusedOnTextbox))
             {
                 // you need to call CallNextHookEx without further processing
                 // and return the value returned by CallNextHookEx

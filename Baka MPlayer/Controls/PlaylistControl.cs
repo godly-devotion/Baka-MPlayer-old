@@ -103,13 +103,16 @@ namespace Baka_MPlayer.Controls
         {
             var i = GetPlayingItem.Index - 1;
 
-            if (i < GetTotalItems && File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[i].Text))
+            if (i == -1)
+                return;
+
+            if (File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[i].Text))
             {
                 mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[i].Text));
                 return;
             }
 
-            // file/index was invalid (e.g. deleted file)
+            // file does not exist
             RefreshPlaylist(true);
             PlayFile(GetPlayingItem.Index - 1);
         }
@@ -117,13 +120,16 @@ namespace Baka_MPlayer.Controls
         {
             var i = GetPlayingItem.Index + 1;
 
-            if (i < GetTotalItems && File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[i].Text))
+            if (i == GetTotalItems)
+                return;
+
+            if (File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[i].Text))
             {
                 mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[i].Text));
                 return;
             }
 
-            // file/index was invalid (e.g. deleted file)
+            // file does not exist
             RefreshPlaylist(true);
             PlayFile(GetPlayingItem.Index + 1);
         }

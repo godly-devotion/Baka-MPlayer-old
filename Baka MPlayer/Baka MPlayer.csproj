@@ -91,7 +91,7 @@
     <Compile Include="Classes\Speech.cs" />
     <Compile Include="Classes\UpdateChecker.cs" />
     <Compile Include="Classes\Voice.cs" />
-    <Compile Include="Classes\WM.cs" />
+    <Compile Include="Classes\Constants.cs" />
     <Compile Include="Controls\MediaButton.cs">
       <SubType>Component</SubType>
     </Compile>
