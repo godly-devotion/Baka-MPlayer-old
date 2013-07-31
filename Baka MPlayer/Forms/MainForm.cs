@@ -14,7 +14,7 @@ namespace Baka_MPlayer.Forms
 {
     public partial class MainForm : Form
     {
-        #region DLL Import
+        #region DLL Imports
 
         // used to get the virtual keys
         /*[DllImport("user32.dll")]
@@ -344,38 +344,30 @@ namespace Baka_MPlayer.Forms
                 return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
             }
 
-            // Note: the values are shown in hex, must convert to int
-            // http://msdn.microsoft.com/en-us/library/dd375731(v=vs.85).aspx
-            switch (wParam.ToInt32())
+            switch ((Keys)wParam.ToInt32())
             {
-                case 37:
-                    // left arrow key
+                case Keys.Left:
                     if (Info.Current.Duration - 5 > -1)
                         mplayer.Seek(Info.Current.Duration - 5);
                     else //if (mplayer.currentPosition < 5)
                         mplayer.Seek(0);
                     break;
-                case 39:
-                    // right arrow key
+                case Keys.Right:
                     if (Info.Current.Duration + 5 < Info.Current.TotalLength)
                         mplayer.Seek(Info.Current.Duration + 5);
                     else
                         playlist.PlayNext();
                     break;
-                case 176:
-                    // media next button
+                case Keys.MediaNextTrack:
                     playlist.PlayNext();
                     break;
-                case 177:
-                    // media previous button
+                case Keys.MediaPreviousTrack:
                     playlist.PlayPrevious();
                     break;
-                case 178:
-                    // media stop button
+                case Keys.MediaStop:
                     mplayer.Stop();
                     break;
-                case 179:
-                    // media play pause button
+                case Keys.MediaPlayPause:
                     switch (Info.Current.PlayState)
                     {
                         case PlayStates.Playing:
@@ -1470,7 +1462,7 @@ namespace Baka_MPlayer.Forms
         {
             // set keyboard hook
             this.myCallbackDelegate = this.callbackFunction_KeyboardHook;
-            hHook = SetWindowsHookEx(2, this.myCallbackDelegate, IntPtr.Zero, AppDomain.GetCurrentThreadId());
+            hHook = SetWindowsHookEx(WH.KEYBOARD, this.myCallbackDelegate, IntPtr.Zero, AppDomain.GetCurrentThreadId());
             
             // set mouse hook
             var mouseHandler = new GlobalMouseHandler();
