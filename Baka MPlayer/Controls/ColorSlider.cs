@@ -10,7 +10,7 @@ namespace Baka_MPlayer.Controls
     /// Encapsulates control that visualy displays certain integer value and allows user to change it within desired range. It imitates <see cref="System.Windows.Forms.TrackBar"/> as far as mouse usage is concerned.
     /// </summary>
     [ToolboxBitmap(typeof(TrackBar))]
-    [DefaultEvent("Scroll"), DefaultProperty("BarInnerColor")]
+    [DefaultEvent("Scroll"), DefaultProperty("BarColor")]
     public partial class ColorSlider : Control
     {
         #region Events
@@ -45,7 +45,6 @@ namespace Baka_MPlayer.Controls
         }
 
         private Rectangle barRect; //bounding rectangle of bar area
-        private Rectangle barHalfRect;
         private Rectangle thumbHalfRect;
         private Rectangle elapsedRect; //bounding rectangle of elapsed area
 
@@ -160,7 +159,6 @@ namespace Baka_MPlayer.Controls
             }
         }
 
-
         private int barMinimum = 0;
         /// <summary>
         /// Gets or sets the minimum value.
@@ -188,7 +186,6 @@ namespace Baka_MPlayer.Controls
                 else throw new ArgumentOutOfRangeException("Minimal value is greather than maximal one");
             }
         }
-
 
         private int barMaximum = 100;
         /// <summary>
@@ -265,24 +262,6 @@ namespace Baka_MPlayer.Controls
             }
         }
 
-        private bool mouseEffects = true;
-        /// <summary>
-        /// Gets or sets whether mouse entry and exit actions have impact on how control look.
-        /// </summary>
-        /// <value><c>true</c> if mouse entry and exit actions have impact on how control look; otherwise, <c>false</c>.</value>
-        [Description("Set whether mouse entry and exit actions have impact on how control look")]
-        [Category("ColorSlider")]
-        [DefaultValue(true)]
-        public bool MouseEffects
-        {
-            get { return mouseEffects; }
-            set
-            {
-                mouseEffects = value;
-                Invalidate();
-            }
-        }
-
         private Color thumbOuterColor = Color.White;
         /// <summary>
         /// Gets or sets the thumb outer color .
@@ -300,7 +279,6 @@ namespace Baka_MPlayer.Controls
                 Invalidate();
             }
         }
-
 
         private Color thumbInnerColor = Color.Gainsboro;
         /// <summary>
@@ -320,7 +298,6 @@ namespace Baka_MPlayer.Controls
             }
         }
 
-
         private Color thumbPenColor = Color.Silver;
         /// <summary>
         /// Gets or sets the color of the thumb pen.
@@ -339,111 +316,58 @@ namespace Baka_MPlayer.Controls
             }
         }
 
-
-        private Color barOuterColor = Color.SkyBlue;
+        private int barHeight = 2;
         /// <summary>
-        /// Gets or sets the outer color of the bar.
+        /// Gets or sets the bar height.
         /// </summary>
-        /// <value>The outer color of the bar.</value>
-        [Description("Set Slider bar outer color")]
+        /// <value>The size of the bar height.</value>
+        [Description("Set Slider's bar height")]
         [Category("ColorSlider")]
-        [DefaultValue(typeof(Color), "SkyBlue")]
-        public Color BarOuterColor
+        [DefaultValue(2)]
+        public int BarHeight
         {
-            get { return barOuterColor; }
+            get { return barHeight; }
             set
             {
-                barOuterColor = value;
+                barHeight = value;
                 Invalidate();
             }
         }
 
-
-        private Color barInnerColor = Color.DarkSlateBlue;
+        private Color barColor = Color.Gray;
         /// <summary>
-        /// Gets or sets the inner color of the bar.
+        /// Gets or sets the bar color.
         /// </summary>
-        /// <value>The inner color of the bar.</value>
-        [Description("Set Slider bar inner color")]
+        /// <value>The color of the bar.</value>
+        [Description("Set Slider's bar color")]
         [Category("ColorSlider")]
-        [DefaultValue(typeof(Color), "DarkSlateBlue")]
-        public Color BarInnerColor
+        [DefaultValue(typeof(Color), "Gray")]
+        public Color BarColor
         {
-            get { return barInnerColor; }
+            get { return barColor; }
             set
             {
-                barInnerColor = value;
+                barColor = value;
                 Invalidate();
             }
         }
 
-
-        private Color barPenColor = Color.Gainsboro;
+        private Color elapsedBarColor = Color.DodgerBlue;
         /// <summary>
-        /// Gets or sets the color of the bar pen.
+        /// Gets or sets the elapsed color.
         /// </summary>
-        /// <value>The color of the bar pen.</value>
-        [Description("Set Slider bar pen color")]
+        /// <value>The color of the elapsed.</value>
+        [Description("Set Slider's elapsed color")]
         [Category("ColorSlider")]
-        [DefaultValue(typeof(Color), "Gainsboro")]
-        public Color BarPenColor
+        [DefaultValue(typeof(Color), "DodgerBlue")]
+        public Color ElapsedBarColor
         {
-            get { return barPenColor; }
+            get { return elapsedBarColor; }
             set
             {
-                barPenColor = value;
+                elapsedBarColor = value;
                 Invalidate();
             }
-        }
-
-        private Color elapsedOuterColor = Color.DarkGreen;
-        /// <summary>
-        /// Gets or sets the outer color of the elapsed.
-        /// </summary>
-        /// <value>The outer color of the elapsed.</value>
-        [Description("Set Slider's elapsed part outer color")]
-        [Category("ColorSlider")]
-        [DefaultValue(typeof(Color), "DarkGreen")]
-        public Color ElapsedOuterColor
-        {
-            get { return elapsedOuterColor; }
-            set
-            {
-                elapsedOuterColor = value;
-                Invalidate();
-            }
-        }
-
-        private Color elapsedInnerColor = Color.Chartreuse;
-        /// <summary>
-        /// Gets or sets the inner color of the elapsed.
-        /// </summary>
-        /// <value>The inner color of the elapsed.</value>
-        [Description("Set Slider's elapsed part inner color")]
-        [Category("ColorSlider")]
-        [DefaultValue(typeof(Color), "Chartreuse")]
-        public Color ElapsedInnerColor
-        {
-            get { return elapsedInnerColor; }
-            set
-            {
-                elapsedInnerColor = value;
-                Invalidate();
-            }
-        }
-
-        private bool solidBackgroundColor = false;
-        /// <summary>
-        /// Gets or sets whether or not the background will have a solid color.
-        /// </summary>
-        /// <value>True for solid color, False for gradient color.</value>
-        [Description("Uses a solid background color (Note: uses BarInnerColor as a solid color)")]
-        [Category("ColorSlider")]
-        [DefaultValue(typeof(bool), "false")]
-        public bool SolidBackground
-        {
-            get { return solidBackgroundColor; }
-            set { solidBackgroundColor = value; Invalidate(); }
         }
 
         #endregion
@@ -488,28 +412,14 @@ namespace Baka_MPlayer.Controls
             if (!Enabled)
             {
                 Color[] desaturatedColors = DesaturateColors(thumbOuterColor, thumbInnerColor, thumbPenColor,
-                                                             barOuterColor, barInnerColor, barPenColor,
-                                                             elapsedOuterColor, elapsedInnerColor);
+                                                             barColor, elapsedBarColor);
                 DrawColorSlider(e, desaturatedColors[0], desaturatedColors[1], desaturatedColors[2],
-                                desaturatedColors[3],
-                                desaturatedColors[4], desaturatedColors[5], desaturatedColors[6], desaturatedColors[7]);
+                                desaturatedColors[3], desaturatedColors[4]);
             }
             else
             {
-                if (mouseEffects && mouseInRegion)
-                {
-                    Color[] lightenedColors = LightenColors(thumbOuterColor, thumbInnerColor, thumbPenColor,
-                                                            barOuterColor, barInnerColor, barPenColor,
-                                                            elapsedOuterColor, elapsedInnerColor);
-                    DrawColorSlider(e, lightenedColors[0], lightenedColors[1], lightenedColors[2], lightenedColors[3],
-                                    lightenedColors[4], lightenedColors[5], lightenedColors[6], lightenedColors[7]);
-                }
-                else
-                {
-                    DrawColorSlider(e, thumbOuterColor, thumbInnerColor, thumbPenColor,
-                                    barOuterColor, barInnerColor, barPenColor,
-                                    elapsedOuterColor, elapsedInnerColor);
-                }
+                DrawColorSlider(e, thumbOuterColor, thumbInnerColor, thumbPenColor,
+                                barColor, elapsedBarColor);
             }
         }
 
@@ -520,14 +430,10 @@ namespace Baka_MPlayer.Controls
         /// <param name="thumbOuterColorPaint">The thumb outer color paint.</param>
         /// <param name="thumbInnerColorPaint">The thumb inner color paint.</param>
         /// <param name="thumbPenColorPaint">The thumb pen color paint.</param>
-        /// <param name="barOuterColorPaint">The bar outer color paint.</param>
-        /// <param name="barInnerColorPaint">The bar inner color paint.</param>
-        /// <param name="barPenColorPaint">The bar pen color paint.</param>
-        /// <param name="elapsedOuterColorPaint">The elapsed outer color paint.</param>
-        /// <param name="elapsedInnerColorPaint">The elapsed inner color paint.</param>
+        /// <param name="barColorPaint">The bar color paint.</param>
+        /// <param name="elapsedBarColorPaint">The elapsed color paint.</param>
         private void DrawColorSlider(PaintEventArgs e, Color thumbOuterColorPaint, Color thumbInnerColorPaint,
-                                     Color thumbPenColorPaint, Color barOuterColorPaint, Color barInnerColorPaint,
-                                     Color barPenColorPaint, Color elapsedOuterColorPaint, Color elapsedInnerColorPaint)
+                                     Color thumbPenColorPaint, Color barColorPaint, Color elapsedBarColorPaint)
         {
             try
             {
@@ -551,46 +457,29 @@ namespace Baka_MPlayer.Controls
                 thumbHalfRect.Height /= 2;
 
                 // draw bar
-                if (solidBackgroundColor)
-                {
-                    var barBrush = new SolidBrush(BarInnerColor);
-                    e.Graphics.FillRectangle(barBrush, 0, Convert.ToInt32((7 * ClientRectangle.Height) / 16.0), ClientRectangle.Width, Convert.ToInt32(ClientRectangle.Height / 8.0));
-                }
-                else
-                {
-                    // adjust drawing rects
-                    barRect = ClientRectangle;
 
-                    barRect.Inflate(-1, -barRect.Height / 3);
-                    barHalfRect = barRect;
-                    barHalfRect.Height /= 2;
-                    elapsedRect = barRect;
-                    elapsedRect.Width = thumbRect.Left + thumbSize.Width / 2;
+                // adjust drawing rects
+                barRect = ClientRectangle;
 
-                    using (var lgbBar = new LinearGradientBrush(barHalfRect,
-                        barOuterColorPaint, barInnerColorPaint, LinearGradientMode.Vertical))
+                barRect.Inflate(0, (barHeight - barRect.Height) / 2);
+                elapsedRect = barRect;
+                elapsedRect.Width = thumbRect.Left + thumbSize.Width / 2;
+
+                using (var barBrush = new SolidBrush(barColorPaint))
+                {
+                    e.Graphics.FillRectangle(barBrush, barRect);
+
+                    // draw elapsed bar
+                    using (var elapsedBrush = new SolidBrush(elapsedBarColorPaint))
                     {
-                        lgbBar.WrapMode = WrapMode.TileFlipXY;
-                        e.Graphics.FillRectangle(lgbBar, barRect);
-                        // draw elapsed bar
-                        using (var lgbElapsed = new LinearGradientBrush(barHalfRect,
-                            elapsedOuterColorPaint, elapsedInnerColorPaint, LinearGradientMode.Vertical))
+                        if (Capture && drawSemitransparentThumb)
                         {
-                            lgbElapsed.WrapMode = WrapMode.TileFlipXY;
-                            if (Capture && drawSemitransparentThumb)
-                            {
-                                var elapsedReg = new Region(elapsedRect);
-                                elapsedReg.Exclude(thumbPath);
-                                e.Graphics.FillRegion(lgbElapsed, elapsedReg);
-                            }
-                            else
-                                e.Graphics.FillRectangle(lgbElapsed, elapsedRect);
+                            var elapsedReg = new Region(elapsedRect);
+                            elapsedReg.Exclude(thumbPath);
+                            e.Graphics.FillRegion(elapsedBrush, elapsedReg);
                         }
-                        // draw bar band                    
-                        using (var barPen = new Pen(barPenColorPaint, 0.5f))
-                        {
-                            e.Graphics.DrawRectangle(barPen, barRect);
-                        }
+                        else
+                            e.Graphics.FillRectangle(elapsedBrush, elapsedRect);
                     }
                 }
 
@@ -609,57 +498,22 @@ namespace Baka_MPlayer.Controls
                     e.Graphics.FillPath(lgbThumb, thumbPath);
                     // draw thumb band
                     Color newThumbPenColor = thumbPenColorPaint;
-                    if (mouseEffects && (Capture || mouseInThumbRegion))
-                        newThumbPenColor = ControlPaint.Dark(newThumbPenColor);
+
                     using (var thumbPen = new Pen(newThumbPenColor))
                     {
                         e.Graphics.DrawPath(thumbPen, thumbPath);
                     }
                 }
             }
-            catch (Exception Err)
+            catch (Exception err)
             {
-                Console.WriteLine(string.Format("DrawBackground Error in {0}: {1}", Name, Err.Message));
+                Console.WriteLine("DrawBackground Error in {0}: {1}", Name, err.Message);
             }
         }
 
         #endregion
 
         #region Overided events
-
-        private bool mouseInRegion;
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Forms.Control.EnabledChanged"></see> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"></see> that contains the event data.</param>
-        protected override void OnEnabledChanged(EventArgs e)
-        {
-            base.OnEnabledChanged(e);
-            Invalidate();
-        }
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Forms.Control.MouseEnter"></see> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"></see> that contains the event data.</param>
-        protected override void OnMouseEnter(EventArgs e)
-        {
-            base.OnMouseEnter(e);
-            mouseInRegion = true;
-            Invalidate();
-        }
-
-        /// <summary>
-        /// Raises the <see cref="E:System.Windows.Forms.Control.MouseLeave"></see> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"></see> that contains the event data.</param>
-        protected override void OnMouseLeave(EventArgs e)
-        {
-            base.OnMouseLeave(e);
-            mouseInRegion = false;
-            mouseInThumbRegion = false;
-            Invalidate();
-        }
 
         /// <summary>
         /// Raises the <see cref="E:System.Windows.Forms.Control.MouseDown"></see> event.
@@ -677,8 +531,6 @@ namespace Baka_MPlayer.Controls
             }
         }
 
-        private bool mouseInThumbRegion = false;
-
         /// <summary>
         /// Raises the <see cref="E:System.Windows.Forms.Control.MouseMove"></see> event.
         /// </summary>
@@ -686,7 +538,6 @@ namespace Baka_MPlayer.Controls
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
-            mouseInThumbRegion = IsPointInRect(e.Location, thumbRect);
             if (Capture & e.Button == MouseButtons.Left)
             {
                 ScrollEventType set = ScrollEventType.ThumbPosition;
@@ -722,7 +573,6 @@ namespace Baka_MPlayer.Controls
         {
             base.OnMouseUp(e);
             Capture = false;
-            mouseInThumbRegion = IsPointInRect(e.Location, thumbRect);
             if (Scroll != null) Scroll(this, new ScrollEventArgs(ScrollEventType.EndScroll, trackerValue));
             if (ValueChanged != null) ValueChanged(this, new EventArgs());
             Invalidate();
@@ -760,64 +610,6 @@ namespace Baka_MPlayer.Controls
                 Capture = false;
             }
         }
-
-        /*/// <summary>
-        /// Raises the <see cref="E:System.Windows.Forms.Control.KeyUp"></see> event.
-        /// </summary>
-        /// <param name="e">A <see cref="T:System.Windows.Forms.KeyEventArgs"></see> that contains the event data.</param>
-        protected override void OnKeyUp(KeyEventArgs e)
-        {
-            base.OnKeyUp(e);
-            switch (e.KeyCode)
-            {
-                case Keys.Down:
-                case Keys.Left:
-                    SetProperValue(Value - (int)smallChange);
-                    if (Scroll != null) Scroll(this, new ScrollEventArgs(ScrollEventType.SmallDecrement, Value));
-                    break;
-                case Keys.Up:
-                case Keys.Right:
-                    SetProperValue(Value + (int)smallChange);
-                    if (Scroll != null) Scroll(this, new ScrollEventArgs(ScrollEventType.SmallIncrement, Value));
-                    break;
-                case Keys.Home:
-                    Value = barMinimum;
-                    break;
-                case Keys.End:
-                    Value = barMaximum;
-                    break;
-                case Keys.PageDown:
-                    SetProperValue(Value - (int)largeChange);
-                    if (Scroll != null) Scroll(this, new ScrollEventArgs(ScrollEventType.LargeDecrement, Value));
-                    break;
-                case Keys.PageUp:
-                    SetProperValue(Value + (int)largeChange);
-                    if (Scroll != null) Scroll(this, new ScrollEventArgs(ScrollEventType.LargeIncrement, Value));
-                    break;
-            }
-            if (Scroll != null && Value == barMinimum) Scroll(this, new ScrollEventArgs(ScrollEventType.First, Value));
-            if (Scroll != null && Value == barMaximum) Scroll(this, new ScrollEventArgs(ScrollEventType.Last, Value));
-            Point pt = PointToClient(Cursor.Position);
-            OnMouseMove(new MouseEventArgs(MouseButtons.None, 0, pt.X, pt.Y, 0));
-        }*/
-
-        /*/// <summary>
-        /// Processes a dialog key.
-        /// </summary>
-        /// <param name="keyData">One of the <see cref="T:System.Windows.Forms.Keys"></see> values that represents the key to process.</param>
-        /// <returns>
-        /// true if the key was processed by the control; otherwise, false.
-        /// </returns>
-        protected override bool ProcessDialogKey(Keys keyData)
-        {
-            if (keyData == Keys.Tab | ModifierKeys == Keys.Shift)
-                return base.ProcessDialogKey(keyData);
-            else
-            {
-                OnKeyDown(new KeyEventArgs(keyData));
-                return true;
-            }
-        }*/
 
         #endregion
 
