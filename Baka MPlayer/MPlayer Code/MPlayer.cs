@@ -525,7 +525,7 @@ public class MPlayer
                 {
                     if (key.Contains("_START"))
                     {
-                        Info.Chapters[Info.Chapters.Count - 1].StartFrame = Functions.TryParse.ParseLong(value);
+                        Info.Chapters[Info.Chapters.Count - 1].StartTime = Functions.TryParse.ParseLong(value);
                     }
                     else if (key.Contains("_NAME"))
                     {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -401,6 +402,29 @@ namespace Baka_MPlayer.Controls
 
         #endregion
 
+        #region Functions
+
+        private List<long> marks = new List<long>();
+        private double maxMarkValue;
+
+        /// <summary>
+        /// Creates marks on the bar
+        /// </summary>
+        public void AddMarks(List<long> marks, double maxMarkValue)
+        {
+            this.marks = marks;
+            this.maxMarkValue = maxMarkValue;
+            Invalidate();
+        }
+
+        public void ClearMarks()
+        {
+            marks.Clear();
+            Invalidate();
+        }
+
+        #endregion
+
         #region Paint
 
         /// <summary>
@@ -460,7 +484,7 @@ namespace Baka_MPlayer.Controls
 
                 // adjust drawing rects
                 barRect = ClientRectangle;
-
+                
                 barRect.Inflate(0, (barHeight - barRect.Height) / 2);
                 elapsedRect = barRect;
                 elapsedRect.Width = thumbRect.Left + thumbSize.Width / 2;
@@ -480,6 +504,16 @@ namespace Baka_MPlayer.Controls
                         }
                         else
                             e.Graphics.FillRectangle(elapsedBrush, elapsedRect);
+                    }
+
+                    // create tick marks (e.g. chapter marks)
+                    foreach (var m in marks)
+                    {
+                        var x = (m * this.ClientRectangle.Width) / maxMarkValue;
+                        var r = new Rectangle((int)x, barRect.Y, barRect.Height, barRect.Height);
+                        r.Inflate(0, 2);
+
+                        e.Graphics.FillRectangle(barBrush, r);
                     }
                 }
 
@@ -513,7 +547,7 @@ namespace Baka_MPlayer.Controls
 
         #endregion
 
-        #region Overided events
+        #region Overrided events
 
         /// <summary>
         /// Raises the <see cref="E:System.Windows.Forms.Control.MouseDown"></see> event.

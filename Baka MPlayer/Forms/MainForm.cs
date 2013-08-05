@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -138,7 +139,7 @@ namespace Baka_MPlayer.Forms
         // notify icon code
         private void SetSystemTray()
         {
-            if (!File.Exists(Info.URL))
+            if (!Info.FileExists)
             {
                 titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, Info.FileName));
                 artistMenuItem.Text = "  Online Media";
@@ -1667,10 +1668,12 @@ namespace Baka_MPlayer.Forms
         {
             Invoke((MethodInvoker)delegate
             {
+                // save last file information
                 if (firstFile)
                 {
                     firstFile = false;
                     settings.SetConfig(Info.URL, SettingEnum.LastFile);
+                    EnableControls();
                 }
                 else
                 {
@@ -1681,7 +1684,8 @@ namespace Baka_MPlayer.Forms
                 settings.SaveConfig();
                 tempURL = Info.URL;
 
-                // set this form's caption
+                // set forms info
+
                 this.Text = Info.FullFileName;
 
                 folderToolStripMenuItem.Text = Info.FileExists ?
@@ -1692,6 +1696,10 @@ namespace Baka_MPlayer.Forms
 
                 if (infoForm != null && !infoForm.IsDisposed)
                     infoForm.RefreshInfo();
+
+                // set menu strips
+
+                showInWindowsExplorerToolStripMenuItem.Enabled = Info.FileExists;
 
                 if (Info.VideoInfo.HasVideo)
                 {
@@ -1733,16 +1741,13 @@ namespace Baka_MPlayer.Forms
                 }
                 ResizeMplayerPanel();
 
-                // check if media is online
-                showInWindowsExplorerToolStripMenuItem.Enabled = Info.FileExists;
-
                 // set previous volume (output drivers fault for not saving volume)
                 SetVolume(Info.Current.Volume);
 
                 // call other methods
                 playlist.RefreshPlaylist(false);
+                SetChapterMarks();
                 SetSystemTray();
-                EnableControls();
 
                 // create menu items
                 SetAudioTracks();
@@ -1968,6 +1973,24 @@ namespace Baka_MPlayer.Forms
 
             // thumbnail toolbar button
             playToolButton.Enabled = true;
+        }
+
+        private void SetChapterMarks()
+        {
+            // set chapter marks on seekBar
+            if (Info.Chapters.Count != 0)
+            {
+                var marks = new List<long>();
+
+                foreach (var c in Info.Chapters)
+                    marks.Add(c.StartTime / 1000);
+
+                seekBar.AddMarks(marks, Info.Current.TotalLength);
+            }
+            else
+            {
+                seekBar.ClearMarks();
+            }
         }
 
         private void albumArtPicbox_SizeChanged(object sender, EventArgs e)

@@ -36,17 +36,20 @@ public class Sub
 }
 
 /// <summary>
-/// Stores chapter's first frame and name
+/// Stores chapter's start time and name
 /// </summary>
 public class Chapter
 {
-	public long StartFrame;
+    /// <summary>
+    /// In miliseconds
+    /// </summary>
+	public long StartTime;
 	public string ChapterName;
 
     public Chapter() { }
-	public Chapter(long startFrame, string chapterName)
+	public Chapter(long startTime, string chapterName)
 	{
-		this.StartFrame = startFrame;
+        this.StartTime = startTime;
 		this.ChapterName = chapterName;
 	}
 }
@@ -112,6 +115,9 @@ public static class Info
     /// Note: Returns 'null' if root dir ("C:\")
     /// </summary>
     public static string GetDirectoryName { get; set; } // Path.GetDirectoryName(...)
+    /// <summary>
+    /// Warning! Only set once at file init
+    /// </summary>
     public static bool FileExists { get; set; } // File.Exists(...)
 
     // MiscInfo
