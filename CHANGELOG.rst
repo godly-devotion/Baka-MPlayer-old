@@ -1,8 +1,17 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.2.1.0 (July 18, 2013)
---------------------------------------
+Latest Version 1.2.2.0 (August 5, 2013)
+---------------------------------------
+
+- Fixed: Small bugs
+- Changed: Simplified seek and volume control's looks
+- Added: Chapter marks on seek bar (or go to Media -> Chapters)
+- Added: Can Show/Hide sub's via Ctrl+W
+- Updated: mpv build
+
+Version 1.2.1.0 (July 18, 2013)
+-------------------------------
 
 - Fixed: Crashes when filename contained certain characters
 - Changed: mpv no longer needs to cache font
