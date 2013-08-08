@@ -904,7 +904,7 @@ namespace Baka_MPlayer.Forms
 
             if (subForm.ShowDialog(this) == DialogResult.OK)
             {
-                mplayer.loadExternalSub = subForm.SubFile;
+                mplayer.ExternalSub = subForm.SubFile;
                 mplayer.OpenFile(subForm.MediaFile);
             }
         }

@@ -19,7 +19,7 @@ public class MPlayer
     private bool cachingFonts;
     private bool parsingClipInfo;
     private bool ignoreStatus;
-    public string loadExternalSub { get; set; }
+    public string ExternalSub { get; set; }
 
     #endregion
 
@@ -123,6 +123,7 @@ public class MPlayer
             args.Append(" -no-keepaspect");         		 	// doesn't keep window aspect ratio when resizing windows
             args.Append(" -framedrop=yes");                     // enables soft framedrop
             args.Append(" -stop-screensaver");                  // temp disables the screensaver and screen blanker
+            args.Append(" -no-autosub");                        // do not auto load subs (via filename)
             args.Append(" -cursor-autohide=no");                // disable cursor autohide
             //args.Append(" -no-cache");                        // disables caching
             args.Append(" -playing-msg=PLAYING_FILE:${media-title}");
@@ -309,7 +310,7 @@ public class MPlayer
         return SendCommand("set audio {0}", i);
     }
     /// <summary>
-    /// Shows or hides subs.
+    /// Shows or hides subs
     /// </summary>
     public bool ShowSubs(bool show)
     {
@@ -317,7 +318,7 @@ public class MPlayer
         return SendCommand("set sub-visibility {0}", show ? "yes" : "no");
     }
     /// <summary>
-    /// Set subtitle track.
+    /// Set subtitle track
     /// </summary>
     /// <param name="i">The subtitle index (zero based)</param>
     public bool SetSubs(int i)
@@ -439,12 +440,14 @@ public class MPlayer
                 Info.FullFileName = Info.MovieName;
             }
 
-            // load external file if requested
-            if (!string.IsNullOrEmpty(loadExternalSub))
+            // load external sub if requested
+            if (!string.IsNullOrEmpty(ExternalSub))
             {
-                SendCommand("sub_add \"{0}\"", loadExternalSub.Replace("\\", "\\\\"));
-                SetSubs(Info.Subs.Count.Equals(0) ? 0 : Info.Subs.Count);
-                loadExternalSub = string.Empty;
+                SendCommand("sub_add \"{0}\"", ExternalSub.Replace("\\", "\\\\"));
+                Info.Subs.Add(new Sub(Info.Subs.Count.ToString(), "[ External Sub ]", "★"));
+                SetSubs(Info.Subs.Count - 1);
+
+                ExternalSub = string.Empty;
             }
 
             // get album picture tag
