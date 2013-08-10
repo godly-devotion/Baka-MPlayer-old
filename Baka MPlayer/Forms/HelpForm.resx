@@ -118,15 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="richTextBox4.Text" xml:space="preserve">
-    <value>(Note: list does not include menu controls)
+    <value>(Note: list does not include all menu controls)
 - Playback Controls -
 [Spacebar] Play/Pause
 [Left Key] -5 seconds
 [Right Key] +5 seconds
-[Scroll Up] Increase Volume
-[Scroll Down] Decrease Volume
-[Enter] Full Screen
-[Alt+Enter] Exit Full Screen
+[Ctrl+Scroll Up] Increase Volume
+[Ctrl+Scroll Down] Decrease Volume
+[Alt+Enter] Full Screen/Exit Full Screen
 
 - Next/Previous File -
 [Ctrl+Left] Play Previous File

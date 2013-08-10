@@ -44,9 +44,9 @@
             // 
             this.closeButton.BackColor = System.Drawing.Color.Transparent;
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.closeButton.FlatAppearance.BorderColor = System.Drawing.Color.DeepSkyBlue;
-            this.closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
-            this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.closeButton.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
+            this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DodgerBlue;
             this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.closeButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.White;
@@ -121,8 +121,8 @@
             this.richTextBox3.Size = new System.Drawing.Size(337, 312);
             this.richTextBox3.TabIndex = 1;
             this.richTextBox3.Text = "(Note: you must call Baka MPlayer\'s name before you say the command, by default t" +
-                "he name is \"baka\")\n\nplay\npause\nstop\nmute\nunmute\nnext [file]\nprevious [file]\nhide" +
-                "";
+    "he name is \"baka\")\n\nplay\npause\nstop\nmute\nunmute\nnext [file]\nprevious [file]\nhide" +
+    "";
             // 
             // HelpForm
             // 
