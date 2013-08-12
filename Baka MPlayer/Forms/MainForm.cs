@@ -32,6 +32,13 @@ namespace Baka_MPlayer.Forms
         [DllImport("user32.dll")]
         static extern int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
+        // used for cursor hiding/showing in Full Screen mode
+        [DllImport("user32.dll")]
+        static extern IntPtr SetCursor(IntPtr hCursor);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr LoadCursor(IntPtr hInstance, int lpCursorName);
+
         #endregion
         #region Global Variables
 
@@ -844,9 +851,9 @@ namespace Baka_MPlayer.Forms
                 {
                     cursorVisible = value;
                     if (value)
-                        Cursor.Show();
+                        SetCursor(LoadCursor(IntPtr.Zero, IDC.ARROW));
                     else
-                        Cursor.Hide();
+                        SetCursor(IntPtr.Zero);
                 }
             }
         }

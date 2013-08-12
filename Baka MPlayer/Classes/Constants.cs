@@ -20,3 +20,11 @@ public static class WH
 {
     public const int KEYBOARD = 2;
 }
+
+/// <summary>
+/// Some default system cursors
+/// </summary>
+public static class IDC
+{
+    public const int ARROW = 32512;
+}
