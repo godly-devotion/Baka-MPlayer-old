@@ -1,7 +1,8 @@
 ﻿public static class WM
 {
-    public const int WINDOWPOSCHANGING = 0x46;
+    public const int WINDOWPOSCHANGING = 0x0046;
     public const int SYSCOMMAND = 0x112;
+    public const int MOUSEMOVE = 0x0200;
 }
 
 /// <summary>

@@ -860,26 +860,27 @@ namespace Baka_MPlayer.Forms
 
         private void MouseMoved()
         {
+            CursorShown = true;
+
             if (FullScreen)
             {
                 var scrn = Screen.FromControl(this);
 
-                CursorShown = true;
-                cursorTimer.Start();
-                
                 if (Cursor.Position.Y > scrn.Bounds.Height - (seekPanel.Height + controlPanel.Height + 10))
                 {
+                    cursorTimer.Stop();
+
                     seekPanel.Show();
                     controlPanel.Show();
                 }
                 else
                 {
+                    cursorTimer.Start();
+
                     seekPanel.Hide();
                     controlPanel.Hide();
                 }
             }
-            else
-                CursorShown = true;
         }
 
         private void cursorTimer_Tick(object sender, EventArgs e)
@@ -1467,7 +1468,7 @@ namespace Baka_MPlayer.Forms
             // set keyboard hook
             this.myCallbackDelegate = this.callbackFunction_KeyboardHook;
             hHook = SetWindowsHookEx(WH.KEYBOARD, this.myCallbackDelegate, IntPtr.Zero, AppDomain.GetCurrentThreadId());
-            
+
             // set mouse hook
             var mouseHandler = new GlobalMouseHandler();
             mouseHandler.TheMouseMoved += MouseMoved;

@@ -5,13 +5,11 @@ public delegate void MouseMovedEvent();
 
 public class GlobalMouseHandler : IMessageFilter
 {
-    private const int WM_MOUSEMOVE = 0x0200;
-
     public event MouseMovedEvent TheMouseMoved;
 
     public bool PreFilterMessage(ref Message m)
     {
-        if (m.Msg == WM_MOUSEMOVE)
+        if (m.Msg == WM.MOUSEMOVE)
         {
             if (TheMouseMoved != null)
             {
