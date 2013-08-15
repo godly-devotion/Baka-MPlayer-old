@@ -824,6 +824,8 @@ namespace Baka_MPlayer.Forms
                     this.FormBorderStyle = FormBorderStyle.None;
                     this.WindowState = FormWindowState.Maximized;
                     this.TopMost = true;
+                    
+                    cursorTimer.Start();
                 }
                 else
                 {
@@ -841,27 +843,16 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private bool cursorVisible = true;
-        private bool CursorShown
+        private void HideCursor()
         {
-            get { return cursorVisible; }
-            set
-            {
-                if (value != cursorVisible)
-                {
-                    cursorVisible = value;
-                    if (value)
-                        SetCursor(LoadCursor(IntPtr.Zero, IDC.ARROW));
-                    else
-                        SetCursor(IntPtr.Zero);
-                }
-            }
+            SetCursor(IntPtr.Zero);
+
+            // to show the cursor manually use:
+            //SetCursor(LoadCursor(IntPtr.Zero, IDC.ARROW));
         }
 
         private void MouseMoved()
         {
-            CursorShown = true;
-
             if (FullScreen)
             {
                 var scrn = Screen.FromControl(this);
@@ -885,7 +876,7 @@ namespace Baka_MPlayer.Forms
 
         private void cursorTimer_Tick(object sender, EventArgs e)
         {
-            CursorShown = false;
+            HideCursor();
             cursorTimer.Stop();
         }
 
