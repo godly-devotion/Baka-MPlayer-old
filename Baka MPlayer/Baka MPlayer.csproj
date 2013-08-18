@@ -93,6 +93,7 @@
     <Compile Include="Classes\UpdateChecker.cs" />
     <Compile Include="Classes\Voice.cs" />
     <Compile Include="Classes\Constants.cs" />
+    <Compile Include="Classes\VO_State.cs" />
     <Compile Include="Controls\MediaButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -122,6 +123,12 @@
     </Compile>
     <Compile Include="Controls\PlaylistControl.Designer.cs">
       <DependentUpon>PlaylistControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VO_Panel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\VO_Panel.Designer.cs">
+      <DependentUpon>VO_Panel.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>

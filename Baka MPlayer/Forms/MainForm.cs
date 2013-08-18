@@ -32,13 +32,6 @@ namespace Baka_MPlayer.Forms
         [DllImport("user32.dll")]
         static extern int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
-        // used for cursor hiding/showing in Full Screen mode
-        [DllImport("user32.dll")]
-        static extern IntPtr SetCursor(IntPtr hCursor);
-
-        [DllImport("user32.dll")]
-        static extern IntPtr LoadCursor(IntPtr hInstance, int lpCursorName);
-
         #endregion
         #region Global Variables
 
@@ -806,35 +799,36 @@ namespace Baka_MPlayer.Forms
         {
             get
             {
-                return fullScreenToolStripMenuItem.Checked;
+                return VO_State.FullScreen;
             }
             set
             {
+                VO_State.FullScreen = value;
+                fullScreenToolStripMenuItem.Checked = value;
+
                 if (value)
                 {
-                    // hide controls
                     ShowPlaylist = false;
                     ShowConsole = false;
+
                     mainMenuStrip.Hide();
                     seekPanel.Hide();
                     controlPanel.Hide();
-                    bodySplitContainer.Panel1.BackColor = Color.Black;
 
                     this.ControlBox = false;
                     this.FormBorderStyle = FormBorderStyle.None;
                     this.WindowState = FormWindowState.Maximized;
                     this.TopMost = true;
                     
-                    cursorTimer.Start();
+                    VO_State.LastCursorPos = Cursor.Position;
+                    Cursor.Current = null;
                 }
                 else
                 {
-                    // show controls
                     mainMenuStrip.Show();
                     seekPanel.Show();
                     controlPanel.Show();
-                    bodySplitContainer.Panel1.BackColor = mainMenuStrip.BackColor;
-                    
+
                     this.ControlBox = true;
                     this.FormBorderStyle = FormBorderStyle.Sizable;
                     this.WindowState = FormWindowState.Normal;
@@ -843,18 +837,13 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private void HideCursor()
-        {
-            SetCursor(IntPtr.Zero);
-
-            // to show the cursor manually use:
-            //SetCursor(LoadCursor(IntPtr.Zero, IDC.ARROW));
-        }
-
         private void MouseMoved()
         {
-            if (FullScreen)
+            if (!FullScreen) return;
+            if (VO_State.LastCursorPos != Cursor.Position)
             {
+                VO_State.LastCursorPos = Cursor.Position;
+
                 var scrn = Screen.FromControl(this);
 
                 if (Cursor.Position.Y > scrn.Bounds.Height - (seekPanel.Height + controlPanel.Height + 10))
@@ -876,7 +865,7 @@ namespace Baka_MPlayer.Forms
 
         private void cursorTimer_Tick(object sender, EventArgs e)
         {
-            HideCursor();
+            Cursor.Current = null;
             cursorTimer.Stop();
         }
 
@@ -1058,7 +1047,7 @@ namespace Baka_MPlayer.Forms
 
         private void fullScreenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FullScreen = fullScreenToolStripMenuItem.Checked;
+            FullScreen = !FullScreen;
         }
 
         private void fitToVideoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1575,10 +1564,7 @@ namespace Baka_MPlayer.Forms
                     break;
                 case Keys.Escape:
                     if (FullScreen)
-                    {
-                        fullScreenToolStripMenuItem.Checked = false;
                         FullScreen = false;
-                    }
                     else
                         HidePlayer();
                     break;
@@ -1926,7 +1912,7 @@ namespace Baka_MPlayer.Forms
                 mplayer.Pause(false);
 
             if (FullScreen)
-                fullScreenToolStripMenuItem.PerformClick();
+                FullScreen = false;
             if (blackForm != null)
                 blackForm.Hide();
             dimLightsToolStripMenuItem.Checked = false;

@@ -1,5 +1,9 @@
-﻿public static class WM
+﻿/// <summary>
+/// Window Messages
+/// </summary>
+public static class WM
 {
+    public const int SETCURSOR = 0x0020;
     public const int WINDOWPOSCHANGING = 0x0046;
     public const int SYSCOMMAND = 0x112;
     public const int MOUSEMOVE = 0x0200;
@@ -20,12 +24,4 @@ public static class SC
 public static class WH
 {
     public const int KEYBOARD = 2;
-}
-
-/// <summary>
-/// Some default system cursors
-/// </summary>
-public static class IDC
-{
-    public const int ARROW = 32512;
 }

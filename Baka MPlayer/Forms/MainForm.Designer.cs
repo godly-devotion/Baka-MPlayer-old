@@ -136,7 +136,7 @@ namespace Baka_MPlayer.Forms
             this.bodySplitContainer = new System.Windows.Forms.SplitContainer();
             this.statusLabel = new System.Windows.Forms.Label();
             this.albumArtPicbox = new System.Windows.Forms.PictureBox();
-            this.mplayerPanel = new System.Windows.Forms.Panel();
+            this.mplayerPanel = new VO_Panel();
             this.outputTextbox = new System.Windows.Forms.RichTextBox();
             this.inputTextbox = new Baka_MPlayer.Controls.CustomTextBox();
             this.playlist = new Baka_MPlayer.Controls.PlaylistControl();
@@ -487,7 +487,6 @@ namespace Baka_MPlayer.Forms
             // 
             // fullScreenToolStripMenuItem
             // 
-            this.fullScreenToolStripMenuItem.CheckOnClick = true;
             this.fullScreenToolStripMenuItem.Enabled = false;
             this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
             this.fullScreenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Return)));
@@ -1477,7 +1476,6 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.Label durationLabel;
         private System.Windows.Forms.Label timeLeftLabel;
         private System.Windows.Forms.PictureBox playButton;
-        protected internal System.Windows.Forms.Panel mplayerPanel;
         private Baka_MPlayer.Controls.ColorSlider volumeBar;
         private Baka_MPlayer.Controls.ColorSlider seekBar;
         private PlaylistControl playlist;
@@ -1587,6 +1585,7 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem force169ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem force2351ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFileWithExternalSubsToolStripMenuItem;
+        protected internal VO_Panel mplayerPanel;
     }
 }
 

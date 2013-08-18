@@ -195,7 +195,7 @@ namespace Functions
         }
     }
 
-    public static class CSharp_Wrappers
+    public static class WindowMacro
     {
         public static int GET_X_LPARAM(int lparam)
         { return LowWord(lparam); }
