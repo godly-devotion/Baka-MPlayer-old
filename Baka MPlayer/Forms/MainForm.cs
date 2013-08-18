@@ -1695,7 +1695,6 @@ namespace Baka_MPlayer.Forms
                     mplayerPanel.Visible = true;
 
                     frameStepToolStripMenuItem.Enabled = true;
-                    fullScreenToolStripMenuItem.Enabled = true;
                     hideAlbumArtToolStripMenuItem.Checked = false;
                     hideAlbumArtToolStripMenuItem_Click(null, null);
                     hideAlbumArtToolStripMenuItem.Enabled = false;
@@ -1713,7 +1712,6 @@ namespace Baka_MPlayer.Forms
                     albumArtPicbox.Visible = true;
 
                     frameStepToolStripMenuItem.Enabled = false;
-                    fullScreenToolStripMenuItem.Enabled = false;
                     hideAlbumArtToolStripMenuItem.Enabled = true;
                     takeSnapshotToolStripMenuItem.Enabled = false;
 
@@ -1944,6 +1942,7 @@ namespace Baka_MPlayer.Forms
             restartToolStripMenuItem.Enabled = true;
             jumpToTimeToolStripMenuItem.Enabled = true;
 
+            fullScreenToolStripMenuItem.Enabled = true;
             fitToVideoToolStripMenuItem.Enabled = true;
             sayMediaNameToolStripMenuItem.Enabled = true;
             mediaInfoToolStripMenuItem.Enabled = true;
