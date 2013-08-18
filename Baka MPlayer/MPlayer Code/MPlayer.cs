@@ -15,6 +15,7 @@ public class MPlayer
     private Process mplayer;
     private readonly ID3Tag id3Tag = new ID3Tag();
     private readonly string execName;
+    private readonly string optionalArgs;
     private readonly int wid;
     private bool cachingFonts;
     private bool parsingClipInfo;
@@ -84,9 +85,10 @@ public class MPlayer
 
     #region Constructor
 
-    public MPlayer(string execName, int wid)
+    public MPlayer(string execName, string optionalArgs, int wid)
     {
         this.execName = execName;
+        this.optionalArgs = optionalArgs;
         this.wid = wid;
     }
 
@@ -129,6 +131,7 @@ public class MPlayer
             args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=dwidth};HEIGHT=${=dheight}");
             args.AppendFormat(" -volume={0}", Info.Current.Volume); // sets previous volume
             args.AppendFormat(" -wid={0}", wid); // output handle
+            args.AppendFormat(" {0}", optionalArgs);
             
             mplayer = new Process
             {

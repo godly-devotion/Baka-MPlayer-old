@@ -22,6 +22,7 @@ public class Setting
 public enum SettingEnum
 {
     Exec = 0,
+    OptionalArgs,
     LastFile,
     LastUpdateCheck,
     ShowIcon,
@@ -40,6 +41,7 @@ public class Settings : IDisposable
     {
         settings.Clear();
         settings.Add(new Setting(SettingEnum.Exec, "mpv.exe"));
+        settings.Add(new Setting(SettingEnum.OptionalArgs, ""));
         settings.Add(new Setting(SettingEnum.LastFile, ""));
         settings.Add(new Setting(SettingEnum.LastUpdateCheck, 1));
         settings.Add(new Setting(SettingEnum.ShowIcon, true));
