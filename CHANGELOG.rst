@@ -1,8 +1,19 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.2.2.0 (August 5, 2013)
----------------------------------------
+Latest Version 1.3.0.0 (August 18, 2013)
+----------------------------------------
+
+- Fixed: Several minor bugs
+- Fixed: Loading external subtitle files
+- Fixed: Disable screensaver and screen blankers from running
+- Fixed: Typo in Help window
+- Fixed: General cursor problems in full screen mode
+- Changed: Full screen mode enabled to all media types
+- Added: User customizable optional arguments support for mpv
+
+Version 1.2.2.0 (August 5, 2013)
+--------------------------------
 
 - Fixed: Small bugs
 - Changed: Simplified seek and volume control's looks
