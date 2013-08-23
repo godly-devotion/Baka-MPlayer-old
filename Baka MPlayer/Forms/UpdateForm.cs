@@ -7,8 +7,8 @@ namespace Baka_MPlayer.Forms
 {
     public partial class UpdateForm : Form
     {
-        private const string url_x86_64  = "http://bakamplayer.netii.net/Baka MPlayer.7z"; // x86_64
-        private const string url_x86 = "http://bakamplayer.netii.net/Baka MPlayer x86.7z"; // x86
+        private const string url_x86_64  = "http://bakamplayer.u8sand.net/Baka MPlayer.7z"; // x86_64
+        private const string url_x86 = "http://bakamplayer.u8sand.net/Baka MPlayer x86.7z"; // x86
 
         public UpdateForm(UpdateInfo info)
         {

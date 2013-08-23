@@ -21,7 +21,7 @@ namespace Baka_MPlayer.Forms
 
         private void webLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://bakamplayer.netii.net/");
+            System.Diagnostics.Process.Start(webLinkLabel.Text);
         }
 
         private void closeButton_Click(object sender, System.EventArgs e)

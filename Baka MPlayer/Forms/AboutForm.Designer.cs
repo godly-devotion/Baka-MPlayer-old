@@ -71,10 +71,10 @@
             this.webLinkLabel.LinkColor = System.Drawing.Color.DeepSkyBlue;
             this.webLinkLabel.Location = new System.Drawing.Point(12, 278);
             this.webLinkLabel.Name = "webLinkLabel";
-            this.webLinkLabel.Size = new System.Drawing.Size(196, 19);
+            this.webLinkLabel.Size = new System.Drawing.Size(214, 19);
             this.webLinkLabel.TabIndex = 4;
             this.webLinkLabel.TabStop = true;
-            this.webLinkLabel.Text = "http://bakamplayer.netii.net/";
+            this.webLinkLabel.Text = "http://bakamplayer.u8sand.net/";
             this.webLinkLabel.VisitedLinkColor = System.Drawing.Color.DarkOrchid;
             this.webLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.webLinkLabel_LinkClicked);
             // 

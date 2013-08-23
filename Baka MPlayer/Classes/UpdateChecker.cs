@@ -28,7 +28,7 @@ public class UpdateInfo
 
 public class UpdateChecker
 {
-    private const string website = "bakamplayer.netii.net";
+    private const string website = "bakamplayer.u8sand.net";
     private const string versionPath = "/version";
     private volatile bool checkSuccessful = false;
 
