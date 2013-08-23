@@ -1,8 +1,13 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.3.0.0 (August 18, 2013)
+Latest Version 1.3.0.1 (August 23, 2013)
 ----------------------------------------
+
+- Updated: Changed website host (bakamplayer.u8sand.net)
+
+Version 1.3.0.0 (August 18, 2013)
+---------------------------------
 
 - Fixed: Several minor bugs
 - Fixed: Loading external subtitle files
