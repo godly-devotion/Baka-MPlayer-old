@@ -1997,43 +1997,35 @@ namespace Baka_MPlayer.Forms
 
         private void ResizeMplayerPanel()
         {
-            if (string.IsNullOrEmpty(Info.URL))
-            {
-                //mplayerPanel.Size = bodySplitContainer.Panel1.Size;
+            if (string.IsNullOrEmpty(Info.URL) && !Info.VideoInfo.HasVideo)
                 return;
-            }
 
-            if (Info.VideoInfo.HasVideo)
+            var nowAspect = (double)bodySplitContainer.Panel1.Width / bodySplitContainer.Panel1.Height;
+            int newWidth, newHeight;
+
+            var ratio = Info.VideoInfo.AspectRatio;
+            if (ratio.Equals(0.0))
+                ratio = (double)Info.VideoInfo.Width / Info.VideoInfo.Height;
+
+            if (nowAspect < ratio)
             {
-                var nowAspect = (double)bodySplitContainer.Panel1.Width / bodySplitContainer.Panel1.Height;
-                int newWidth, newHeight;
-
-                var ratio = Info.VideoInfo.AspectRatio;
-                if (ratio.Equals(0.0))
-                    ratio = (double)Info.VideoInfo.Width / Info.VideoInfo.Height;
-
-                if (nowAspect < ratio)
-                {
-                    newWidth = bodySplitContainer.Panel1.Width;
-                    newHeight = (int)(newWidth / ratio);
-                }
-                else
-                {
-                    newHeight = bodySplitContainer.Panel1.Height;
-                    newWidth = (int)(newHeight * ratio);
-                }
-
-                // update Size : Width, Height
-                if (Info.VideoInfo.Width != newWidth || Info.VideoInfo.Height != newHeight)
-                    mplayerPanel.Size = new Size(newWidth, newHeight);
-
-                // update location : Top, Left
-                newWidth = (bodySplitContainer.Panel1.Width - newWidth) / 2;
-                newHeight = (bodySplitContainer.Panel1.Height - newHeight) / 2;
-
-                if (mplayerPanel.Left != newWidth || mplayerPanel.Top != newHeight)
-                    mplayerPanel.Location = new Point(newWidth, newHeight);
+                newWidth = bodySplitContainer.Panel1.Width;
+                newHeight = (int)(newWidth / ratio);
             }
+            else
+            {
+                newHeight = bodySplitContainer.Panel1.Height;
+                newWidth = (int)(newHeight * ratio);
+            }
+
+            // update Size : Width, Height
+            mplayerPanel.Size = new Size(newWidth, newHeight);
+
+            // update location : Top, Left
+            newWidth = (bodySplitContainer.Panel1.Width - newWidth) / 2;
+            newHeight = (bodySplitContainer.Panel1.Height - newHeight) / 2;
+
+            mplayerPanel.Location = new Point(newWidth, newHeight);
         }
 
         private void UpdateNowPlayingInfo()
