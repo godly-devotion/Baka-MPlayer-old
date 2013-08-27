@@ -10,9 +10,9 @@ In order to open this project, you require:
 
 Note
 ----
-The `mpv.exe` included in the Debug folder is 64-bit!
+The ``mpv.exe`` included in the Debug folder is 64-bit!
 If you want to debug in a 32-bit environment, download the 32-bit version of
-Baka MPlayer and use the `mpv.exe` included in there.
+Baka MPlayer and use the ``mpv.exe`` included in there.
 
 Bug reports
 ===========
