@@ -122,7 +122,6 @@ public class MPlayer
             args.Append(" -osd-level=0");                       // do not show volume + seek on OSD
             args.Append(" -no-mouseinput");         		 	// disable mouse input events
             args.Append(" -no-keepaspect");         		 	// doesn't keep window aspect ratio when resizing windows
-            args.Append(" -framedrop=yes");                     // enables soft framedrop
             args.Append(" -stop-screensaver");                  // temp disables the screensaver and screen blanker
             args.Append(" -no-autosub");                        // do not auto load subs (via filename)
             args.Append(" -cursor-autohide=no");                // disable cursor autohide
@@ -146,6 +145,7 @@ public class MPlayer
                     RedirectStandardError = true,
                     StandardOutputEncoding = Encoding.UTF8,
                     StandardErrorEncoding = Encoding.UTF8,
+
                     Arguments = args.AppendFormat(" \"{0}\"", url).ToString()
                 }
             };
