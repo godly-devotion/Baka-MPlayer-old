@@ -1660,7 +1660,7 @@ namespace Baka_MPlayer.Forms
                 {
                     firstFile = false;
                     settings.SetConfig(Info.URL, SettingEnum.LastFile);
-                    EnableControls();
+                    SetControls(true);
                 }
                 else
                 {
@@ -1826,11 +1826,7 @@ namespace Baka_MPlayer.Forms
         }
         private void LastFile()
         {
-            seekBar.Enabled = false;
-            previousButton.Enabled = false;
-            playButton.Enabled = false;
-            nextButton.Enabled = false;
-
+            SetControls(false);
             SetStatusMsg("Reached the end", true);
         }
 
@@ -1927,38 +1923,38 @@ namespace Baka_MPlayer.Forms
             this.Opacity = 1.0;
         }
 
-        private void EnableControls()
+        private void SetControls(bool enable)
         {
             // control panel controls
-            seekBar.Enabled = true;
-            rewindButton.Enabled = true;
-            playButton.Enabled = true;
-            playlistButton.Enabled = true;
+            seekBar.Enabled = enable;
+            rewindButton.Enabled = enable;
+            playButton.Enabled = enable;
+            playlistButton.Enabled = enable;
             
             // menu strips
-            playToolStripMenuItem.Enabled = true;
-            stopToolStripMenuItem.Enabled = true;
-            rewindToolStripMenuItem.Enabled = true;
-            restartToolStripMenuItem.Enabled = true;
-            jumpToTimeToolStripMenuItem.Enabled = true;
+            playToolStripMenuItem.Enabled = enable;
+            stopToolStripMenuItem.Enabled = enable;
+            rewindToolStripMenuItem.Enabled = enable;
+            restartToolStripMenuItem.Enabled = enable;
+            jumpToTimeToolStripMenuItem.Enabled = enable;
 
-            fullScreenToolStripMenuItem.Enabled = true;
-            fitToVideoToolStripMenuItem.Enabled = true;
-            sayMediaNameToolStripMenuItem.Enabled = true;
-            mediaInfoToolStripMenuItem.Enabled = true;
+            fullScreenToolStripMenuItem.Enabled = enable;
+            fitToVideoToolStripMenuItem.Enabled = enable;
+            sayMediaNameToolStripMenuItem.Enabled = enable;
+            mediaInfoToolStripMenuItem.Enabled = enable;
 
-            showPlaylistToolStripMenuItem.Enabled = true;
+            showPlaylistToolStripMenuItem.Enabled = enable;
 
-            folderToolStripMenuItem.Enabled = true;
+            folderToolStripMenuItem.Enabled = enable;
 
             // tray context menu
-            showMenuItem.Enabled = true;
-            playMenuItem.Enabled = true;
-            stopMenuItem.Enabled = true;
-            rewindMenuItem.Enabled = true;
+            showMenuItem.Enabled = enable;
+            playMenuItem.Enabled = enable;
+            stopMenuItem.Enabled = enable;
+            rewindMenuItem.Enabled = enable;
 
             // thumbnail toolbar button
-            playToolButton.Enabled = true;
+            playToolButton.Enabled = enable;
         }
 
         private void SetChapterMarks()
