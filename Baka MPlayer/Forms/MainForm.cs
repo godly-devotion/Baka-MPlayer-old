@@ -1655,12 +1655,13 @@ namespace Baka_MPlayer.Forms
         {
             Invoke((MethodInvoker)delegate
             {
+                SetControls(true);
+
                 // save last file information
                 if (firstFile)
                 {
                     firstFile = false;
                     settings.SetConfig(Info.URL, SettingEnum.LastFile);
-                    SetControls(true);
                 }
                 else
                 {
