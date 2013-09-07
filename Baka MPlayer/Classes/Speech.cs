@@ -25,7 +25,7 @@ public static class Speech
                     Speak(title);
             }
             else
-                Speak(Info.FileName);
+                Speak(Info.MovieName);
         }
         catch (Exception ex)
         {

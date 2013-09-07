@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -67,6 +68,24 @@ namespace Baka_MPlayer.Forms
 
         #region Functions
 
+        public void RefreshInfo()
+        {
+            nameLabel.Text = Info.MovieName;
+
+            // set Media Info tagpage
+            infoList.BeginUpdate();
+            infoList.Items.Clear();
+
+            SetGeneralInfo();
+            SetTagsInfo();
+
+            infoList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            infoList.EndUpdate();
+
+            // set ID3 Tags tabpage
+            SetId3Tags();
+        }
+
         private void SetGeneralInfo()
         {
             // file name
@@ -78,24 +97,28 @@ namespace Baka_MPlayer.Forms
             if (string.IsNullOrEmpty(type))
             {
                 type = Path.GetExtension(Info.FullFileName);
-                type = string.IsNullOrEmpty(type) ? "Not Available" : type.Substring(1);
+
+                if (string.IsNullOrEmpty(type))
+                    type = "No Available";
+                else
+                    type = string.Format("{0} File", type.Substring(1).ToUpper());
             }
             var typeItem = new ListViewItem("File type", infoList.Groups[0]);
             typeItem.SubItems.Add(type);
 
             // file size
             var sizeItem = new ListViewItem("File size", infoList.Groups[0]);
-            if (Info.FileExists)
-                sizeItem.SubItems.Add(Functions.IO.GetFileSize(Info.URL, 2));
-            else
+            if (Info.IsOnline)
                 sizeItem.SubItems.Add("Not Available");
+            else
+                sizeItem.SubItems.Add(Functions.IO.GetFileSize(Info.URL, 2));
 
             // last modified
             var modifiedItem = new ListViewItem("Last modified", infoList.Groups[0]);
-            if (Info.FileExists)
-                modifiedItem.SubItems.Add(File.GetLastWriteTime(Info.URL).ToLocalTime().ToString());
-            else
+            if (Info.IsOnline)
                 modifiedItem.SubItems.Add("Not Available");
+            else
+                modifiedItem.SubItems.Add(File.GetLastWriteTime(Info.URL).ToLocalTime().ToString(CultureInfo.InvariantCulture));
 
             infoList.Items.AddRange(new[]{nameItem, typeItem, sizeItem, modifiedItem});
         }
@@ -145,24 +168,6 @@ namespace Baka_MPlayer.Forms
         private void AddTagItem(string tagName, string tagValue)
         {
             tagList.Items.Add(tagName).SubItems.Add(tagValue);
-        }
-
-        public void RefreshInfo()
-        {
-            nameLabel.Text = Info.MovieName;
-
-            // set Media Info tagpage
-            infoList.BeginUpdate();
-            infoList.Items.Clear();
-
-            SetGeneralInfo();
-            SetTagsInfo();
-
-            infoList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            infoList.EndUpdate();
-
-            // set ID3 Tags tabpage
-            SetId3Tags();
         }
 
         #endregion

@@ -139,11 +139,11 @@ namespace Baka_MPlayer.Forms
         // notify icon code
         private void SetSystemTray()
         {
-            if (!Info.FileExists)
+            if (Info.IsOnline)
             {
-                titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, Info.FileName));
+                titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, Info.MovieName));
                 artistMenuItem.Text = "  Online Media";
-                SetNotifyIconText(string.Format("{0}\n{1}", Info.FileName, "Online Media"));
+                SetNotifyIconText(string.Format("{0}\n{1}", Info.MovieName, "Online Media"));
                 return;
             }
 
@@ -166,10 +166,10 @@ namespace Baka_MPlayer.Forms
             else
             {
                 // no title & artist (no artist assumed)
-                var fileName = Functions.String.AutoEllipsis(25, Info.FileName);
+                var fileName = Functions.String.AutoEllipsis(25, Info.MovieName);
 
                 titleMenuItem.Text = string.Format("  {0}", fileName);
-                artistMenuItem.Text = File.Exists(Info.URL) ? "  Unknown Artist" : "  Online Media";
+                artistMenuItem.Text = Info.IsOnline ? "  Online Media" : "  Unknown Artist";
 
                 SetNotifyIconText(string.Format("{0}\n{1}", fileName, lastPart));
 
@@ -912,7 +912,7 @@ namespace Baka_MPlayer.Forms
         {
             string clipText = Clipboard.GetText();
 
-            if (File.Exists(clipText) || Functions.URL.ValidateURL(clipText))
+            if (File.Exists(clipText) || Functions.URL.IsValidURL(clipText))
                 mplayer.OpenFile(clipText);
             else
                 MessageBox.Show(string.Format("The location \"{0}\" cannot be opened.", clipText),
@@ -928,7 +928,7 @@ namespace Baka_MPlayer.Forms
 
         private void showInWindowsExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Info.FileExists)
+            if (!Info.IsOnline)
             {
                 var process = new Process
                 {
@@ -948,7 +948,7 @@ namespace Baka_MPlayer.Forms
 
         private void folderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Info.FileExists)
+            if (!Info.IsOnline)
             {
                 var process = new Process
                 {
@@ -1672,12 +1672,12 @@ namespace Baka_MPlayer.Forms
                 settings.SaveConfig();
                 tempURL = Info.URL;
 
-                // set forms info
+                // set form's info
 
-                this.Text = Info.FullFileName;
+                this.Text = Info.IsOnline ? Info.MovieName : Info.FullFileName;
 
-                folderToolStripMenuItem.Text = Info.FileExists ?
-                    Functions.String.AutoEllipsis(32, Functions.IO.GetFolderName(Info.URL)) : new Uri(Info.URL).Host;
+                folderToolStripMenuItem.Text = Info.IsOnline ?
+                    new Uri(Info.URL).Host : Functions.String.AutoEllipsis(32, Functions.IO.GetFolderName(Info.URL));
 
                 if (blackForm != null)
                     blackForm.RefreshTitle();
@@ -1687,7 +1687,7 @@ namespace Baka_MPlayer.Forms
 
                 // set menu strips
 
-                showInWindowsExplorerToolStripMenuItem.Enabled = Info.FileExists;
+                showInWindowsExplorerToolStripMenuItem.Enabled = !Info.IsOnline;
 
                 if (Info.VideoInfo.HasVideo)
                 {
@@ -1885,13 +1885,13 @@ namespace Baka_MPlayer.Forms
                 Properties.Resources.VideoFiles + "; " + Properties.Resources.AudioFiles,
                 Properties.Resources.VideoFiles, Properties.Resources.AudioFiles);
 
-            if (Info.FileExists)
+            if (Info.IsOnline)
+                ofd.FileName = string.Empty;
+            else
             {
                 ofd.InitialDirectory = Info.GetDirectoryName;
                 ofd.FileName = Info.FullFileName;
             }
-            else
-                ofd.FileName = string.Empty;
 
             if (ofd.ShowDialog() == DialogResult.OK && File.Exists(ofd.FileName))
                 mplayer.OpenFile(ofd.FileName);

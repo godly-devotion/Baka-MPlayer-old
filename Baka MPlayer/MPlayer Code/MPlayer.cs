@@ -436,12 +436,6 @@ public class MPlayer
             // sets appropriate movie name (e.g. internel file name or Youtube title)
             Info.MovieName = e.Data.Substring(13);
 
-            if (Functions.URL.ValidateURL(Info.URL))
-            {
-                Info.FileName = Info.MovieName;
-                Info.FullFileName = Info.MovieName;
-            }
-
             // load external sub if requested
             if (!string.IsNullOrEmpty(ExternalSub))
             {
@@ -508,7 +502,7 @@ public class MPlayer
         {
             case "ID_FILENAME":
                 Info.URL = value;
-                Info.FileExists = File.Exists(value);
+                Info.IsOnline = !File.Exists(Info.URL);
                 Info.FullFileName = Path.GetFileName(Functions.URL.DecodeURL(value));
                 Info.FileName = Path.GetFileNameWithoutExtension(Info.FullFileName);
                 Info.GetDirectoryName = Functions.IO.GetDirectoryName(value);

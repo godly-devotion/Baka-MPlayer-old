@@ -116,9 +116,9 @@ public static class Info
     /// </summary>
     public static string GetDirectoryName { get; set; } // Path.GetDirectoryName(...)
     /// <summary>
-    /// Warning! Only set once at file init
+    /// Returns whether or not the file is online
     /// </summary>
-    public static bool FileExists { get; set; } // File.Exists(...)
+    public static bool IsOnline { get; set; }
 
     // MiscInfo
     public static List<Sub> Subs;

@@ -44,15 +44,13 @@ namespace Functions
         [DllImport("shlwapi.dll", CharSet = CharSet.Auto)]
         private static extern long PathIsURL(string pszPath);
 
-        public static bool ValidateURL(string url)
+        public static bool IsValidURL(string url)
         {
             return PathIsURL(url).Equals(1);
         }
         public static string DecodeURL(string input)
         {
-            if (ValidateURL(input))
-                return System.Web.HttpUtility.UrlDecode(input);
-            return input;
+            return IsValidURL(input) ? System.Web.HttpUtility.UrlDecode(input) : input;
         }
     }
     
@@ -98,7 +96,7 @@ namespace Functions
                     return (FileProperties.Length + " B");
                 } if (FileProperties.Length >= 1024 && FileProperties.Length < 1048576) {
                     // Kilobytes
-                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1024, roundTo) + "kB";
+                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1024, roundTo) + " kB";
                 } if (FileProperties.Length >= 1048576 && FileProperties.Length < 1073741824) {
                     // Megabytes
                     return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1048576, roundTo) + " MB";
