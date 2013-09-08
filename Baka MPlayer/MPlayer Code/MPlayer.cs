@@ -120,7 +120,6 @@ public class MPlayer
             args.Append(" -volstep=5");			  		 		// volume step
             args.Append(" -msglevel identify=6:global=6");      // set msglevel
             args.Append(" -osd-level=0");                       // do not show volume + seek on OSD
-            args.Append(" -no-mouseinput");         		 	// disable mouse input events
             args.Append(" -no-keepaspect");         		 	// doesn't keep window aspect ratio when resizing windows
             args.Append(" -stop-screensaver");                  // temp disables the screensaver and screen blanker
             args.Append(" -no-autosub");                        // do not auto load subs (via filename)
