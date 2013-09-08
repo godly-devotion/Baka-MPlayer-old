@@ -115,12 +115,12 @@ public class MPlayer
             // mplayer is not running, so start mplayer then load url
             var args = new StringBuilder();
             args.AppendFormat("-vo={0} -ao={1}", "direct3d", "dsound");
-            args.Append(" -slave-broken");         		 		// switch on slave mode for frontend
-            args.Append(" -idle");                 		        // wait insead of quit
-            args.Append(" -volstep=5");			  		 		// volume step
+            args.Append(" -slave-broken");                      // switch on slave mode for frontend
+            args.Append(" -idle");                              // wait insead of quit
+            args.Append(" -volstep=5");                         // volume step
             args.Append(" -msglevel identify=6:global=6");      // set msglevel
             args.Append(" -osd-level=0");                       // do not show volume + seek on OSD
-            args.Append(" -no-keepaspect");         		 	// doesn't keep window aspect ratio when resizing windows
+            args.Append(" -no-keepaspect");                     // doesn't keep window aspect ratio when resizing windows
             args.Append(" -stop-screensaver");                  // temp disables the screensaver and screen blanker
             args.Append(" -no-autosub");                        // do not auto load subs (via filename)
             args.Append(" -cursor-autohide=no");                // disable cursor autohide
