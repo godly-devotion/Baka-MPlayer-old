@@ -107,8 +107,7 @@ function Dailymotion.normalize(page_url) -- "Normalize" embedded URLs
 end
 
 function Dailymotion.iter_formats(page, U)
-    local seq = page:match('"sequence":"(.-)"')
-                  or error('no match: sequence')
+    local seq = page:match('sequence=(.-)"')
     if not seq then
         local e = "no match: sequence"
         if page:match("_partnerplayer") then
@@ -119,23 +118,32 @@ function Dailymotion.iter_formats(page, U)
 
     seq = U.unescape(seq)
 
-    local t = {}
-    for url in seq:gmatch('%w+URL":"(.-)"') do
-        local c,w,h,cn = url:match('(%w+)%-(%d+)x(%d+).-%.(%w+)')
+    local urls = {}
+    for u in seq:gmatch('"%w%wURL":"(.-)"') do
+        table.insert(urls, {url=Dailymotion.cleanup(U,u)})
+    end
+
+    if #urls ==0 then  -- All videos should have at least this.
+        local u = seq:match('"video_url":"(.-)"')
+                    or error('no match: media stream URL')
+        table.insert(urls, {url=Dailymotion.cleanup(U,u)})
+    end
+
+    local r = {}
+    for _,v in pairs(urls) do
+        local c,w,h,cn = v.url:match('(%w+)%-(%d+)x(%d+).-%.(%w+)')
         if c then
-            url = url:gsub('cell=secure%-vod&', '') -- http://is.gd/BzYPZJ
-            table.insert(t, {width=tonumber(w), height=tonumber(h),
+            table.insert(r, {width=tonumber(w), height=tonumber(h),
                              container=cn,      codec=string.lower(c),
-                             url=url:gsub("\\/", "/")})
---            print(c,w,h,cn)
+                             url=v.url})
         end
     end
 
-    if #t == 0 then
-        error("no match: media URL")
+    if #r ==0 then
+      error("no match: media URL")
     end
 
-    return t
+    return r
 end
 
 function Dailymotion.choose_default(formats) -- Lowest quality available
@@ -164,6 +172,12 @@ end
 
 function Dailymotion.to_s(t)
     return string.format("%s_%sp", t.container, t.height)
+end
+
+-- Sanitizes the URL.
+function Dailymotion.cleanup(U,u)
+    u = U.slash_unescape(U.unescape(u))
+    return (u:gsub('cell=secure%-vod&', '')) -- http://is.gd/BzYPZJ
 end
 
 -- vim: set ts=4 sw=4 tw=72 expandtab:

@@ -63,8 +63,9 @@ function parse(self)
 
     local p = quvi.fetch(self.page_url)
 
-    self.title = p:match('"spVideoTitle">(.-)<')
-                    or error('no match: media title')
+    self.title = p:match('"module%-title">(.-)</')
+                    or p:match('"og:title".-content="(.-)%s+%-%s+SP')
+                      or error('no match: media title')
 
     self.thumbnail_url = p:match('"og:image" content="(.-)"') or ''
 

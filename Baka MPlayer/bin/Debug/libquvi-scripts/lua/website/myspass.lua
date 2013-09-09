@@ -1,5 +1,6 @@
 
 -- libquvi-scripts
+-- Copyright (C) 2013  Toni Gundogdu <legatvs@gmail.com>
 -- Copyright (C) 2012  Guido Leisker <guido@guido-leisker.de>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
@@ -29,16 +30,16 @@ local MySpass = {} -- Utility functions unique to this script
 
 -- Identify the script.
 function ident(self)
-  package.path = self.script_dir .. '/?.lua'
-  local C      = require 'quvi/const'
-  local r      = {}
-  r.domain     = "myspass%.de"
-  r.formats    = "default"
-  r.categories = C.proto_http
-  local U      = require 'quvi/util'
-  -- expect all urls ending with digits to be videos
-  r.handles    = U.handles(self.page_url, {r.domain}, {"/myspass/.-/%d+/?$"})
-  return r
+    package.path = self.script_dir .. '/?.lua'
+    local C      = require 'quvi/const'
+    local r      = {}
+    r.domain     = "myspass%.de"
+    r.formats    = "default"
+    r.categories = C.proto_http
+    local U      = require 'quvi/util'
+    -- expect all urls ending with digits to be videos
+    r.handles    = U.handles(self.page_url, {r.domain},{"/myspass/.-/%d+/?$"})
+    return r
 end
 
 -- Query available formats.
@@ -49,41 +50,50 @@ end
 
 -- Parse media URL.
 function parse(self)
-  self.host_id = "myspass"
+    self.host_id = "myspass"
 
-  self.id = self.page_url:match("(%d+)/?$")
-      or error("no match: media ID")
+    self.id = self.page_url:match("(%d+)/?$") or error("no match: media ID")
 
-  local format  = MySpass.getMetadataValue(self, 'format')
-  local title   = MySpass.getMetadataValue(self, 'title')
-  local season  = MySpass.getMetadataValue(self, 'season')
-  local episode = MySpass.getMetadataValue(self, 'episode')
-  self.thumbnail_url = MySpass.getMetadataValue(self, 'imagePreview') or ''
+    local u = {
+        'http://www.myspass.de/myspass/',
+        'includes/apps/video/getvideometadataxml.php?id=',
+        self.id
+    }
+    local m = quvi.fetch(table.concat(u,''))
 
-  self.title = string.format("%s %03d %03d %s", format, season,
-                             episode, title)
+    local format  = MySpass.getMetadataValue(m, 'format')
+    MySpass.chk_expired(format)
 
-  self.url = {MySpass.getMetadataValue(self, 'url_flv')}
+    local season  = MySpass.getMetadataValue(m, 'season')
+    local episode = MySpass.getMetadataValue(m, 'episode')
+    local title   = MySpass.getMetadataValue(m, 'title')
 
-  return self
+    self.title = string.format("%s %03d %03d %s",
+                    format,
+                    tonumber(season),
+                    tonumber(episode),
+                    title)
+
+    self.thumbnail_url = MySpass.getMetadataValue(m, 'imagePreview') or ''
+    self.url = {MySpass.getMetadataValue(m, 'url_flv')}
+
+    return self
 end
 
 --
 -- Utility functions
 --
 
-function MySpass.getMetadataValue(self, key)
-  if self.metadata == nil then
-    self.metadata =  quvi.fetch(
-      'http://www.myspass.de/myspass/'
-          .. 'includes/apps/video/getvideometadataxml.php?id='
-          .. self.id ) or error("cannot fetch meta data xml file")
-  end
-  local p = string.format("<%s>(.-)</%s>", key, key)
-  local temp = self.metadata:match(p) or error("meta data: no match: " .. key)
-  local value = temp:match('<!%[CDATA%[(.+)]]>') or temp
-  return value
+function MySpass.getMetadataValue(m, k)
+    local p = string.format("<%s>(.-)</%s>", k, k)
+    local s = m:match(p) or error(string.format('no match: %s', k))
+    return s:match('<!%[CDATA%[(.+)]]>') or ''
 end
 
--- vim: set ts=2 sw=2 tw=72 expandtab:
+function MySpass.chk_expired(s)
+    if #s ==0 then
+        error('no match: metadata: "format": video no longer available?')
+    end
+end
 
+-- vim: set ts=4 sw=4 tw=72 expandtab:

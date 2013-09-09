@@ -57,13 +57,14 @@ function parse(self)
                 or error("no match: media ID")
 
     local c_url = p:match('config: "(.-)"')
-                    or error("no match: config")
-
-    local U = require 'quvi/util'
-    local c = quvi.fetch(U.unescape(c_url), {fetch_type='config'})
-
-    self.url = {c:match("<file>(.-)</")
-                or error("no match: media URL")}
+    if not c_url then -- Try the first iframe.
+        self.redirect_url = p:match('<iframe.-src="(.-)"')
+                                or error("no match: config")
+    else
+        local U = require 'quvi/util'
+        local c = quvi.fetch(U.unescape(c_url), {fetch_type='config'})
+        self.url = {c:match("<file>(.-)</") or error("no match: media URL")}
+    end
 
     return self
 end
