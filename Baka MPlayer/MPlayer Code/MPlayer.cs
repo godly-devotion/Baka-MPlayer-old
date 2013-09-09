@@ -282,7 +282,7 @@ public class MPlayer
     public bool Seek(double sec)
     {
         ignoreStatus = true;
-        return SendCommand("seek {0} 2 0", (int)sec);
+        return SendCommand("seek {0} 2 1", (int)sec);
     }
     public bool SeekFrame(double frame)
     {

@@ -113,6 +113,14 @@ namespace Baka_MPlayer.Forms
             else
                 sizeItem.SubItems.Add(Functions.IO.GetFileSize(Info.URL, 2));
 
+            // media length
+            var lengthItem = new ListViewItem("Media length", infoList.Groups[0]);
+            lengthItem.SubItems.Add(Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength));
+
+            // video dimensions
+            var dimensionsItem = new ListViewItem("Video dimensions", infoList.Groups[0]);
+            dimensionsItem.SubItems.Add(string.Format("{0} x {1}", Info.VideoInfo.Width, Info.VideoInfo.Height));
+
             // last modified
             var modifiedItem = new ListViewItem("Last modified", infoList.Groups[0]);
             if (Info.IsOnline)
@@ -120,7 +128,7 @@ namespace Baka_MPlayer.Forms
             else
                 modifiedItem.SubItems.Add(File.GetLastWriteTime(Info.URL).ToLocalTime().ToString(CultureInfo.InvariantCulture));
 
-            infoList.Items.AddRange(new[]{nameItem, typeItem, sizeItem, modifiedItem});
+            infoList.Items.AddRange(new[]{nameItem, typeItem, sizeItem, lengthItem, dimensionsItem, modifiedItem});
         }
 
         private void SetTagsInfo()
