@@ -287,7 +287,7 @@ public class MPlayer
     public bool SeekFrame(double frame)
     {
         ignoreStatus = true;
-        // seek <value> [type] [hr-seek] <- force precise seek if possible
+        // seek <value> [type] [hr-seek]
         return SendCommand("seek {0} 2 1", frame / Info.VideoInfo.FPS);
     }
 
@@ -302,12 +302,12 @@ public class MPlayer
     /// <summary>
     /// Switches the audio track to the index specified
     /// </summary>
-    /// <param name="i">The audio index (zero based)</param>
+    /// <param name="i">The audio index (index starts from 1)</param>
     public bool SetAudioTrack(int i)
     {
         OnStatusChanged(new StatusChangedEventArgs(
             string.Format("Audio {0}: \"{1} ({2})\"",
-            Info.AudioTracks[i].ID, Info.AudioTracks[i].Name, Info.AudioTracks[i].Lang), true));
+            Info.AudioTracks[i-1].ID, Info.AudioTracks[i-1].Name, Info.AudioTracks[i-1].Lang), true));
         return SendCommand("set audio {0}", i);
     }
     /// <summary>
@@ -321,12 +321,12 @@ public class MPlayer
     /// <summary>
     /// Set subtitle track
     /// </summary>
-    /// <param name="i">The subtitle index (zero based)</param>
+    /// <param name="i">The subtitle index (index start from 1)</param>
     public bool SetSubs(int i)
     {
         OnStatusChanged(new StatusChangedEventArgs(
             string.Format("Sub {0}: \"{1} ({2})\"",
-            Info.Subs[i].TrackID, Info.Subs[i].Name, Info.Subs[i].Lang), true));
+            Info.Subs[i-1].TrackID, Info.Subs[i-1].Name, Info.Subs[i-1].Lang), true));
         return SendCommand("set sub {0}", i);
     }
     /// <summary>
@@ -440,7 +440,7 @@ public class MPlayer
             {
                 SendCommand("sub_add \"{0}\"", ExternalSub.Replace("\\", "\\\\"));
                 Info.Subs.Add(new Sub(Info.Subs.Count.ToString(), "[ External Sub ]", "★"));
-                SetSubs(Info.Subs.Count - 1);
+                SetSubs(Info.Subs.Count);
 
                 ExternalSub = string.Empty;
             }

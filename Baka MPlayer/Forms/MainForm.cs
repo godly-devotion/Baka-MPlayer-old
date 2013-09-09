@@ -1097,7 +1097,7 @@ namespace Baka_MPlayer.Forms
             if (item != null)
             {
                 int index = (item.OwnerItem as ToolStripMenuItem).DropDownItems.IndexOf(item);
-                mplayer.SetAudioTrack(index);
+                mplayer.SetAudioTrack(index + 1);
             }
         }
 
@@ -1235,7 +1235,7 @@ namespace Baka_MPlayer.Forms
             if (item != null)
             {
                 int index = (item.OwnerItem as ToolStripMenuItem).DropDownItems.IndexOf(item);
-                mplayer.SetSubs(index);
+                mplayer.SetSubs(index + 1);
             }
         }
 
