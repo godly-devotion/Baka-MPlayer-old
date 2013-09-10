@@ -106,5 +106,3 @@ C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\o
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka_MPlayer.WinAPI_Code_Pack.Shell.Resources.LocalizedMessages.resources
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.csproj.GenerateResource.Cache
 C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.exe
-C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\bin\Debug\Baka MPlayer.pdb
-C:\Users\Joshua Park\Desktop\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\obj\Debug\Baka MPlayer.pdb

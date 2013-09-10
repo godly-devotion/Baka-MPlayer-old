@@ -1,8 +1,17 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.3.0.1 (August 23, 2013)
+Latest Version 1.3.2.0 (September 9, 2013)
 ----------------------------------------
+
+- Fixed: Small bugs
+- Fixed: Sometimes videos would not go into full screen properly
+- Changed: 'framedrop=yes' has been moved into the settings file
+- Added: Media length and video dimensions to Info window
+- Updated: mpv build
+
+Version 1.3.0.1 (August 23, 2013)
+---------------------------------
 
 - Updated: Changed website host (bakamplayer.u8sand.net)
 
