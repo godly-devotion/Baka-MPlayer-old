@@ -1727,9 +1727,6 @@ namespace Baka_MPlayer.Forms
                 }
                 ResizeMplayerPanel();
 
-                // set previous volume (output drivers fault for not saving volume)
-                SetVolume(Info.Current.Volume);
-
                 // call other methods
                 playlist.RefreshPlaylist(false);
                 SetChapterMarks();
