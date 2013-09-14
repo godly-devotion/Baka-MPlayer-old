@@ -1234,6 +1234,7 @@ namespace Baka_MPlayer.Forms
             this.albumArtPicbox.TabStop = false;
             this.albumArtPicbox.Visible = false;
             this.albumArtPicbox.SizeChanged += new System.EventHandler(this.albumArtPicbox_SizeChanged);
+            this.albumArtPicbox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.albumArtPicbox_MouseClick);
             this.albumArtPicbox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
             // mplayerPanel
@@ -1244,6 +1245,7 @@ namespace Baka_MPlayer.Forms
             this.mplayerPanel.Size = new System.Drawing.Size(410, 204);
             this.mplayerPanel.TabIndex = 0;
             this.mplayerPanel.Visible = false;
+            this.mplayerPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mplayerPanel_MouseClick);
             this.mplayerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
             // outputTextbox

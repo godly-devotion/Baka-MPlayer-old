@@ -2164,5 +2164,17 @@ namespace Baka_MPlayer.Forms
                 inputTextbox.SelectionLength = inputTextbox.TextLength;
             }
         }
+
+        private void mplayerPanel_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Info.URL) && e.Button == MouseButtons.Right)
+                mplayer.Pause(true);
+        }
+
+        private void albumArtPicbox_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Info.URL) && e.Button == MouseButtons.Right)
+                mplayer.Pause(true);
+        }
     }
 }
