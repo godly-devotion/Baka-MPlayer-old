@@ -1655,7 +1655,7 @@ namespace Baka_MPlayer.Forms
         {
             Invoke((MethodInvoker)delegate
             {
-                SetControls(true);
+                SetControls(true, false);
 
                 // save last file information
                 if (firstFile)
@@ -1827,8 +1827,18 @@ namespace Baka_MPlayer.Forms
         }
         private void LastFile()
         {
-            SetControls(false);
+            SetControls(false, true);
             SetStatusMsg("Reached the end", true);
+
+            // PlayStates.Stopped
+            seekBar.Value = 0;
+            playButton.Image = Properties.Resources.default_play;
+            playToolButton.Icon = Properties.Resources.tool_play;
+
+            playToolStripMenuItem.Text = "&Play";
+            playMenuItem.Text = "&Play";
+            playToolButton.Tooltip = "Play";
+            durationLabel.Text = "STOPPED";
         }
 
         private void mplayer_DurationChangedEvent(object sender, EventArgs e)
@@ -1924,19 +1934,11 @@ namespace Baka_MPlayer.Forms
             this.Opacity = 1.0;
         }
 
-        private void SetControls(bool enable)
+        private void SetControls(bool enable, bool lastFile)
         {
-            // control panel controls
             seekBar.Enabled = enable;
-            rewindButton.Enabled = enable;
-            playButton.Enabled = enable;
-            playlistButton.Enabled = enable;
-            
-            // menu strips
-            playToolStripMenuItem.Enabled = enable;
+
             stopToolStripMenuItem.Enabled = enable;
-            rewindToolStripMenuItem.Enabled = enable;
-            restartToolStripMenuItem.Enabled = enable;
             jumpToTimeToolStripMenuItem.Enabled = enable;
 
             fullScreenToolStripMenuItem.Enabled = enable;
@@ -1944,18 +1946,31 @@ namespace Baka_MPlayer.Forms
             sayMediaNameToolStripMenuItem.Enabled = enable;
             mediaInfoToolStripMenuItem.Enabled = enable;
 
-            showPlaylistToolStripMenuItem.Enabled = enable;
-
-            folderToolStripMenuItem.Enabled = enable;
-
-            // tray context menu
-            showMenuItem.Enabled = enable;
-            playMenuItem.Enabled = enable;
             stopMenuItem.Enabled = enable;
-            rewindMenuItem.Enabled = enable;
 
-            // thumbnail toolbar button
-            playToolButton.Enabled = enable;
+            if (!lastFile)
+            {
+                // control panel controls
+                rewindButton.Enabled = enable;
+                playButton.Enabled = enable;
+                playlistButton.Enabled = enable;
+
+                // menu strips
+                playToolStripMenuItem.Enabled = enable;
+                rewindToolStripMenuItem.Enabled = enable;
+                restartToolStripMenuItem.Enabled = enable;
+
+                // tray context menu
+                showMenuItem.Enabled = enable;
+                playMenuItem.Enabled = enable;
+                rewindMenuItem.Enabled = enable;
+
+                // thumbnail toolbar button
+                playToolButton.Enabled = enable;
+
+                showPlaylistToolStripMenuItem.Enabled = enable;
+                folderToolStripMenuItem.Enabled = enable;
+            }
         }
 
         private void SetChapterMarks()

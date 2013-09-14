@@ -249,10 +249,14 @@ public class MPlayer
 
     public bool Play()
     {
+        if (Info.Current.PlayState == PlayStates.Ended)
+            return OpenFile(Info.URL);
         return SendCommand("set pause no");
     }
     public bool Pause(bool toggle)
     {
+        if (Info.Current.PlayState == PlayStates.Ended)
+            return OpenFile(Info.URL);
         if (toggle && Info.Current.PlayState == PlayStates.Paused)
             return SendCommand("set pause no");
         return SendCommand("set pause yes");
@@ -395,7 +399,7 @@ public class MPlayer
         // show output
         OnStdOut(new StdOutEventArgs(e.Data));
 
-        if (e.Data.StartsWith("EOF code: 1")) // reached end of file
+        if (e.Data.StartsWith("[global] EOF code: 1")) // reached end of file
         {
             Info.Current.PlayState = PlayStates.Ended;
             OnPlayStateChanged(new EventArgs());
