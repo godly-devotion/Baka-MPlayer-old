@@ -14,10 +14,3 @@
 # status-msg
 # volume
 # wid
-
-
-# Write your default config options here!
-vo=direct3d
-ao=dsound
-
-framedrop=yes

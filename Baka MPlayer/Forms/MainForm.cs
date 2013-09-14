@@ -1457,7 +1457,6 @@ namespace Baka_MPlayer.Forms
             InitializeComponent();
 
             mplayer = new MPlayer(settings.GetStringValue(SettingEnum.Exec),
-                                  settings.GetStringValue(SettingEnum.OptionalArgs),
                                   mplayerPanel.Handle.ToInt32());
         }
         private void MainForm_Load(object sender, EventArgs e)

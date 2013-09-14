@@ -15,7 +15,6 @@ public class MPlayer
     private Process mplayer;
     private readonly ID3Tag id3Tag = new ID3Tag();
     private readonly string execName;
-    private readonly string optionalArgs;
     private readonly int wid;
     private bool cachingFonts;
     private bool parsingClipInfo;
@@ -85,10 +84,9 @@ public class MPlayer
 
     #region Constructor
 
-    public MPlayer(string execName, string optionalArgs, int wid)
+    public MPlayer(string execName, int wid)
     {
         this.execName = execName;
-        this.optionalArgs = optionalArgs;
         this.wid = wid;
     }
 
@@ -112,9 +110,8 @@ public class MPlayer
             // instructs fontconfig to show debug messages regarding font caching
             Environment.SetEnvironmentVariable("FC_DEBUG", "128");
 
-            // mplayer is not running, so start mplayer then load url
+            // set mplayer options (see mpv\config)
             var args = new StringBuilder();
-            args.AppendFormat("-vo={0} -ao={1}", "direct3d", "dsound");
             args.Append(" -slave-broken");                      // switch on slave mode for frontend
             args.Append(" -idle");                              // wait insead of quit
             args.Append(" -volstep=5");                         // volume step
@@ -129,7 +126,6 @@ public class MPlayer
             args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=dwidth};HEIGHT=${=dheight}");
             args.AppendFormat(" -volume={0}", Info.Current.Volume); // sets previous volume
             args.AppendFormat(" -wid={0}", wid); // output handle
-            args.AppendFormat(" {0}", optionalArgs);
             
             mplayer = new Process
             {
