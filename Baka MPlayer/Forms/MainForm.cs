@@ -1749,46 +1749,49 @@ namespace Baka_MPlayer.Forms
             Invoke((MethodInvoker)delegate
             {
                 setOnTop();
-
-                switch (Info.Current.PlayState)
-                {
-                    case PlayStates.Unidentified:
-                        seekBar.Enabled = false;
-                        rewindButton.Enabled = false;
-                        playButton.Enabled = false;
-                        playToolButton.Enabled = false;
-                        break;
-                    case PlayStates.Playing:
-                        playButton.Image = Properties.Resources.default_pause;
-                        playToolButton.Icon = Properties.Resources.tool_pause;
-
-                        playToolStripMenuItem.Text = "&Pause";
-                        playMenuItem.Text = "&Pause";
-                        playToolButton.Tooltip = "Pause";
-                        break;
-                    case PlayStates.Paused:
-                        playButton.Image = Properties.Resources.default_play;
-                        playToolButton.Icon = Properties.Resources.tool_play;
-
-                        playToolStripMenuItem.Text = "&Play";
-                        playMenuItem.Text = "&Play";
-                        playToolButton.Tooltip = "Play";
-                        break;
-                    case PlayStates.Stopped:
-                        seekBar.Value = 0;
-                        playButton.Image = Properties.Resources.default_play;
-                        playToolButton.Icon = Properties.Resources.tool_play;
-
-                        playToolStripMenuItem.Text = "&Play";
-                        playMenuItem.Text = "&Play";
-                        playToolButton.Tooltip = "Play";
-                        durationLabel.Text = "STOPPED";
-                        break;
-                    case PlayStates.Ended:
-                        MediaEnded();
-                        break;
-                }
+                SetPlayState(Info.Current.PlayState);
             });
+        }
+        private void SetPlayState(PlayStates newPlayState)
+        {
+            switch (newPlayState)
+            {
+                case PlayStates.Unidentified:
+                    seekBar.Enabled = false;
+                    rewindButton.Enabled = false;
+                    playButton.Enabled = false;
+                    playToolButton.Enabled = false;
+                    break;
+                case PlayStates.Playing:
+                    playButton.Image = Properties.Resources.default_pause;
+                    playToolButton.Icon = Properties.Resources.tool_pause;
+
+                    playToolStripMenuItem.Text = "&Pause";
+                    playMenuItem.Text = "&Pause";
+                    playToolButton.Tooltip = "Pause";
+                    break;
+                case PlayStates.Paused:
+                    playButton.Image = Properties.Resources.default_play;
+                    playToolButton.Icon = Properties.Resources.tool_play;
+
+                    playToolStripMenuItem.Text = "&Play";
+                    playMenuItem.Text = "&Play";
+                    playToolButton.Tooltip = "Play";
+                    break;
+                case PlayStates.Stopped:
+                    seekBar.Value = 0;
+                    playButton.Image = Properties.Resources.default_play;
+                    playToolButton.Icon = Properties.Resources.tool_play;
+
+                    playToolStripMenuItem.Text = "&Play";
+                    playMenuItem.Text = "&Play";
+                    playToolButton.Tooltip = "Play";
+                    durationLabel.Text = "STOPPED";
+                    break;
+                case PlayStates.Ended:
+                    MediaEnded();
+                    break;
+            }
         }
         private void MediaEnded()
         {
@@ -1828,17 +1831,8 @@ namespace Baka_MPlayer.Forms
         private void LastFile()
         {
             SetControls(false, true);
+            SetPlayState(PlayStates.Stopped);
             SetStatusMsg("Reached the end", true);
-
-            // PlayStates.Stopped
-            seekBar.Value = 0;
-            playButton.Image = Properties.Resources.default_play;
-            playToolButton.Icon = Properties.Resources.tool_play;
-
-            playToolStripMenuItem.Text = "&Play";
-            playMenuItem.Text = "&Play";
-            playToolButton.Tooltip = "Play";
-            durationLabel.Text = "STOPPED";
         }
 
         private void mplayer_DurationChangedEvent(object sender, EventArgs e)
