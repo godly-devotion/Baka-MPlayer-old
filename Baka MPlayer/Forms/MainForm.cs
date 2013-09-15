@@ -1456,8 +1456,7 @@ namespace Baka_MPlayer.Forms
 
             InitializeComponent();
 
-            mplayer = new MPlayer(settings.GetStringValue(SettingEnum.Exec),
-                                  mplayerPanel.Handle.ToInt32());
+            mplayer = new MPlayer(mplayerPanel.Handle.ToInt32());
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -1476,10 +1475,9 @@ namespace Baka_MPlayer.Forms
             LoadSettings();
 
             // check for player exec
-            var exec = settings.GetStringValue(SettingEnum.Exec);
-            if (!File.Exists(Application.StartupPath + "\\" + exec))
+            if (!File.Exists(Application.StartupPath + "\\mpv.exe"))
             {
-                MessageBox.Show(string.Format("Baka MPlayer cannot load without {0}!", exec),
+                MessageBox.Show("Baka MPlayer cannot load without mpv.exe!",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }

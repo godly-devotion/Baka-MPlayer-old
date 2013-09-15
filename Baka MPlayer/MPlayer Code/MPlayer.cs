@@ -14,7 +14,6 @@ public class MPlayer
 
     private Process mplayer;
     private readonly ID3Tag id3Tag = new ID3Tag();
-    private readonly string execName;
     private readonly int wid;
     private bool cachingFonts;
     private bool parsingClipInfo;
@@ -84,9 +83,8 @@ public class MPlayer
 
     #region Constructor
 
-    public MPlayer(string execName, int wid)
+    public MPlayer(int wid)
     {
-        this.execName = execName;
         this.wid = wid;
     }
 
@@ -132,7 +130,7 @@ public class MPlayer
                 EnableRaisingEvents = true,
                 StartInfo =
                 {
-                    FileName = execName,
+                    FileName = "mpv.exe",
                     UseShellExecute = false,
                     CreateNoWindow = true,
                     RedirectStandardInput = true,
