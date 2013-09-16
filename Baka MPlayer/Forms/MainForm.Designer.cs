@@ -110,8 +110,6 @@ namespace Baka_MPlayer.Forms
             this.neverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trayIconToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showIconInTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.minimizeToTrayToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.hidePopupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bakaMPlayerHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -818,28 +816,28 @@ namespace Baka_MPlayer.Forms
             // alwaysToolStripMenuItem
             // 
             this.alwaysToolStripMenuItem.Name = "alwaysToolStripMenuItem";
-            this.alwaysToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.alwaysToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.alwaysToolStripMenuItem.Text = "&Always";
             this.alwaysToolStripMenuItem.Click += new System.EventHandler(this.alwaysToolStripMenuItem_Click);
             // 
             // whenPlayingToolStripMenuItem
             // 
             this.whenPlayingToolStripMenuItem.Name = "whenPlayingToolStripMenuItem";
-            this.whenPlayingToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.whenPlayingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.whenPlayingToolStripMenuItem.Text = "When &Playing";
             this.whenPlayingToolStripMenuItem.Click += new System.EventHandler(this.whenPlayingToolStripMenuItem_Click);
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(142, 6);
+            this.toolStripSeparator16.Size = new System.Drawing.Size(149, 6);
             // 
             // neverToolStripMenuItem
             // 
             this.neverToolStripMenuItem.Checked = true;
             this.neverToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.neverToolStripMenuItem.Name = "neverToolStripMenuItem";
-            this.neverToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.neverToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.neverToolStripMenuItem.Text = "&Never";
             this.neverToolStripMenuItem.Click += new System.EventHandler(this.neverToolStripMenuItem_Click);
             // 
@@ -847,8 +845,6 @@ namespace Baka_MPlayer.Forms
             // 
             this.trayIconToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showIconInTrayToolStripMenuItem,
-            this.minimizeToTrayToolStripMenuItem,
-            this.toolStripSeparator15,
             this.hidePopupToolStripMenuItem});
             this.trayIconToolStripMenuItem.Name = "trayIconToolStripMenuItem";
             this.trayIconToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
@@ -863,19 +859,6 @@ namespace Baka_MPlayer.Forms
             this.showIconInTrayToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.showIconInTrayToolStripMenuItem.Text = "&Show Icon In Tray";
             this.showIconInTrayToolStripMenuItem.Click += new System.EventHandler(this.showIconInTrayToolStripMenuItem_Click);
-            // 
-            // minimizeToTrayToolStripMenuItem
-            // 
-            this.minimizeToTrayToolStripMenuItem.CheckOnClick = true;
-            this.minimizeToTrayToolStripMenuItem.Name = "minimizeToTrayToolStripMenuItem";
-            this.minimizeToTrayToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.minimizeToTrayToolStripMenuItem.Text = "&Minimize To Tray";
-            this.minimizeToTrayToolStripMenuItem.Click += new System.EventHandler(this.minimizeToTrayToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator15
-            // 
-            this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(161, 6);
             // 
             // hidePopupToolStripMenuItem
             // 
@@ -1545,8 +1528,6 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem subtitleTrackToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showIconInTrayToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem minimizeToTrayToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripMenuItem hidePopupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fitToVideoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem chaptersToolStripMenuItem;

@@ -26,7 +26,6 @@ public enum SettingEnum
     ShowIcon,
     Volume,
     ShowTimeRemaining,
-    MinimizeToTray,
     HidePopup
 }
 
@@ -43,7 +42,6 @@ public class Settings : IDisposable
         settings.Add(new Setting(SettingEnum.ShowIcon, true));
         settings.Add(new Setting(SettingEnum.Volume, 50));
         settings.Add(new Setting(SettingEnum.ShowTimeRemaining, true));
-        settings.Add(new Setting(SettingEnum.MinimizeToTray, false));
         settings.Add(new Setting(SettingEnum.HidePopup, false));
     }
 

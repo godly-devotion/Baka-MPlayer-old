@@ -63,13 +63,8 @@ namespace Baka_MPlayer.Forms
         // Right click context menu
         private void showMenuItem_Click(object sender, EventArgs e)
         {
-            if (!this.Visible)
-                ToggleToTaskbar(false);
-            else
-            {
-                this.WindowState = FormWindowState.Normal;
-                this.Focus();
-            }
+            this.WindowState = FormWindowState.Normal;
+            this.Focus();
         }
 
         private void playMenuItem_Click(object sender, EventArgs e)
@@ -125,15 +120,8 @@ namespace Baka_MPlayer.Forms
 
         private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (this.Visible)
-            {
-                this.WindowState = FormWindowState.Normal;
-                this.Focus();
-            }
-            else
-            {
-                ToggleToTaskbar(false);
-            }
+            this.WindowState = FormWindowState.Normal;
+            this.Focus();
         }
 
         // notify icon code
@@ -180,34 +168,27 @@ namespace Baka_MPlayer.Forms
 
         private void SetNotifyIconText(string text)
         {
+            // max text length is 127 characters
             if (text.Length > 127)
-            {
-                //throw new ArgumentOutOfRangeException("Text limited to 127 characters");
                 text = text.Substring(0, 127);
-            }
+
             var t = typeof(NotifyIcon);
             const BindingFlags hidden = BindingFlags.NonPublic | BindingFlags.Instance;
+
             t.GetField("text", hidden).SetValue(trayIcon, text);
             if ((bool)t.GetField("added", hidden).GetValue(trayIcon))
                 t.GetMethod("UpdateIcon", hidden).Invoke(trayIcon, new object[] { true });
         }
 
-        private void ToggleToTaskbar(bool minimize)
-        {
-            this.WindowState = minimize ?
-                FormWindowState.Minimized : FormWindowState.Normal;
-            this.Visible = !minimize;
-        }
-
         private void UnloadTray()
         {
-            // release mainNotifyIcon's resources
+            // release trayIcon's resources
             trayIcon.Visible = false;
             trayIcon.Dispose();
         }
 
         #endregion
-        #region Snap-to-Border + Minimize to Tray
+        #region Snap-to-Border
 
         private const int SnapOffset = 10; // pixels
 
@@ -1393,22 +1374,14 @@ namespace Baka_MPlayer.Forms
         {
             if (showIconInTrayToolStripMenuItem.Checked)
             {
-                minimizeToTrayToolStripMenuItem.Enabled = true;
                 settings.SetConfig(true, SettingEnum.ShowIcon);
                 trayIcon.Visible = true;
             }
             else
             {
-                minimizeToTrayToolStripMenuItem.Enabled = false;
                 settings.SetConfig(false, SettingEnum.ShowIcon);
                 trayIcon.Visible = false;
             }
-            settings.SaveConfig();
-        }
-
-        private void minimizeToTrayToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            settings.SetConfig(minimizeToTrayToolStripMenuItem.Checked, SettingEnum.MinimizeToTray);
             settings.SaveConfig();
         }
 
@@ -1533,15 +1506,11 @@ namespace Baka_MPlayer.Forms
             // load volume
             SetVolume(settings.GetIntValue(SettingEnum.Volume));
 
+            // tray icon
             if (!settings.GetBoolValue(SettingEnum.ShowIcon))
             {
                 trayIcon.Visible = false;
                 showIconInTrayToolStripMenuItem.Checked = false;
-            }
-            if (settings.GetBoolValue(SettingEnum.MinimizeToTray))
-            {
-                minimizeToTrayToolStripMenuItem.Enabled = true;
-                minimizeToTrayToolStripMenuItem.Checked = true;
             }
             hidePopupToolStripMenuItem.Checked = settings.GetBoolValue(SettingEnum.HidePopup);
 
@@ -1868,8 +1837,6 @@ namespace Baka_MPlayer.Forms
                         if (blackForm != null)
                             blackForm.Hide();
                         dimLightsToolStripMenuItem.Checked = false;
-                        if (minimizeToTrayToolStripMenuItem.Enabled && minimizeToTrayToolStripMenuItem.Checked)
-                            ToggleToTaskbar(true);
                     }
                     break;
             }
@@ -1911,10 +1878,8 @@ namespace Baka_MPlayer.Forms
             if (blackForm != null)
                 blackForm.Hide();
             dimLightsToolStripMenuItem.Checked = false;
-            if (minimizeToTrayToolStripMenuItem.Enabled && minimizeToTrayToolStripMenuItem.Checked)
-                ToggleToTaskbar(true);
 
-            // code required to bypass Windows' hide animation
+            // hack required to bypass Windows' hide animation
             this.Opacity = 0.0;
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Minimized;
