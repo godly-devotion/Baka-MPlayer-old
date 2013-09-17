@@ -2137,6 +2137,12 @@ namespace Baka_MPlayer.Forms
                 mplayer.Pause(true);
         }
 
+        private void bodySplitContainer_Panel1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(Info.URL) && e.Button == MouseButtons.Right)
+                mplayer.Pause(true);
+        }
+
         private void albumArtPicbox_MouseClick(object sender, MouseEventArgs e)
         {
             if (!string.IsNullOrEmpty(Info.URL) && e.Button == MouseButtons.Right)

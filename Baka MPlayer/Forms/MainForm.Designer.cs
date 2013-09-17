@@ -816,28 +816,28 @@ namespace Baka_MPlayer.Forms
             // alwaysToolStripMenuItem
             // 
             this.alwaysToolStripMenuItem.Name = "alwaysToolStripMenuItem";
-            this.alwaysToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.alwaysToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.alwaysToolStripMenuItem.Text = "&Always";
             this.alwaysToolStripMenuItem.Click += new System.EventHandler(this.alwaysToolStripMenuItem_Click);
             // 
             // whenPlayingToolStripMenuItem
             // 
             this.whenPlayingToolStripMenuItem.Name = "whenPlayingToolStripMenuItem";
-            this.whenPlayingToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.whenPlayingToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.whenPlayingToolStripMenuItem.Text = "When &Playing";
             this.whenPlayingToolStripMenuItem.Click += new System.EventHandler(this.whenPlayingToolStripMenuItem_Click);
             // 
             // toolStripSeparator16
             // 
             this.toolStripSeparator16.Name = "toolStripSeparator16";
-            this.toolStripSeparator16.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator16.Size = new System.Drawing.Size(142, 6);
             // 
             // neverToolStripMenuItem
             // 
             this.neverToolStripMenuItem.Checked = true;
             this.neverToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.neverToolStripMenuItem.Name = "neverToolStripMenuItem";
-            this.neverToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.neverToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.neverToolStripMenuItem.Text = "&Never";
             this.neverToolStripMenuItem.Click += new System.EventHandler(this.neverToolStripMenuItem_Click);
             // 
@@ -1179,6 +1179,7 @@ namespace Baka_MPlayer.Forms
             this.bodySplitContainer.Panel1.Controls.Add(this.albumArtPicbox);
             this.bodySplitContainer.Panel1.Controls.Add(this.mplayerPanel);
             this.bodySplitContainer.Panel1.SizeChanged += new System.EventHandler(this.bodySplitContainer_Panel1_SizeChanged);
+            this.bodySplitContainer.Panel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.bodySplitContainer_Panel1_MouseClick);
             this.bodySplitContainer.Panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
             // bodySplitContainer.Panel2
