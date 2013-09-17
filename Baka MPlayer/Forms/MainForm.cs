@@ -1456,13 +1456,17 @@ namespace Baka_MPlayer.Forms
             }
 
             // check for updates
+            var dfi = DateTimeFormatInfo.CurrentInfo;
+            var cal = dfi.Calendar;
+            var week = cal.GetWeekOfYear(DateTime.Today, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+
             var lastCheck = settings.GetIntValue(SettingEnum.LastUpdateCheck);
-            if (DateTime.Now.Month != lastCheck)
+            if (week != lastCheck)
             {
                 var checker = new UpdateChecker();
                 checker.Check(true);
 
-                settings.SetConfig(DateTime.Now.Month, SettingEnum.LastUpdateCheck);
+                settings.SetConfig(week, SettingEnum.LastUpdateCheck);
                 settings.SaveConfig();
             }
 

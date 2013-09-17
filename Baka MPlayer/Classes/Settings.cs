@@ -38,7 +38,7 @@ public class Settings : IDisposable
     {
         settings.Clear();
         settings.Add(new Setting(SettingEnum.LastFile, ""));
-        settings.Add(new Setting(SettingEnum.LastUpdateCheck, 1));
+        settings.Add(new Setting(SettingEnum.LastUpdateCheck, 0));
         settings.Add(new Setting(SettingEnum.ShowIcon, true));
         settings.Add(new Setting(SettingEnum.Volume, 50));
         settings.Add(new Setting(SettingEnum.ShowTimeRemaining, true));
