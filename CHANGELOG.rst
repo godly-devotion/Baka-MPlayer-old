@@ -1,8 +1,20 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.3.2.0 (September 9, 2013)
-----------------------------------------
+Latest Version 1.3.3.0 (September 17, 2013)
+-------------------------------------------
+
+- Fixed: Next file not playing automatically
+- Changed: 'OptionalArgs' has been removed from settings. Use mpv's config file instead
+- Changed: After reaching the end, you can press play instead of pressing the reverse button to reload the file
+- Changed: Updates a checked weekly
+- Added: Right-clicking on the video will toggle play state
+- Removed: Ability to set mpv executable name in settings
+- Removed: Ability to minimize to tray (was broken)
+- Updated: mpv build
+
+Version 1.3.2.0 (September 9, 2013)
+-----------------------------------
 
 - Fixed: Small bugs
 - Fixed: Sometimes videos would not go into full screen properly
