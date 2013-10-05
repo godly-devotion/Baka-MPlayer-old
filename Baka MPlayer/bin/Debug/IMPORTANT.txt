@@ -1,4 +1,4 @@
-## Baka MPlayer will respect the config options here.
+## You can customize mpv's options by setting it's config file (located in the mpv folder)
 
 ## HOWEVER, do NOT set the following options as Baka MPlayer sets them automatically
 ## and changing the following options could make Baka MPlayer unstable or crash.
