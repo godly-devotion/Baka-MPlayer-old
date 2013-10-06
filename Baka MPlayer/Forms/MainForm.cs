@@ -498,7 +498,11 @@ namespace Baka_MPlayer.Forms
         private bool ShowConsole
         {
             get { return !bodySplitContainer.Panel2Collapsed; }
-            set { bodySplitContainer.Panel2Collapsed = !value; }
+            set
+            {
+                bodySplitContainer.Panel2Collapsed = !value;
+                showCommandLineToolStripMenuItem.Checked = value;
+            }
         }
 
         public bool CheckShuffleToolStripMenuItem
@@ -1261,7 +1265,7 @@ namespace Baka_MPlayer.Forms
 
         private void showCommandLineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowConsole = showCommandLineToolStripMenuItem.Checked;
+            ShowConsole = !ShowConsole;
         }
 
         private void takeSnapshotToolStripMenuItem_Click(object sender, EventArgs e)
