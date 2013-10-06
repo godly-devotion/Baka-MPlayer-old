@@ -4,7 +4,6 @@ using System.Windows.Forms;
 
 public static class Speech
 {
-    // speech synthesizer
     private static readonly SpeechSynthesizer synth = new SpeechSynthesizer();
 
     public static void SayMedia()
@@ -17,10 +16,10 @@ public static class Speech
             var title = Info.ID3Tags.Title;
             var artist = Info.ID3Tags.Artist;
 
-            if (string.IsNullOrEmpty(title) == false)
+            if (!string.IsNullOrEmpty(title))
             {
-                if (string.IsNullOrEmpty(artist) == false)
-                    Speak(title + ", by, " + artist);
+                if (!string.IsNullOrEmpty(artist))
+                    Speak(title + ", by " + artist);
                 else
                     Speak(title);
             }
