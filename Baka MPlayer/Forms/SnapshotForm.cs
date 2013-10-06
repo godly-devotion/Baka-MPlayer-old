@@ -31,7 +31,7 @@ namespace Baka_MPlayer.Forms
         {
             // set file name
             var fileName = cleanNameCheckbox.Checked ?
-                cleanName(Info.FileName) : Info.FileName;
+                cleanName(Info.MovieName) : Info.MovieName;
 
             var sfd = new SaveFileDialog();
             sfd.FileName = fileName + "_snapshot[1].png";
