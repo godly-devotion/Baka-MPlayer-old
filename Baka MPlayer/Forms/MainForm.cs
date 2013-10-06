@@ -432,10 +432,10 @@ namespace Baka_MPlayer.Forms
 
         #region Accessors
 
-        private bool _voiceEnabled;
-        private bool VoiceEnabled
+        private bool voiceEnabled;
+        private bool EnableVoiceCommand
         {
-            get { return _voiceEnabled; }
+            get { return voiceEnabled; }
             set
             {
                 try
@@ -443,14 +443,17 @@ namespace Baka_MPlayer.Forms
                     if (value)
                     {
                         if (voice == null)
-                            voice = new Voice(this, "baka");
+                        {
+                            var name = settings.GetStringValue(SettingEnum.CallName).Trim();
+                            voice = new Voice(this, string.IsNullOrEmpty(name) ? "baka" : name);
+                        }
                         voice.StartListening();
-                        _voiceEnabled = true;
+                        voiceEnabled = true;
                     }
                     else
                     {
                         voice.StopListening();
-                        _voiceEnabled = false;
+                        voiceEnabled = false;
                     }
                 }
                 catch (Exception)
@@ -459,7 +462,7 @@ namespace Baka_MPlayer.Forms
                     
                     if (voice != null)
                         voice.StopListening();
-                    _voiceEnabled = false;
+                    voiceEnabled = false;
                 }
             }
         }
@@ -672,7 +675,7 @@ namespace Baka_MPlayer.Forms
         // Speech Button
         private void speechButton_MouseClick(object sender, MouseEventArgs e)
         {
-            VoiceEnabled = !VoiceEnabled;
+            EnableVoiceCommand = !EnableVoiceCommand;
         }
         private void speechButton_MouseDown(object sender, MouseEventArgs e)
         {
@@ -680,7 +683,7 @@ namespace Baka_MPlayer.Forms
         }
         private void speechButton_MouseUp(object sender, MouseEventArgs e)
         {
-            speechButton.Image = VoiceEnabled ?
+            speechButton.Image = EnableVoiceCommand ?
                 Properties.Resources.enabled_mic : Properties.Resources.disabled_mic;
         }
 
