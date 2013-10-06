@@ -90,7 +90,7 @@ namespace Baka_MPlayer.Forms
         {
             // file name
             var nameItem = new ListViewItem("File name", infoList.Groups[0]);
-            nameItem.SubItems.Add(Info.FullFileName);
+            nameItem.SubItems.Add(Info.IsOnline ? Info.MovieName : Info.FullFileName);
 
             // file type
             var type = getFileType(Info.URL);
@@ -99,7 +99,7 @@ namespace Baka_MPlayer.Forms
                 type = Path.GetExtension(Info.FullFileName);
 
                 if (string.IsNullOrEmpty(type))
-                    type = "No Available";
+                    type = "Not Available";
                 else
                     type = string.Format("{0} File", type.Substring(1).ToUpper());
             }
