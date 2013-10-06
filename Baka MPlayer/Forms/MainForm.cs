@@ -492,7 +492,14 @@ namespace Baka_MPlayer.Forms
         private bool HideAlbumArt
         {
             get { return mplayerSplitContainer.Panel1Collapsed; }
-            set { mplayerSplitContainer.Panel1Collapsed = value; }
+            set
+            {
+                if (value)
+                    ShowPlaylist = true;
+
+                mplayerSplitContainer.Panel1Collapsed = value;
+                hideAlbumArtToolStripMenuItem.Checked = value;
+            }
         }
 
         private bool ShowConsole
@@ -767,8 +774,6 @@ namespace Baka_MPlayer.Forms
         private void playlistButton_MouseClick(object sender, MouseEventArgs e)
         {
             ShowPlaylist = !ShowPlaylist;
-            showPlaylistToolStripMenuItem.Checked = !mplayerSplitContainer.Panel2Collapsed;
-            hideAlbumArtToolStripMenuItem.Checked = false;
         }
 
         // VolumeBar
@@ -1306,21 +1311,12 @@ namespace Baka_MPlayer.Forms
 
         private void showPlaylistToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowPlaylist = showPlaylistToolStripMenuItem.Checked;
+            ShowPlaylist = !ShowPlaylist;
         }
 
         private void hideAlbumArtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (hideAlbumArtToolStripMenuItem.Checked)
-            {
-                HideAlbumArt = true;
-                showPlaylistToolStripMenuItem.Checked = true;
-                showPlaylistToolStripMenuItem_Click(null, null);
-            }
-            else
-            {
-                HideAlbumArt = false;
-            }
+            HideAlbumArt = !HideAlbumArt;
         }
 
         private void dimLightsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1461,8 +1457,7 @@ namespace Baka_MPlayer.Forms
 
             // check for updates
             var dfi = DateTimeFormatInfo.CurrentInfo;
-            var cal = dfi.Calendar;
-            var week = cal.GetWeekOfYear(DateTime.Today, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+            var week = dfi.Calendar.GetWeekOfYear(DateTime.Today, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
 
             var lastCheck = settings.GetIntValue(SettingEnum.LastUpdateCheck);
             if (week != lastCheck)
@@ -1670,8 +1665,7 @@ namespace Baka_MPlayer.Forms
                     mplayerPanel.Visible = true;
 
                     frameStepToolStripMenuItem.Enabled = true;
-                    hideAlbumArtToolStripMenuItem.Checked = false;
-                    hideAlbumArtToolStripMenuItem_Click(null, null);
+                    HideAlbumArt = false;
                     hideAlbumArtToolStripMenuItem.Enabled = false;
                     takeSnapshotToolStripMenuItem.Enabled = true;
 
