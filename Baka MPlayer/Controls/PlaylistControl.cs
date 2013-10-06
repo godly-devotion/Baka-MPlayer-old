@@ -150,7 +150,7 @@ namespace Baka_MPlayer.Controls
             if (forceAll || playlistList.FindItemWithText(GetFileName) == null)
             {
                 FillPlaylist();
-                mainForm.ShowPlaylist = true;
+                mainForm.ShowPlaylist = !GetTotalItems.Equals(1);
                 mainForm.CheckShuffleToolStripMenuItem = false;
             }
             UpdateUI(true);
