@@ -1026,6 +1026,11 @@ namespace Baka_MPlayer.Forms
             mplayer.SendCommand("frame_step");
         }
 
+        private void frameBackStepToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mplayer.SendCommand("frame_back_step");
+        }
+
         private void jumpToTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var jumpForm = new JumpForm();
@@ -1668,6 +1673,7 @@ namespace Baka_MPlayer.Forms
                     mplayerPanel.Visible = true;
 
                     frameStepToolStripMenuItem.Enabled = true;
+                    frameBackStepToolStripMenuItem.Enabled = true;
                     HideAlbumArt = false;
                     hideAlbumArtToolStripMenuItem.Enabled = false;
                     takeSnapshotToolStripMenuItem.Enabled = true;
@@ -1684,6 +1690,7 @@ namespace Baka_MPlayer.Forms
                     albumArtPicbox.Visible = true;
 
                     frameStepToolStripMenuItem.Enabled = false;
+                    frameBackStepToolStripMenuItem.Enabled = false;
                     hideAlbumArtToolStripMenuItem.Enabled = true;
                     takeSnapshotToolStripMenuItem.Enabled = false;
 
