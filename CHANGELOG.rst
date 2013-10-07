@@ -1,8 +1,18 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.3.3.0 (September 17, 2013)
+Latest Version 1.3.4.0 (October 6, 2013)
 -------------------------------------------
+
+- Fixed: Small bugs
+- Fixed: Default file name for snapshot
+- Changed: Playlist will not auto show if there is only one file
+- Added: Frame step backwards
+- Added: Customize voice command call name from settings file (default: 'baka')
+- Updated: mpv build
+
+Version 1.3.3.0 (September 17, 2013)
+------------------------------------
 
 - Fixed: Next file not playing automatically
 - Changed: 'OptionalArgs' has been removed from settings. Use mpv's config file instead
