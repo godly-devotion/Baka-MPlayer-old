@@ -315,48 +315,44 @@ namespace Baka_MPlayer.Forms
 
         private int callbackFunction_KeyboardHook(int code, IntPtr wParam, IntPtr lParam)
         {
-            if (!(code.Equals(3) && Convert.ToString(lParam.ToInt64(), 2).StartsWith("10") && NotFocusedOnTextbox))
+            if (code.Equals(3) && Convert.ToString(lParam.ToInt64(), 2).StartsWith("10") && NotFocusedOnTextbox)
             {
-                // you need to call CallNextHookEx without further processing
-                // and return the value returned by CallNextHookEx
-                return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
-            }
-
-            switch ((Keys)wParam.ToInt32())
-            {
-                case Keys.Left:
-                    if (Info.Current.Duration - 5 > -1)
-                        mplayer.Seek(Info.Current.Duration - 5);
-                    else //if (mplayer.currentPosition < 5)
-                        mplayer.Seek(0);
-                    break;
-                case Keys.Right:
-                    if (Info.Current.Duration + 5 < Info.Current.TotalLength)
-                        mplayer.Seek(Info.Current.Duration + 5);
-                    else
+                switch ((Keys)wParam.ToInt32())
+                {
+                    case Keys.Left:
+                        if (Info.Current.Duration - 5 > -1)
+                            mplayer.Seek(Info.Current.Duration - 5);
+                        else //if (mplayer.currentPosition < 5)
+                            mplayer.Seek(0);
+                        break;
+                    case Keys.Right:
+                        if (Info.Current.Duration + 5 < Info.Current.TotalLength)
+                            mplayer.Seek(Info.Current.Duration + 5);
+                        else
+                            playlist.PlayNext();
+                        break;
+                    case Keys.MediaNextTrack:
                         playlist.PlayNext();
-                    break;
-                case Keys.MediaNextTrack:
-                    playlist.PlayNext();
-                    break;
-                case Keys.MediaPreviousTrack:
-                    playlist.PlayPrevious();
-                    break;
-                case Keys.MediaStop:
-                    mplayer.Stop();
-                    break;
-                case Keys.MediaPlayPause:
-                    switch (Info.Current.PlayState)
-                    {
-                        case PlayStates.Playing:
-                            mplayer.Pause(false);
-                            break;
-                        case PlayStates.Paused:
-                        case PlayStates.Stopped:
-                            mplayer.Pause(true);
-                            break;
-                    }
-                    return -1;
+                        break;
+                    case Keys.MediaPreviousTrack:
+                        playlist.PlayPrevious();
+                        break;
+                    case Keys.MediaStop:
+                        mplayer.Stop();
+                        break;
+                    case Keys.MediaPlayPause:
+                        switch (Info.Current.PlayState)
+                        {
+                            case PlayStates.Playing:
+                                mplayer.Pause(false);
+                                break;
+                            case PlayStates.Paused:
+                            case PlayStates.Stopped:
+                                mplayer.Pause(true);
+                                break;
+                        }
+                        return -1;
+                }
             }
 
             // return the value returned by CallNextHookEx
