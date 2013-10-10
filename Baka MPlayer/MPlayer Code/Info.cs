@@ -112,6 +112,13 @@ public static class Info
     /// </summary>
     public static string FullFileName { set; get; }
     /// <summary>
+    /// Returns FullFileName or MovieName based on if IsOnline
+    /// </summary>
+    public static string GetName
+    {
+        get { return IsOnline ? MovieName : FullFileName; }
+    }
+    /// <summary>
     /// Note: Returns 'null' if root dir ("C:\")
     /// </summary>
     public static string GetDirectoryName { get; set; } // Path.GetDirectoryName(...)

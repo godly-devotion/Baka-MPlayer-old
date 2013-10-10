@@ -90,7 +90,7 @@ namespace Baka_MPlayer.Forms
         {
             // file name
             var nameItem = new ListViewItem("File name", infoList.Groups[0]);
-            nameItem.SubItems.Add(Info.IsOnline ? Info.MovieName : Info.FullFileName);
+            nameItem.SubItems.Add(Info.GetName);
 
             // file type
             var type = getFileType(Info.URL);

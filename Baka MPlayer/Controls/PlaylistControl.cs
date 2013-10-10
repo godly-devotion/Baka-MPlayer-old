@@ -147,7 +147,7 @@ namespace Baka_MPlayer.Controls
 
         public void RefreshPlaylist(bool forceAll)
         {
-            if (forceAll || playlistList.FindItemWithText(GetFileName) == null)
+            if (forceAll || playlistList.FindItemWithText(Info.GetName) == null)
             {
                 FillPlaylist();
                 mainForm.ShowPlaylist = !GetTotalItems.Equals(1);
@@ -162,21 +162,6 @@ namespace Baka_MPlayer.Controls
             {
                 searchTextBox.Enabled = !value;
                 playlistList.Enabled = !value;
-            }
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Returns FullFileName or MovieName based on if its online
-        /// </summary>
-        private static string GetFileName
-        {
-            get
-            {
-                return Info.IsOnline ? Info.MovieName : Info.FullFileName;
             }
         }
 
@@ -254,7 +239,7 @@ namespace Baka_MPlayer.Controls
 
         private void UpdateUI(bool selectCurrentFile)
         {
-            GetPlayingItem = playlistList.FindItemWithText(GetFileName);
+            GetPlayingItem = playlistList.FindItemWithText(Info.GetName);
 
             if (selectCurrentFile)
                 SelectedIndex = GetPlayingItem.Index;
