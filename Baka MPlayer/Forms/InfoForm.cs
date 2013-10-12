@@ -9,34 +9,6 @@ namespace Baka_MPlayer.Forms
 {
     public partial class InfoForm : Form
     {
-        #region GetFileType Code
-
-        [DllImport("shell32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr SHGetFileInfo(string pszPath, uint dwFileAttributes, ref SHFILEINFO psfi, uint cbFileInfo, uint uFlags);
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        private struct SHFILEINFO
-        {
-            private readonly IntPtr hIcon;
-            private readonly int iIcon;
-            private readonly uint dwAttributes;
-
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-            private readonly string szDisplayName;
-
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 80)]
-            public readonly string szTypeName;
-        };
-
-        private static string getFileType(string path)
-        {
-            var x = new SHFILEINFO();
-            SHGetFileInfo(path, 0, ref x, (uint)Marshal.SizeOf(x), 0x400);
-            return x.szTypeName;
-        }
-
-        #endregion
-
         #region Accessor
 
         private Image AlbumArt
@@ -92,19 +64,9 @@ namespace Baka_MPlayer.Forms
             var nameItem = new ListViewItem("File name", infoList.Groups[0]);
             nameItem.SubItems.Add(Info.GetName);
 
-            // file type
-            var type = getFileType(Info.URL);
-            if (string.IsNullOrEmpty(type))
-            {
-                type = Path.GetExtension(Info.FullFileName);
-
-                if (string.IsNullOrEmpty(type))
-                    type = "Not Available";
-                else
-                    type = string.Format("{0} File", type.Substring(1).ToUpper());
-            }
-            var typeItem = new ListViewItem("File type", infoList.Groups[0]);
-            typeItem.SubItems.Add(type);
+            // file format
+            var typeItem = new ListViewItem("File format", infoList.Groups[0]);
+            typeItem.SubItems.Add(Info.FileFormat);
 
             // file size
             var sizeItem = new ListViewItem("File size", infoList.Groups[0]);

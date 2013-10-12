@@ -4,6 +4,7 @@
 **************************/
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -387,9 +388,6 @@ public class MPlayer
     {
         Debug.WriteLine(e.Data);
 
-        if (e.Data.StartsWith("get_path(")) // ignore get_path(...) (result from msglevel global=6)
-            return;
-
         // show output
         OnStdOut(new StdOutEventArgs(e.Data));
 
@@ -423,8 +421,17 @@ public class MPlayer
             return;
         }
 
+        if (e.Data.StartsWith("Detected file format: "))
+        {
+            Info.FileFormat = e.Data.Substring(22);
+            return;
+        }
+
         if (e.Data.StartsWith("Video: no video"))
+        {
             Info.VideoInfo.HasVideo = false;
+            return;
+        }
 
         if (e.Data.StartsWith("PLAYING_FILE:"))
         {
@@ -437,7 +444,7 @@ public class MPlayer
             if (!string.IsNullOrEmpty(ExternalSub))
             {
                 SendCommand("sub_add \"{0}\"", ExternalSub.Replace("\\", "\\\\"));
-                Info.Subs.Add(new Sub(Info.Subs.Count.ToString(), "[ External Sub ]", "★"));
+                Info.Subs.Add(new Sub(Info.Subs.Count.ToString(CultureInfo.InvariantCulture), "[ External Sub ]", "★"));
                 SetSubs(Info.Subs.Count);
 
                 ExternalSub = string.Empty;

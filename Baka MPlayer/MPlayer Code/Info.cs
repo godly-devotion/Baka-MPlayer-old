@@ -123,6 +123,10 @@ public static class Info
     /// </summary>
     public static string GetDirectoryName { get; set; } // Path.GetDirectoryName(...)
     /// <summary>
+    /// Returns mplayer's detected file format
+    /// </summary>
+    public static string FileFormat { get; set; }
+    /// <summary>
     /// Returns whether or not the file is online
     /// </summary>
     public static bool IsOnline { get; set; }
