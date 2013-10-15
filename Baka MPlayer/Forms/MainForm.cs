@@ -474,7 +474,6 @@ namespace Baka_MPlayer.Forms
                     showPlaylistToolStripMenuItem.Checked = true;
 
                     playlist.DisableInteraction = false;
-                    mplayerSplitContainer.IsSplitterFixed = false;
                 }
                 else
                 {
@@ -483,7 +482,7 @@ namespace Baka_MPlayer.Forms
                     hideAlbumArtToolStripMenuItem.Checked = false;
 
                     playlist.DisableInteraction = true;
-                    mplayerSplitContainer.IsSplitterFixed = true;
+                    seekBar.Focus();
                 }
             }
         }
@@ -506,6 +505,9 @@ namespace Baka_MPlayer.Forms
             get { return !bodySplitContainer.Panel2Collapsed; }
             set
             {
+                if (!value)
+                    seekBar.Focus();
+
                 bodySplitContainer.Panel2Collapsed = !value;
                 showCommandLineToolStripMenuItem.Checked = value;
             }
