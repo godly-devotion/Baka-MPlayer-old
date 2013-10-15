@@ -1630,6 +1630,9 @@ namespace Baka_MPlayer.Forms
             {
                 SetControls(true, false);
 
+                // lose focus from other controls (i.e. playlist)
+                seekBar.Focus();
+
                 // save last file information
                 if (firstFile)
                 {
