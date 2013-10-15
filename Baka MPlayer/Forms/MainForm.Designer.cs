@@ -53,7 +53,7 @@ namespace Baka_MPlayer.Forms
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rewindToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.shuffleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.repeatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.offToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,9 +61,10 @@ namespace Baka_MPlayer.Forms
             this.playlistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.thisFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopAftercurrentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.frameStepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.frameBackStepToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.jumpToTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mediaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -157,7 +158,6 @@ namespace Baka_MPlayer.Forms
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.quickButton)).BeginInit();
@@ -381,10 +381,10 @@ namespace Baka_MPlayer.Forms
             this.restartToolStripMenuItem.Text = "R&estart";
             this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
             // 
-            // toolStripSeparator6
+            // toolStripSeparator5
             // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(230, 6);
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(230, 6);
             // 
             // shuffleToolStripMenuItem
             // 
@@ -444,10 +444,10 @@ namespace Baka_MPlayer.Forms
             this.stopAftercurrentToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
             this.stopAftercurrentToolStripMenuItem.Text = "Stop after &current";
             // 
-            // toolStripSeparator7
+            // toolStripSeparator6
             // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(230, 6);
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(230, 6);
             // 
             // frameStepToolStripMenuItem
             // 
@@ -467,6 +467,11 @@ namespace Baka_MPlayer.Forms
             this.frameBackStepToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
             this.frameBackStepToolStripMenuItem.Text = "Frame &Back Step";
             this.frameBackStepToolStripMenuItem.Click += new System.EventHandler(this.frameBackStepToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(230, 6);
             // 
             // jumpToTimeToolStripMenuItem
             // 
@@ -1179,6 +1184,7 @@ namespace Baka_MPlayer.Forms
             this.mplayerSplitContainer.SplitterDistance = 410;
             this.mplayerSplitContainer.TabIndex = 3;
             this.mplayerSplitContainer.TabStop = false;
+            this.mplayerSplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.mplayerSplitContainer_SplitterMoved);
             // 
             // bodySplitContainer
             // 
@@ -1409,11 +1415,6 @@ namespace Baka_MPlayer.Forms
             // 
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(230, 6);
             // 
             // MainForm
             // 

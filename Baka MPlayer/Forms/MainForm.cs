@@ -2155,5 +2155,11 @@ namespace Baka_MPlayer.Forms
             if (!string.IsNullOrEmpty(Info.URL) && e.Button == MouseButtons.Right)
                 mplayer.Pause(true);
         }
+
+        private void mplayerSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            // revert focus back to general program
+            seekBar.Focus();
+        }
     }
 }
