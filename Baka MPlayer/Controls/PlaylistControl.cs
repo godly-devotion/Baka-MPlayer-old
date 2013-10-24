@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Globalization;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Baka_MPlayer.Forms;
 
@@ -189,10 +190,11 @@ namespace Baka_MPlayer.Controls
                 else
                     files = dirInfo.GetFiles('*' + Path.GetExtension(Info.FullFileName));
 
+                var uselessFilesRegex = new Regex(@".*\.(ini|txt|db|jpg|png)$", RegexOptions.IgnoreCase);
                 for (var i = 0; i <= files.Length - 1; i++)
                 {
-                    // skip .db files (useless files)
-                    if (!files[i].Name.EndsWith(".db"))
+                    // skip useless files
+                    if (!uselessFilesRegex.IsMatch(files[i].Name))
                         playlistList.Items.Add(files[i].Name);
                 }
             }
