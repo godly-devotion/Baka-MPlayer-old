@@ -236,7 +236,7 @@ namespace Baka_MPlayer.Controls
             }
 
             playlistList.Items.RemoveAt(index);
-            UpdateUI(false);
+            UpdateUI(true);
         }
 
         private void UpdateUI(bool selectCurrentFile)
