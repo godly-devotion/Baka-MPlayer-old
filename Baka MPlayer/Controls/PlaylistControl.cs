@@ -231,12 +231,12 @@ namespace Baka_MPlayer.Controls
         {
             if (GetPlayingItem.Index == index)
             {
-                MessageBox.Show("You can't remove the playing file.", "I'm afraid you can't do that", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("You can't remove the currently playing file.", "I'm afraid you can't do that", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             playlistList.Items.RemoveAt(index);
-            UpdateUI(true);
+            UpdateUI(false);
         }
 
         private void UpdateUI(bool selectCurrentFile)
