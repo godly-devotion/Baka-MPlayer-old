@@ -367,6 +367,12 @@ public class MPlayer
             return;
         }
 
+        if (e.Data.StartsWith("Cache fill:"))
+        {
+            OnStatusChanged(new StatusChangedEventArgs(e.Data.Trim(), true));
+            return;
+        }
+
         //[fontconfig] Scanning dir C:/Windows/Fonts (must set FC_DEBUG to show)
         if (!cachingFonts && e.Data.StartsWith("[fontconfig]"))
 		{
