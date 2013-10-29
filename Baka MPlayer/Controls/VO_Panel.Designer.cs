@@ -28,7 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // VO_Panel
+            // 
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.VO_Panel_MouseDown);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

@@ -2158,6 +2158,12 @@ namespace Baka_MPlayer.Forms
                 mplayer.Pause(true);
         }
 
+        private void mplayerPanel_MouseDoubleClickFixed(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                FullScreen = !FullScreen;
+        }
+
         private void mplayerSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
         {
             // revert focus back to general program

@@ -1251,6 +1251,7 @@ namespace Baka_MPlayer.Forms
             this.mplayerPanel.Size = new System.Drawing.Size(410, 204);
             this.mplayerPanel.TabIndex = 0;
             this.mplayerPanel.Visible = false;
+            this.mplayerPanel.MouseDoubleClickFixed += new System.Windows.Forms.MouseEventHandler(this.mplayerPanel_MouseDoubleClickFixed);
             this.mplayerPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mplayerPanel_MouseClick);
             this.mplayerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
