@@ -1028,6 +1028,7 @@ namespace Baka_MPlayer.Forms
             this.rewindButton.TabIndex = 9;
             this.rewindButton.TabStop = false;
             this.rewindButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rewindButton_MouseClick);
+            this.rewindButton.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.rewindButton_MouseDoubleClick);
             // 
             // playlistButton
             // 

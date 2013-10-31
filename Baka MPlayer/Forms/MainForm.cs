@@ -700,6 +700,11 @@ namespace Baka_MPlayer.Forms
             else
                 mplayer.Stop();
         }
+        private void rewindButton_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                mplayer.Stop();
+        }
 
         // PreviousButton
         private void previousButton_MouseClick(object sender, MouseEventArgs e)
@@ -2146,6 +2151,12 @@ namespace Baka_MPlayer.Forms
                 mplayer.Pause(true);
         }
 
+        private void mplayerPanel_MouseDoubleClickFixed(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                FullScreen = !FullScreen;
+        }
+
         private void bodySplitContainer_Panel1_MouseClick(object sender, MouseEventArgs e)
         {
             if (!string.IsNullOrEmpty(Info.URL) && e.Button == MouseButtons.Right)
@@ -2156,12 +2167,6 @@ namespace Baka_MPlayer.Forms
         {
             if (!string.IsNullOrEmpty(Info.URL) && e.Button == MouseButtons.Right)
                 mplayer.Pause(true);
-        }
-
-        private void mplayerPanel_MouseDoubleClickFixed(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-                FullScreen = !FullScreen;
         }
 
         private void mplayerSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
