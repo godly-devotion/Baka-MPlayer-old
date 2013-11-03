@@ -25,3 +25,18 @@ public static class WH
 {
     public const int KEYBOARD = 2;
 }
+
+public static class WindowMacro
+{
+    public static int GET_X_LPARAM(int lparam)
+    { return LowWord(lparam); }
+
+    public static int GET_Y_LPARAM(int lparam)
+    { return HighWord(lparam); }
+
+    public static int LowWord(int word)
+    { return word & 0xFFFF; }
+
+    public static int HighWord(int word)
+    { return word >> 16; }
+}
