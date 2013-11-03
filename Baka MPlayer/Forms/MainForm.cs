@@ -270,10 +270,7 @@ namespace Baka_MPlayer.Forms
         {
             // create a new font collection
             fonts = new System.Drawing.Text.PrivateFontCollection();
-            // add the font file to the new font
-            // "name" is the qualified path to your font file
             fonts.AddFontFile(name);
-            // retrieve your new font
             NewFont_FF = fonts.Families[0];
 
             return new Font(NewFont_FF, size, style, unit);
@@ -369,7 +366,7 @@ namespace Baka_MPlayer.Forms
             formGraphics.FillRectangle(gradientBrush, controlPanel.ClientRectangle);
         }
         #endregion
-        #region Drag & Drop Support
+        #region File Drag & Drop
 
         private void MainForm_DragDrop(object sender, DragEventArgs e)
         {
@@ -833,7 +830,7 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private void MouseMoved()
+        private void mouseHandler_MouseMoved()
         {
             if (!FullScreen) return;
             if (VO_State.LastCursorPos != Cursor.Position)
@@ -1433,9 +1430,10 @@ namespace Baka_MPlayer.Forms
             this.myCallbackDelegate = this.callbackFunction_KeyboardHook;
             hHook = SetWindowsHookEx(WH.KEYBOARD, this.myCallbackDelegate, IntPtr.Zero, AppDomain.GetCurrentThreadId());
 
-            // set mouse hook
+            // message filter for mouse events
             var mouseHandler = new GlobalMouseHandler();
-            mouseHandler.TheMouseMoved += MouseMoved;
+            mouseHandler.MouseMoved += mouseHandler_MouseMoved;
+            mouseHandler.XButtonDown += mouseHandler_XButtonDown;
             Application.AddMessageFilter(mouseHandler);
 
             InitializeComponent();
@@ -1444,11 +1442,19 @@ namespace Baka_MPlayer.Forms
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // check for mpv.exe
+            if (!File.Exists(Application.StartupPath + "\\mpv.exe"))
+            {
+                MessageBox.Show("Baka MPlayer cannot load without mpv.exe!",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Application.Exit();
+            }
+
             RegisterMPlayerEvents();
-            this.MouseWheel += MainForm_MouseWheel;
             playlist.Init(this, mplayer);
             trayIcon.ContextMenu = trayContextMenu;
             folderToolStripMenuItem.Text = "Build " + Application.ProductVersion;
+            this.MouseWheel += MainForm_MouseWheel;
             this.MinimumSize = new Size(this.Width, this.Height - this.ClientSize.Height
                 + mainMenuStrip.Height + seekPanel.Height + controlPanel.Height);
 
@@ -1457,14 +1463,6 @@ namespace Baka_MPlayer.Forms
             ShowPlaylist = false;
 
             LoadSettings();
-
-            // check for player exec
-            if (!File.Exists(Application.StartupPath + "\\mpv.exe"))
-            {
-                MessageBox.Show("Baka MPlayer cannot load without mpv.exe!",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                Application.Exit();
-            }
 
             // check for updates
             var dfi = DateTimeFormatInfo.CurrentInfo;
@@ -1959,6 +1957,28 @@ namespace Baka_MPlayer.Forms
             else
             {
                 seekBar.ClearMarks();
+            }
+        }
+
+        private void mouseHandler_XButtonDown(MouseButtons button)
+        {
+            if (!mplayer.MPlayerIsRunning())
+                return;
+
+            switch (button)
+            {
+                case MouseButtons.XButton1: // seek backwards
+                    if (Info.Current.Duration - 5 > -1)
+                        mplayer.Seek(Info.Current.Duration - 5);
+                    else //if (mplayer.currentPosition < 5)
+                        mplayer.Seek(0);
+                    break;
+                case MouseButtons.XButton2: // seek forwards
+                    if (Info.Current.Duration + 5 < Info.Current.TotalLength)
+                        mplayer.Seek(Info.Current.Duration + 5);
+                    else
+                        playlist.PlayNext();
+                    break;
             }
         }
 

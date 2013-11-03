@@ -3,19 +3,34 @@
 using System.Windows.Forms;
 
 public delegate void MouseMovedEvent();
+public delegate void XButtonDownEvent(MouseButtons button);
 
 public class GlobalMouseHandler : IMessageFilter
 {
-    public event MouseMovedEvent TheMouseMoved;
+    public event MouseMovedEvent MouseMoved;
+    public event XButtonDownEvent XButtonDown;
 
     public bool PreFilterMessage(ref Message m)
     {
-        if (TheMouseMoved != null)
+        switch (m.Msg)
         {
-            if (m.Msg == WM.MOUSEMOVE)
-            {
-                TheMouseMoved();
-            }
+            case WM.MOUSEMOVE:
+                if (MouseMoved != null)
+                {
+                    MouseMoved();
+                }
+                break;
+            case WM.XBUTTONDOWN:
+                if (XButtonDown != null)
+                {
+                    var button = WindowMacro.HighWord(m.WParam.ToInt32());
+
+                    if (button == 0x0001)
+                        XButtonDown(MouseButtons.XButton1);
+                    if (button == 0x0002)
+                        XButtonDown(MouseButtons.XButton2);
+                }
+                break;
         }
 
         // always allow message to continue to the next filter control
