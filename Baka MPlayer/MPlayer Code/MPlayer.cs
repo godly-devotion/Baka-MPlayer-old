@@ -119,7 +119,7 @@ public class MPlayer
             args.Append(" -no-keepaspect");                     // doesn't keep window aspect ratio when resizing windows
             args.Append(" -no-autosub");                        // do not auto load subs (via filename)
             args.Append(" -cursor-autohide=no");                // disable cursor autohide
-            args.Append(" -no-osc");                            // disable osc
+            //args.Append(" -no-osc");                          // disable osc
             //args.Append(" -no-cache");                        // disables caching
             args.Append(" -playing-msg=PLAYING_FILE:${media-title}");
             args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=dwidth};HEIGHT=${=dheight}");
