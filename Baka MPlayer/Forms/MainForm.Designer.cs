@@ -1213,6 +1213,7 @@ namespace Baka_MPlayer.Forms
             this.mplayerSplitContainer.SplitterDistance = 208;
             this.mplayerSplitContainer.TabIndex = 0;
             this.mplayerSplitContainer.TabStop = false;
+            this.mplayerSplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.mplayerSplitContainer_SplitterMoved);
             // 
             // statusLabel
             // 

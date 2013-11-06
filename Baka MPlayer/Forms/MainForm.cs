@@ -2194,5 +2194,11 @@ namespace Baka_MPlayer.Forms
             // revert focus to overall program
             seekBar.Focus();
         }
+
+        private void mplayerSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+            // revert focus to overall program
+            seekBar.Focus();
+        }
     }
 }
