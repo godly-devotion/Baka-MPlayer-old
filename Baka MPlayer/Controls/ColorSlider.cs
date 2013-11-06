@@ -263,56 +263,56 @@ namespace Baka_MPlayer.Controls
             }
         }
 
-        private Color thumbOuterColor = Color.White;
+        private Color thumbFirstColor = Color.White;
         /// <summary>
-        /// Gets or sets the thumb outer color .
+        /// Gets or sets the first thumb color.
         /// </summary>
-        /// <value>The thumb outer color.</value>
-        [Description("Set Slider thumb outer color")]
+        /// <value>The first thumb color.</value>
+        [Description("Set first thumb color on Slider")]
         [Category("ColorSlider")]
         [DefaultValue(typeof(Color), "White")]
-        public Color ThumbOuterColor
+        public Color ThumbFirstColor
         {
-            get { return thumbOuterColor; }
+            get { return thumbFirstColor; }
             set
             {
-                thumbOuterColor = value;
+                thumbFirstColor = value;
                 Invalidate();
             }
         }
 
-        private Color thumbInnerColor = Color.Gainsboro;
+        private Color thumbSecondColor = Color.Gainsboro;
         /// <summary>
-        /// Gets or sets the inner color of the thumb.
+        /// Gets or sets the second thumb color.
         /// </summary>
-        /// <value>The inner color of the thumb.</value>
-        [Description("Set Slider thumb inner color")]
+        /// <value>The second thumb color.</value>
+        [Description("Set second thumb color on Slider")]
         [Category("ColorSlider")]
         [DefaultValue(typeof(Color), "Gainsboro")]
-        public Color ThumbInnerColor
+        public Color ThumbSecondColor
         {
-            get { return thumbInnerColor; }
+            get { return thumbSecondColor; }
             set
             {
-                thumbInnerColor = value;
+                thumbSecondColor = value;
                 Invalidate();
             }
         }
 
-        private Color thumbPenColor = Color.Silver;
+        private Color thumbBorderColor = Color.Silver;
         /// <summary>
-        /// Gets or sets the color of the thumb pen.
+        /// Gets or sets the border color of the thumb.
         /// </summary>
-        /// <value>The color of the thumb pen.</value>
+        /// <value>The color border of the thumb.</value>
         [Description("Set Slider thumb pen color")]
         [Category("ColorSlider")]
         [DefaultValue(typeof(Color), "Silver")]
-        public Color ThumbPenColor
+        public Color ThumbBorderColor
         {
-            get { return thumbPenColor; }
+            get { return thumbBorderColor; }
             set
             {
-                thumbPenColor = value;
+                thumbBorderColor = value;
                 Invalidate();
             }
         }
@@ -435,14 +435,14 @@ namespace Baka_MPlayer.Controls
         {
             if (!Enabled)
             {
-                Color[] desaturatedColors = DesaturateColors(thumbOuterColor, thumbInnerColor, thumbPenColor,
+                Color[] desaturatedColors = DesaturateColors(thumbFirstColor, thumbSecondColor, thumbBorderColor,
                                                              barColor, elapsedBarColor);
                 DrawColorSlider(e, desaturatedColors[0], desaturatedColors[1], desaturatedColors[2],
                                 desaturatedColors[3], desaturatedColors[4]);
             }
             else
             {
-                DrawColorSlider(e, thumbOuterColor, thumbInnerColor, thumbPenColor,
+                DrawColorSlider(e, thumbFirstColor, thumbSecondColor, thumbBorderColor,
                                 barColor, elapsedBarColor);
             }
         }
@@ -451,13 +451,13 @@ namespace Baka_MPlayer.Controls
         /// Draws the colorslider control using passed colors.
         /// </summary>
         /// <param name="e">The <see cref="T:System.Windows.Forms.PaintEventArgs"/> instance containing the event data.</param>
-        /// <param name="thumbOuterColorPaint">The thumb outer color paint.</param>
-        /// <param name="thumbInnerColorPaint">The thumb inner color paint.</param>
-        /// <param name="thumbPenColorPaint">The thumb pen color paint.</param>
+        /// <param name="thumbFirstColorPaint">The first color of the thumb.</param>
+        /// <param name="thumbSecondColorPaint">The second color of the thumb.</param>
+        /// <param name="thumbBorderColorPaint">The thumb border color.</param>
         /// <param name="barColorPaint">The bar color paint.</param>
         /// <param name="elapsedBarColorPaint">The elapsed color paint.</param>
-        private void DrawColorSlider(PaintEventArgs e, Color thumbOuterColorPaint, Color thumbInnerColorPaint,
-                                     Color thumbPenColorPaint, Color barColorPaint, Color elapsedBarColorPaint)
+        private void DrawColorSlider(PaintEventArgs e, Color thumbFirstColorPaint, Color thumbSecondColorPaint,
+                                     Color thumbBorderColorPaint, Color barColorPaint, Color elapsedBarColorPaint)
         {
             try
             {
@@ -518,22 +518,21 @@ namespace Baka_MPlayer.Controls
                 }
 
                 // draw thumb
-                Color newthumbOuterColorPaint = thumbOuterColorPaint, newthumbInnerColorPaint = thumbInnerColorPaint;
+                Color newthumbFirstColorPaint = thumbFirstColorPaint, newthumbSecondColorPaint = thumbSecondColorPaint;
                 if (Capture && drawSemitransparentThumb)
                 {
-                    newthumbOuterColorPaint = Color.FromArgb(175, thumbOuterColorPaint);
-                    newthumbInnerColorPaint = Color.FromArgb(175, thumbInnerColorPaint);
+                    newthumbFirstColorPaint = Color.FromArgb(175, thumbFirstColorPaint);
+                    newthumbSecondColorPaint = Color.FromArgb(175, thumbSecondColorPaint);
                 }
-                using (var lgbThumb = new LinearGradientBrush(thumbHalfRect,
-                    newthumbOuterColorPaint, newthumbInnerColorPaint, LinearGradientMode.Vertical))
+                using (var lgbThumb = new LinearGradientBrush(thumbRect,
+                    newthumbFirstColorPaint, newthumbSecondColorPaint, LinearGradientMode.Vertical))
                 {
-                    lgbThumb.WrapMode = WrapMode.TileFlipXY;
                     e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
                     e.Graphics.FillPath(lgbThumb, thumbPath);
-                    // draw thumb band
-                    Color newThumbPenColor = thumbPenColorPaint;
+                    // draw thumb border
+                    Color newThumbBorderColor = thumbBorderColorPaint;
 
-                    using (var thumbPen = new Pen(newThumbPenColor))
+                    using (var thumbPen = new Pen(newThumbBorderColor))
                     {
                         e.Graphics.DrawPath(thumbPen, thumbPath);
                     }

@@ -2067,9 +2067,9 @@ namespace Baka_MPlayer.Forms
                     mplayer.Mute(true);
                 volumeToolStripTextBox.Text = "Mute";
 
-                volumeBar.ThumbInnerColor = Color.DimGray;
-                volumeBar.ThumbOuterColor = Color.DarkGray;
-                volumeBar.ThumbPenColor = Color.DimGray;
+                volumeBar.ThumbSecondColor = Color.DimGray;
+                volumeBar.ThumbFirstColor = Color.DarkGray;
+                volumeBar.ThumbBorderColor = Color.DimGray;
                 volumeBar.Value = 0;
             }
             else
@@ -2078,9 +2078,9 @@ namespace Baka_MPlayer.Forms
                     mplayer.Mute(false);
                 volumeToolStripTextBox.Text = newVol.ToString(CultureInfo.InvariantCulture);
 
-                volumeBar.ThumbInnerColor = Color.DarkGray;
-                volumeBar.ThumbOuterColor = Color.Silver;
-                volumeBar.ThumbPenColor = Color.Gray;
+                volumeBar.ThumbSecondColor = Color.DarkGray;
+                volumeBar.ThumbFirstColor = Color.Silver;
+                volumeBar.ThumbBorderColor = Color.Gray;
                 volumeBar.Value = newVol;
             }
         }
