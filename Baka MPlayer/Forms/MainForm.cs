@@ -462,19 +462,19 @@ namespace Baka_MPlayer.Forms
 
         public bool ShowPlaylist
         {
-            get { return !mplayerSplitContainer.Panel2Collapsed; }
+            get { return !bodySplitContainer.Panel2Collapsed; }
             set
             {
                 if (value)
                 {
-                    mplayerSplitContainer.Panel2Collapsed = false;
+                    bodySplitContainer.Panel2Collapsed = false;
                     showPlaylistToolStripMenuItem.Checked = true;
 
                     playlist.DisableInteraction = false;
                 }
                 else
                 {
-                    mplayerSplitContainer.Panel2Collapsed = true;
+                    bodySplitContainer.Panel2Collapsed = true;
                     showPlaylistToolStripMenuItem.Checked = false;
                     hideAlbumArtToolStripMenuItem.Checked = false;
 
@@ -486,26 +486,26 @@ namespace Baka_MPlayer.Forms
 
         private bool HideAlbumArt
         {
-            get { return mplayerSplitContainer.Panel1Collapsed; }
+            get { return bodySplitContainer.Panel1Collapsed; }
             set
             {
                 if (value)
                     ShowPlaylist = true;
 
-                mplayerSplitContainer.Panel1Collapsed = value;
+                bodySplitContainer.Panel1Collapsed = value;
                 hideAlbumArtToolStripMenuItem.Checked = value;
             }
         }
 
         private bool ShowConsole
         {
-            get { return !bodySplitContainer.Panel2Collapsed; }
+            get { return !mplayerSplitContainer.Panel2Collapsed; }
             set
             {
                 if (!value)
                     seekBar.Focus();
 
-                bodySplitContainer.Panel2Collapsed = !value;
+                mplayerSplitContainer.Panel2Collapsed = !value;
                 showCommandLineToolStripMenuItem.Checked = value;
             }
         }
@@ -1057,9 +1057,9 @@ namespace Baka_MPlayer.Forms
             }
 
             int playlistWidth = ShowPlaylist ?
-                mplayerSplitContainer.Width - mplayerSplitContainer.SplitterDistance : 0;
+                bodySplitContainer.Width - bodySplitContainer.SplitterDistance : 0;
             int consoleHeight = ShowConsole ?
-                bodySplitContainer.Height - bodySplitContainer.SplitterDistance : 0;
+                mplayerSplitContainer.Height - mplayerSplitContainer.SplitterDistance : 0;
 
             this.ClientSize = new Size(mplayerPanel.Width + playlistWidth,
                 mainMenuStrip.Height + mplayerPanel.Height + consoleHeight + seekPanel.Height + controlPanel.Height);
@@ -1993,7 +1993,7 @@ namespace Baka_MPlayer.Forms
                 albumArtPicbox.SizeMode = PictureBoxSizeMode.CenterImage;
         }
 
-        private void bodySplitContainer_Panel1_SizeChanged(object sender, EventArgs e)
+        private void mplayerSplitContainer_Panel1_SizeChanged(object sender, EventArgs e)
         {
             ResizeMplayerPanel();
         }
@@ -2003,7 +2003,7 @@ namespace Baka_MPlayer.Forms
             if (string.IsNullOrEmpty(Info.URL) && !Info.VideoInfo.HasVideo)
                 return;
 
-            var nowAspect = (double)bodySplitContainer.Panel1.Width / bodySplitContainer.Panel1.Height;
+            var nowAspect = (double)mplayerSplitContainer.Panel1.Width / mplayerSplitContainer.Panel1.Height;
             int newWidth, newHeight;
 
             var ratio = Info.VideoInfo.AspectRatio;
@@ -2012,12 +2012,12 @@ namespace Baka_MPlayer.Forms
 
             if (nowAspect < ratio)
             {
-                newWidth = bodySplitContainer.Panel1.Width;
+                newWidth = mplayerSplitContainer.Panel1.Width;
                 newHeight = (int)(newWidth / ratio);
             }
             else
             {
-                newHeight = bodySplitContainer.Panel1.Height;
+                newHeight = mplayerSplitContainer.Panel1.Height;
                 newWidth = (int)(newHeight * ratio);
             }
 
@@ -2025,8 +2025,8 @@ namespace Baka_MPlayer.Forms
             mplayerPanel.Size = new Size(newWidth, newHeight);
 
             // update location : Top, Left
-            newWidth = (bodySplitContainer.Panel1.Width - newWidth) / 2;
-            newHeight = (bodySplitContainer.Panel1.Height - newHeight) / 2;
+            newWidth = (mplayerSplitContainer.Panel1.Width - newWidth) / 2;
+            newHeight = (mplayerSplitContainer.Panel1.Height - newHeight) / 2;
 
             mplayerPanel.Location = new Point(newWidth, newHeight);
         }
@@ -2177,7 +2177,7 @@ namespace Baka_MPlayer.Forms
                 FullScreen = !FullScreen;
         }
 
-        private void bodySplitContainer_Panel1_MouseClick(object sender, MouseEventArgs e)
+        private void mplayerSplitContainer_Panel1_MouseClick(object sender, MouseEventArgs e)
         {
             if (!string.IsNullOrEmpty(Info.URL) && e.Button == MouseButtons.Right)
                 mplayer.Pause(true);
@@ -2189,9 +2189,9 @@ namespace Baka_MPlayer.Forms
                 mplayer.Pause(true);
         }
 
-        private void mplayerSplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
+        private void bodySplitContainer_SplitterMoved(object sender, SplitterEventArgs e)
         {
-            // revert focus back to general program
+            // revert focus to overall program
             seekBar.Focus();
         }
     }

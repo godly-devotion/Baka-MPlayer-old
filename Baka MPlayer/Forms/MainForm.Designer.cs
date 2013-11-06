@@ -132,8 +132,8 @@ namespace Baka_MPlayer.Forms
             this.seekBar = new Baka_MPlayer.Controls.ColorSlider();
             this.timeLeftLabel = new System.Windows.Forms.Label();
             this.durationLabel = new System.Windows.Forms.Label();
-            this.mplayerSplitContainer = new System.Windows.Forms.SplitContainer();
             this.bodySplitContainer = new System.Windows.Forms.SplitContainer();
+            this.mplayerSplitContainer = new System.Windows.Forms.SplitContainer();
             this.statusLabel = new System.Windows.Forms.Label();
             this.albumArtPicbox = new System.Windows.Forms.PictureBox();
             this.mplayerPanel = new Baka_MPlayer.Controls.VO_Panel();
@@ -168,12 +168,12 @@ namespace Baka_MPlayer.Forms
             ((System.ComponentModel.ISupportInitialize)(this.speechButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playButton)).BeginInit();
             this.seekPanel.SuspendLayout();
-            this.mplayerSplitContainer.Panel1.SuspendLayout();
-            this.mplayerSplitContainer.Panel2.SuspendLayout();
-            this.mplayerSplitContainer.SuspendLayout();
             this.bodySplitContainer.Panel1.SuspendLayout();
             this.bodySplitContainer.Panel2.SuspendLayout();
             this.bodySplitContainer.SuspendLayout();
+            this.mplayerSplitContainer.Panel1.SuspendLayout();
+            this.mplayerSplitContainer.Panel2.SuspendLayout();
+            this.mplayerSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.albumArtPicbox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -1167,52 +1167,52 @@ namespace Baka_MPlayer.Forms
             this.durationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.durationLabel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
-            // mplayerSplitContainer
-            // 
-            this.mplayerSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mplayerSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.mplayerSplitContainer.Location = new System.Drawing.Point(0, 20);
-            this.mplayerSplitContainer.Name = "mplayerSplitContainer";
-            // 
-            // mplayerSplitContainer.Panel1
-            // 
-            this.mplayerSplitContainer.Panel1.Controls.Add(this.bodySplitContainer);
-            // 
-            // mplayerSplitContainer.Panel2
-            // 
-            this.mplayerSplitContainer.Panel2.Controls.Add(this.playlist);
-            this.mplayerSplitContainer.Size = new System.Drawing.Size(584, 307);
-            this.mplayerSplitContainer.SplitterDistance = 410;
-            this.mplayerSplitContainer.TabIndex = 3;
-            this.mplayerSplitContainer.TabStop = false;
-            this.mplayerSplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.mplayerSplitContainer_SplitterMoved);
-            // 
             // bodySplitContainer
             // 
             this.bodySplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.bodySplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
-            this.bodySplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.bodySplitContainer.Location = new System.Drawing.Point(0, 20);
             this.bodySplitContainer.Name = "bodySplitContainer";
-            this.bodySplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
             // bodySplitContainer.Panel1
             // 
-            this.bodySplitContainer.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.bodySplitContainer.Panel1.Controls.Add(this.statusLabel);
-            this.bodySplitContainer.Panel1.Controls.Add(this.albumArtPicbox);
-            this.bodySplitContainer.Panel1.Controls.Add(this.mplayerPanel);
-            this.bodySplitContainer.Panel1.SizeChanged += new System.EventHandler(this.bodySplitContainer_Panel1_SizeChanged);
-            this.bodySplitContainer.Panel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.bodySplitContainer_Panel1_MouseClick);
-            this.bodySplitContainer.Panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
+            this.bodySplitContainer.Panel1.Controls.Add(this.mplayerSplitContainer);
             // 
             // bodySplitContainer.Panel2
             // 
-            this.bodySplitContainer.Panel2.Controls.Add(this.outputTextbox);
-            this.bodySplitContainer.Panel2.Controls.Add(this.inputTextbox);
-            this.bodySplitContainer.Size = new System.Drawing.Size(410, 307);
-            this.bodySplitContainer.SplitterDistance = 208;
-            this.bodySplitContainer.TabIndex = 0;
+            this.bodySplitContainer.Panel2.Controls.Add(this.playlist);
+            this.bodySplitContainer.Size = new System.Drawing.Size(584, 307);
+            this.bodySplitContainer.SplitterDistance = 410;
+            this.bodySplitContainer.TabIndex = 3;
             this.bodySplitContainer.TabStop = false;
+            this.bodySplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.bodySplitContainer_SplitterMoved);
+            // 
+            // mplayerSplitContainer
+            // 
+            this.mplayerSplitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mplayerSplitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.mplayerSplitContainer.Location = new System.Drawing.Point(0, 0);
+            this.mplayerSplitContainer.Name = "mplayerSplitContainer";
+            this.mplayerSplitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // mplayerSplitContainer.Panel1
+            // 
+            this.mplayerSplitContainer.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.mplayerSplitContainer.Panel1.Controls.Add(this.statusLabel);
+            this.mplayerSplitContainer.Panel1.Controls.Add(this.albumArtPicbox);
+            this.mplayerSplitContainer.Panel1.Controls.Add(this.mplayerPanel);
+            this.mplayerSplitContainer.Panel1.SizeChanged += new System.EventHandler(this.mplayerSplitContainer_Panel1_SizeChanged);
+            this.mplayerSplitContainer.Panel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mplayerSplitContainer_Panel1_MouseClick);
+            this.mplayerSplitContainer.Panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
+            // 
+            // mplayerSplitContainer.Panel2
+            // 
+            this.mplayerSplitContainer.Panel2.Controls.Add(this.outputTextbox);
+            this.mplayerSplitContainer.Panel2.Controls.Add(this.inputTextbox);
+            this.mplayerSplitContainer.Size = new System.Drawing.Size(410, 307);
+            this.mplayerSplitContainer.SplitterDistance = 208;
+            this.mplayerSplitContainer.TabIndex = 0;
+            this.mplayerSplitContainer.TabStop = false;
             // 
             // statusLabel
             // 
@@ -1425,7 +1425,7 @@ namespace Baka_MPlayer.Forms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.ClientSize = new System.Drawing.Size(584, 391);
-            this.Controls.Add(this.mplayerSplitContainer);
+            this.Controls.Add(this.bodySplitContainer);
             this.Controls.Add(this.seekPanel);
             this.Controls.Add(this.controlPanel);
             this.Controls.Add(this.mainMenuStrip);
@@ -1455,14 +1455,14 @@ namespace Baka_MPlayer.Forms
             ((System.ComponentModel.ISupportInitialize)(this.speechButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playButton)).EndInit();
             this.seekPanel.ResumeLayout(false);
-            this.mplayerSplitContainer.Panel1.ResumeLayout(false);
-            this.mplayerSplitContainer.Panel2.ResumeLayout(false);
-            this.mplayerSplitContainer.ResumeLayout(false);
             this.bodySplitContainer.Panel1.ResumeLayout(false);
-            this.bodySplitContainer.Panel1.PerformLayout();
             this.bodySplitContainer.Panel2.ResumeLayout(false);
-            this.bodySplitContainer.Panel2.PerformLayout();
             this.bodySplitContainer.ResumeLayout(false);
+            this.mplayerSplitContainer.Panel1.ResumeLayout(false);
+            this.mplayerSplitContainer.Panel1.PerformLayout();
+            this.mplayerSplitContainer.Panel2.ResumeLayout(false);
+            this.mplayerSplitContainer.Panel2.PerformLayout();
+            this.mplayerSplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.albumArtPicbox)).EndInit();
             this.ResumeLayout(false);
 
@@ -1481,8 +1481,8 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem folderToolStripMenuItem;
         private System.Windows.Forms.Panel controlPanel;
         private System.Windows.Forms.Panel seekPanel;
-        private System.Windows.Forms.SplitContainer mplayerSplitContainer;
         private System.Windows.Forms.SplitContainer bodySplitContainer;
+        private System.Windows.Forms.SplitContainer mplayerSplitContainer;
         private System.Windows.Forms.Label durationLabel;
         private System.Windows.Forms.Label timeLeftLabel;
         private System.Windows.Forms.PictureBox playButton;
