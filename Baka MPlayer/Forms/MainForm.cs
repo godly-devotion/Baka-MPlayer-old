@@ -1595,7 +1595,7 @@ namespace Baka_MPlayer.Forms
         {
             Invoke((MethodInvoker)delegate
             {
-                if (e.StdOut.Equals("[MPlayerClass] CLEAR_OUTPUT", StringComparison.InvariantCulture))
+                if (e.StdOut.Equals("[Baka_MPlayer] CLEAR_OUTPUT", StringComparison.InvariantCulture))
                 {
                     outputTextbox.Clear();
                     return;
@@ -1612,7 +1612,7 @@ namespace Baka_MPlayer.Forms
         {
             Invoke((MethodInvoker)delegate
             {
-                if (e.Status.Equals("[MPlayerClass] HIDE_STATUS_LABEL", StringComparison.InvariantCulture))
+                if (e.Status.Equals("[Baka_MPlayer] HIDE_STATUS_LABEL", StringComparison.InvariantCulture))
                 {
                     HideStatusLabel();
                     return;

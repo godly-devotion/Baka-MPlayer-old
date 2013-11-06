@@ -99,7 +99,7 @@ public class MPlayer
         {
             Info.ResetInfo();
             OnStatusChanged(new StatusChangedEventArgs("Loading file...", false));
-            OnStdOut(new StdOutEventArgs("[MPlayerClass] CLEAR_OUTPUT"));
+            OnStdOut(new StdOutEventArgs("[Baka_MPlayer] CLEAR_OUTPUT"));
 
             if (MPlayerIsRunning())
             {
@@ -453,7 +453,7 @@ public class MPlayer
 
         if (e.Data.StartsWith("PLAYING_FILE:"))
         {
-            OnStatusChanged(new StatusChangedEventArgs("[MPlayerClass] HIDE_STATUS_LABEL", false));
+            OnStatusChanged(new StatusChangedEventArgs("[Baka_MPlayer] HIDE_STATUS_LABEL", false));
 
             // sets appropriate movie name (e.g. internel file name or Youtube title)
             Info.MovieName = e.Data.Substring(13);
