@@ -371,8 +371,8 @@ public class MPlayer
             OnStatusChanged(new StatusChangedEventArgs(e.Data.Trim(), true));
             return;
         }
-
-        if (e.Data.StartsWith("Cache is not responding - slow/stuck network connection?"))
+        if (e.Data.StartsWith("Cache is not responding - slow/stuck network connection?") ||
+            e.Data.StartsWith("Cache keeps not responding."))
         {
             OnStatusChanged(new StatusChangedEventArgs("Your network is slow or stuck", true));
             return;
