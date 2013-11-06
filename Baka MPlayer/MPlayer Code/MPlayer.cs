@@ -438,6 +438,12 @@ public class MPlayer
             Info.FileFormat = e.Data.Substring(22);
             return;
         }
+        if (e.Data.StartsWith("Failed to recognize file format."))
+        {
+            MessageBox.Show("Baka MPlayer could not recognize the file format.\nThis could happen if the file is incomplete, inaccessible, or not of a supported format.",
+                            "Cannot open file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            return;
+        }
 
         if (e.Data.StartsWith("Video: no video"))
         {
