@@ -1103,20 +1103,21 @@ namespace Baka_MPlayer.Forms
         {
             audioTracksToolStripMenuItem.DropDownItems.Clear();
 
-            if (Info.AudioTracks.Count < 2)
-            {
-                var item = new ToolStripMenuItem("0: [ main ]", null);
-                item.Enabled = false;
-                audioTracksToolStripMenuItem.DropDownItems.Add(item);
-                return;
-            }
-
             foreach (AudioTrack track in Info.AudioTracks)
             {
-                var text = string.Format("{0}: {1} ({2})", track.ID, track.Name, track.Lang);
+                string text;
+
+                if (string.IsNullOrEmpty(track.Name) && string.IsNullOrEmpty(track.Lang))
+                    text = string.Format("{0}: [ main ]", track.ID);
+                else
+                    text = string.Format("{0}: {1} ({2})", track.ID, track.Name, track.Lang);
+
                 var item = new ToolStripMenuItem(text, null, audioTracksMenuItem_Click);
                 audioTracksToolStripMenuItem.DropDownItems.Add(item);
             }
+
+            if (Info.AudioTracks.Count < 2)
+                audioTracksToolStripMenuItem.DropDownItems[0].Enabled = false;
         }
 
         private void chaptersMenuItem_Click(object sender, EventArgs e)
