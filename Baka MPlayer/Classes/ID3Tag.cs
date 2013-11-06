@@ -19,10 +19,13 @@ public class PictureTag
         this.Type = type;
     }
 
+    /// <summary>
+    /// Gets the file extension for the album picture (excluding the period)
+    /// </summary>
     public string GetPictureExt()
     {
         int i = Type.IndexOf('/');
-        return "." + Type.Substring(i + 1, Type.Length - i - 1);
+        return Type.Substring(i + 1, Type.Length - i - 1);
     }
 }
 
