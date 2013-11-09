@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JumpForm));
             this.subtractRadioButton = new System.Windows.Forms.RadioButton();
             this.addRadioButton = new System.Windows.Forms.RadioButton();
             this.goToRadioButton = new System.Windows.Forms.RadioButton();
@@ -206,10 +205,10 @@
             // checkPicbox
             // 
             this.checkPicbox.BackColor = System.Drawing.Color.Transparent;
-            this.checkPicbox.Image = ((System.Drawing.Image)(resources.GetObject("checkPicbox.Image")));
-            this.checkPicbox.Location = new System.Drawing.Point(45, 76);
+            this.checkPicbox.Image = global::Baka_MPlayer.Properties.Resources.not_exists;
+            this.checkPicbox.Location = new System.Drawing.Point(45, 73);
             this.checkPicbox.Name = "checkPicbox";
-            this.checkPicbox.Size = new System.Drawing.Size(20, 27);
+            this.checkPicbox.Size = new System.Drawing.Size(20, 30);
             this.checkPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.checkPicbox.TabIndex = 14;
             this.checkPicbox.TabStop = false;

@@ -193,11 +193,11 @@
             // 
             this.mediaCheckPicbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.mediaCheckPicbox.BackColor = System.Drawing.Color.Transparent;
-            this.mediaCheckPicbox.Image = ((System.Drawing.Image)(resources.GetObject("mediaCheckPicbox.Image")));
-            this.mediaCheckPicbox.Location = new System.Drawing.Point(12, 86);
+            this.mediaCheckPicbox.Image = global::Baka_MPlayer.Properties.Resources.not_exists;
+            this.mediaCheckPicbox.Location = new System.Drawing.Point(12, 89);
             this.mediaCheckPicbox.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.mediaCheckPicbox.Name = "mediaCheckPicbox";
-            this.mediaCheckPicbox.Size = new System.Drawing.Size(20, 27);
+            this.mediaCheckPicbox.Size = new System.Drawing.Size(20, 19);
             this.mediaCheckPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.mediaCheckPicbox.TabIndex = 9;
             this.mediaCheckPicbox.TabStop = false;
@@ -206,10 +206,10 @@
             // 
             this.subCheckPicbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.subCheckPicbox.BackColor = System.Drawing.Color.Transparent;
-            this.subCheckPicbox.Location = new System.Drawing.Point(12, 124);
+            this.subCheckPicbox.Location = new System.Drawing.Point(12, 127);
             this.subCheckPicbox.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.subCheckPicbox.Name = "subCheckPicbox";
-            this.subCheckPicbox.Size = new System.Drawing.Size(20, 27);
+            this.subCheckPicbox.Size = new System.Drawing.Size(20, 19);
             this.subCheckPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.subCheckPicbox.TabIndex = 10;
             this.subCheckPicbox.TabStop = false;

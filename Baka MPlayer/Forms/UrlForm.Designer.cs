@@ -44,11 +44,11 @@
             // checkPicbox
             // 
             this.checkPicbox.BackColor = System.Drawing.Color.Transparent;
-            this.checkPicbox.Image = ((System.Drawing.Image)(resources.GetObject("checkPicbox.Image")));
-            this.checkPicbox.Location = new System.Drawing.Point(12, 14);
+            this.checkPicbox.Image = global::Baka_MPlayer.Properties.Resources.not_exists;
+            this.checkPicbox.Location = new System.Drawing.Point(12, 12);
             this.checkPicbox.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.checkPicbox.Name = "checkPicbox";
-            this.checkPicbox.Size = new System.Drawing.Size(20, 25);
+            this.checkPicbox.Size = new System.Drawing.Size(20, 27);
             this.checkPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.checkPicbox.TabIndex = 0;
             this.checkPicbox.TabStop = false;
