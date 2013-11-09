@@ -169,17 +169,11 @@
   <data name="down_reverse" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MainForm\reverseButton\down_reverse.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="exists" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Shared\check images\exists.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Music_128" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MainForm\music image\Music_128.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="not_exists" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Shared\check images\not_exists.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="repeat" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MainForm\playback images\repeat.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -231,5 +225,11 @@
   </data>
   <data name="down_playlist" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MainForm\playlistButton\down_playlist.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="exists" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shared\check images\exists.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="not_exists" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Shared\check images\not-exists.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

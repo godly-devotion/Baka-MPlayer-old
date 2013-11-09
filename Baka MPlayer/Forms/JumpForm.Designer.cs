@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JumpForm));
             this.subtractRadioButton = new System.Windows.Forms.RadioButton();
             this.addRadioButton = new System.Windows.Forms.RadioButton();
             this.goToRadioButton = new System.Windows.Forms.RadioButton();
@@ -187,9 +188,9 @@
             // 
             this.jumpButton.BackColor = System.Drawing.Color.Transparent;
             this.jumpButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.jumpButton.FlatAppearance.BorderColor = System.Drawing.Color.DeepSkyBlue;
-            this.jumpButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
-            this.jumpButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.jumpButton.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.jumpButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
+            this.jumpButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DodgerBlue;
             this.jumpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.jumpButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.jumpButton.ForeColor = System.Drawing.Color.White;
@@ -205,10 +206,11 @@
             // checkPicbox
             // 
             this.checkPicbox.BackColor = System.Drawing.Color.Transparent;
-            this.checkPicbox.Image = global::Baka_MPlayer.Properties.Resources.not_exists;
-            this.checkPicbox.Location = new System.Drawing.Point(38, 75);
+            this.checkPicbox.Image = ((System.Drawing.Image)(resources.GetObject("checkPicbox.Image")));
+            this.checkPicbox.Location = new System.Drawing.Point(45, 76);
             this.checkPicbox.Name = "checkPicbox";
-            this.checkPicbox.Size = new System.Drawing.Size(27, 27);
+            this.checkPicbox.Size = new System.Drawing.Size(20, 27);
+            this.checkPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.checkPicbox.TabIndex = 14;
             this.checkPicbox.TabStop = false;
             // 

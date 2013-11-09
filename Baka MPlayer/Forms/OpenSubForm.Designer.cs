@@ -49,7 +49,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(45, 88);
+            this.label1.Location = new System.Drawing.Point(35, 88);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 19);
             this.label1.TabIndex = 0;
@@ -60,7 +60,7 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(45, 126);
+            this.label2.Location = new System.Drawing.Point(35, 126);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 19);
             this.label2.TabIndex = 3;
@@ -86,9 +86,9 @@
             this.mediaTextbox.BackColor = System.Drawing.Color.Black;
             this.mediaTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.mediaTextbox.ForeColor = System.Drawing.Color.White;
-            this.mediaTextbox.Location = new System.Drawing.Point(237, 84);
+            this.mediaTextbox.Location = new System.Drawing.Point(227, 84);
             this.mediaTextbox.Name = "mediaTextbox";
-            this.mediaTextbox.Size = new System.Drawing.Size(355, 27);
+            this.mediaTextbox.Size = new System.Drawing.Size(365, 27);
             this.mediaTextbox.TabIndex = 2;
             this.mediaTextbox.TextChanged += new System.EventHandler(this.mediaTextbox_TextChanged);
             // 
@@ -100,9 +100,9 @@
             this.subTextbox.BackColor = System.Drawing.Color.Black;
             this.subTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.subTextbox.ForeColor = System.Drawing.Color.White;
-            this.subTextbox.Location = new System.Drawing.Point(237, 122);
+            this.subTextbox.Location = new System.Drawing.Point(227, 122);
             this.subTextbox.Name = "subTextbox";
-            this.subTextbox.Size = new System.Drawing.Size(355, 27);
+            this.subTextbox.Size = new System.Drawing.Size(365, 27);
             this.subTextbox.TabIndex = 5;
             this.subTextbox.TextChanged += new System.EventHandler(this.subTextbox_TextChanged);
             // 
@@ -117,7 +117,7 @@
             this.browseSubButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.browseSubButton.ForeColor = System.Drawing.Color.White;
             this.browseSubButton.IsDefaultButton = false;
-            this.browseSubButton.Location = new System.Drawing.Point(145, 120);
+            this.browseSubButton.Location = new System.Drawing.Point(135, 120);
             this.browseSubButton.Margin = new System.Windows.Forms.Padding(4);
             this.browseSubButton.Name = "browseSubButton";
             this.browseSubButton.Size = new System.Drawing.Size(85, 30);
@@ -137,7 +137,7 @@
             this.browseMediaButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.browseMediaButton.ForeColor = System.Drawing.Color.White;
             this.browseMediaButton.IsDefaultButton = false;
-            this.browseMediaButton.Location = new System.Drawing.Point(145, 82);
+            this.browseMediaButton.Location = new System.Drawing.Point(135, 82);
             this.browseMediaButton.Margin = new System.Windows.Forms.Padding(4);
             this.browseMediaButton.Name = "browseMediaButton";
             this.browseMediaButton.Size = new System.Drawing.Size(85, 30);
@@ -193,10 +193,12 @@
             // 
             this.mediaCheckPicbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.mediaCheckPicbox.BackColor = System.Drawing.Color.Transparent;
-            this.mediaCheckPicbox.Image = global::Baka_MPlayer.Properties.Resources.not_exists;
-            this.mediaCheckPicbox.Location = new System.Drawing.Point(12, 84);
+            this.mediaCheckPicbox.Image = ((System.Drawing.Image)(resources.GetObject("mediaCheckPicbox.Image")));
+            this.mediaCheckPicbox.Location = new System.Drawing.Point(12, 86);
+            this.mediaCheckPicbox.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.mediaCheckPicbox.Name = "mediaCheckPicbox";
-            this.mediaCheckPicbox.Size = new System.Drawing.Size(27, 27);
+            this.mediaCheckPicbox.Size = new System.Drawing.Size(20, 27);
+            this.mediaCheckPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.mediaCheckPicbox.TabIndex = 9;
             this.mediaCheckPicbox.TabStop = false;
             // 
@@ -204,9 +206,11 @@
             // 
             this.subCheckPicbox.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.subCheckPicbox.BackColor = System.Drawing.Color.Transparent;
-            this.subCheckPicbox.Location = new System.Drawing.Point(12, 122);
+            this.subCheckPicbox.Location = new System.Drawing.Point(12, 124);
+            this.subCheckPicbox.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.subCheckPicbox.Name = "subCheckPicbox";
-            this.subCheckPicbox.Size = new System.Drawing.Size(27, 27);
+            this.subCheckPicbox.Size = new System.Drawing.Size(20, 27);
+            this.subCheckPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.subCheckPicbox.TabIndex = 10;
             this.subCheckPicbox.TabStop = false;
             // 

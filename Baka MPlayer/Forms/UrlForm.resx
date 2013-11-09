@@ -120,6 +120,15 @@
   <metadata name="checkPicbox.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="checkPicbox.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAAwAAAALCAYAAABLcGxfAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EwAACxMBAJqcGAAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABXSURBVChTY/j/
+        /z8cv9OLCwDiC0D8HwmD+AEwNciKG5AUYcMNcA1ADshkbIrQcQBMA7ozcOELMA3YJLFikGIFdEF8mHQb
+        yPUDaaEE1UR8PCBpIhDT/xkA0JBIASfhSz8AAAAASUVORK5CYII=
+</value>
+  </data>
   <metadata name="label1.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -147,7 +156,6 @@
   <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAUAQEAAAAEAIAAoQgAAVgAAADAwAAABACAAqCUAAH5CAAAgIAAAAQAgAKgQAAAmaAAAGBgAAAEA

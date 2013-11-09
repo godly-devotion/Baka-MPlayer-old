@@ -34,17 +34,6 @@ namespace Baka_MPlayer.Forms
             urlTextbox.Focus();
         }
 
-        private void undoButton_Click(object sender, EventArgs e)
-        {
-            if (urlTextbox.CanUndo)
-            {
-                urlTextbox.Focus();
-                urlTextbox.Undo();
-            }
-            else
-                MessageBox.Show("Cannot undo action!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-        }
-
         private void closeButton_Click(object sender, EventArgs e)
         {
             this.Close();

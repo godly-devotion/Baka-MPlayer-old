@@ -150,6 +150,15 @@
   <metadata name="mediaCheckPicbox.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="mediaCheckPicbox.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAA0AAAAMCAYAAAC5tzfZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EwAACxMBAJqcGAAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABmSURBVChTpZJB
+        CsAgDAR9ScnFu0/2c737gzQLWZGSitrDgJodItGkqp37ymJUoxnqYI0zYW4UigcYfoNa6ZJt0GEmEGSE
+        EtpHoYhKaaULaZSi4ie/pKPrHQ1if+Qu7j3uIC58I00PsfdVyLxsIgYAAAAASUVORK5CYII=
+</value>
+  </data>
   <metadata name="subCheckPicbox.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
