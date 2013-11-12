@@ -114,7 +114,7 @@ public class MPlayer
             args.Append(" -slave-broken");                      // switch on slave mode for frontend
             args.Append(" -idle");                              // wait insead of quit
             args.Append(" -volstep=5");                         // volume step
-            args.Append(" -msglevel identify=6:global=6");      // set msglevel
+            args.Append(" -msglevel cplayer=6:identify=6");     // set msglevel
             args.Append(" -osd-level=0");                       // do not show volume + seek on OSD
             args.Append(" -no-keepaspect");                     // doesn't keep window aspect ratio when resizing windows
             args.Append(" -no-autosub");                        // do not auto load subs (via filename)
@@ -403,7 +403,7 @@ public class MPlayer
         // show output
         OnStdOut(new StdOutEventArgs(e.Data));
 
-        if (e.Data.StartsWith("[global] EOF code: 1")) // reached end of file
+        if (e.Data.StartsWith("[cplayer] EOF code: 1")) // reached end of file
         {
             Info.Current.PlayState = PlayStates.Ended;
             OnPlayStateChanged(new EventArgs());
