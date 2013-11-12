@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Baka_MPlayer.Controls
@@ -10,15 +11,16 @@ namespace Baka_MPlayer.Controls
         [Category("Action")]
         public event MouseEventHandler MouseDoubleClickFixed;
         
-        private readonly Timer clickTimer = new Timer();
+        private readonly Timer _clickTimer = new Timer();
+        private Point _startingClickPosition;
 
         public VO_Panel()
         {
             InitializeComponent();
 
             // setup timer
-            clickTimer.Tick += clickTimer_Tick;
-            clickTimer.Interval = SystemInformation.DoubleClickTime;
+            _clickTimer.Tick += clickTimer_Tick;
+            _clickTimer.Interval = SystemInformation.DoubleClickTime;
         }
 
         protected override void WndProc(ref Message m)
@@ -40,20 +42,21 @@ namespace Baka_MPlayer.Controls
 
         private void VO_Panel_MouseDown(object sender, MouseEventArgs e)
         {
-            if (clickTimer.Enabled)
+            if (_clickTimer.Enabled)
             {
-                if (MouseDoubleClickFixed != null)
+                if (MouseDoubleClickFixed != null && _startingClickPosition == Cursor.Position)
                     MouseDoubleClickFixed(sender, e);
             }
             else
             {
-                clickTimer.Enabled = true;
+                _startingClickPosition = Cursor.Position;
+                _clickTimer.Enabled = true;
             }
         }
 
         private void clickTimer_Tick(object sender, EventArgs e)
         {
-            clickTimer.Stop();
+            _clickTimer.Stop();
         }
     }
 }
