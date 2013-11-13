@@ -143,8 +143,10 @@ public class MPlayer
                     Arguments = args.AppendFormat(" \"{0}\"", url).ToString()
                 }
             };
-            mplayer.Start();
+            // use LF instead of CRLF
+            mplayer.StandardInput.NewLine = "\n";
             mplayer.EnableRaisingEvents = true;
+            mplayer.Start();
 
             mplayer.OutputDataReceived += OutputDataReceived;
             mplayer.ErrorDataReceived += ErrorDataReceived;
@@ -183,7 +185,7 @@ public class MPlayer
         {
             if (!MPlayerIsRunning())
                 throw new Exception();
-            
+
             byte[] buffer = Encoding.UTF8.GetBytes(string.Format(command,value));
             mplayer.StandardInput.BaseStream.Write(buffer, 0, buffer.Length);
             mplayer.StandardInput.WriteLine();
