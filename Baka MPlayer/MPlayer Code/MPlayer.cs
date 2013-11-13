@@ -120,7 +120,6 @@ public class MPlayer
             args.Append(" -no-autosub");                        // do not auto load subs (via filename)
             args.Append(" -cursor-autohide=no");                // disable cursor autohide
             //args.Append(" -no-osc");                          // disable osc
-            //args.Append(" -no-cache");                        // disables caching
             args.Append(" -playing-msg=PLAYING_FILE:${media-title}");
             args.Append(" -status-msg=status:PAUSED=${=pause};AV=${=time-pos};WIDTH=${=dwidth};HEIGHT=${=dheight}");
             args.AppendFormat(" -volume={0}", Info.Current.Volume); // sets previous volume
@@ -400,6 +399,10 @@ public class MPlayer
 
     private void OutputDataReceived(object sender, DataReceivedEventArgs e)
     {
+        // filter unwanted output (result of msglevel cplayer=6)
+        if (e.Data.StartsWith("[cplayer] Sub:"))
+            return;
+
         Debug.WriteLine(e.Data);
 
         // show output
