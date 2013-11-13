@@ -143,10 +143,10 @@ public class MPlayer
                     Arguments = args.AppendFormat(" \"{0}\"", url).ToString()
                 }
             };
+            mplayer.Start();
+            mplayer.EnableRaisingEvents = true;
             // use LF instead of CRLF
             mplayer.StandardInput.NewLine = "\n";
-            mplayer.EnableRaisingEvents = true;
-            mplayer.Start();
 
             mplayer.OutputDataReceived += OutputDataReceived;
             mplayer.ErrorDataReceived += ErrorDataReceived;
