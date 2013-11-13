@@ -581,7 +581,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.mainToolStripMenuItem.Enabled = false;
             this.mainToolStripMenuItem.Name = "mainToolStripMenuItem";
-            this.mainToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.mainToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.mainToolStripMenuItem.Text = "[ none ]";
             // 
             // chaptersToolStripMenuItem
@@ -596,7 +596,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.noneToolStripMenuItem1.Enabled = false;
             this.noneToolStripMenuItem1.Name = "noneToolStripMenuItem1";
-            this.noneToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.noneToolStripMenuItem1.Size = new System.Drawing.Size(113, 22);
             this.noneToolStripMenuItem1.Text = "[ none ]";
             // 
             // toolStripSeparator10
@@ -698,8 +698,9 @@ namespace Baka_MPlayer.Forms
             // 
             this.sizeToolStripMenuItem.Enabled = false;
             this.sizeToolStripMenuItem.Name = "sizeToolStripMenuItem";
+            this.sizeToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+Numpad [+]";
             this.sizeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemplus)));
-            this.sizeToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.sizeToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.sizeToolStripMenuItem.Text = "&Size +";
             this.sizeToolStripMenuItem.Click += new System.EventHandler(this.sizeToolStripMenuItem_Click);
             // 
@@ -707,8 +708,9 @@ namespace Baka_MPlayer.Forms
             // 
             this.sizeToolStripMenuItem1.Enabled = false;
             this.sizeToolStripMenuItem1.Name = "sizeToolStripMenuItem1";
+            this.sizeToolStripMenuItem1.ShortcutKeyDisplayString = "Ctrl+Numpad [−]";
             this.sizeToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.OemMinus)));
-            this.sizeToolStripMenuItem1.Size = new System.Drawing.Size(190, 22);
+            this.sizeToolStripMenuItem1.Size = new System.Drawing.Size(199, 22);
             this.sizeToolStripMenuItem1.Text = "S&ize -";
             this.sizeToolStripMenuItem1.Click += new System.EventHandler(this.sizeToolStripMenuItem1_Click);
             // 
@@ -716,7 +718,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.resetSizeToolStripMenuItem.Enabled = false;
             this.resetSizeToolStripMenuItem.Name = "resetSizeToolStripMenuItem";
-            this.resetSizeToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
+            this.resetSizeToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.resetSizeToolStripMenuItem.Text = "&Reset Size";
             this.resetSizeToolStripMenuItem.Click += new System.EventHandler(this.resetSizeToolStripMenuItem_Click);
             // 
