@@ -440,8 +440,9 @@ public class MPlayer
         }
         if (e.Data.StartsWith("Failed to recognize file format."))
         {
-            MessageBox.Show("Baka MPlayer could not recognize the file format.\nThis could happen if the file is incomplete, inaccessible, or not of a supported format.",
+            MessageBox.Show("Baka MPlayer couldn't open this file.\nThis can happen if the file is not supported, incomplete, or inaccessible.",
                             "Cannot open file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            OnStatusChanged(new StatusChangedEventArgs("[Baka_MPlayer] HIDE_STATUS_LABEL", false));
             return;
         }
 
