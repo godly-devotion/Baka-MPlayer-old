@@ -30,17 +30,11 @@ public class UpdateChecker
 {
     private const string website = "bakamplayer.u8sand.net";
     private const string versionPath = "/version";
-    private volatile bool checkSuccessful = false;
 
-    public bool Check(bool isSilent)
+    public void Check(bool isSilent)
     {
         var checkThread = new Thread(check);
         checkThread.Start(isSilent);
-
-        while (checkThread.IsAlive)
-            Thread.Sleep(500);
-
-        return checkSuccessful;
     }
 
     private void check(object isSilent)
@@ -101,14 +95,13 @@ public class UpdateChecker
             if (string.IsNullOrEmpty(version))
                 throw new Exception("No valid version number was returned.");
 
-            // at this point, checking for updates should have been successful
-            checkSuccessful = true;
-
             if (version.Equals(Application.ProductVersion))
             {
                 if (!(bool) isSilent)
+                {
                     MessageBox.Show("You have the latest version!", "No Updates Available",
                                     MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                }
                 return;
             }
 

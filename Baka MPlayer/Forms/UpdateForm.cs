@@ -39,6 +39,11 @@ namespace Baka_MPlayer.Forms
             }
         }
 
+        private void changelogLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/godly-devotion/Baka-MPlayer/blob/master/CHANGELOG.rst");
+        }
+
         private void downloadButton_Click(object sender, System.EventArgs e)
         {
             Process.Start(Functions.OS.IsRunning64Bit() ? url_x86_64 : url_x86);

@@ -35,6 +35,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.newLabel = new System.Windows.Forms.Label();
             this.versionLabel = new System.Windows.Forms.Label();
+            this.changelogLink = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -112,6 +113,7 @@
             // 
             // newLabel
             // 
+            this.newLabel.AutoEllipsis = true;
             this.newLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.newLabel.Location = new System.Drawing.Point(3, 23);
             this.newLabel.Name = "newLabel";
@@ -132,6 +134,22 @@
             this.versionLabel.TabIndex = 3;
             this.versionLabel.Text = "Check for updates...";
             // 
+            // changelogLink
+            // 
+            this.changelogLink.ActiveLinkColor = System.Drawing.Color.DodgerBlue;
+            this.changelogLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.changelogLink.AutoSize = true;
+            this.changelogLink.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.changelogLink.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.changelogLink.LinkColor = System.Drawing.Color.DeepSkyBlue;
+            this.changelogLink.Location = new System.Drawing.Point(15, 294);
+            this.changelogLink.Name = "changelogLink";
+            this.changelogLink.Size = new System.Drawing.Size(245, 19);
+            this.changelogLink.TabIndex = 5;
+            this.changelogLink.TabStop = true;
+            this.changelogLink.Text = "Click here to view the full changelog";
+            this.changelogLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.changelogLink_LinkClicked);
+            // 
             // UpdateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -140,6 +158,7 @@
             this.CancelButton = this.closeButton;
             this.ClientSize = new System.Drawing.Size(484, 331);
             this.ControlBox = false;
+            this.Controls.Add(this.changelogLink);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.statusLabel);
@@ -157,6 +176,7 @@
             this.Load += new System.EventHandler(this.UpdateForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -168,5 +188,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.Label newLabel;
+        private System.Windows.Forms.LinkLabel changelogLink;
     }
 }
