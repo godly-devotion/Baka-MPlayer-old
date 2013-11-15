@@ -1168,7 +1168,7 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private void increaseVolumeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void increaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Info.Current.Volume >= 95)
                 SetVolume(100);
@@ -1176,7 +1176,7 @@ namespace Baka_MPlayer.Forms
                 SetVolume(Info.Current.Volume + 5);
         }
 
-        private void decreaseVolumeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void decreaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Info.Current.Volume <= 5)
                 SetVolume(0);

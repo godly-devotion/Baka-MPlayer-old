@@ -69,7 +69,12 @@ namespace Baka_MPlayer.Forms
             this.mediaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fitToVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.previousChapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nextChapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.chaptersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.noneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aspectRatioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autodetectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.force43ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,12 +82,7 @@ namespace Baka_MPlayer.Forms
             this.force2351ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.audioTracksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.chaptersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.noneToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
-            this.increaseVolumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.decreaseVolumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.volumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.volumeToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.subtitlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -158,9 +158,8 @@ namespace Baka_MPlayer.Forms
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
-            this.nextChapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.previousChapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.increaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decreaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.quickButton)).BeginInit();
@@ -498,9 +497,6 @@ namespace Baka_MPlayer.Forms
             this.aspectRatioToolStripMenuItem,
             this.audioTracksToolStripMenuItem,
             this.toolStripSeparator10,
-            this.increaseVolumeToolStripMenuItem,
-            this.decreaseVolumeToolStripMenuItem,
-            this.toolStripSeparator17,
             this.volumeToolStripMenuItem,
             this.volumeToolStripTextBox});
             this.mediaToolStripMenuItem.ForeColor = System.Drawing.Color.DeepSkyBlue;
@@ -513,8 +509,8 @@ namespace Baka_MPlayer.Forms
             this.fullScreenToolStripMenuItem.Enabled = false;
             this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
             this.fullScreenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Return)));
-            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.fullScreenToolStripMenuItem.Text = "&Full Screen";
+            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.fullScreenToolStripMenuItem.Text = "Full &Screen";
             this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
             // 
             // fitToVideoToolStripMenuItem
@@ -523,14 +519,52 @@ namespace Baka_MPlayer.Forms
             this.fitToVideoToolStripMenuItem.Name = "fitToVideoToolStripMenuItem";
             this.fitToVideoToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+` (Tilde key)";
             this.fitToVideoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemtilde)));
-            this.fitToVideoToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.fitToVideoToolStripMenuItem.Text = "Fit To &Video";
+            this.fitToVideoToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.fitToVideoToolStripMenuItem.Text = "&Fit To Video";
             this.fitToVideoToolStripMenuItem.Click += new System.EventHandler(this.fitToVideoToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(221, 6);
+            // 
+            // previousChapterToolStripMenuItem
+            // 
+            this.previousChapterToolStripMenuItem.Enabled = false;
+            this.previousChapterToolStripMenuItem.Name = "previousChapterToolStripMenuItem";
+            this.previousChapterToolStripMenuItem.ShortcutKeyDisplayString = "PgUp";
+            this.previousChapterToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.previousChapterToolStripMenuItem.Text = "&Previous Chapter";
+            this.previousChapterToolStripMenuItem.Click += new System.EventHandler(this.previousChapterToolStripMenuItem_Click);
+            // 
+            // nextChapterToolStripMenuItem
+            // 
+            this.nextChapterToolStripMenuItem.Enabled = false;
+            this.nextChapterToolStripMenuItem.Name = "nextChapterToolStripMenuItem";
+            this.nextChapterToolStripMenuItem.ShortcutKeyDisplayString = "PgDn";
+            this.nextChapterToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.nextChapterToolStripMenuItem.Text = "&Next Chapter";
+            this.nextChapterToolStripMenuItem.Click += new System.EventHandler(this.nextChapterToolStripMenuItem_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(223, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(221, 6);
+            // 
+            // chaptersToolStripMenuItem
+            // 
+            this.chaptersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.noneToolStripMenuItem1});
+            this.chaptersToolStripMenuItem.Name = "chaptersToolStripMenuItem";
+            this.chaptersToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.chaptersToolStripMenuItem.Text = "&Chapters";
+            // 
+            // noneToolStripMenuItem1
+            // 
+            this.noneToolStripMenuItem1.Enabled = false;
+            this.noneToolStripMenuItem1.Name = "noneToolStripMenuItem1";
+            this.noneToolStripMenuItem1.Size = new System.Drawing.Size(113, 22);
+            this.noneToolStripMenuItem1.Text = "[ none ]";
             // 
             // aspectRatioToolStripMenuItem
             // 
@@ -540,7 +574,7 @@ namespace Baka_MPlayer.Forms
             this.force169ToolStripMenuItem,
             this.force2351ToolStripMenuItem});
             this.aspectRatioToolStripMenuItem.Name = "aspectRatioToolStripMenuItem";
-            this.aspectRatioToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.aspectRatioToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.aspectRatioToolStripMenuItem.Text = "Aspect &Ratio";
             // 
             // autodetectToolStripMenuItem
@@ -580,7 +614,7 @@ namespace Baka_MPlayer.Forms
             this.audioTracksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainToolStripMenuItem});
             this.audioTracksToolStripMenuItem.Name = "audioTracksToolStripMenuItem";
-            this.audioTracksToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.audioTracksToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.audioTracksToolStripMenuItem.Text = "Audio &Tracks";
             // 
             // mainToolStripMenuItem
@@ -590,57 +624,24 @@ namespace Baka_MPlayer.Forms
             this.mainToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.mainToolStripMenuItem.Text = "[ none ]";
             // 
-            // chaptersToolStripMenuItem
-            // 
-            this.chaptersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.noneToolStripMenuItem1});
-            this.chaptersToolStripMenuItem.Name = "chaptersToolStripMenuItem";
-            this.chaptersToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.chaptersToolStripMenuItem.Text = "&Chapters";
-            // 
-            // noneToolStripMenuItem1
-            // 
-            this.noneToolStripMenuItem1.Enabled = false;
-            this.noneToolStripMenuItem1.Name = "noneToolStripMenuItem1";
-            this.noneToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.noneToolStripMenuItem1.Text = "[ none ]";
-            // 
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(223, 6);
-            // 
-            // increaseVolumeToolStripMenuItem
-            // 
-            this.increaseVolumeToolStripMenuItem.Name = "increaseVolumeToolStripMenuItem";
-            this.increaseVolumeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
-            this.increaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.increaseVolumeToolStripMenuItem.Text = "&Increase Volume";
-            this.increaseVolumeToolStripMenuItem.Click += new System.EventHandler(this.increaseVolumeToolStripMenuItem_Click);
-            // 
-            // decreaseVolumeToolStripMenuItem
-            // 
-            this.decreaseVolumeToolStripMenuItem.Name = "decreaseVolumeToolStripMenuItem";
-            this.decreaseVolumeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
-            this.decreaseVolumeToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.decreaseVolumeToolStripMenuItem.Text = "&Decrease Volume";
-            this.decreaseVolumeToolStripMenuItem.Click += new System.EventHandler(this.decreaseVolumeToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator17
-            // 
-            this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(223, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(221, 6);
             // 
             // volumeToolStripMenuItem
             // 
-            this.volumeToolStripMenuItem.Enabled = false;
+            this.volumeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.increaseToolStripMenuItem,
+            this.decreaseToolStripMenuItem});
             this.volumeToolStripMenuItem.Name = "volumeToolStripMenuItem";
-            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.volumeToolStripMenuItem.Text = "Volume:";
+            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.volumeToolStripMenuItem.Text = "&Volume:";
             // 
             // volumeToolStripTextBox
             // 
             this.volumeToolStripTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.volumeToolStripTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.volumeToolStripTextBox.MaxLength = 3;
             this.volumeToolStripTextBox.Name = "volumeToolStripTextBox";
             this.volumeToolStripTextBox.Size = new System.Drawing.Size(100, 23);
@@ -1427,28 +1428,21 @@ namespace Baka_MPlayer.Forms
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
             // 
-            // nextChapterToolStripMenuItem
+            // increaseToolStripMenuItem
             // 
-            this.nextChapterToolStripMenuItem.Enabled = false;
-            this.nextChapterToolStripMenuItem.Name = "nextChapterToolStripMenuItem";
-            this.nextChapterToolStripMenuItem.ShortcutKeyDisplayString = "PgDn";
-            this.nextChapterToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.nextChapterToolStripMenuItem.Text = "&Next Chapter";
-            this.nextChapterToolStripMenuItem.Click += new System.EventHandler(this.nextChapterToolStripMenuItem_Click);
+            this.increaseToolStripMenuItem.Name = "increaseToolStripMenuItem";
+            this.increaseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
+            this.increaseToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.increaseToolStripMenuItem.Text = "&Increase";
+            this.increaseToolStripMenuItem.Click += new System.EventHandler(this.increaseToolStripMenuItem_Click);
             // 
-            // previousChapterToolStripMenuItem
+            // decreaseToolStripMenuItem
             // 
-            this.previousChapterToolStripMenuItem.Enabled = false;
-            this.previousChapterToolStripMenuItem.Name = "previousChapterToolStripMenuItem";
-            this.previousChapterToolStripMenuItem.ShortcutKeyDisplayString = "PgUp";
-            this.previousChapterToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.previousChapterToolStripMenuItem.Text = "&Previous Chapter";
-            this.previousChapterToolStripMenuItem.Click += new System.EventHandler(this.previousChapterToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator14
-            // 
-            this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(223, 6);
+            this.decreaseToolStripMenuItem.Name = "decreaseToolStripMenuItem";
+            this.decreaseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
+            this.decreaseToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.decreaseToolStripMenuItem.Text = "&Decrease";
+            this.decreaseToolStripMenuItem.Click += new System.EventHandler(this.decreaseToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1575,8 +1569,6 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem bakaMPlayerHelpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutBakaMPlayerToolStripMenuItem;
         private System.Windows.Forms.PictureBox speechButton;
-        private System.Windows.Forms.ToolStripMenuItem increaseVolumeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem decreaseVolumeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem audioTracksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mainToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem volumeToolStripMenuItem;
@@ -1591,7 +1583,6 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem fullScreenToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator17;
         private System.Windows.Forms.NotifyIcon trayIcon;
         private System.Windows.Forms.ContextMenu trayContextMenu;
         private System.Windows.Forms.MenuItem showMenuItem;
@@ -1631,6 +1622,8 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
         private System.Windows.Forms.ToolStripMenuItem nextChapterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem previousChapterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem increaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem decreaseToolStripMenuItem;
     }
 }
 
