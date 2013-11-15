@@ -158,6 +158,9 @@ namespace Baka_MPlayer.Forms
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
+            this.nextChapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.previousChapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.quickButton)).BeginInit();
@@ -487,10 +490,13 @@ namespace Baka_MPlayer.Forms
             this.mediaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fullScreenToolStripMenuItem,
             this.fitToVideoToolStripMenuItem,
+            this.toolStripSeparator14,
+            this.previousChapterToolStripMenuItem,
+            this.nextChapterToolStripMenuItem,
             this.toolStripSeparator9,
+            this.chaptersToolStripMenuItem,
             this.aspectRatioToolStripMenuItem,
             this.audioTracksToolStripMenuItem,
-            this.chaptersToolStripMenuItem,
             this.toolStripSeparator10,
             this.increaseVolumeToolStripMenuItem,
             this.decreaseVolumeToolStripMenuItem,
@@ -596,7 +602,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.noneToolStripMenuItem1.Enabled = false;
             this.noneToolStripMenuItem1.Name = "noneToolStripMenuItem1";
-            this.noneToolStripMenuItem1.Size = new System.Drawing.Size(113, 22);
+            this.noneToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.noneToolStripMenuItem1.Text = "[ none ]";
             // 
             // toolStripSeparator10
@@ -1421,6 +1427,29 @@ namespace Baka_MPlayer.Forms
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
             // 
+            // nextChapterToolStripMenuItem
+            // 
+            this.nextChapterToolStripMenuItem.Enabled = false;
+            this.nextChapterToolStripMenuItem.Name = "nextChapterToolStripMenuItem";
+            this.nextChapterToolStripMenuItem.ShortcutKeyDisplayString = "PgDn";
+            this.nextChapterToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.nextChapterToolStripMenuItem.Text = "&Next Chapter";
+            this.nextChapterToolStripMenuItem.Click += new System.EventHandler(this.nextChapterToolStripMenuItem_Click);
+            // 
+            // previousChapterToolStripMenuItem
+            // 
+            this.previousChapterToolStripMenuItem.Enabled = false;
+            this.previousChapterToolStripMenuItem.Name = "previousChapterToolStripMenuItem";
+            this.previousChapterToolStripMenuItem.ShortcutKeyDisplayString = "PgUp";
+            this.previousChapterToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.previousChapterToolStripMenuItem.Text = "&Previous Chapter";
+            this.previousChapterToolStripMenuItem.Click += new System.EventHandler(this.previousChapterToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(223, 6);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -1599,6 +1628,9 @@ namespace Baka_MPlayer.Forms
         protected internal VO_Panel mplayerPanel;
         private System.Windows.Forms.ToolStripMenuItem frameBackStepToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator14;
+        private System.Windows.Forms.ToolStripMenuItem nextChapterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem previousChapterToolStripMenuItem;
     }
 }
 

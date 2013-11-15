@@ -408,7 +408,7 @@ public class MPlayer
         // show output
         OnStdOut(new StdOutEventArgs(e.Data));
 
-        if (e.Data.StartsWith("[cplayer] EOF code: 1")) // reached end of file
+        if (e.Data.StartsWith("[cplayer] EOF code:")) // reached end of file
         {
             Info.Current.PlayState = PlayStates.Ended;
             OnPlayStateChanged(new EventArgs());

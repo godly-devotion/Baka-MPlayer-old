@@ -328,6 +328,12 @@ namespace Baka_MPlayer.Forms
                         else
                             playlist.PlayNext();
                         break;
+                    case Keys.PageUp:
+                        mplayer.SkipChapter(false);
+                        break;
+                    case Keys.PageDown:
+                        mplayer.SkipChapter(true);
+                        break;
                     case Keys.MediaNextTrack:
                         playlist.PlayNext();
                         break;
@@ -1065,6 +1071,16 @@ namespace Baka_MPlayer.Forms
                 mainMenuStrip.Height + mplayerPanel.Height + consoleHeight + seekPanel.Height + controlPanel.Height);
         }
 
+        private void previousChapterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mplayer.SkipChapter(false);
+        }
+
+        private void nextChapterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mplayer.SkipChapter(true);
+        }
+
         private void autodetectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Info.VideoInfo.AspectRatio = Math.Round((double) Info.VideoInfo.Width/Info.VideoInfo.Height, 5);
@@ -1636,7 +1652,7 @@ namespace Baka_MPlayer.Forms
             {
                 SetControls(true, false);
 
-                // lose focus from other controls (i.e. playlist)
+                // lose focus from other controls (e.g. playlist)
                 seekBar.Focus();
 
                 // save last file information
@@ -1709,6 +1725,17 @@ namespace Baka_MPlayer.Forms
                     }
                 }
                 ResizeMplayerPanel();
+
+                if (Info.Chapters.Count > 0)
+                {
+                    previousChapterToolStripMenuItem.Enabled = true;
+                    nextChapterToolStripMenuItem.Enabled = true;
+                }
+                else
+                {
+                    previousChapterToolStripMenuItem.Enabled = false;
+                    nextChapterToolStripMenuItem.Enabled = false;
+                }
 
                 // call other methods
                 playlist.RefreshPlaylist(false);
