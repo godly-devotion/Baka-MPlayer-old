@@ -84,6 +84,8 @@ namespace Baka_MPlayer.Forms
             this.mainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.volumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.increaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.decreaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.volumeToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
             this.subtitlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showSubtitlesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -158,8 +160,6 @@ namespace Baka_MPlayer.Forms
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
-            this.increaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.decreaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.quickButton)).BeginInit();
@@ -638,10 +638,25 @@ namespace Baka_MPlayer.Forms
             this.volumeToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
             this.volumeToolStripMenuItem.Text = "&Volume:";
             // 
+            // increaseToolStripMenuItem
+            // 
+            this.increaseToolStripMenuItem.Name = "increaseToolStripMenuItem";
+            this.increaseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
+            this.increaseToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.increaseToolStripMenuItem.Text = "&Increase";
+            this.increaseToolStripMenuItem.Click += new System.EventHandler(this.increaseToolStripMenuItem_Click);
+            // 
+            // decreaseToolStripMenuItem
+            // 
+            this.decreaseToolStripMenuItem.Name = "decreaseToolStripMenuItem";
+            this.decreaseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
+            this.decreaseToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.decreaseToolStripMenuItem.Text = "&Decrease";
+            this.decreaseToolStripMenuItem.Click += new System.EventHandler(this.decreaseToolStripMenuItem_Click);
+            // 
             // volumeToolStripTextBox
             // 
             this.volumeToolStripTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.volumeToolStripTextBox.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.volumeToolStripTextBox.MaxLength = 3;
             this.volumeToolStripTextBox.Name = "volumeToolStripTextBox";
             this.volumeToolStripTextBox.Size = new System.Drawing.Size(100, 23);
@@ -1036,6 +1051,7 @@ namespace Baka_MPlayer.Forms
             this.rewindButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.rewindButton.TabIndex = 9;
             this.rewindButton.TabStop = false;
+            this.xToolTip.SetToolTip(this.rewindButton, "Click to Rewind\r\nDouble Click to Stop");
             this.rewindButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rewindButton_MouseClick);
             this.rewindButton.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.rewindButton_MouseDoubleClick);
             // 
@@ -1427,22 +1443,6 @@ namespace Baka_MPlayer.Forms
             // 
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
-            // 
-            // increaseToolStripMenuItem
-            // 
-            this.increaseToolStripMenuItem.Name = "increaseToolStripMenuItem";
-            this.increaseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Up)));
-            this.increaseToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.increaseToolStripMenuItem.Text = "&Increase";
-            this.increaseToolStripMenuItem.Click += new System.EventHandler(this.increaseToolStripMenuItem_Click);
-            // 
-            // decreaseToolStripMenuItem
-            // 
-            this.decreaseToolStripMenuItem.Name = "decreaseToolStripMenuItem";
-            this.decreaseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
-            this.decreaseToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.decreaseToolStripMenuItem.Text = "&Decrease";
-            this.decreaseToolStripMenuItem.Click += new System.EventHandler(this.decreaseToolStripMenuItem_Click);
             // 
             // MainForm
             // 
