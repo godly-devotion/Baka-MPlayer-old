@@ -120,9 +120,7 @@
             this.richTextBox3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.richTextBox3.Size = new System.Drawing.Size(337, 312);
             this.richTextBox3.TabIndex = 1;
-            this.richTextBox3.Text = "(Note: you must call Baka MPlayer\'s name before you say the command, by default t" +
-    "he name is \"baka\")\n\nplay\npause\nstop\nmute\nunmute\nnext [file]\nprevious [file]\nhide" +
-    "";
+            this.richTextBox3.Text = resources.GetString("richTextBox3.Text");
             // 
             // HelpForm
             // 
