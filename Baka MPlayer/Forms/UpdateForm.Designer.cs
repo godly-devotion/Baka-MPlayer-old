@@ -92,7 +92,7 @@
             this.statusLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.statusLabel.Name = "statusLabel";
             this.statusLabel.Size = new System.Drawing.Size(484, 30);
-            this.statusLabel.TabIndex = 2;
+            this.statusLabel.TabIndex = 3;
             this.statusLabel.Text = "Checking for updates...";
             this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -107,7 +107,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 73);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(460, 204);
-            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "What\'s New?";
             // 
@@ -131,7 +131,7 @@
             this.versionLabel.Name = "versionLabel";
             this.versionLabel.Padding = new System.Windows.Forms.Padding(20, 2, 20, 0);
             this.versionLabel.Size = new System.Drawing.Size(484, 40);
-            this.versionLabel.TabIndex = 3;
+            this.versionLabel.TabIndex = 4;
             this.versionLabel.Text = "Check for updates...";
             // 
             // changelogLink
@@ -145,7 +145,7 @@
             this.changelogLink.Location = new System.Drawing.Point(15, 294);
             this.changelogLink.Name = "changelogLink";
             this.changelogLink.Size = new System.Drawing.Size(245, 19);
-            this.changelogLink.TabIndex = 5;
+            this.changelogLink.TabIndex = 2;
             this.changelogLink.TabStop = true;
             this.changelogLink.Text = "Click here to view the full changelog";
             this.changelogLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.changelogLink_LinkClicked);

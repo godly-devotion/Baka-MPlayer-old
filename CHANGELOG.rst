@@ -1,8 +1,22 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.3.5.0 (2013-11-03)
+Latest Version 1.3.6.0 (2013-11-17)
 -----------------------------------
+
+- Fixed: Small bugs
+- Fixed: Minor interface tweaks
+- Fixed: Unfocus from resizing splitter after resizing command line
+- Fixed: Network messages appear more accurately
+- Fixed: Input error messages in command line
+- Changed: Must double click on the same location twice to go into full screen
+- Added: Navigate chapters via Page Up and Page Down keys
+- Added: Changelog link in update window
+- Added: Shows error message if file is unplayable
+- Updated: mpv build
+
+Version 1.3.5.0 (2013-11-03)
+----------------------------
 
 - Fixed: Unfocus from resizing splitter after resizing playlist
 - Fixed: Unfocus from playlist and console when hidden
