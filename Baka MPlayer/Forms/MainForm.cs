@@ -156,7 +156,7 @@ namespace Baka_MPlayer.Forms
                 var fileName = Functions.String.AutoEllipsis(25, Info.MovieName);
 
                 titleMenuItem.Text = string.Format("  {0}", fileName);
-                artistMenuItem.Text = Info.IsOnline ? "  Online Media" : "  Unknown Artist";
+                artistMenuItem.Text = "  Unknown Artist";
 
                 SetNotifyIconText(string.Format("{0}\n{1}", fileName, lastPart));
 
@@ -553,36 +553,36 @@ namespace Baka_MPlayer.Forms
 
             switch (speechCommand)
             {
-                case "open":
+                case "OPEN":
                     OpenFile();
                     break;
-                case "play":
+                case "PLAY":
                     mplayer.Play();
                     break;
-                case "pause":
+                case "PAUSE":
                     mplayer.Pause(false);
                     break;
-                case "stop":
+                case "STOP":
                     mplayer.Stop();
                     break;
-                case "mute":
+                case "MUTE":
                     mplayer.Mute(true);
                     break;
-                case "unmute":
+                case "UNMUTE":
                     mplayer.Mute(false);
                     break;
-                case "next":
-                case "next file":
+                case "NEXT":
+                case "NEXT FILE":
                     playlist.PlayNext();
                     break;
-                case "previous":
-                case "previous file":
+                case "PREVIOUS":
+                case "PREVIOUS FILE":
                     playlist.PlayPrevious();
                     break;
-                case "hide":
+                case "HIDE":
                     HidePlayer();
                     break;
-                case "whats playing":
+                case "WHATS PLAYING":
                     Speech.SayMedia();
                     break;
             }
@@ -940,8 +940,10 @@ namespace Baka_MPlayer.Forms
                 process.Start();
             }
             else
+            {
                 MessageBox.Show("Possible Reasons:\n1. File is located on the internet.\n2. The file may have been moved or deleted.",
-                    "Error Opening Folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    "Problem Opening Folder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void folderToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1507,7 +1509,7 @@ namespace Baka_MPlayer.Forms
             var arg = Environment.GetCommandLineArgs();
             for (int i = 1; i < arg.Length; i++)
             {
-                if (arg[i].Equals("-lastfile"))
+                if (arg[i].Equals("-lastfile", StringComparison.OrdinalIgnoreCase))
                 {
                     if (File.Exists(settings.GetStringValue(SettingEnum.LastFile)))
                         mplayer.OpenFile(settings.GetStringValue(SettingEnum.LastFile));
@@ -1621,7 +1623,7 @@ namespace Baka_MPlayer.Forms
         {
             Invoke((MethodInvoker)delegate
             {
-                if (e.StdOut.Equals("[Baka_MPlayer] CLEAR_OUTPUT", StringComparison.InvariantCulture))
+                if (e.StdOut.Equals("[Baka_MPlayer] CLEAR_OUTPUT", StringComparison.Ordinal))
                 {
                     outputTextbox.Clear();
                     return;
@@ -1638,7 +1640,7 @@ namespace Baka_MPlayer.Forms
         {
             Invoke((MethodInvoker)delegate
             {
-                if (e.Status.Equals("[Baka_MPlayer] HIDE_STATUS_LABEL", StringComparison.InvariantCulture))
+                if (e.Status.Equals("[Baka_MPlayer] HIDE_STATUS_LABEL", StringComparison.Ordinal))
                 {
                     HideStatusLabel();
                     return;
@@ -2180,15 +2182,15 @@ namespace Baka_MPlayer.Forms
             if (e.KeyCode != Keys.Enter)
                 return;
 
-            var input = inputTextbox.Text.Trim().ToLower();
+            var input = inputTextbox.Text.Trim().ToUpperInvariant();
             if (input.Length > 0)
             {
                 switch (input)
                 {
-                    case "clear":
+                    case "CLEAR":
                         outputTextbox.Clear();
                         break;
-                    case "exit":
+                    case "EXIT":
                         Application.Exit();
                         break;
                     default:

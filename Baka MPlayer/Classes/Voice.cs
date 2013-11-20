@@ -69,7 +69,7 @@ public class Voice : IDisposable
         if (e.Result.Confidence > 0.8F)
         {
             mainForm.CallStateChanged(VoiceState.SpeechRecognized);
-            mainForm.CallTakeAction(e.Result.Text.ToLower().Substring(callName.Length + 1));
+            mainForm.CallTakeAction(e.Result.Text.ToUpperInvariant().Substring(callName.Length + 1));
             return;
         }
         mainForm.CallStateChanged(VoiceState.SpeechRejected);
