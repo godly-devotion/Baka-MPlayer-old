@@ -12,7 +12,7 @@ namespace Baka_MPlayer.Forms
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            openFile();
+            OpenFile();
         }
 
         private void pasteButton_Click(object sender, EventArgs e)
@@ -62,12 +62,14 @@ namespace Baka_MPlayer.Forms
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            var formGraphics = e.Graphics;
-            var gradientBrush = new LinearGradientBrush(this.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical);
-            formGraphics.FillRectangle(gradientBrush, this.ClientRectangle);
+            using (var gradientBrush = new LinearGradientBrush(
+                this.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical))
+            {
+                e.Graphics.FillRectangle(gradientBrush, this.ClientRectangle);
+            }
         }
 
-        private void openFile()
+        private void OpenFile()
         {
             if (URL.Equals(Info.URL, StringComparison.OrdinalIgnoreCase))
             {
@@ -115,7 +117,7 @@ namespace Baka_MPlayer.Forms
         {
             if (isValid)
             {
-                string fileType = Path.GetExtension(URL).ToUpper();
+                string fileType = Path.GetExtension(URL).ToUpperInvariant();
                 fileTypeLabel.Text = string.IsNullOrEmpty(fileType) ? "?" : fileType;
 
                 checkPicbox.Image = Properties.Resources.exists;
