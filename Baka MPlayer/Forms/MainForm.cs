@@ -885,6 +885,8 @@ namespace Baka_MPlayer.Forms
                 mplayer.ExternalSub = subForm.SubFile;
                 mplayer.OpenFile(subForm.MediaFile);
             }
+
+            subForm.Dispose();
         }
 
         private void openURLToolStripMenuItem_Click(object sender, EventArgs e)
@@ -892,10 +894,9 @@ namespace Baka_MPlayer.Forms
             var webForm = new UrlForm();
 
             if (webForm.ShowDialog(this) == DialogResult.OK)
-            {
                 mplayer.OpenFile(webForm.URL);
-                webForm.Dispose();
-            }
+
+            webForm.Dispose();
         }
 
         private void openLocationFromClipboardToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1031,11 +1032,11 @@ namespace Baka_MPlayer.Forms
         private void jumpToTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var jumpForm = new JumpForm();
+
             if (jumpForm.ShowDialog(this) == DialogResult.OK)
-            {
                 mplayer.Seek(jumpForm.GetNewTime);
-                jumpForm.Dispose();
-            }
+
+            jumpForm.Dispose();
         }
         #endregion
         #region Media
@@ -1306,8 +1307,10 @@ namespace Baka_MPlayer.Forms
             // Take the screenshot from the upper left corner to the right bottom
             var screenPoint = this.PointToScreen(new Point(mplayerPanel.Location.X, mplayerPanel.Location.Y + mainMenuStrip.Height));
             gfxScreenshot.CopyFromScreen(screenPoint, new Point(0, 0), mplayerPanel.Size, CopyPixelOperation.SourceCopy);
-            var SaveSnapshot = new SnapshotForm(bmpSnapshot);
-            SaveSnapshot.ShowDialog(this);
+            
+            var snapshotForm = new SnapshotForm(bmpSnapshot);
+            snapshotForm.ShowDialog(this);
+            snapshotForm.Dispose();
         }
 
         private void sayMediaNameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1349,7 +1352,9 @@ namespace Baka_MPlayer.Forms
                 this.TopLevel = true;
             }
             else
+            {
                 blackForm.Hide();
+            }
         }
 
         private void alwaysToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1426,6 +1431,7 @@ namespace Baka_MPlayer.Forms
         {
             var aboutForm = new AboutForm();
             aboutForm.ShowDialog();
+            aboutForm.Dispose();
         }
 
         #endregion
