@@ -219,7 +219,7 @@
             this.AcceptButton = this.openButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(604, 191);
             this.Controls.Add(this.subCheckPicbox);
