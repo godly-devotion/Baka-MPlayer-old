@@ -708,12 +708,16 @@ namespace Baka_MPlayer.Forms
         }
         private void previousButton_Paint(object sender, PaintEventArgs e)
         {
-            if (!previousButton.Enabled) return;
-            var drawFont = new Font("Segoe UI", 10f);
-            var stringSize = new SizeF(e.Graphics.MeasureString(playlist.GetPlayingItem.Index.ToString(), drawFont));
-            var x = ((previousButton.Width - stringSize.Width) / 2) + 5;
-            var y = (previousButton.Height - stringSize.Height) / 2;
-            e.Graphics.DrawString(playlist.GetPlayingItem.Index.ToString(), drawFont, new SolidBrush(Color.Black), x, y);
+            if (!previousButton.Enabled)
+                return;
+
+            using (var drawFont = new Font("Segoe UI", 10f))
+            {
+                var stringSize = new SizeF(e.Graphics.MeasureString(playlist.GetPlayingItem.Index.ToString(), drawFont));
+                var x = ((previousButton.Width - stringSize.Width) / 2) + 5;
+                var y = (previousButton.Height - stringSize.Height) / 2;
+                e.Graphics.DrawString(playlist.GetPlayingItem.Index.ToString(), drawFont, new SolidBrush(Color.Black), x, y);
+            }
         }
 
         // NextButton
@@ -724,12 +728,16 @@ namespace Baka_MPlayer.Forms
         }
         private void nextButton_Paint(object sender, PaintEventArgs e)
         {
-            if (!nextButton.Enabled) return;
-            var drawFont = new Font("Segoe UI", 10f);
-            var stringSize = new SizeF(e.Graphics.MeasureString((playlist.GetPlayingItem.Index + 2).ToString(), drawFont));
-            float x = ((nextButton.Width - stringSize.Width) / 2) - 5;
-            float y = (nextButton.Height - stringSize.Height) / 2;
-            e.Graphics.DrawString((playlist.GetPlayingItem.Index + 2).ToString(), drawFont, new SolidBrush(Color.Black), x, y);
+            if (!nextButton.Enabled)
+                return;
+
+            using (var drawFont = new Font("Segoe UI", 10f))
+            {
+                var stringSize = new SizeF(e.Graphics.MeasureString((playlist.GetPlayingItem.Index + 2).ToString(), drawFont));
+                var x = ((nextButton.Width - stringSize.Width) / 2) - 5;
+                var y = (nextButton.Height - stringSize.Height) / 2;
+                e.Graphics.DrawString((playlist.GetPlayingItem.Index + 2).ToString(), drawFont, new SolidBrush(Color.Black), x, y);
+            }
         }
 
         // PlayButton
