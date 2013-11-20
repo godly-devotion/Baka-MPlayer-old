@@ -172,8 +172,8 @@ namespace Baka_MPlayer.Forms
 
             foreach (ListViewItem item in infoList.Items)
             {
-                var itemText = item.Text.Replace('_', ' ').ToLower();
-                if (itemText.Contains(searchTextbox.Text.ToLower()))
+                var itemText = item.Text.Replace('_', ' ').ToUpperInvariant();
+                if (itemText.Contains(searchTextbox.Text.ToUpperInvariant()))
                 {
                     infoList_SelectedIndex = item.Index;
                     //infoList.TopItem = item;
@@ -268,7 +268,7 @@ namespace Baka_MPlayer.Forms
 
         private void nameLabel_Click(object sender, EventArgs e)
         {
-            if (nameLabel.Text != "Baka MPlayer")
+            if (!nameLabel.Text.Equals("Baka MPlayer", StringComparison.Ordinal))
                 Clipboard.SetText(nameLabel.Text);
         }
 
