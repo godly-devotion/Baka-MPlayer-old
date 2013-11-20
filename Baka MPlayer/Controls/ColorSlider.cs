@@ -155,8 +155,10 @@ namespace Baka_MPlayer.Controls
                     Invalidate();
                 }
                 else
+                {
                     Console.WriteLine("Value is outside appropriate range (min, max)");
-                //throw new ArgumentOutOfRangeException("Value is outside appropriate range (min, max)");
+                    //throw new ArgumentOutOfRangeException("Value is outside appropriate range (min, max)");
+                }
             }
         }
 
@@ -468,7 +470,9 @@ namespace Baka_MPlayer.Controls
                 // get thumb shape path 
                 GraphicsPath thumbPath;
                 if (thumbCustomShape == null)
+                {
                     thumbPath = CreateRoundRectPath(thumbRect, thumbRoundRectSize);
+                }
                 else
                 {
                     thumbPath = thumbCustomShape;
@@ -503,10 +507,12 @@ namespace Baka_MPlayer.Controls
                             e.Graphics.FillRegion(elapsedBrush, elapsedReg);
                         }
                         else
+                        {
                             e.Graphics.FillRectangle(elapsedBrush, elapsedRect);
+                        }
                     }
 
-                    // create tick marks (e.g. chapter marks)
+                    // create tick marks (for chapter marks)
                     foreach (var m in marks)
                     {
                         var x = (m * this.ClientRectangle.Width) / maxMarkValue;
@@ -540,7 +546,7 @@ namespace Baka_MPlayer.Controls
             }
             catch (Exception err)
             {
-                Console.WriteLine("DrawBackground Error in {0}: {1}", Name, err.Message);
+                Console.WriteLine("ColorSlider.cs: DrawBackground Error in {0}: {1}", Name, err.Message);
             }
         }
 
@@ -702,32 +708,6 @@ namespace Baka_MPlayer.Controls
                 colorsToReturn[i] = ControlPaint.Light(colorsToLighten[i]);
             }
             return colorsToReturn;
-        }
-
-        /// <summary>
-        /// Sets the trackbar value so that it wont exceed allowed range.
-        /// </summary>
-        /// <param name="val">The value.</param>
-        private void SetProperValue(int val)
-        {
-            if (val < barMinimum) Value = barMinimum;
-            else if (val > barMaximum) Value = barMaximum;
-            else Value = val;
-        }
-
-        /// <summary>
-        /// Determines whether rectangle contains given point.
-        /// </summary>
-        /// <param name="pt">The point to test.</param>
-        /// <param name="rect">The base rectangle.</param>
-        /// <returns>
-        /// 	<c>true</c> if rectangle contains given point; otherwise, <c>false</c>.
-        /// </returns>
-        private static bool IsPointInRect(Point pt, Rectangle rect)
-        {
-            if (pt.X > rect.Left & pt.X < rect.Right & pt.Y > rect.Top & pt.Y < rect.Bottom)
-                return true;
-            return false;
         }
 
         #endregion
