@@ -23,8 +23,7 @@ public static class Speech
                 else
                     Speak(title);
             }
-            else
-                Speak(Info.MovieName);
+            else Speak(Info.MovieName);
         }
         catch (Exception ex)
         {
@@ -36,13 +35,12 @@ public static class Speech
     {
         try
         {
-            if (speech != string.Empty)
+            if (!string.IsNullOrEmpty(speech))
             {
                 synth.SpeakAsyncCancelAll();
                 synth.SpeakAsync(speech.ToLower());
             }
-            else
-                synth.SpeakAsyncCancelAll();
+            else synth.SpeakAsyncCancelAll();
         }
         catch (Exception ex)
         {
