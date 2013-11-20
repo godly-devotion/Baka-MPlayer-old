@@ -96,7 +96,9 @@ namespace Baka_MPlayer.Controls
                     UpdateUI(true);
                 }
                 else
+                {
                     RefreshPlaylist(true);
+                }
             }
         }
 
@@ -107,9 +109,10 @@ namespace Baka_MPlayer.Controls
             if (i == -1)
                 return;
 
-            if (File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[i].Text))
+            var file = string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[i].Text);
+            if (File.Exists(file))
             {
-                mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[i].Text));
+                mplayer.OpenFile(file);
                 return;
             }
 
@@ -124,9 +127,10 @@ namespace Baka_MPlayer.Controls
             if (i == GetTotalItems)
                 return;
 
-            if (File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[i].Text))
+            var file = string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[i].Text);
+            if (File.Exists(file))
             {
-                mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[i].Text));
+                mplayer.OpenFile(file);
                 return;
             }
 
@@ -190,11 +194,11 @@ namespace Baka_MPlayer.Controls
                 else
                     files = dirInfo.GetFiles('*' + Path.GetExtension(Info.FullFileName));
 
-                var uselessFilesRegex = new Regex(@".*\.(ini|txt|db|jpg|png)$", RegexOptions.IgnoreCase);
+                var filesToSkipRegex = new Regex(@".*\.(ini|txt|db|jpg|png)$", RegexOptions.IgnoreCase);
                 for (var i = 0; i <= files.Length - 1; i++)
                 {
                     // skip useless files
-                    if (!uselessFilesRegex.IsMatch(files[i].Name))
+                    if (!filesToSkipRegex.IsMatch(files[i].Name))
                         playlistList.Items.Add(files[i].Name);
                 }
             }
@@ -231,7 +235,8 @@ namespace Baka_MPlayer.Controls
         {
             if (GetPlayingItem.Index == index)
             {
-                MessageBox.Show("You can't remove the currently playing file.", "I'm afraid you can't do that", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("You can't remove the currently playing file.", "I'm afraid you can't do that",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -273,7 +278,9 @@ namespace Baka_MPlayer.Controls
                 }
             }
             else
+            {
                 SelectedIndex = GetPlayingItem.Index;
+            }
         }
         private void searchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -309,7 +316,7 @@ namespace Baka_MPlayer.Controls
         {
             if ((e.AllowedEffect & DragDropEffects.Move) == DragDropEffects.Move)
             {
-                // Retrieve the index of the insertion mark;
+                // Retrieve the index of the insertion mark
                 //int targetIndex = Playlist.InsertionMark.Index;
                 var targetPoint = playlistList.PointToClient(new Point(e.X, e.Y));
                 var targetItem = playlistList.GetItemAt(targetPoint.X, targetPoint.Y);
@@ -409,6 +416,7 @@ namespace Baka_MPlayer.Controls
                         OpenFile(newURL);
                 }
             }
+            inputBox.Dispose();
         }
         private void showAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
