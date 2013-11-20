@@ -53,8 +53,7 @@ namespace Baka_MPlayer.Forms
                     GetNewTime = calculatedTotal;
                     validEntry(true);
                 }
-                else
-                    validEntry(false);
+                else validEntry(false);
             }
             else if (addRadioButton.Checked)
             {
@@ -66,8 +65,7 @@ namespace Baka_MPlayer.Forms
                     GetNewTime = newTime;
                     validEntry(true);
                 }
-                else
-                    validEntry(false);
+                else validEntry(false);
             }
             else if (subtractRadioButton.Checked)
             {
@@ -79,8 +77,7 @@ namespace Baka_MPlayer.Forms
                     GetNewTime = newTime;
                     validEntry(true);
                 }
-                else
-                    validEntry(false);
+                else validEntry(false);
             }
         }
         private void validEntry(bool allowJump)
@@ -92,9 +89,11 @@ namespace Baka_MPlayer.Forms
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            var formGraphics = e.Graphics;
-            var gradientBrush = new LinearGradientBrush(this.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical);
-            formGraphics.FillRectangle(gradientBrush, ClientRectangle);
+            using (var gradientBrush = new LinearGradientBrush(
+                this.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical))
+            {
+                e.Graphics.FillRectangle(gradientBrush, ClientRectangle);
+            }
         }
 
         private void JumpForm_KeyDown(object sender, KeyEventArgs e)

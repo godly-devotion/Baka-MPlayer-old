@@ -57,9 +57,11 @@ namespace Baka_MPlayer.Forms
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            var formGraphics = e.Graphics;
-            var gradientBrush = new LinearGradientBrush(this.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical);
-            formGraphics.FillRectangle(gradientBrush, ClientRectangle);
+            using (var gradientBrush = new LinearGradientBrush(
+                this.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical))
+            {
+                e.Graphics.FillRectangle(gradientBrush, ClientRectangle);
+            }
         }
     }
 }
