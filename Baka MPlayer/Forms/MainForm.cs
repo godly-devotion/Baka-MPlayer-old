@@ -363,15 +363,6 @@ namespace Baka_MPlayer.Forms
         }
 
         #endregion
-        #region Gradient Paint
-        private void controlPanel_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics formGraphics = e.Graphics;
-            var gradientBrush = new LinearGradientBrush(controlPanel.ClientRectangle,
-                Color.FromArgb(255, 30, 30, 30), Color.Black, LinearGradientMode.Vertical);
-            formGraphics.FillRectangle(gradientBrush, controlPanel.ClientRectangle);
-        }
-        #endregion
         #region File Drag & Drop
 
         private void MainForm_DragDrop(object sender, DragEventArgs e)
@@ -1605,6 +1596,8 @@ namespace Baka_MPlayer.Forms
             UnhookWindowsHookEx(hHook);
             UnloadTray();
 
+            // This function will kill the mplayer process, which in turn will
+            // signal the Application to exit thus causing a one time recursion
             mplayer.Kill();
         }
 

@@ -973,7 +973,6 @@ namespace Baka_MPlayer.Forms
             this.controlPanel.Name = "controlPanel";
             this.controlPanel.Size = new System.Drawing.Size(584, 50);
             this.controlPanel.TabIndex = 1;
-            this.controlPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.controlPanel_Paint);
             this.controlPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
             // quickButton
