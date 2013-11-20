@@ -6,8 +6,8 @@ namespace Baka_MPlayer.Forms
 {
     public partial class OpenSubForm : Form
     {
-        private bool isValidMediaFile;
-        private bool isValidSubFile;
+        private bool _isValidMediaFile;
+        private bool _isValidSubFile;
 
         public string MediaFile {
             get { return mediaTextbox.Text.Trim(); }
@@ -49,18 +49,18 @@ namespace Baka_MPlayer.Forms
                 if (File.Exists(MediaFile) || Functions.URL.IsValidURL(MediaFile))
                 {
                     mediaCheckPicbox.Image = Properties.Resources.exists;
-                    isValidMediaFile = true;
+                    _isValidMediaFile = true;
                 }
                 else
                 {
                     mediaCheckPicbox.Image = Properties.Resources.not_exists;
-                    isValidMediaFile = false;
+                    _isValidMediaFile = false;
                 }
             }
             catch (ArgumentException)
             {
                 mediaCheckPicbox.Image = Properties.Resources.not_exists;
-                isValidMediaFile = false;
+                _isValidMediaFile = false;
             }
             finally
             {
@@ -81,18 +81,18 @@ namespace Baka_MPlayer.Forms
                 if (File.Exists(SubFile))
                 {
                     subCheckPicbox.Image = Properties.Resources.exists;
-                    isValidSubFile = true;
+                    _isValidSubFile = true;
                 }
                 else
                 {
                     subCheckPicbox.Image = Properties.Resources.not_exists;
-                    isValidSubFile = false;
+                    _isValidSubFile = false;
                 }
             }
             catch (ArgumentException)
             {
                 subCheckPicbox.Image = Properties.Resources.not_exists;
-                isValidSubFile = false;
+                _isValidSubFile = false;
             }
             finally
             {
@@ -102,13 +102,13 @@ namespace Baka_MPlayer.Forms
 
         private void SetOpenButton()
         {
-            if (SubFile.Length > 0 && isValidSubFile && isValidMediaFile)
+            if (SubFile.Length > 0 && _isValidSubFile && _isValidMediaFile)
             {
                 openButton.Enabled = true;
                 return;
             }
 
-            if (SubFile.Length.Equals(0) && isValidMediaFile)
+            if (SubFile.Length.Equals(0) && _isValidMediaFile)
             {
                 openButton.Enabled = true;
                 return;

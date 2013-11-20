@@ -80,7 +80,7 @@ namespace Baka_MPlayer.Forms
         private static string cleanName(string input)
         {
             var extension = Path.GetExtension(input);
-            input = input.Remove(input.IndexOf(extension), extension.Length);
+            input = input.Remove(input.IndexOf(extension, StringComparison.Ordinal), extension.Length);
 
             // Remove all [ and ending ]
             while (input.IndexOf("[") != -1 && input.IndexOf("]") != -1)
@@ -90,10 +90,7 @@ namespace Baka_MPlayer.Forms
             while (input.IndexOf("{") != -1 && input.IndexOf("}") != -1)
                 input = input.Replace(input.Substring(input.IndexOf("{"), (input.IndexOf("}") - input.IndexOf("{") + 1)), "");
 
-            // Replace "_" & "." with " "
             input = input.Replace("_", " ");
-
-            // Remove all trailing spaces & add ext. and return
             return input.Trim() + extension;
         }
     }

@@ -47,8 +47,6 @@ namespace Baka_MPlayer.Forms
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            // PlaylistControl.cs will dispose this form afterwards anyway
-            //this.Dispose();
             this.Close();
         }
     }
