@@ -141,9 +141,10 @@ namespace Baka_MPlayer.Controls
 
         public void PlayFile(int index)
         {
-            if (index < GetTotalItems && index > -1 && File.Exists(Info.GetDirectoryName + '\\' + playlistList.Items[index].Text))
+            var file = string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[index].Text);
+            if (index < GetTotalItems && index > -1 && File.Exists(file))
             {
-                mplayer.OpenFile(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[index].Text));
+                mplayer.OpenFile(file);
                 return;
             }
             MessageBox.Show("The file cannot be played because it does not exist.", "Error", MessageBoxButtons.OK,
@@ -270,7 +271,7 @@ namespace Baka_MPlayer.Controls
             {
                 foreach (ListViewItem item in playlistList.Items)
                 {
-                    if (item.Text.ToLower().Contains(searchTextBox.Text.ToLower()))
+                    if (item.Text.ToUpperInvariant().Contains(searchTextBox.Text.ToUpperInvariant()))
                     {
                         SelectedIndex = item.Index;
                         return;
@@ -287,7 +288,7 @@ namespace Baka_MPlayer.Controls
             if (e.KeyCode != Keys.Enter || SelectedIndex.Equals(-1)) return;
 
             var newURL = string.Format("{0}\\{1}", Info.GetDirectoryName, GetSelectedItem.Text);
-            if (newURL != Info.URL)
+            if (!newURL.Equals(Info.URL, StringComparison.OrdinalIgnoreCase))
             {
                 if (File.Exists(newURL))
                 {
