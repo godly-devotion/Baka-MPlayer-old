@@ -72,20 +72,20 @@ public class UpdateChecker
             using (var reader = new StringReader(data.ToString()))
             {
                 string line;
-                while ((line = reader.ReadLine()) != null)
+                while (!string.IsNullOrEmpty(line = reader.ReadLine()))
                 {
                     var i = line.IndexOf('=');
                     if (i != -1)
                     {
                         var type = line.Substring(0, i);
-                        if (type.Equals("version"))
+                        if (type.Equals("version", StringComparison.Ordinal))
                             version = line.Substring(i + 1);
-                        else if (type.Equals("date"))
+                        else if (type.Equals("date", StringComparison.Ordinal))
                             date = line.Substring(i + 1);
-                        else if (type.Equals("bugfixes"))
+                        else if (type.Equals("bugfixes", StringComparison.Ordinal))
                         {
                             bugfixes = line.Substring(i + 1);
-                            while ((line = reader.ReadLine()) != null)
+                            while (!string.IsNullOrEmpty(line = reader.ReadLine()))
                                 bugfixes = bugfixes + '\n' + line;
                         }
                     }
@@ -95,7 +95,7 @@ public class UpdateChecker
             if (string.IsNullOrEmpty(version))
                 throw new Exception("No valid version number was returned.");
 
-            if (version.Equals(Application.ProductVersion))
+            if (version.Equals(Application.ProductVersion, StringComparison.Ordinal))
             {
                 if (!(bool) isSilent)
                 {
