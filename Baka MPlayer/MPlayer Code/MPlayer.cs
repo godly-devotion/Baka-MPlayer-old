@@ -387,13 +387,15 @@ public class MPlayer
 		}
 		else if (cachingFonts && e.Data.StartsWith("["))
 		{
-            if (e.Data.StartsWith("[fontconfig]"))
-            {
-                cachingFonts = false;
-                OnStatusChanged(new StatusChangedEventArgs("Fonts finished caching", true));
-            }
-            else
+		    if (e.Data.StartsWith("[fontconfig]"))
+		    {
+		        cachingFonts = false;
+		        OnStatusChanged(new StatusChangedEventArgs("Fonts finished caching", true));
+		    }
+		    else
+		    {
                 OnStatusChanged(new StatusChangedEventArgs("Caching fonts: " + e.Data, false));
+		    }
 		}
     }
 
@@ -606,7 +608,7 @@ public class MPlayer
     {
         data = data.Trim();
 
-        var i = data.IndexOf(": ", StringComparison.Ordinal);
+        var i = data.IndexOf(": ");
 
         if (i < 1)
         {

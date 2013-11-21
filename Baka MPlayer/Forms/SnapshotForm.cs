@@ -80,7 +80,7 @@ namespace Baka_MPlayer.Forms
         private static string cleanName(string input)
         {
             var extension = Path.GetExtension(input);
-            input = input.Remove(input.IndexOf(extension, StringComparison.Ordinal), extension.Length);
+            input = input.Remove(input.LastIndexOf(extension, StringComparison.OrdinalIgnoreCase), extension.Length);
 
             // Remove all [ and ending ]
             while (input.IndexOf("[") != -1 && input.IndexOf("]") != -1)
