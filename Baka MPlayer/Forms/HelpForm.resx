@@ -141,13 +141,26 @@
 open
 play
 pause
+rewind
 stop
 mute
 unmute
+increase volume
+volume up
+decrease volume
+volume down
+next chapter
+skip chapter
+previous chapter
 next [file]
 previous [file]
+[view/go/exit/leave] fullscreen
 hide
-what's playing
+show
+whats playing
+help
+stop listening
+close
 
 So for example, to pause the video you would say [baka pause].</value>
   </data>

@@ -30,8 +30,35 @@ public class Voice : IDisposable
         engine.SetInputToDefaultAudioDevice();
         
         var choice = new Choices(new[] {
-            "open", "play", "pause", "stop", "mute", "unmute", "next", "next file",
-            "previous", "previous file", "hide", "whats playing"
+            "open",
+            "play",
+            "pause",
+            "rewind",
+            "stop",
+            "mute",
+            "unmute",
+            "increase volume",
+            "volume up",
+            "decrease volume",
+            "volume down",
+            "next chapter",
+            "skip chapter",
+            "previous chapter",
+            "next",
+            "next file",
+            "previous",
+            "previous file",
+            "fullscreen",
+            "view fullscreen",
+            "go fullscreen",
+            "exit fullscreen",
+            "leave fullscreen",
+            "hide",
+            "show",
+            "whats playing",
+            "help",
+            "stop listening",
+            "close"
         });
 
         var grammarBuilder = new GrammarBuilder(callName);

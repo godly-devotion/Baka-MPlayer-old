@@ -421,10 +421,10 @@ namespace Baka_MPlayer.Forms
 
         #region Accessors
 
-        private bool voiceEnabled;
+        private bool _voiceEnabled;
         private bool EnableVoiceCommand
         {
-            get { return voiceEnabled; }
+            get { return _voiceEnabled; }
             set
             {
                 try
@@ -437,12 +437,14 @@ namespace Baka_MPlayer.Forms
                             voice = new Voice(this, string.IsNullOrEmpty(name) ? "baka" : name);
                         }
                         voice.StartListening();
-                        voiceEnabled = true;
+                        speechButton.Image = Properties.Resources.enabled_mic;
+                        _voiceEnabled = true;
                     }
                     else
                     {
                         voice.StopListening();
-                        voiceEnabled = false;
+                        speechButton.Image = Properties.Resources.disabled_mic;
+                        _voiceEnabled = false;
                     }
                 }
                 catch (Exception)
@@ -451,7 +453,7 @@ namespace Baka_MPlayer.Forms
                     
                     if (voice != null)
                         voice.StopListening();
-                    voiceEnabled = false;
+                    _voiceEnabled = false;
                 }
             }
         }
@@ -562,6 +564,9 @@ namespace Baka_MPlayer.Forms
                 case "PAUSE":
                     mplayer.Pause(false);
                     break;
+                case "REWIND":
+                    mplayer.Rewind();
+                    break;
                 case "STOP":
                     mplayer.Stop();
                     break;
@@ -571,6 +576,27 @@ namespace Baka_MPlayer.Forms
                 case "UNMUTE":
                     mplayer.Mute(false);
                     break;
+                case "INCREASE VOLUME":
+                case "VOLUME UP":
+                    if (Info.Current.Volume >= 95)
+                        SetVolume(100);
+                    else
+                        SetVolume(Info.Current.Volume + 5);
+                    break;
+                case "DECREASE VOLUME":
+                case "VOLUME DOWN":
+                    if (Info.Current.Volume <= 5)
+                        SetVolume(0);
+                    else
+                        SetVolume(Info.Current.Volume - 5);
+                    break;
+                case "NEXT CHAPTER":
+                case "SKIP CHAPTER":
+                    mplayer.SkipChapter(true);
+                    break;
+                case "PREVIOUS CHAPTER":
+                    mplayer.SkipChapter(false);
+                    break;
                 case "NEXT":
                 case "NEXT FILE":
                     playlist.PlayNext();
@@ -579,11 +605,34 @@ namespace Baka_MPlayer.Forms
                 case "PREVIOUS FILE":
                     playlist.PlayPrevious();
                     break;
+                case "FULLSCREEN":
+                case "VIEW FULLSCREEN":
+                case "GO FULLSCREEN":
+                    FullScreen = true;
+                    break;
+                case "EXIT FULLSCREEN":
+                case "LEAVE FULLSCREEN":
+                    FullScreen = false;
+                    break;
                 case "HIDE":
                     HidePlayer();
                     break;
+                case "SHOW":
+                    this.WindowState = FormWindowState.Normal;
+                    this.Focus();
+                    break;
                 case "WHATS PLAYING":
                     Speech.SayMedia();
+                    break;
+                case "HELP":
+                    var helpForm = new HelpForm();
+                    helpForm.Show();
+                    break;
+                case "STOP LISTENING":
+                    EnableVoiceCommand = false;
+                    break;
+                case "CLOSE":
+                    Application.Exit();
                     break;
             }
         }
@@ -671,11 +720,6 @@ namespace Baka_MPlayer.Forms
         private void speechButton_MouseDown(object sender, MouseEventArgs e)
         {
             speechButton.Image = Properties.Resources.down_mic;
-        }
-        private void speechButton_MouseUp(object sender, MouseEventArgs e)
-        {
-            speechButton.Image = EnableVoiceCommand ?
-                Properties.Resources.enabled_mic : Properties.Resources.disabled_mic;
         }
 
         // RewindButton
