@@ -451,7 +451,7 @@ public class MPlayer
         {
             MessageBox.Show("Baka MPlayer couldn't open this file.\nThis can happen if the file is not supported, incomplete, or inaccessible.",
                             "Cannot open file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            OnStatusChanged(new StatusChangedEventArgs("[Baka_MPlayer] HIDE_STATUS_LABEL", false));
+            OnStatusChanged(new StatusChangedEventArgs("Open a file to begin playing", true));
             return;
         }
 
@@ -479,10 +479,13 @@ public class MPlayer
             }
 
             // get album picture tag
-            id3Tag.Read(Info.URL);
-            Info.ID3Tags.AlbumArtTag = id3Tag.GetAlbumPictureTag();
-            if (Info.ID3Tags.AlbumArtTag.AlbumArt != null)
-                Info.VideoInfo.HasVideo = false;
+            if (!Info.IsOnline)
+            {
+                id3Tag.Read(Info.URL);
+                Info.ID3Tags.AlbumArtTag = id3Tag.GetAlbumPictureTag();
+                if (Info.ID3Tags.AlbumArtTag.AlbumArt != null)
+                    Info.VideoInfo.HasVideo = false;
+            }
 
             // tell mainform that new file was opened
             OnFileOpened(new EventArgs());
