@@ -526,23 +526,13 @@ namespace Baka_MPlayer.Forms
         #endregion
         #region Speech Code
 
-        public void CallStateChanged(VoiceState e)
+        public void CallUpdateAudioLevel(int audioLevel)
         {
-            //Invoke((MethodInvoker)(() => StateChanged(e)));
+            Invoke((MethodInvoker)(() => UpdateAudioLevel(audioLevel)));
         }
-        private void StateChanged(VoiceState e)
+        private void UpdateAudioLevel(int audioLevel)
         {
-            switch (e)
-            {
-                case VoiceState.SpeechDetected:
-                    break;
-                case VoiceState.SpeechRecognized:
-                    break;
-                case VoiceState.SpeechRejected:
-                    break;
-                case VoiceState.SpeechCompleted:
-                    break;
-            }
+            audioLevelBar.Value = audioLevel;
         }
 
         public void CallTakeAction(string speechCommand)
@@ -555,84 +545,94 @@ namespace Baka_MPlayer.Forms
 
             switch (speechCommand)
             {
-                case "OPEN":
+                case "open":
+                case "open file":
                     OpenFile();
                     break;
-                case "PLAY":
-                    mplayer.Play();
-                    break;
-                case "PAUSE":
-                    mplayer.Pause(false);
-                    break;
-                case "REWIND":
-                    mplayer.Rewind();
-                    break;
-                case "STOP":
-                    mplayer.Stop();
-                    break;
-                case "MUTE":
+                case "mute":
                     mplayer.Mute(true);
                     break;
-                case "UNMUTE":
+                case "unmute":
                     mplayer.Mute(false);
                     break;
-                case "INCREASE VOLUME":
-                case "VOLUME UP":
+                case "increase volume":
+                case "raise volume":
+                case "volume up":
                     if (Info.Current.Volume >= 95)
                         SetVolume(100);
                     else
                         SetVolume(Info.Current.Volume + 5);
                     break;
-                case "DECREASE VOLUME":
-                case "VOLUME DOWN":
+                case "decrease volume":
+                case "lower volume":
+                case "volume down":
                     if (Info.Current.Volume <= 5)
                         SetVolume(0);
                     else
                         SetVolume(Info.Current.Volume - 5);
                     break;
-                case "NEXT CHAPTER":
-                case "SKIP CHAPTER":
-                    mplayer.SkipChapter(true);
-                    break;
-                case "PREVIOUS CHAPTER":
-                    mplayer.SkipChapter(false);
-                    break;
-                case "NEXT":
-                case "NEXT FILE":
-                    playlist.PlayNext();
-                    break;
-                case "PREVIOUS":
-                case "PREVIOUS FILE":
-                    playlist.PlayPrevious();
-                    break;
-                case "FULLSCREEN":
-                case "VIEW FULLSCREEN":
-                case "GO FULLSCREEN":
-                    FullScreen = true;
-                    break;
-                case "EXIT FULLSCREEN":
-                case "LEAVE FULLSCREEN":
-                    FullScreen = false;
-                    break;
-                case "HIDE":
+                case "hide":
                     HidePlayer();
                     break;
-                case "SHOW":
+                case "show":
                     this.WindowState = FormWindowState.Normal;
                     this.Focus();
                     break;
-                case "WHATS PLAYING":
-                    Speech.SayMedia();
-                    break;
-                case "HELP":
+                case "help":
                     var helpForm = new HelpForm();
                     helpForm.Show();
                     break;
-                case "STOP LISTENING":
+                case "stop listening":
                     EnableVoiceCommand = false;
                     break;
-                case "CLOSE":
+                case "close":
                     Application.Exit();
+                    break;
+            }
+
+            if (!mplayer.MPlayerIsRunning() || string.IsNullOrEmpty(Info.URL))
+                return;
+
+            switch (speechCommand)
+            {
+                case "play":
+                    mplayer.Play();
+                    break;
+                case "pause":
+                    mplayer.Pause(false);
+                    break;
+                case "rewind":
+                    mplayer.Rewind();
+                    break;
+                case "stop":
+                    mplayer.Stop();
+                    break;
+                case "next chapter":
+                case "skip chapter":
+                    mplayer.SkipChapter(true);
+                    break;
+                case "previous chapter":
+                    mplayer.SkipChapter(false);
+                    break;
+                case "next":
+                case "next file":
+                    playlist.PlayNext();
+                    break;
+                case "previous":
+                case "previous file":
+                    playlist.PlayPrevious();
+                    break;
+                case "fullscreen":
+                case "view fullscreen":
+                case "go fullscreen":
+                    FullScreen = true;
+                    break;
+                case "exit fullscreen":
+                case "leave fullscreen":
+                    FullScreen = false;
+                    break;
+                case "whats playing":
+                    Speech.SayMedia();
                     break;
             }
         }
@@ -1652,6 +1652,8 @@ namespace Baka_MPlayer.Forms
                 settings.SetConfig(Info.URL, SettingEnum.LastFile);
             settings.SaveConfig();
 
+            if (voice != null)
+                voice.Dispose();
             UnhookWindowsHookEx(hHook);
             UnloadTray();
 

@@ -67,6 +67,11 @@ namespace Functions
             var r = new Regex("[a-zA-Z0-9]");
             return r.IsMatch(text);
         }
+        /// <summary>
+        /// NOTE: Conversion doesn't work on words with ALL CAPS
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static string ToTitleCase(string input)
         {
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(input);

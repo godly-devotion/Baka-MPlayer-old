@@ -124,6 +124,12 @@
     <Compile Include="Controls\PlaylistControl.Designer.cs">
       <DependentUpon>PlaylistControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\AudioLevelBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\AudioLevelBar.Designer.cs">
+      <DependentUpon>AudioLevelBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\VO_Panel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -208,6 +214,9 @@
     <EmbeddedResource Include="Controls\PlaylistControl.resx">
       <DependentUpon>PlaylistControl.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AudioLevelBar.resx">
+      <DependentUpon>AudioLevelBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\VO_Panel.resx">
       <DependentUpon>VO_Panel.cs</DependentUpon>
