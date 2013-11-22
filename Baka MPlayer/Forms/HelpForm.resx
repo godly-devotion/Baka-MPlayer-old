@@ -138,29 +138,29 @@
   <data name="richTextBox3.Text" xml:space="preserve">
     <value>Note: you must call Baka MPlayer's name before you say the command, by default the name is "baka". You can change its name via the settings file (Baka MPlayer.EXE.xml)
 
-open
+open [file]
+mute
+unmute
+[increase/raise] volume
+volume up
+[decrease/lower] volume
+volume down
+hide
+show
+help
+stop listening
+close
 play
 pause
 rewind
 stop
-mute
-unmute
-increase volume
-volume up
-decrease volume
-volume down
-next chapter
-skip chapter
+[next/skip] chapter
 previous chapter
 next [file]
 previous [file]
-[view/go/exit/leave] fullscreen
-hide
-show
+[view/go] fullscreen
+[exit/leave] fullscreen
 whats playing
-help
-stop listening
-close
 
 So for example, to pause the video you would say [baka pause].</value>
   </data>
