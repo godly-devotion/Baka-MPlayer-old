@@ -90,11 +90,18 @@ public class Voice : IDisposable
         sfx.Play();
     }
 
+    public void PlayRecognizedCommandSound()
+    {
+        sfx.SoundLocation = @"C:\Windows\Media\ding.wav";
+        sfx.PlaySync();
+    }
+
     // Handle the SpeechRecognized event.
     public void recognizer_SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
     {
         if (e.Result.Confidence > 0.8F)
         {
+            PlayRecognizedCommandSound();
             mainForm.CallStateChanged(VoiceState.SpeechRecognized);
             mainForm.CallTakeAction(e.Result.Text.ToUpperInvariant().Substring(callName.Length + 1));
             return;

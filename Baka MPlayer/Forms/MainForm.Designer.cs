@@ -198,7 +198,7 @@ namespace Baka_MPlayer.Forms
             this.mainMenuStrip.Name = "mainMenuStrip";
             this.mainMenuStrip.Padding = new System.Windows.Forms.Padding(1, 0, 0, 0);
             this.mainMenuStrip.Size = new System.Drawing.Size(584, 20);
-            this.mainMenuStrip.TabIndex = 0;
+            this.mainMenuStrip.TabIndex = 2;
             this.mainMenuStrip.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
             // fileToolStripMenuItem
@@ -1137,7 +1137,7 @@ namespace Baka_MPlayer.Forms
             this.seekPanel.Location = new System.Drawing.Point(0, 327);
             this.seekPanel.Name = "seekPanel";
             this.seekPanel.Size = new System.Drawing.Size(584, 14);
-            this.seekPanel.TabIndex = 2;
+            this.seekPanel.TabIndex = 0;
             // 
             // seekBar
             // 
