@@ -118,18 +118,18 @@ namespace Baka_MPlayer.Forms
             tagList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 
             // album art
-            if (Info.ID3Tags.AlbumArtTag.AlbumArt == null)
-            {
-                saveImgLabel.Enabled = false;
-                AlbumArt = null;
-            }
-            else
+            if (Info.ID3Tags.AlbumArtTag != null)
             {
                 saveImgLabel.Enabled = true;
                 AlbumArt = Info.ID3Tags.AlbumArtTag.AlbumArt;
 
                 imgTypeTextBox.Text = Info.ID3Tags.AlbumArtTag.Type;
                 demTextBox.Text = string.Format("{0} x {1}", AlbumArt.Width, AlbumArt.Height);
+            }
+            else
+            {
+                saveImgLabel.Enabled = false;
+                AlbumArt = null;
             }
             tagList.EndUpdate();
         }

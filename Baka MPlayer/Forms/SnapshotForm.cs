@@ -16,7 +16,7 @@ namespace Baka_MPlayer.Forms
         public SnapshotForm(Bitmap image)
         {
             InitializeComponent();
-
+            
             this.image = image;
             snapshotPicbox_SizeChanged(null, null);
         }

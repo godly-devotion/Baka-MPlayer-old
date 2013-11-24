@@ -1773,8 +1773,12 @@ namespace Baka_MPlayer.Forms
                     hideAlbumArtToolStripMenuItem.Enabled = true;
                     takeSnapshotToolStripMenuItem.Enabled = false;
 
-                    // show album art (if it exists);
-                    albumArtPicbox.Image = Info.ID3Tags.AlbumArtTag.AlbumArt ?? Properties.Resources.Music_128;
+                    // show album art (if it exists)
+                    if (Info.ID3Tags.AlbumArtTag != null)
+                        albumArtPicbox.Image = Info.ID3Tags.AlbumArtTag.AlbumArt;
+                    else
+                        albumArtPicbox.Image = Properties.Resources.Music_128;
+
                     albumArtPicbox_SizeChanged(null, null);
 
                     for (var i = 0; i < aspectRatioToolStripMenuItem.DropDownItems.Count; i++)

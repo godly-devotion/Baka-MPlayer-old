@@ -481,9 +481,8 @@ public class MPlayer
             // get album picture tag
             if (!Info.IsOnline)
             {
-                id3Tag.Read(Info.URL);
-                Info.ID3Tags.AlbumArtTag = id3Tag.GetAlbumPictureTag();
-                if (Info.ID3Tags.AlbumArtTag.AlbumArt != null)
+                Info.ID3Tags.AlbumArtTag = id3Tag.GetAlbumPictureTag(Info.URL);
+                if (Info.ID3Tags.AlbumArtTag != null)
                     Info.VideoInfo.HasVideo = false;
             }
 

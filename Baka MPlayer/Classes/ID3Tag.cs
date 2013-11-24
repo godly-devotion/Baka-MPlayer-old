@@ -1,21 +1,18 @@
-﻿/****************************
-* UltraID3Lib wrapper class *
-* by Joshua Park            *
-****************************/
-
-using System.Diagnostics;
+﻿/*****************************
+* taglib-sharp wrapper class *
+* by Joshua Park             *
+*****************************/
 using System.Drawing;
 using System.IO;
-using HundredMilesSoftware.UltraID3Lib;
 
 public class PictureTag
 {
-    public Bitmap AlbumArt;
+    public Image AlbumArt;
     public string Type;
 
-    public PictureTag(Bitmap albumArt, string type)
+    public PictureTag(Image albumArt, string type)
     {
-        this.AlbumArt = albumArt;
+        this.AlbumArt = new Bitmap(albumArt);
         this.Type = type;
     }
 
@@ -31,38 +28,20 @@ public class PictureTag
 
 public class ID3Tag
 {
-    private UltraID3 tagReader;
-
-    public void Read(string url)
+    public PictureTag GetAlbumPictureTag(string url)
     {
         if (File.Exists(url))
         {
-            try
+            using (TagLib.File f = TagLib.File.Create(url))
             {
-                tagReader = new UltraID3();
-                tagReader.Read(url);
-            }
-            catch (IOException ex)
-            {
-                // unload tagReader
-                tagReader = null;
-
-                Debug.WriteLine("Error at ID3Tag class: " + ex.Message);
+                if (f.Tag.Pictures.Length > 0)
+                {
+                    var pic = f.Tag.Pictures[0];
+                    using (var albumArt = Image.FromStream(new MemoryStream(pic.Data.Data)))
+                        return new PictureTag(albumArt, pic.MimeType);
+                }
             }
         }
-    }
-
-    public PictureTag GetAlbumPictureTag()
-    {
-        if (tagReader == null)
-            return new PictureTag(null, null);
-
-        var frames = tagReader.ID3v2Tag.Frames.GetFrames(MultipleInstanceID3v2FrameTypes.ID3v23Picture);
-        if (frames.Count > 0)
-        {
-            var image = (ID3v23PictureFrame)frames[0];
-            return new PictureTag(image.Picture, image.GetPictureMIMEType());
-        }
-        return new PictureTag(null, null);
+        return null;
     }
 }
