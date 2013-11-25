@@ -249,7 +249,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.openFileWithExternalSubsToolStripMenuItem.Name = "openFileWithExternalSubsToolStripMenuItem";
             this.openFileWithExternalSubsToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
-            this.openFileWithExternalSubsToolStripMenuItem.Text = "Open File with External Subs";
+            this.openFileWithExternalSubsToolStripMenuItem.Text = "Open File with External &Subs";
             this.openFileWithExternalSubsToolStripMenuItem.Click += new System.EventHandler(this.openFileWithExternalSubsToolStripMenuItem_Click);
             // 
             // openURLToolStripMenuItem
@@ -410,33 +410,33 @@ namespace Baka_MPlayer.Forms
             this.repeatToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.repeatToolStripMenuItem.Name = "repeatToolStripMenuItem";
             this.repeatToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
-            this.repeatToolStripMenuItem.Text = "Re&peat";
+            this.repeatToolStripMenuItem.Text = "Repea&t";
             // 
             // offToolStripMenuItem
             // 
             this.offToolStripMenuItem.Checked = true;
             this.offToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-            this.offToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.offToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.offToolStripMenuItem.Text = "&Off";
             this.offToolStripMenuItem.Click += new System.EventHandler(this.offToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(112, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
             // 
             // playlistToolStripMenuItem
             // 
             this.playlistToolStripMenuItem.Name = "playlistToolStripMenuItem";
-            this.playlistToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.playlistToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.playlistToolStripMenuItem.Text = "&Playlist";
             this.playlistToolStripMenuItem.Click += new System.EventHandler(this.playlistToolStripMenuItem_Click);
             // 
             // thisFileToolStripMenuItem
             // 
             this.thisFileToolStripMenuItem.Name = "thisFileToolStripMenuItem";
-            this.thisFileToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.thisFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.thisFileToolStripMenuItem.Text = "&This File";
             this.thisFileToolStripMenuItem.Click += new System.EventHandler(this.thisFileToolStripMenuItem_Click);
             // 
@@ -564,7 +564,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.noneToolStripMenuItem1.Enabled = false;
             this.noneToolStripMenuItem1.Name = "noneToolStripMenuItem1";
-            this.noneToolStripMenuItem1.Size = new System.Drawing.Size(113, 22);
+            this.noneToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.noneToolStripMenuItem1.Text = "[ none ]";
             // 
             // aspectRatioToolStripMenuItem
@@ -582,7 +582,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.autodetectToolStripMenuItem.Enabled = false;
             this.autodetectToolStripMenuItem.Name = "autodetectToolStripMenuItem";
-            this.autodetectToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.autodetectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.autodetectToolStripMenuItem.Text = "&Autodetect";
             this.autodetectToolStripMenuItem.Click += new System.EventHandler(this.autodetectToolStripMenuItem_Click);
             // 
@@ -590,7 +590,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.force43ToolStripMenuItem.Enabled = false;
             this.force43ToolStripMenuItem.Name = "force43ToolStripMenuItem";
-            this.force43ToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.force43ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.force43ToolStripMenuItem.Text = "Force &4:3";
             this.force43ToolStripMenuItem.Click += new System.EventHandler(this.force43ToolStripMenuItem_Click);
             // 
@@ -598,7 +598,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.force169ToolStripMenuItem.Enabled = false;
             this.force169ToolStripMenuItem.Name = "force169ToolStripMenuItem";
-            this.force169ToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.force169ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.force169ToolStripMenuItem.Text = "Force 16:&9";
             this.force169ToolStripMenuItem.Click += new System.EventHandler(this.force169ToolStripMenuItem_Click);
             // 
@@ -606,7 +606,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.force2351ToolStripMenuItem.Enabled = false;
             this.force2351ToolStripMenuItem.Name = "force2351ToolStripMenuItem";
-            this.force2351ToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
+            this.force2351ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.force2351ToolStripMenuItem.Text = "Force &2.35:1";
             this.force2351ToolStripMenuItem.Click += new System.EventHandler(this.force2351ToolStripMenuItem_Click);
             // 
@@ -622,7 +622,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.mainToolStripMenuItem.Enabled = false;
             this.mainToolStripMenuItem.Name = "mainToolStripMenuItem";
-            this.mainToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.mainToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.mainToolStripMenuItem.Text = "[ none ]";
             // 
             // toolStripSeparator10
