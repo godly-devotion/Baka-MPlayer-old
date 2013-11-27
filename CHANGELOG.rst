@@ -1,8 +1,19 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.3.6.0 (2013-11-17)
+Latest Version 1.3.7.0 (2013-11-27)
 -----------------------------------
+
+- Fixed: Small bugs
+- Fixed: Better cpu/memory usage
+- Changed: Minor interface tweaks
+- Changed: Switched from UltraID3Lib to taglib-sharp
+- Added: New voice commands
+- Added: Voice audio level indicator
+- Updated: mpv build
+
+Version 1.3.6.0 (2013-11-17)
+----------------------------
 
 - Fixed: Small bugs
 - Fixed: Minor interface tweaks
