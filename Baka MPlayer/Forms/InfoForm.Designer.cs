@@ -120,7 +120,7 @@
             this.infoList.MultiSelect = false;
             this.infoList.Name = "infoList";
             this.infoList.Size = new System.Drawing.Size(402, 276);
-            this.infoList.TabIndex = 1;
+            this.infoList.TabIndex = 0;
             this.infoList.UseCompatibleStateImageBehavior = false;
             this.infoList.View = System.Windows.Forms.View.Details;
             // 
@@ -152,7 +152,7 @@
             this.mplayerProcessLabel.Location = new System.Drawing.Point(0, 298);
             this.mplayerProcessLabel.Name = "mplayerProcessLabel";
             this.mplayerProcessLabel.Size = new System.Drawing.Size(402, 22);
-            this.mplayerProcessLabel.TabIndex = 2;
+            this.mplayerProcessLabel.TabIndex = 1;
             this.mplayerProcessLabel.Text = "Baka MPlayer";
             this.mplayerProcessLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -167,7 +167,7 @@
             this.searchTextbox.Location = new System.Drawing.Point(0, 0);
             this.searchTextbox.Name = "searchTextbox";
             this.searchTextbox.Size = new System.Drawing.Size(402, 20);
-            this.searchTextbox.TabIndex = 0;
+            this.searchTextbox.TabIndex = 2;
             this.searchTextbox.TextChanged += new System.EventHandler(this.searchTextbox_TextChanged);
             // 
             // tabPage2
@@ -205,7 +205,7 @@
             this.tagList.MultiSelect = false;
             this.tagList.Name = "tagList";
             this.tagList.Size = new System.Drawing.Size(264, 308);
-            this.tagList.TabIndex = 45;
+            this.tagList.TabIndex = 0;
             this.tagList.UseCompatibleStateImageBehavior = false;
             this.tagList.View = System.Windows.Forms.View.Details;
             // 
@@ -229,7 +229,7 @@
             this.imgTypeTextBox.Name = "imgTypeTextBox";
             this.imgTypeTextBox.ReadOnly = true;
             this.imgTypeTextBox.Size = new System.Drawing.Size(100, 22);
-            this.imgTypeTextBox.TabIndex = 16;
+            this.imgTypeTextBox.TabIndex = 3;
             this.imgTypeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // imgLabel
@@ -241,7 +241,7 @@
             this.imgLabel.Location = new System.Drawing.Point(283, 173);
             this.imgLabel.Name = "imgLabel";
             this.imgLabel.Size = new System.Drawing.Size(100, 19);
-            this.imgLabel.TabIndex = 15;
+            this.imgLabel.TabIndex = 2;
             this.imgLabel.Text = "Image Type:";
             this.imgLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -255,7 +255,7 @@
             this.demTextBox.Name = "demTextBox";
             this.demTextBox.ReadOnly = true;
             this.demTextBox.Size = new System.Drawing.Size(100, 22);
-            this.demTextBox.TabIndex = 18;
+            this.demTextBox.TabIndex = 5;
             this.demTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // demLabel
@@ -267,7 +267,7 @@
             this.demLabel.Location = new System.Drawing.Point(283, 227);
             this.demLabel.Name = "demLabel";
             this.demLabel.Size = new System.Drawing.Size(100, 19);
-            this.demLabel.TabIndex = 17;
+            this.demLabel.TabIndex = 4;
             this.demLabel.Text = "Demensions:";
             this.demLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -284,7 +284,7 @@
             this.saveImgLabel.Location = new System.Drawing.Point(276, 129);
             this.saveImgLabel.Name = "saveImgLabel";
             this.saveImgLabel.Size = new System.Drawing.Size(120, 22);
-            this.saveImgLabel.TabIndex = 14;
+            this.saveImgLabel.TabIndex = 1;
             this.saveImgLabel.TabStop = true;
             this.saveImgLabel.Text = "&Save Image";
             this.saveImgLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
