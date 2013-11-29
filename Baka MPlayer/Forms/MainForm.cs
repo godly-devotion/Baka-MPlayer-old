@@ -1920,16 +1920,16 @@ namespace Baka_MPlayer.Forms
                 if (seekBar_IsMouseDown)
                     return;
 
+                durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
+
                 // check if file is seekable
                 if (Info.Current.TotalLength > 0.0)
                 {
                     seekBar.Value = Convert.ToInt32((Info.Current.Duration * seekBar.Maximum) / Info.Current.TotalLength); // %
-                    durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
                 }
                 else
                 {
                     seekBar.Value = 0;
-                    durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
                     timeLeftLabel.Text = "UNKNOWN";
                     return;
                 }
