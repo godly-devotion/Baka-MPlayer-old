@@ -509,8 +509,7 @@ public class MPlayer
                         SetPlayState(PlayStates.Playing, true);
                     break;
                 case "AV":
-                    if (Info.Current.PlayState == PlayStates.Playing)
-                        ProcessProgress(Functions.TryParse.ParseDouble(value));
+                    ProcessProgress(Functions.TryParse.ParseDouble(value));
                     break;
                 case "WIDTH":
                     Info.VideoInfo.Width = Functions.TryParse.ParseInt(value);
@@ -610,7 +609,7 @@ public class MPlayer
     {
         data = data.Trim();
 
-        var i = data.IndexOf(": ");
+        var i = data.IndexOf(": ", StringComparison.Ordinal);
 
         if (i < 1)
         {

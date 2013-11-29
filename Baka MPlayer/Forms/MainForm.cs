@@ -1177,8 +1177,15 @@ namespace Baka_MPlayer.Forms
                 audioTracksToolStripMenuItem.DropDownItems.Add(item);
             }
 
-            if (Info.AudioTracks.Count < 2)
+            if (Info.AudioTracks.Count.Equals(1))
+            {
                 audioTracksToolStripMenuItem.DropDownItems[0].Enabled = false;
+            }
+            else if (Info.AudioTracks.Count.Equals(0))
+            {
+                var item = new ToolStripMenuItem("[ none ]") { Enabled = false };
+                audioTracksToolStripMenuItem.DropDownItems.Add(item);
+            }
         }
 
         private void chaptersMenuItem_Click(object sender, EventArgs e)
@@ -1913,10 +1920,18 @@ namespace Baka_MPlayer.Forms
                 if (seekBar_IsMouseDown)
                     return;
 
+                // check if file is seekable
                 if (Info.Current.TotalLength > 0.0)
                 {
                     seekBar.Value = Convert.ToInt32((Info.Current.Duration * seekBar.Maximum) / Info.Current.TotalLength); // %
                     durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
+                }
+                else
+                {
+                    seekBar.Value = 0;
+                    durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
+                    timeLeftLabel.Text = "UNKNOWN";
+                    return;
                 }
                 
                 if (settings.GetBoolValue(SettingEnum.ShowTimeRemaining))
@@ -1995,7 +2010,7 @@ namespace Baka_MPlayer.Forms
 
         private void SetControls(bool enable, bool lastFile)
         {
-            seekBar.Enabled = enable;
+            seekBar.Enabled = Info.Current.TotalLength > 0.0 && enable;
 
             stopToolStripMenuItem.Enabled = enable;
             jumpToTimeToolStripMenuItem.Enabled = enable;
@@ -2236,6 +2251,7 @@ namespace Baka_MPlayer.Forms
                 switch (input)
                 {
                     case "CLEAR":
+                    case "CLR":
                         outputTextbox.Clear();
                         break;
                     case "EXIT":
