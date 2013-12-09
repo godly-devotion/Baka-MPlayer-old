@@ -1933,11 +1933,16 @@ namespace Baka_MPlayer.Forms
                     timeLeftLabel.Text = "UNKNOWN";
                     return;
                 }
-                
+
                 if (settings.GetBoolValue(SettingEnum.ShowTimeRemaining))
-                    timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength - Info.Current.Duration));
+                {
+                    timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(
+                        Math.Abs(Info.Current.TotalLength - Info.Current.Duration)));
+                }
                 else
+                {
                     timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength);
+                }
             });
         }
 
