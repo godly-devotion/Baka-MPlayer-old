@@ -131,6 +131,7 @@ namespace Functions
                 return ex.Message;
             }
         }
+
     }
 
     public static class TryParse

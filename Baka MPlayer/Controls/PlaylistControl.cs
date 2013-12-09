@@ -435,11 +435,13 @@ namespace Baka_MPlayer.Controls
             if (SelectedIndex != -1)
             {
                 menuItem1.Enabled = true;
+                menuItem3.Enabled = true;
                 menuItem2.Enabled = true;
             }
             else
             {
                 menuItem1.Enabled = false;
+                menuItem3.Enabled = false;
                 menuItem2.Enabled = false;
             }
         }
@@ -448,6 +450,37 @@ namespace Baka_MPlayer.Controls
             // Remove from Playlist
             RemoveAt(SelectedIndex);
         }
+
+        private void menuItem3_Click(object sender, EventArgs e)
+        {
+            // Delete from Disk
+            if (SelectedIndex != -1 && SelectedIndex != GetPlayingItem.Index)
+            {
+                try
+                {
+                    var file = string.Format("{0}\\{1}", Info.GetDirectoryName, GetSelectedItem.Text);
+                    File.Delete(file);
+                    RemoveAt(SelectedIndex);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show(
+                        "The file you are trying to delete seems to be in use by another program. Try closing the program that has this file open.",
+                        "Couldn't Delete File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("The file couldn't be deleted.\nReason: " + ex.Message,
+                        "Failed to delete file",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("You can't delete the currently playing file.", "I'm afraid you can't do that",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         private void menuItem2_Click(object sender, EventArgs e)
         {
             // Refresh

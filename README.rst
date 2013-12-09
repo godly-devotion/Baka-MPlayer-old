@@ -5,8 +5,8 @@ Develop
 =======
 In order to open this project, you require:
 
-- Windows 7 or newer
-- Visual Studio 2012 or newer
+- Windows 7 SP 1 or newer
+- Visual Studio 2013 or newer
 
 Note
 ----

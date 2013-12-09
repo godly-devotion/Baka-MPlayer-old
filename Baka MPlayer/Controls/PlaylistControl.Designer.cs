@@ -39,6 +39,8 @@
             this.refreshPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileContextMenu = new System.Windows.Forms.ContextMenu();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.menuItem3 = new System.Windows.Forms.MenuItem();
+            this.menuItem4 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
             this.seperatorBox = new System.Windows.Forms.PictureBox();
             this.searchTextBox = new Baka_MPlayer.Controls.CustomTextBox();
@@ -62,7 +64,7 @@
             this.playlistList.MultiSelect = false;
             this.playlistList.Name = "playlistList";
             this.playlistList.ShowGroups = false;
-            this.playlistList.Size = new System.Drawing.Size(170, 298);
+            this.playlistList.Size = new System.Drawing.Size(170, 358);
             this.playlistList.TabIndex = 2;
             this.playlistList.TabStop = false;
             this.playlistList.UseCompatibleStateImageBehavior = false;
@@ -88,7 +90,7 @@
             this.currentFileButton,
             this.currentFileLabel,
             this.optionsDropDownButton});
-            this.playlistStatusStrip.Location = new System.Drawing.Point(0, 320);
+            this.playlistStatusStrip.Location = new System.Drawing.Point(0, 380);
             this.playlistStatusStrip.Name = "playlistStatusStrip";
             this.playlistStatusStrip.Size = new System.Drawing.Size(170, 23);
             this.playlistStatusStrip.SizingGrip = false;
@@ -148,6 +150,8 @@
             // 
             this.fileContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
             this.menuItem1,
+            this.menuItem3,
+            this.menuItem4,
             this.menuItem2});
             this.fileContextMenu.Popup += new System.EventHandler(this.fileContextMenu_Popup);
             // 
@@ -157,10 +161,21 @@
             this.menuItem1.Text = "&Remove from Playlist";
             this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
             // 
+            // menuItem3
+            // 
+            this.menuItem3.Index = 1;
+            this.menuItem3.Text = "&Delete from Disk";
+            this.menuItem3.Click += new System.EventHandler(this.menuItem3_Click);
+            // 
+            // menuItem4
+            // 
+            this.menuItem4.Index = 2;
+            this.menuItem4.Text = "-";
+            // 
             // menuItem2
             // 
-            this.menuItem2.Index = 1;
-            this.menuItem2.Text = "&Refresh";
+            this.menuItem2.Index = 3;
+            this.menuItem2.Text = "Re&fresh";
             this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
             // 
             // seperatorBox
@@ -201,7 +216,7 @@
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PlaylistControl";
-            this.Size = new System.Drawing.Size(170, 343);
+            this.Size = new System.Drawing.Size(170, 403);
             this.playlistStatusStrip.ResumeLayout(false);
             this.playlistStatusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seperatorBox)).EndInit();
@@ -225,5 +240,7 @@
         private System.Windows.Forms.MenuItem menuItem2;
         private System.Windows.Forms.PictureBox seperatorBox;
         internal CustomTextBox searchTextBox;
+        private System.Windows.Forms.MenuItem menuItem4;
+        private System.Windows.Forms.MenuItem menuItem3;
     }
 }
