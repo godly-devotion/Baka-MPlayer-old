@@ -71,18 +71,26 @@ namespace Baka_MPlayer.Forms
 
         private void OpenFile()
         {
+            if (URL.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("mpv cannot play HTTPS urls. Try the url's HTTP equivalent.",
+                    "Cannot Open URL", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             if (URL.Equals(Info.URL, StringComparison.OrdinalIgnoreCase))
             {
-                if (MessageBox.Show(string.Format("\"{0}\" is already playing.\nDo you still want to open this file?", Path.GetFileName(Info.URL)),
+                if (MessageBox.Show(string.Format("\"{0}\" is already playing.\nDo you still want to open this file?", Info.FullFileName),
                     "Already Playing", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
+                    this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
+                return;
             }
-            else
-            {
-                this.Close();
-            }
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void urlTextbox_TextChanged(object sender, EventArgs e)

@@ -93,7 +93,6 @@
             // okButton
             // 
             this.okButton.BackColor = System.Drawing.Color.Transparent;
-            this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.okButton.Enabled = false;
             this.okButton.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
             this.okButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
