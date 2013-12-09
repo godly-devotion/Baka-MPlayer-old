@@ -68,7 +68,7 @@ namespace Baka_MPlayer.Controls
                 {
                     playlistList.Items[value].Selected = true;
                     playlistList.Items[value].Focused = true;
-                    playlistList.TopItem = playlistList.Items[value];
+                    playlistList.TopItem = playlistList.Items[value > 0 ? value - 1 : 0];
                     playlistList_SelectedIndexChanged(null, null);
                 }
             }
@@ -299,8 +299,7 @@ namespace Baka_MPlayer.Controls
                 else
                 {
                     MessageBox.Show(
-                        GetSelectedItem.Text +
-                        " does not exist in this folder! It was either modified or deleted.",
+                        GetSelectedItem.Text + " does not exist in this folder! It was either modified or deleted.",
                         "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     searchTextBox.Focus();
                 }
