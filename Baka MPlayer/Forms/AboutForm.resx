@@ -133,13 +133,13 @@
     <value>True</value>
   </metadata>
   <data name="richTextBox2.Text" xml:space="preserve">
-    <value>Baka MPlayer (BMPlayer)
+    <value>Baka MPlayer
 Copyright © 2013 - Joshua Park
 GNU General Public License version 2 (GPLv2)
 
 mpv is licensed under GPLv2
 
-TagLib# (aka taglib-sharp) is licensed under LGPLv2.1
+TagLib# (taglib-sharp) is licensed under LGPLv2.1
 
 ColorSlider control is licensed under LGPLv3
 Michal Brylka (http://www.codeproject.com/KB/selection/ColorSlider.aspx)

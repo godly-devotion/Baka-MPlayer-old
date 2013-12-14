@@ -1920,7 +1920,8 @@ namespace Baka_MPlayer.Forms
                 if (seekBar_IsMouseDown)
                     return;
 
-                durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
+                if (Info.Current.PlayState == PlayStates.Playing)
+                    durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
 
                 // check if file is seekable
                 if (Info.Current.TotalLength > 0.0)
