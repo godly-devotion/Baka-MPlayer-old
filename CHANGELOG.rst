@@ -1,8 +1,18 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.3.7.0 (2013-11-27)
+Latest Version 1.3.7.1 (2013-12-16)
 -----------------------------------
+
+- Fixed: Small bugs
+- Fixed: General lag in player response (temporary fix by using older mpv build)
+- Changed: Warn about URLs starting with HTTPS
+- Added: Can delete file from playlist
+- Added: Previous file is now located at the top of the playlist
+
+
+Version 1.3.7.0 (2013-11-27)
+----------------------------
 
 - Fixed: Small bugs
 - Fixed: Better cpu/memory usage
