@@ -311,7 +311,10 @@ namespace Baka_MPlayer.Forms
 
         private int callbackFunction_KeyboardHook(int code, IntPtr wParam, IntPtr lParam)
         {
-            if (code.Equals(3) && Convert.ToString(lParam.ToInt64(), 2).StartsWith("10") && NotFocusedOnTextbox)
+            // checks bit 30 of WM_KEYDOWN to see the previous key state
+            bool isBitSet = (lParam.ToInt64() & (1 << 30)) == 0;
+
+            if (code.Equals(3) && isBitSet && NotFocusedOnTextbox)
             {
                 switch ((Keys)wParam.ToInt32())
                 {
