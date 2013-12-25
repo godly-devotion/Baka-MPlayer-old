@@ -64,7 +64,7 @@
             this.playlistList.MultiSelect = false;
             this.playlistList.Name = "playlistList";
             this.playlistList.ShowGroups = false;
-            this.playlistList.Size = new System.Drawing.Size(170, 378);
+            this.playlistList.Size = new System.Drawing.Size(170, 255);
             this.playlistList.TabIndex = 2;
             this.playlistList.TabStop = false;
             this.playlistList.UseCompatibleStateImageBehavior = false;
@@ -90,7 +90,7 @@
             this.currentFileButton,
             this.currentFileLabel,
             this.optionsDropDownButton});
-            this.playlistStatusStrip.Location = new System.Drawing.Point(0, 400);
+            this.playlistStatusStrip.Location = new System.Drawing.Point(0, 277);
             this.playlistStatusStrip.Name = "playlistStatusStrip";
             this.playlistStatusStrip.Size = new System.Drawing.Size(170, 23);
             this.playlistStatusStrip.SizingGrip = false;
@@ -216,7 +216,7 @@
             this.ForeColor = System.Drawing.Color.White;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PlaylistControl";
-            this.Size = new System.Drawing.Size(170, 423);
+            this.Size = new System.Drawing.Size(170, 300);
             this.playlistStatusStrip.ResumeLayout(false);
             this.playlistStatusStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.seperatorBox)).EndInit();

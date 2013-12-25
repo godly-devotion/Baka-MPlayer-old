@@ -42,7 +42,7 @@ namespace Baka_MPlayer.Controls
         public ListViewItem GetPlayingItem { get; private set; }
 
         /// <summary>
-        /// Gets the selected item (if none returns null)
+        /// Gets the selected item (returns null if none)
         /// </summary>
         public ListViewItem GetSelectedItem
         {
@@ -245,6 +245,41 @@ namespace Baka_MPlayer.Controls
             UpdateUI(false);
         }
 
+        /// <summary>
+        /// Deletes the playlist file permanently
+        /// </summary>
+        private void DeleteFile(int index)
+        {
+            // check for valid index
+            if (!(index > -1 && index < GetTotalItems))
+                throw new IndexOutOfRangeException();
+
+            if (index != GetPlayingItem.Index)
+            {
+                try
+                {
+                    File.Delete(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[index].Text));
+                    RemoveAt(SelectedIndex);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show(
+                        "The file you are trying to delete seems to be in use by another program. Try closing the program that has this file open.",
+                        "Couldn't Delete File", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("The file couldn't be deleted.\nReason: " + ex.Message,
+                        "Couldn't delete file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("You can't delete the currently playing file.", "I'm afraid you can't do that",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
         private void UpdateUI(bool selectCurrentFile)
         {
             GetPlayingItem = playlistList.FindItemWithText(Info.GetName);
@@ -379,7 +414,9 @@ namespace Baka_MPlayer.Controls
         }
         private void playlistList_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete)
+            if (e.KeyCode == Keys.Delete && e.Shift)
+                DeleteFile(SelectedIndex);
+            else if (e.KeyCode == Keys.Delete)
                 RemoveAt(SelectedIndex);
         }
         private void playlistList_SelectedIndexChanged(object sender, EventArgs e)
@@ -453,31 +490,7 @@ namespace Baka_MPlayer.Controls
         private void menuItem3_Click(object sender, EventArgs e)
         {
             // Delete from Disk
-            if (SelectedIndex != -1 && SelectedIndex != GetPlayingItem.Index)
-            {
-                try
-                {
-                    var file = string.Format("{0}\\{1}", Info.GetDirectoryName, GetSelectedItem.Text);
-                    File.Delete(file);
-                    RemoveAt(SelectedIndex);
-                }
-                catch (IOException)
-                {
-                    MessageBox.Show(
-                        "The file you are trying to delete seems to be in use by another program. Try closing the program that has this file open.",
-                        "Couldn't Delete File", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("The file couldn't be deleted.\nReason: " + ex.Message,
-                        "Failed to delete file",MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("You can't delete the currently playing file.", "I'm afraid you can't do that",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            DeleteFile(SelectedIndex);
         }
 
         private void menuItem2_Click(object sender, EventArgs e)
