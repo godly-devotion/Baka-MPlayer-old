@@ -2,6 +2,8 @@
 * taglib-sharp wrapper class *
 * by Joshua Park             *
 *****************************/
+
+using System;
 using System.Drawing;
 using System.IO;
 
@@ -30,7 +32,9 @@ public class ID3Tag
 {
     public PictureTag GetAlbumPictureTag(string url)
     {
-        if (File.Exists(url))
+        if (!File.Exists(url)) return null;
+
+        try
         {
             using (TagLib.File f = TagLib.File.Create(url))
             {
@@ -41,6 +45,10 @@ public class ID3Tag
                         return new PictureTag(albumArt, pic.MimeType);
                 }
             }
+        }
+        catch (Exception)
+        {
+            return null;
         }
         return null;
     }

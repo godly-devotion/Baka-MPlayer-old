@@ -193,7 +193,7 @@ namespace Baka_MPlayer.Controls
                 if (showAllFilesToolStripMenuItem.Checked)
                     files = dirInfo.GetFiles("*.*");
                 else
-                    files = dirInfo.GetFiles('*' + Path.GetExtension(Info.FullFileName));
+                    files = dirInfo.GetFiles("*" + Path.GetExtension(Info.FullFileName));
 
                 var filesToSkipRegex = new Regex(@".*\.(ini|txt|db|jpg|png)$", RegexOptions.IgnoreCase);
                 for (var i = 0; i <= files.Length - 1; i++)
@@ -250,7 +250,7 @@ namespace Baka_MPlayer.Controls
         /// </summary>
         private void DeleteFile(int index)
         {
-            // check for valid index
+            // check for invalid index
             if (!(index > -1 && index < GetTotalItems))
                 throw new IndexOutOfRangeException();
 
