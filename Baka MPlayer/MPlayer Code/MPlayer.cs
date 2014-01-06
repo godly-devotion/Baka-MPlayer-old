@@ -372,12 +372,6 @@ public class MPlayer
             OnStatusChanged(new StatusChangedEventArgs(e.Data.Trim(), true));
             return;
         }
-        if (e.Data.StartsWith("Cache is not responding - slow/stuck network connection?") ||
-            e.Data.StartsWith("Cache keeps not responding."))
-        {
-            OnStatusChanged(new StatusChangedEventArgs("Your network is slow or stuck", true));
-            return;
-        }
 
         //[fontconfig] Scanning dir C:/Windows/Fonts (must set FC_DEBUG to show)
         if (!cachingFonts && e.Data.StartsWith("[fontconfig]"))
@@ -439,6 +433,13 @@ public class MPlayer
 
             ProcessDetails(key, value);
             Info.OtherInfo.Add(new ID_Info(key, value));
+            return;
+        }
+
+        if (e.Data.StartsWith("Cache is not responding - slow/stuck network connection?") ||
+            e.Data.StartsWith("Cache keeps not responding."))
+        {
+            OnStatusChanged(new StatusChangedEventArgs("Your network is slow or stuck, please wait a bit", true));
             return;
         }
 
