@@ -25,7 +25,7 @@ namespace Baka_MPlayer.Forms
             {
                 statusLabel.Text = "Update Available!";
                 versionLabel.Text = string.Format("Latest Version: {0} (Released {1})\nYour Version: {2}",
-                    info.LatestVer, info.Date, Application.ProductVersion);
+                    info.LatestVer, info.Date, Program.GetVersion());
                 newLabel.Text = info.BugFixes;
                 downloadButton.Enabled = true;
             }

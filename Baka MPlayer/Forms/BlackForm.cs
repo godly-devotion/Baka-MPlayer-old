@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using MPlayer.Info;
 
 namespace Baka_MPlayer.Forms
 {
     public partial class BlackForm : Form
     {
         private readonly MainForm mainForm;
+        private readonly IFileInfo fileInfo;
 
-        public BlackForm(MainForm mainForm)
+        public BlackForm(MainForm mainForm, IFileInfo fileInfo)
         {
             InitializeComponent();
 
-            // set ref to mainForm
             this.mainForm = mainForm;
+            this.fileInfo = fileInfo;
 
             // set location & size to primary screen to reduce flicker while starting
             this.Location = new Point(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
@@ -22,7 +24,7 @@ namespace Baka_MPlayer.Forms
 
         public void RefreshTitle()
         {
-            titleLabel.Text = Functions.URL.DecodeURL(Info.MovieName);
+            titleLabel.Text = Functions.URL.DecodeURL(fileInfo.MovieName);
         }
 
         #region Events

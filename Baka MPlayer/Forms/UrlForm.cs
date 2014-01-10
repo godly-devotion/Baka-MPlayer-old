@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
+using MPlayer.Info;
 
 namespace Baka_MPlayer.Forms
 {
@@ -47,11 +48,14 @@ namespace Baka_MPlayer.Forms
             set { urlTextbox.Text = value; }
         }
 
-        public UrlForm()
+        private readonly IFileInfo fileInfo;
+
+        public UrlForm(IFileInfo fileInfo)
         {
             InitializeComponent();
 
-            this.URL = Info.URL;
+            this.fileInfo = fileInfo;
+            this.URL = fileInfo.Url;
         }
 
         private void WebForm_Load(object sender, EventArgs e)
@@ -78,9 +82,9 @@ namespace Baka_MPlayer.Forms
                 return;
             }
 
-            if (URL.Equals(Info.URL, StringComparison.OrdinalIgnoreCase))
+            if (URL.Equals(fileInfo.Url, StringComparison.OrdinalIgnoreCase))
             {
-                if (MessageBox.Show(string.Format("\"{0}\" is already playing.\nDo you still want to open this file?", Info.FullFileName),
+                if (MessageBox.Show(string.Format("\"{0}\" is already playing.\nDo you still want to open this file?", fileInfo.FullFileName),
                     "Already Playing", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 {
                     this.DialogResult = DialogResult.OK;

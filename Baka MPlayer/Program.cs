@@ -1,8 +1,9 @@
-﻿using Baka_MPlayer.Forms;
-using System;
+﻿using System;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Baka_MPlayer.Forms;
 
 namespace Baka_MPlayer
 {
@@ -22,7 +23,7 @@ namespace Baka_MPlayer
         }
 
         /// <summary>
-        /// Returns version information (1.2.3.4)
+        /// Returns version information (x.x.x.x)
         /// </summary>
         public static string GetVersion()
         {
@@ -35,9 +36,12 @@ namespace Baka_MPlayer
             {
                 var ex = (Exception)e.ExceptionObject;
                 DumpData(ex.Message, ex.StackTrace);
-                MessageBox.Show("Baka MPlayer ran into a fatal problem!\n" +
-                                "Information about the error has been saved to \'error_info.txt\'",
-                                "Uh oh", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                var yes = MessageBox.Show("Baka MPlayer ran into a fatal problem!\n\n" +
+                                "Detailed information about the error has been saved to \'error_info.txt\'\n" +
+                                "Would you like to view the file?",
+                                "Uh oh", MessageBoxButtons.YesNo, MessageBoxIcon.Stop) == DialogResult.Yes;
+                if (yes)
+                    Process.Start("error_info.txt");
             }
             catch (Exception) { }
             finally
@@ -51,9 +55,12 @@ namespace Baka_MPlayer
             try
             {
                 DumpData(e.Exception.Message, e.Exception.StackTrace);
-                MessageBox.Show("Baka MPlayer ran into a problem it couldn't handle!\n" +
-                                "Information about the error has been saved to \'error_info.txt\'",
-                                "Uh oh", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                var yes = MessageBox.Show("Baka MPlayer ran into a problem it couldn't handle!\n\n" +
+                                "Detailed information about the error has been saved to \'error_info.txt\'\n" +
+                                "Would you like to view the file?",
+                                "Uh oh", MessageBoxButtons.YesNo, MessageBoxIcon.Stop) == DialogResult.Yes;
+                if (yes)
+                    Process.Start("error_info.txt");
             }
             catch (Exception) { }
         }
@@ -64,15 +71,15 @@ namespace Baka_MPlayer
             {
                 var contents = new StringBuilder();
                 contents.AppendLine("Baka MPlayer Error Info");
-                contents.AppendFormat("Version: {0}\n\n", GetVersion());
+                contents.AppendFormat("Version: {0}\r\n\r\n", GetVersion());
 
-                contents.AppendFormat("Generated: {0}\n", DateTime.UtcNow);
-                contents.AppendFormat("OSVersion: {0}\n", Environment.OSVersion);
-                contents.AppendFormat("Is64BitOperatingSystem: {0}\n", Functions.OS.IsRunning64Bit());
-                contents.AppendFormat("Is64BitProcess: {0}\n\n", "n/a");
+                contents.AppendFormat("Generated (UTC): {0}\r\n", DateTime.UtcNow);
+                contents.AppendFormat("OSVersion: {0}\r\n", Environment.OSVersion);
+                contents.AppendFormat("Is64BitOperatingSystem: {0}\r\n", Functions.OS.IsRunning64Bit());
+                contents.AppendFormat("Is64BitProcess: {0}\r\n\r\n", "n/a");
 
-                contents.AppendFormat("Message: {0}\n", msg);
-                contents.AppendFormat("Stack Trace:\n{0}\n", stackTrace);
+                contents.AppendFormat("Message: {0}\r\n", msg);
+                contents.AppendFormat("Stack Trace:\r\n{0}\r\n", stackTrace);
                 contents.AppendLine("--------------------------------------------------");
 
                 file.WriteLine(contents);

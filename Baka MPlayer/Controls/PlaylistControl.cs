@@ -5,6 +5,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Baka_MPlayer.Forms;
+using MPlayer;
 
 namespace Baka_MPlayer.Controls
 {
@@ -13,7 +14,7 @@ namespace Baka_MPlayer.Controls
         #region Variables
 
         private MainForm mainForm;
-        private MPlayer mplayer;
+        private IMPlayer mp;
 
         #endregion
 
@@ -24,10 +25,10 @@ namespace Baka_MPlayer.Controls
             InitializeComponent();
         }
 
-        public void Init(MainForm mainForm, MPlayer mplayer)
+        public void Init(MainForm mainForm, IMPlayer mp)
         {
             this.mainForm = mainForm;
-            this.mplayer = mplayer;
+            this.mp = mp;
 
             playlistList.ContextMenu = fileContextMenu;
         }
@@ -109,10 +110,10 @@ namespace Baka_MPlayer.Controls
             if (i == -1)
                 return;
 
-            var file = string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[i].Text);
+            var file = Path.Combine(mp.FileInfo.GetDirectoryName, playlistList.Items[i].Text);
             if (File.Exists(file))
             {
-                mplayer.OpenFile(file);
+                mp.OpenFile(file);
                 return;
             }
 
@@ -127,10 +128,10 @@ namespace Baka_MPlayer.Controls
             if (i == GetTotalItems)
                 return;
 
-            var file = string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[i].Text);
+            var file = Path.Combine(mp.FileInfo.GetDirectoryName, playlistList.Items[i].Text);
             if (File.Exists(file))
             {
-                mplayer.OpenFile(file);
+                mp.OpenFile(file);
                 return;
             }
 
@@ -141,10 +142,10 @@ namespace Baka_MPlayer.Controls
 
         public void PlayFile(int index)
         {
-            var file = string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[index].Text);
+            var file = Path.Combine(mp.FileInfo.GetDirectoryName, playlistList.Items[index].Text);
             if (index < GetTotalItems && index > -1 && File.Exists(file))
             {
-                mplayer.OpenFile(file);
+                mp.OpenFile(file);
                 return;
             }
             MessageBox.Show("The file cannot be played because it does not exist.", "Error", MessageBoxButtons.OK,
@@ -153,7 +154,7 @@ namespace Baka_MPlayer.Controls
 
         public void RefreshPlaylist(bool forceAll)
         {
-            if (forceAll || playlistList.FindItemWithText(Info.GetName) == null)
+            if (forceAll || playlistList.FindItemWithText(mp.FileInfo.GetName) == null)
             {
                 FillPlaylist();
                 mainForm.ShowPlaylist = !GetTotalItems.Equals(1);
@@ -177,7 +178,7 @@ namespace Baka_MPlayer.Controls
 
         private void OpenFile(string url)
         {
-            Invoke((MethodInvoker)(() => mplayer.OpenFile(url)));
+            Invoke((MethodInvoker)(() => mp.OpenFile(url)));
         }
 
         private void FillPlaylist()
@@ -185,15 +186,15 @@ namespace Baka_MPlayer.Controls
             playlistList.BeginUpdate();
             playlistList.Items.Clear();
 
-            if (!Info.IsOnline)
+            if (!mp.FileInfo.IsOnline)
             {
-                var dirInfo = new DirectoryInfo(Info.GetDirectoryName);
+                var dirInfo = new DirectoryInfo(mp.FileInfo.GetDirectoryName);
                 FileInfo[] files;
 
                 if (showAllFilesToolStripMenuItem.Checked)
                     files = dirInfo.GetFiles("*.*");
                 else
-                    files = dirInfo.GetFiles("*" + Path.GetExtension(Info.FullFileName));
+                    files = dirInfo.GetFiles("*" + Path.GetExtension(mp.FileInfo.FullFileName));
 
                 var filesToSkipRegex = new Regex(@".*\.(ini|txt|db|jpg|png)$", RegexOptions.IgnoreCase);
                 for (var i = 0; i <= files.Length - 1; i++)
@@ -205,7 +206,7 @@ namespace Baka_MPlayer.Controls
             }
             else
             {
-                playlistList.Items.Add(Info.MovieName);
+                playlistList.Items.Add(mp.FileInfo.MovieName);
             }
 
             playlistList.AutoResizeColumn(0, ColumnHeaderAutoResizeStyle.ColumnContent);
@@ -258,7 +259,7 @@ namespace Baka_MPlayer.Controls
             {
                 try
                 {
-                    File.Delete(string.Format("{0}\\{1}", Info.GetDirectoryName, playlistList.Items[index].Text));
+                    File.Delete(Path.Combine(mp.FileInfo.GetDirectoryName, playlistList.Items[index].Text));
                     RemoveAt(SelectedIndex);
                 }
                 catch (IOException)
@@ -282,7 +283,7 @@ namespace Baka_MPlayer.Controls
 
         private void UpdateUI(bool selectCurrentFile)
         {
-            GetPlayingItem = playlistList.FindItemWithText(Info.GetName);
+            GetPlayingItem = playlistList.FindItemWithText(mp.FileInfo.GetName);
 
             if (selectCurrentFile)
                 SelectedIndex = GetPlayingItem.Index;
@@ -322,8 +323,8 @@ namespace Baka_MPlayer.Controls
         {
             if (e.KeyCode != Keys.Enter || SelectedIndex.Equals(-1)) return;
 
-            var newURL = string.Format("{0}\\{1}", Info.GetDirectoryName, GetSelectedItem.Text);
-            if (!newURL.Equals(Info.URL, StringComparison.OrdinalIgnoreCase))
+            var newURL = Path.Combine(mp.FileInfo.GetDirectoryName, GetSelectedItem.Text);
+            if (!newURL.Equals(mp.FileInfo.Url, StringComparison.OrdinalIgnoreCase))
             {
                 if (File.Exists(newURL))
                 {
@@ -447,7 +448,7 @@ namespace Baka_MPlayer.Controls
                     SelectedIndex = i;
 
                     // play selected item
-                    var newURL = string.Format("{0}\\{1}", Info.GetDirectoryName, GetSelectedItem.Text);
+                    var newURL = Path.Combine(mp.FileInfo.GetDirectoryName, GetSelectedItem.Text);
 
                     if (File.Exists(newURL) && SelectedIndex != GetPlayingItem.Index)
                         OpenFile(newURL);

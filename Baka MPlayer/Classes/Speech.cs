@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Speech.Synthesis;
 using System.Windows.Forms;
+using MPlayer.Info;
 
-public static class Speech
+public class Speech
 {
-    private static readonly SpeechSynthesizer synth = new SpeechSynthesizer();
+    private readonly SpeechSynthesizer synth = new SpeechSynthesizer();
+    private readonly IFileInfo fileInfo;
 
-    public static void SayMedia()
+    public Speech(IFileInfo fileInfo)
     {
-        if (string.IsNullOrEmpty(Info.URL))
+        this.fileInfo = fileInfo;
+    }
+
+    public void SayMedia()
+    {
+        if (string.IsNullOrEmpty(fileInfo.Url))
             return;
 
         try
         {
-            var title = Info.ID3Tags.Title;
-            var artist = Info.ID3Tags.Artist;
+            var title = fileInfo.Id3Tags.Title;
+            var artist = fileInfo.Id3Tags.Artist;
 
             if (!string.IsNullOrEmpty(title))
             {
@@ -23,7 +30,7 @@ public static class Speech
                 else
                     Speak(title);
             }
-            else Speak(Info.MovieName);
+            else Speak(fileInfo.MovieName);
         }
         catch (Exception ex)
         {
@@ -31,7 +38,7 @@ public static class Speech
         }
     }
 
-    public static void Speak(string speech)
+    public void Speak(string speech)
     {
         try
         {

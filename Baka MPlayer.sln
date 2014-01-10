@@ -1,9 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baka MPlayer", "Baka MPlayer\Baka MPlayer.csproj", "{3DD3A1F2-8DC4-41A9-AAD6-029758F3D936}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer (32-bit)", "Installer\Installer (32-bit).wixproj", "{F239E0D6-9C99-491D-BDB0-F1091BDFCC1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MPlayer", "MPlayer\MPlayer.csproj", "{D180FA67-0165-41F4-BCAD-BFE72AA34A19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mpv", "mpv\mpv.csproj", "{A8FB0226-51F1-4532-9FB8-A54E1F027495}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +41,26 @@ Global
 		{F239E0D6-9C99-491D-BDB0-F1091BDFCC1C}.Release|Mixed Platforms.Build.0 = Release|x86
 		{F239E0D6-9C99-491D-BDB0-F1091BDFCC1C}.Release|x86.ActiveCfg = Release|x86
 		{F239E0D6-9C99-491D-BDB0-F1091BDFCC1C}.Release|x86.Build.0 = Release|x86
+		{D180FA67-0165-41F4-BCAD-BFE72AA34A19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D180FA67-0165-41F4-BCAD-BFE72AA34A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D180FA67-0165-41F4-BCAD-BFE72AA34A19}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D180FA67-0165-41F4-BCAD-BFE72AA34A19}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D180FA67-0165-41F4-BCAD-BFE72AA34A19}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D180FA67-0165-41F4-BCAD-BFE72AA34A19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D180FA67-0165-41F4-BCAD-BFE72AA34A19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D180FA67-0165-41F4-BCAD-BFE72AA34A19}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D180FA67-0165-41F4-BCAD-BFE72AA34A19}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D180FA67-0165-41F4-BCAD-BFE72AA34A19}.Release|x86.ActiveCfg = Release|Any CPU
+		{A8FB0226-51F1-4532-9FB8-A54E1F027495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8FB0226-51F1-4532-9FB8-A54E1F027495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8FB0226-51F1-4532-9FB8-A54E1F027495}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A8FB0226-51F1-4532-9FB8-A54E1F027495}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A8FB0226-51F1-4532-9FB8-A54E1F027495}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A8FB0226-51F1-4532-9FB8-A54E1F027495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8FB0226-51F1-4532-9FB8-A54E1F027495}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8FB0226-51F1-4532-9FB8-A54E1F027495}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A8FB0226-51F1-4532-9FB8-A54E1F027495}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A8FB0226-51F1-4532-9FB8-A54E1F027495}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

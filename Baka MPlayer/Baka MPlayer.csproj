@@ -44,6 +44,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -72,9 +73,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="taglib-sharp">
-      <HintPath>Resources\TagLib-Sharp\taglib-sharp.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -85,7 +83,6 @@
   <ItemGroup>
     <Compile Include="Classes\Functions.cs" />
     <Compile Include="Classes\GlobalMouseHandler.cs" />
-    <Compile Include="Classes\ID3Tag.cs" />
     <Compile Include="Classes\KeysClass.cs" />
     <Compile Include="Classes\Settings.cs" />
     <Compile Include="Classes\Speech.cs" />
@@ -201,9 +198,6 @@
     <Compile Include="Forms\UrlForm.Designer.cs">
       <DependentUpon>UrlForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MPlayer Code\MPlayer.cs" />
-    <Compile Include="MPlayer Code\Info.cs" />
-    <Compile Include="MPlayer Code\MPlayerEvents.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controls\SimpleButton.resx">
@@ -636,7 +630,16 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\MPlayer\MPlayer.csproj">
+      <Project>{d180fa67-0165-41f4-bcad-bfe72aa34a19}</Project>
+      <Name>MPlayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mpv\mpv.csproj">
+      <Project>{a8fb0226-51f1-4532-9fb8-a54e1f027495}</Project>
+      <Name>mpv</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

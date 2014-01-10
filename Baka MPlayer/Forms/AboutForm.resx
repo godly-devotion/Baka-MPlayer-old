@@ -134,8 +134,12 @@
   </metadata>
   <data name="richTextBox2.Text" xml:space="preserve">
     <value>Baka MPlayer
-Copyright © 2013 - Joshua Park
+Copyright © 2014 - Joshua Park
 GNU General Public License version 2 (GPLv2)
+
+Special thanks to:
+- u8sand: for help coding mpv.cs and for hosting the website
+- lachs0r: for helpful hints and tips
 
 mpv is licensed under GPLv2
 

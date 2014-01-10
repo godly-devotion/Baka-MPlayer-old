@@ -3,11 +3,15 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
+using MPlayer;
+using MPlayer.Info;
 
 namespace Baka_MPlayer.Forms
 {
     public partial class InfoForm : Form
     {
+        private readonly IMPlayer mp;
+
         #region Accessor
 
         private Image AlbumArt
@@ -18,30 +22,18 @@ namespace Baka_MPlayer.Forms
 
         #endregion
 
-        #region Constructor
-
-        public InfoForm(string resp)
+        public InfoForm(IMPlayer mp)
         {
             InitializeComponent();
 
-            mplayerProcessLabel.Text = resp;
+            this.mp = mp;
         }
-        private void InfoForm_Load(object sender, EventArgs e)
-        {
-            this.MinimumSize = this.Size;
-            infoList.ContextMenu = infoContextMenu;
-            tagList.ContextMenu = tagContextMenu;
-
-            RefreshInfo();
-        }
-
-        #endregion
 
         #region Functions
 
         public void RefreshInfo()
         {
-            nameLabel.Text = Info.MovieName;
+            nameLabel.Text = mp.FileInfo.MovieName;
 
             // set Media Info tagpage
             infoList.BeginUpdate();
@@ -61,40 +53,40 @@ namespace Baka_MPlayer.Forms
         {
             // file name
             var nameItem = new ListViewItem("File name", infoList.Groups[0]);
-            nameItem.SubItems.Add(Info.GetName);
+            nameItem.SubItems.Add(mp.FileInfo.GetName);
 
             // file format
             var typeItem = new ListViewItem("File format", infoList.Groups[0]);
-            typeItem.SubItems.Add(Info.FileFormat);
+            typeItem.SubItems.Add(mp.FileInfo.FileFormat);
 
             // file size
             var sizeItem = new ListViewItem("File size", infoList.Groups[0]);
-            if (Info.IsOnline)
+            if (mp.FileInfo.IsOnline)
                 sizeItem.SubItems.Add("Not Available");
             else
-                sizeItem.SubItems.Add(Functions.IO.GetFileSize(Info.URL, 2));
+                sizeItem.SubItems.Add(Functions.IO.GetFileSize(mp.FileInfo.Url, 2));
 
             // media length
             var lengthItem = new ListViewItem("Media length", infoList.Groups[0]);
-            lengthItem.SubItems.Add(Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength));
+            lengthItem.SubItems.Add(Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.TotalLength));
 
             // video dimensions
             var dimensionsItem = new ListViewItem("Video dimensions", infoList.Groups[0]);
-            dimensionsItem.SubItems.Add(string.Format("{0} x {1}", Info.VideoInfo.Width, Info.VideoInfo.Height));
+            dimensionsItem.SubItems.Add(string.Format("{0} x {1}", mp.FileInfo.VideoWidth, mp.FileInfo.VideoHeight));
 
             // last modified
             var modifiedItem = new ListViewItem("Last modified", infoList.Groups[0]);
-            if (Info.IsOnline)
+            if (mp.FileInfo.IsOnline)
                 modifiedItem.SubItems.Add("Not Available");
             else
-                modifiedItem.SubItems.Add(File.GetLastWriteTime(Info.URL).ToLocalTime().ToString(CultureInfo.InvariantCulture));
+                modifiedItem.SubItems.Add(File.GetLastWriteTime(mp.FileInfo.Url).ToLocalTime().ToString(CultureInfo.InvariantCulture));
 
             infoList.Items.AddRange(new[]{nameItem, typeItem, sizeItem, lengthItem, dimensionsItem, modifiedItem});
         }
 
         private void SetTagsInfo()
         {
-            foreach (ID_Info info in Info.OtherInfo)
+            foreach (ID_Info info in mp.FileInfo.OtherInfos)
             {
                 var item = new ListViewItem(info.ID, infoList.Groups[1]);
                 item.SubItems.Add(info.Value);
@@ -107,23 +99,23 @@ namespace Baka_MPlayer.Forms
             tagList.Items.Clear();
             tagList.BeginUpdate();
 
-            AddTagItem("Title", Info.ID3Tags.Title);
-            AddTagItem("Artist", Info.ID3Tags.Artist);
-            AddTagItem("Album", Info.ID3Tags.Album);
-            AddTagItem("Year", Info.ID3Tags.Date);
-            AddTagItem("Track", Info.ID3Tags.Track);
-            AddTagItem("Genre", Info.ID3Tags.Genre);
-            AddTagItem("Description", Info.ID3Tags.Description);
-            AddTagItem("Comment", Info.ID3Tags.Comment);
+            AddTagItem("Title", mp.FileInfo.Id3Tags.Title);
+            AddTagItem("Artist", mp.FileInfo.Id3Tags.Artist);
+            AddTagItem("Album", mp.FileInfo.Id3Tags.Album);
+            AddTagItem("Year", mp.FileInfo.Id3Tags.Date);
+            AddTagItem("Track", mp.FileInfo.Id3Tags.Track);
+            AddTagItem("Genre", mp.FileInfo.Id3Tags.Genre);
+            AddTagItem("Description", mp.FileInfo.Id3Tags.Description);
+            AddTagItem("Comment", mp.FileInfo.Id3Tags.Comment);
             tagList.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
 
             // album art
-            if (Info.ID3Tags.AlbumArtTag != null)
+            if (mp.FileInfo.Id3Tags.AlbumArtTag != null)
             {
                 saveImgLabel.Enabled = true;
-                AlbumArt = Info.ID3Tags.AlbumArtTag.AlbumArt;
+                AlbumArt = mp.FileInfo.Id3Tags.AlbumArtTag.AlbumArt;
 
-                imgTypeTextBox.Text = Info.ID3Tags.AlbumArtTag.Type;
+                imgTypeTextBox.Text = mp.FileInfo.Id3Tags.AlbumArtTag.Type;
                 demTextBox.Text = string.Format("{0} x {1}", AlbumArt.Width, AlbumArt.Height);
             }
             else
@@ -244,13 +236,24 @@ namespace Baka_MPlayer.Forms
 
         #region Events
 
+        private void InfoForm_Load(object sender, EventArgs e)
+        {
+            this.MinimumSize = this.Size;
+            infoList.ContextMenu = infoContextMenu;
+            tagList.ContextMenu = tagContextMenu;
+
+            mplayerProcessLabel.Text = mp.GetProcessState();
+
+            RefreshInfo();
+        }
+
         private void saveImgLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var sfd = new SaveFileDialog
             {
                 SupportMultiDottedExtensions = true,
-                FileName = string.Format("{0} (Album Art).{1}", Info.FileName, Info.ID3Tags.AlbumArtTag.GetPictureExt()),
-                Filter = string.Format("Image File (*.{0})|*.{0}", Info.ID3Tags.AlbumArtTag.GetPictureExt())
+                FileName = string.Format("{0} (Album Art).{1}", mp.FileInfo.FileName, mp.FileInfo.Id3Tags.AlbumArtTag.GetPictureExt()),
+                Filter = string.Format("Image File (*.{0})|*.{0}", mp.FileInfo.Id3Tags.AlbumArtTag.GetPictureExt())
             };
 
             if (sfd.ShowDialog() == DialogResult.OK && sfd.FileName.Length > 0)

@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using MPlayer.Info;
 
 namespace Baka_MPlayer.Forms
 {
@@ -13,11 +14,14 @@ namespace Baka_MPlayer.Forms
             set { snapshotPicbox.Image = value; }
         }
 
-        public SnapshotForm(Bitmap image)
+        private readonly IFileInfo fileInfo;
+
+        public SnapshotForm(Bitmap image, IFileInfo fileInfo)
         {
             InitializeComponent();
             
             this.image = image;
+            this.fileInfo = fileInfo;
             snapshotPicbox_SizeChanged(null, null);
         }
 
@@ -31,13 +35,13 @@ namespace Baka_MPlayer.Forms
         {
             // set file name
             var fileName = cleanNameCheckbox.Checked ?
-                cleanName(Info.MovieName) : Info.MovieName;
+                cleanName(fileInfo.MovieName) : fileInfo.MovieName;
 
             var sfd = new SaveFileDialog();
             sfd.FileName = fileName + "_snapshot[1].png";
 
             int total = 1;
-            while (File.Exists(string.Format("{0}\\{1}_snapshot[{2}].png", Info.GetDirectoryName, fileName, total)))
+            while (File.Exists(string.Format("{0}\\{1}_snapshot[{2}].png", fileInfo.GetDirectoryName, fileName, total)))
             {
                 total++;
                 sfd.FileName = string.Format("{0}_snapshot[{1}].png", fileName, total);

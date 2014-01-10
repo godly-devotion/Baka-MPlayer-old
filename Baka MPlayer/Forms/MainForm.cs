@@ -9,6 +9,9 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Taskbar;
+using MPlayer;
+using MPlayer.Info;
+using MPlayer.Info.Track;
 
 namespace Baka_MPlayer.Forms
 {
@@ -32,14 +35,15 @@ namespace Baka_MPlayer.Forms
         static extern int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
 
         #endregion
-        #region Global Variables
+        #region Private Fields
 
         private BlackForm blackForm;
         private InfoForm infoForm;
 
-        private readonly MPlayer mplayer;
+        private readonly IMPlayer mp;
         private readonly Settings settings = new Settings();
         private Voice voice;
+        private Speech speech;
 
         // Win 7 thumbnail toolbar buttons
         private ThumbnailToolBarButton previousToolButton =
@@ -68,17 +72,17 @@ namespace Baka_MPlayer.Forms
 
         private void playMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.Pause(true);
+            mp.Pause(true);
         }
 
         private void stopMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.Stop();
+            mp.Stop();
         }
 
         private void rewindMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.Rewind();
+            mp.Rewind();
         }
 
         private void nextMenuItem_Click(object sender, EventArgs e)
@@ -98,12 +102,12 @@ namespace Baka_MPlayer.Forms
 
         private void trayIcon_MouseClick(object sender, MouseEventArgs e)
         {
-            if (e.Button != MouseButtons.Left || string.IsNullOrEmpty(Info.URL))
+            if (e.Button != MouseButtons.Left || string.IsNullOrEmpty(mp.FileInfo.Url))
                 return;
 
-            mplayer.Pause(true);
+            mp.Pause(true);
 
-            switch (Info.Current.PlayState)
+            switch (mp.CurrentStatus.PlayState)
             {
                 case PlayStates.Playing:
                     trayIcon.ShowBalloonTip(4000, "Paused", this.Text, ToolTipIcon.None);
@@ -126,41 +130,41 @@ namespace Baka_MPlayer.Forms
         // notify icon code
         private void SetSystemTray()
         {
-            if (Info.IsOnline)
+            if (mp.FileInfo.IsOnline)
             {
-                titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, Info.MovieName));
+                titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, mp.FileInfo.MovieName));
                 artistMenuItem.Text = "  Online Media";
-                SetNotifyIconText(string.Format("{0}\n{1}", Info.MovieName, "Online Media"));
+                SetNotifyIconText(string.Format("{0}\n{1}", mp.FileInfo.MovieName, "Online Media"));
                 return;
             }
 
             var lastPart = string.Format("(File {0} of {1})", playlist.GetPlayingItem.Index + 1, playlist.GetTotalItems);
 
-            if (!string.IsNullOrEmpty(Info.ID3Tags.Title))
+            if (!string.IsNullOrEmpty(mp.FileInfo.Id3Tags.Title))
             {
-                bool hasArtist = !string.IsNullOrEmpty(Info.ID3Tags.Artist);
+                bool hasArtist = !string.IsNullOrEmpty(mp.FileInfo.Id3Tags.Artist);
 
-                titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, Info.ID3Tags.Title));
+                titleMenuItem.Text = string.Format("  {0}", Functions.String.AutoEllipsis(25, mp.FileInfo.Id3Tags.Title));
                 artistMenuItem.Text = string.Format("  {0}",
-                    hasArtist ? Functions.String.AutoEllipsis(25, Info.ID3Tags.Artist) : "Unknown Artist");
+                    hasArtist ? Functions.String.AutoEllipsis(25, mp.FileInfo.Id3Tags.Artist) : "Unknown Artist");
 
-                SetNotifyIconText(string.Format("{0}\n{1}{2}", Info.ID3Tags.Title, hasArtist ? Info.ID3Tags.Artist + '\n' : "", lastPart));
+                SetNotifyIconText(string.Format("{0}\n{1}{2}", mp.FileInfo.Id3Tags.Title, hasArtist ? mp.FileInfo.Id3Tags.Artist + "\n" : "", lastPart));
 
-                if (!Info.VideoInfo.HasVideo && !hidePopupToolStripMenuItem.Checked)
-                    trayIcon.ShowBalloonTip(4000, Info.ID3Tags.Title, (hasArtist ? Info.ID3Tags.Artist + '\n' : "") + lastPart, ToolTipIcon.None);
+                if (!mp.FileInfo.HasVideo && !hidePopupToolStripMenuItem.Checked)
+                    trayIcon.ShowBalloonTip(4000, mp.FileInfo.Id3Tags.Title, (hasArtist ? mp.FileInfo.Id3Tags.Artist + "\n" : "") + lastPart, ToolTipIcon.None);
 
             }
             else
             {
                 // no title & artist (no artist assumed)
-                var fileName = Functions.String.AutoEllipsis(25, Info.MovieName);
+                var fileName = Functions.String.AutoEllipsis(25, mp.FileInfo.MovieName);
 
                 titleMenuItem.Text = string.Format("  {0}", fileName);
                 artistMenuItem.Text = "  Unknown Artist";
 
                 SetNotifyIconText(string.Format("{0}\n{1}", fileName, lastPart));
 
-                if (!Info.VideoInfo.HasVideo && !hidePopupToolStripMenuItem.Checked)
+                if (!mp.FileInfo.HasVideo && !hidePopupToolStripMenuItem.Checked)
                     trayIcon.ShowBalloonTip(4000, fileName, lastPart, ToolTipIcon.None);
             }
         }
@@ -319,22 +323,22 @@ namespace Baka_MPlayer.Forms
                 switch ((Keys)wParam.ToInt32())
                 {
                     case Keys.Left:
-                        if (Info.Current.Duration - 5 > -1)
-                            mplayer.Seek(Info.Current.Duration - 5);
+                        if (mp.CurrentStatus.Duration - 5 > -1)
+                            mp.Seek(mp.CurrentStatus.Duration - 5);
                         else //if (mplayer.currentPosition < 5)
-                            mplayer.Seek(0);
+                            mp.Seek(0);
                         break;
                     case Keys.Right:
-                        if (Info.Current.Duration + 5 < Info.Current.TotalLength)
-                            mplayer.Seek(Info.Current.Duration + 5);
+                        if (mp.CurrentStatus.Duration + 5 < mp.CurrentStatus.TotalLength)
+                            mp.Seek(mp.CurrentStatus.Duration + 5);
                         else
                             playlist.PlayNext();
                         break;
                     case Keys.PageUp:
-                        mplayer.SkipChapter(false);
+                        mp.PreviousChapter();
                         break;
                     case Keys.PageDown:
-                        mplayer.SkipChapter(true);
+                        mp.NextChapter();
                         break;
                     case Keys.MediaNextTrack:
                         playlist.PlayNext();
@@ -343,17 +347,17 @@ namespace Baka_MPlayer.Forms
                         playlist.PlayPrevious();
                         break;
                     case Keys.MediaStop:
-                        mplayer.Stop();
+                        mp.Stop();
                         break;
                     case Keys.MediaPlayPause:
-                        switch (Info.Current.PlayState)
+                        switch (mp.CurrentStatus.PlayState)
                         {
                             case PlayStates.Playing:
-                                mplayer.Pause(false);
+                                mp.Pause(false);
                                 break;
                             case PlayStates.Paused:
                             case PlayStates.Stopped:
-                                mplayer.Pause(true);
+                                mp.Pause(true);
                                 break;
                         }
                         return -1;
@@ -373,7 +377,7 @@ namespace Baka_MPlayer.Forms
             string fileDir = fileDirs.GetValue(0).ToString();
 
             if (File.Exists(fileDir))
-                mplayer.OpenFile(fileDir);
+                mp.OpenFile(fileDir);
             else
             {
                 MessageBox.Show(string.Format("Error: \"{0}\" does not exist.", Path.GetFileName(fileDir)),
@@ -407,7 +411,7 @@ namespace Baka_MPlayer.Forms
 
         private void playToolButton_Click(Object sender, EventArgs e)
         {
-            mplayer.Pause(true);
+            mp.Pause(true);
         }
 
         private void nextToolButton_Click(Object sender, EventArgs e)
@@ -523,7 +527,7 @@ namespace Baka_MPlayer.Forms
 
         private bool NotFocusedOnTextbox
         {
-            get { return !(string.IsNullOrEmpty(Info.URL) || playlist.searchTextBox.Focused || inputTextbox.Focused); }
+            get { return !(string.IsNullOrEmpty(mp.FileInfo.Url) || playlist.searchTextBox.Focused || inputTextbox.Focused); }
         }
 
         #endregion
@@ -553,26 +557,26 @@ namespace Baka_MPlayer.Forms
                     OpenFile();
                     break;
                 case "mute":
-                    mplayer.Mute(true);
+                    mp.Mute(true);
                     break;
                 case "unmute":
-                    mplayer.Mute(false);
+                    mp.Mute(false);
                     break;
                 case "increase volume":
                 case "raise volume":
                 case "volume up":
-                    if (Info.Current.Volume >= 95)
+                    if (mp.Volume >= 95)
                         SetVolume(100);
                     else
-                        SetVolume(Info.Current.Volume + 5);
+                        SetVolume(mp.Volume + 5);
                     break;
                 case "decrease volume":
                 case "lower volume":
                 case "volume down":
-                    if (Info.Current.Volume <= 5)
+                    if (mp.Volume <= 5)
                         SetVolume(0);
                     else
-                        SetVolume(Info.Current.Volume - 5);
+                        SetVolume(mp.Volume - 5);
                     break;
                 case "hide":
                     HidePlayer();
@@ -593,29 +597,29 @@ namespace Baka_MPlayer.Forms
                     break;
             }
 
-            if (!mplayer.MPlayerIsRunning() || string.IsNullOrEmpty(Info.URL))
+            if (!mp.PlayerIsRunning() || string.IsNullOrEmpty(mp.FileInfo.Url))
                 return;
 
             switch (speechCommand)
             {
                 case "play":
-                    mplayer.Play();
+                    mp.Play();
                     break;
                 case "pause":
-                    mplayer.Pause(false);
+                    mp.Pause(false);
                     break;
                 case "rewind":
-                    mplayer.Rewind();
+                    mp.Rewind();
                     break;
                 case "stop":
-                    mplayer.Stop();
+                    mp.Stop();
                     break;
                 case "next chapter":
                 case "skip chapter":
-                    mplayer.SkipChapter(true);
+                    mp.NextChapter();
                     break;
                 case "previous chapter":
-                    mplayer.SkipChapter(false);
+                    mp.PreviousChapter();
                     break;
                 case "next":
                 case "next file":
@@ -635,7 +639,9 @@ namespace Baka_MPlayer.Forms
                     FullScreen = false;
                     break;
                 case "whats playing":
-                    Speech.SayMedia();
+                    if (speech == null)
+                        speech = new Speech(mp.FileInfo);
+                    speech.SayMedia();
                     break;
             }
         }
@@ -653,12 +659,12 @@ namespace Baka_MPlayer.Forms
             if (!seekBar_IsMouseDown)
                 return;
 
-            var currentPos = seekBar.Value * Info.Current.TotalLength / seekBar.Maximum;
+            var currentPos = seekBar.Value * mp.CurrentStatus.TotalLength / seekBar.Maximum;
 
             if (settings.GetBoolValue(SettingEnum.ShowTimeRemaining))
-                timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength - currentPos));
+                timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.TotalLength - currentPos));
             else
-                timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength);
+                timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.TotalLength);
 
             durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(currentPos);
         }
@@ -667,14 +673,14 @@ namespace Baka_MPlayer.Forms
         {
             if (seekBar_IsMouseDown)
             {
-                mplayer.Seek((seekBar.Value * Info.Current.TotalLength) / seekBar.Maximum);
+                mp.Seek((seekBar.Value * mp.CurrentStatus.TotalLength) / seekBar.Maximum);
                 seekBar_IsMouseDown = false;
             }
         }
 
         private void timeLeftLabel_MouseClick(object sender, MouseEventArgs e)
         {
-            if (string.IsNullOrEmpty(Info.URL))
+            if (string.IsNullOrEmpty(mp.FileInfo.Url))
                 return;
 
             var setting = !settings.GetBoolValue(SettingEnum.ShowTimeRemaining);
@@ -694,21 +700,21 @@ namespace Baka_MPlayer.Forms
                     OpenFile();
                     break;
                 case MouseButtons.Middle:
-                    if (!string.IsNullOrEmpty(Info.URL))
+                    if (!string.IsNullOrEmpty(mp.FileInfo.Url))
                     {
-                        var jumpForm = new JumpForm();
+                        var jumpForm = new JumpForm(mp.CurrentStatus);
                         if (jumpForm.ShowDialog(this) == DialogResult.OK)
                         {
-                            mplayer.Seek(jumpForm.GetNewTime);
+                            mp.Seek(jumpForm.GetNewTime);
                             jumpForm.Dispose();
                         }
                     }
                     break;
                 case MouseButtons.Right:
-                    var webForm = new UrlForm();
+                    var webForm = new UrlForm(mp.FileInfo);
                     if (webForm.ShowDialog(this) == DialogResult.OK)
                     {
-                        mplayer.OpenFile(webForm.URL);
+                        mp.OpenFile(webForm.URL);
                         webForm.Dispose();
                     }
                     break;
@@ -731,19 +737,19 @@ namespace Baka_MPlayer.Forms
             if (e.Button != MouseButtons.Left)
                 return;
 
-            if (Info.Current.Duration < 3)
-                mplayer.Stop();
-            else if (Info.Current.PlayState == PlayStates.Playing)
-                mplayer.Rewind();
-            else if (Info.Current.PlayState == PlayStates.Ended)
-                mplayer.OpenFile(Info.URL);
+            if (mp.CurrentStatus.Duration < 3)
+                mp.Stop();
+            else if (mp.CurrentStatus.PlayState == PlayStates.Playing)
+                mp.Rewind();
+            else if (mp.CurrentStatus.PlayState == PlayStates.Ended)
+                mp.OpenFile(mp.FileInfo.Url);
             else
-                mplayer.Stop();
+                mp.Stop();
         }
         private void rewindButton_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
-                mplayer.Stop();
+                mp.Stop();
         }
 
         // PreviousButton
@@ -791,7 +797,7 @@ namespace Baka_MPlayer.Forms
         {
             if (playButton.Enabled)
             {
-                if (Info.Current.PlayState == PlayStates.Playing)
+                if (mp.CurrentStatus.PlayState == PlayStates.Playing)
                     playButton.Image = Properties.Resources.default_pause;
                 else
                     playButton.Image = Properties.Resources.default_play;
@@ -805,7 +811,7 @@ namespace Baka_MPlayer.Forms
         {
             if (e.Button == MouseButtons.Left && playButton.Enabled)
             {
-                if (Info.Current.PlayState == PlayStates.Playing)
+                if (mp.CurrentStatus.PlayState == PlayStates.Playing)
                     playButton.Image = Properties.Resources.down_pause;
                 else
                     playButton.Image = Properties.Resources.down_play;
@@ -815,9 +821,9 @@ namespace Baka_MPlayer.Forms
         {
             if (e.Button == MouseButtons.Left && playButton.Enabled)
             {
-                mplayer.Pause(true);
+                mp.Pause(true);
 
-                if (Info.Current.PlayState == PlayStates.Playing)
+                if (mp.CurrentStatus.PlayState == PlayStates.Playing)
                     playButton.Image = Properties.Resources.default_play;
                 else
                     playButton.Image = Properties.Resources.default_pause;
@@ -935,20 +941,17 @@ namespace Baka_MPlayer.Forms
             var subForm = new OpenSubForm();
 
             if (subForm.ShowDialog(this) == DialogResult.OK)
-            {
-                mplayer.ExternalSub = subForm.SubFile;
-                mplayer.OpenFile(subForm.MediaFile);
-            }
+                mp.OpenFile(subForm.MediaFile, subForm.SubFile);
 
             subForm.Dispose();
         }
 
         private void openURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var webForm = new UrlForm();
+            var webForm = new UrlForm(mp.FileInfo);
 
             if (webForm.ShowDialog(this) == DialogResult.OK)
-                mplayer.OpenFile(webForm.URL);
+                mp.OpenFile(webForm.URL);
 
             webForm.Dispose();
         }
@@ -958,29 +961,33 @@ namespace Baka_MPlayer.Forms
             string clipText = Clipboard.GetText();
 
             if (File.Exists(clipText) || Functions.URL.IsValidURL(clipText))
-                mplayer.OpenFile(clipText);
+            {
+                mp.OpenFile(clipText);
+            }
             else
+            {
                 MessageBox.Show(string.Format("The location \"{0}\" cannot be opened.", clipText),
                     "Error Opening Location", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void openLastFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var lastFile = settings.GetStringValue(SettingEnum.LastFile);
             if (File.Exists(lastFile))
-                mplayer.OpenFile(lastFile);
+                mp.OpenFile(lastFile);
         }
 
         private void showInWindowsExplorerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!Info.IsOnline)
+            if (!mp.FileInfo.IsOnline)
             {
                 var process = new Process
                 {
                     StartInfo =
                     {
                         FileName = "explorer.exe",
-                        Arguments = string.Format("/select,\"{0}\"", Info.URL),
+                        Arguments = string.Format("/select,\"{0}\"", mp.FileInfo.Url),
                         WindowStyle = ProcessWindowStyle.Normal
                     }
                 };
@@ -995,21 +1002,23 @@ namespace Baka_MPlayer.Forms
 
         private void folderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!Info.IsOnline)
+            if (!mp.FileInfo.IsOnline)
             {
                 var process = new Process
                 {
                     StartInfo =
                     {
                         FileName = "explorer.exe",
-                        Arguments = string.Format("/select,\"{0}\"", Info.URL),
+                        Arguments = string.Format("/select,\"{0}\"", mp.FileInfo.Url),
                         WindowStyle = ProcessWindowStyle.Normal
                     }
                 };
                 process.Start();
             }
             else
-                Process.Start(string.Format("http://{0}", new Uri(Info.URL).Host));
+            {
+                Process.Start(string.Format("http://{0}", new Uri(mp.FileInfo.Url).Host));
+            }
         }
 
         private void playNextFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1031,22 +1040,22 @@ namespace Baka_MPlayer.Forms
         #region Playback
         private void playToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.Pause(true);
+            mp.Pause(true);
         }
 
         private void stopToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.Stop();
+            mp.Stop();
         }
 
         private void rewindToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.Rewind();
+            mp.Rewind();
         }
 
         private void restartToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.Restart();
+            mp.Restart();
         }
 
         private void shuffleToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1077,20 +1086,20 @@ namespace Baka_MPlayer.Forms
 
         private void frameStepToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.SendCommand("frame_step");
+            mp.SendCommand("frame_step");
         }
 
         private void frameBackStepToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.SendCommand("frame_back_step");
+            mp.SendCommand("frame_back_step");
         }
 
         private void jumpToTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var jumpForm = new JumpForm();
+            var jumpForm = new JumpForm(mp.CurrentStatus);
 
             if (jumpForm.ShowDialog(this) == DialogResult.OK)
-                mplayer.Seek(jumpForm.GetNewTime);
+                mp.Seek(jumpForm.GetNewTime);
 
             jumpForm.Dispose();
         }
@@ -1104,7 +1113,7 @@ namespace Baka_MPlayer.Forms
 
         private void fitToVideoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!Info.VideoInfo.HasVideo)
+            if (!mp.FileInfo.HasVideo)
             {
                 this.Size = this.MinimumSize;
                 return;
@@ -1121,35 +1130,35 @@ namespace Baka_MPlayer.Forms
 
         private void previousChapterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.SkipChapter(false);
+            mp.PreviousChapter();
         }
 
         private void nextChapterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.SkipChapter(true);
+            mp.NextChapter();
         }
 
         private void autodetectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Info.VideoInfo.AspectRatio = Math.Round((double) Info.VideoInfo.Width/Info.VideoInfo.Height, 5);
+            VO_State.PanelAspectRatio = Math.Round((double) mp.FileInfo.VideoWidth / mp.FileInfo.VideoHeight, 5);
             ResizeMplayerPanel();
         }
 
         private void force43ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Info.VideoInfo.AspectRatio = 1.3333;
+            VO_State.PanelAspectRatio = 1.3333;
             ResizeMplayerPanel();
         }
 
         private void force169ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Info.VideoInfo.AspectRatio = 1.7778;
+            VO_State.PanelAspectRatio = 1.7778;
             ResizeMplayerPanel();
         }
 
         private void force2351ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Info.VideoInfo.AspectRatio = 2.35;
+            VO_State.PanelAspectRatio = 2.35;
             ResizeMplayerPanel();
         }
 
@@ -1159,7 +1168,7 @@ namespace Baka_MPlayer.Forms
             if (item != null)
             {
                 int index = (item.OwnerItem as ToolStripMenuItem).DropDownItems.IndexOf(item);
-                mplayer.SetAudioTrack(index + 1);
+                mp.SetAudioTrack(index + 1);
             }
         }
 
@@ -1167,7 +1176,7 @@ namespace Baka_MPlayer.Forms
         {
             audioTracksToolStripMenuItem.DropDownItems.Clear();
 
-            foreach (AudioTrack track in Info.AudioTracks)
+            foreach (AudioTrack track in mp.FileInfo.AudioTracks)
             {
                 string text;
 
@@ -1180,11 +1189,11 @@ namespace Baka_MPlayer.Forms
                 audioTracksToolStripMenuItem.DropDownItems.Add(item);
             }
 
-            if (Info.AudioTracks.Count.Equals(1))
+            if (mp.FileInfo.AudioTracks.Count.Equals(1))
             {
                 audioTracksToolStripMenuItem.DropDownItems[0].Enabled = false;
             }
-            else if (Info.AudioTracks.Count.Equals(0))
+            else if (mp.FileInfo.AudioTracks.Count.Equals(0))
             {
                 var item = new ToolStripMenuItem("[ none ]") { Enabled = false };
                 audioTracksToolStripMenuItem.DropDownItems.Add(item);
@@ -1197,7 +1206,7 @@ namespace Baka_MPlayer.Forms
             if (item != null)
             {
                 int index = (item.OwnerItem as ToolStripMenuItem).DropDownItems.IndexOf(item);
-                mplayer.SetChapter(index);
+                mp.SetChapter(index);
             }
         }
 
@@ -1205,7 +1214,7 @@ namespace Baka_MPlayer.Forms
         {
             chaptersToolStripMenuItem.DropDownItems.Clear();
 
-            if (Info.Chapters.Count.Equals(0))
+            if (mp.FileInfo.Chapters.Count.Equals(0))
             {
                 var item = new ToolStripMenuItem("[ none ]", null);
                 item.Enabled = false;
@@ -1213,9 +1222,9 @@ namespace Baka_MPlayer.Forms
                 return;
             }
 
-            for (int i = 0; i < Info.Chapters.Count; i++)
+            for (int i = 0; i < mp.FileInfo.Chapters.Count; i++)
             {
-                var text = string.Format("{0}: {1}", i+1, Info.Chapters[i].ChapterName);
+                var text = string.Format("{0}: {1}", i+1, mp.FileInfo.Chapters[i].ChapterName);
                 var item = new ToolStripMenuItem(text, null, chaptersMenuItem_Click);
                 if (i < 9)
                     item.ShortcutKeys = Keys.Control | KeysClass.GetNumKey(i+1);
@@ -1225,18 +1234,18 @@ namespace Baka_MPlayer.Forms
 
         private void increaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Info.Current.Volume >= 95)
+            if (mp.Volume >= 95)
                 SetVolume(100);
             else
-                SetVolume(Info.Current.Volume + 5);
+                SetVolume(mp.Volume + 5);
         }
 
         private void decreaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Info.Current.Volume <= 5)
+            if (mp.Volume <= 5)
                 SetVolume(0);
             else
-                SetVolume(Info.Current.Volume - 5);
+                SetVolume(mp.Volume - 5);
         }
 
         private void volumeToolStripTextBox_KeyDown(object sender, KeyEventArgs e)
@@ -1260,7 +1269,7 @@ namespace Baka_MPlayer.Forms
                     {
                         MessageBox.Show("Please enter a value that is between 1 - 100.",
                             "Invalid Number", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        SetVolume(Info.Current.Volume);
+                        SetVolume(mp.Volume);
                     }
                     break;
                 case Keys.Up:
@@ -1279,24 +1288,24 @@ namespace Baka_MPlayer.Forms
 
         private void showSubtitlesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.ShowSubs(showSubtitlesToolStripMenuItem.Checked);
+            mp.SetSubtitleVisibility(showSubtitlesToolStripMenuItem.Checked);
         }
 
         private void sizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // increase size
-            mplayer.SendCommand("add sub-scale 0.2");
+            mp.SendCommand("add sub-scale 0.2");
         }
 
         private void sizeToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             // decrease size
-            mplayer.SendCommand("add sub-scale -0.2");
+            mp.SendCommand("add sub-scale -0.2");
         }
 
         private void resetSizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mplayer.SendCommand("set sub-scale 1");
+            mp.SendCommand("set sub-scale 1");
         }
 
         private void subtitleMenuItem_Click(object sender, EventArgs e)
@@ -1305,7 +1314,7 @@ namespace Baka_MPlayer.Forms
             if (item != null)
             {
                 int index = (item.OwnerItem as ToolStripMenuItem).DropDownItems.IndexOf(item);
-                mplayer.SetSubs(index + 1);
+                mp.SetSubtitleTrack(index + 1);
             }
         }
 
@@ -1313,7 +1322,7 @@ namespace Baka_MPlayer.Forms
         {
             subtitleTrackToolStripMenuItem.DropDownItems.Clear();
 
-            if (Info.Subs.Count > 0)
+            if (mp.FileInfo.Subs.Count > 0)
             {
                 showSubtitlesToolStripMenuItem.Enabled = true;
                 showSubtitlesToolStripMenuItem.Checked = true;
@@ -1337,7 +1346,7 @@ namespace Baka_MPlayer.Forms
                 return;
             }
 
-            foreach (Sub sub in Info.Subs)
+            foreach (Subtitle sub in mp.FileInfo.Subs)
             {
                 var text = string.Format("{0}: {1} ({2})", sub.TrackID, sub.Name, sub.Lang);
                 var item = new ToolStripMenuItem(text, null, subtitleMenuItem_Click);
@@ -1358,7 +1367,6 @@ namespace Baka_MPlayer.Forms
             // hide distractions
             takeSnapshotToolStripMenuItem.HideDropDown();
             HideStatusLabel();
-            mplayer.ShowStatus(string.Empty);
 
             // get which screen the player is on
             //Screen scrn = Screen.FromControl(this);
@@ -1371,20 +1379,22 @@ namespace Baka_MPlayer.Forms
             var screenPoint = this.PointToScreen(new Point(mplayerPanel.Location.X, mplayerPanel.Location.Y + mainMenuStrip.Height));
             gfxScreenshot.CopyFromScreen(screenPoint, new Point(0, 0), mplayerPanel.Size, CopyPixelOperation.SourceCopy);
             
-            var snapshotForm = new SnapshotForm(bmpSnapshot);
+            var snapshotForm = new SnapshotForm(bmpSnapshot, mp.FileInfo);
             snapshotForm.ShowDialog(this);
             snapshotForm.Dispose();
         }
 
         private void sayMediaNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Speech.SayMedia();
+            if (speech == null)
+                speech = new Speech(mp.FileInfo);
+            speech.SayMedia();
         }
 
         private void mediaInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (infoForm == null || infoForm.IsDisposed)
-                infoForm = new InfoForm(mplayer.GetMPlayerInfo());
+                infoForm = new InfoForm(mp);
             infoForm.Show();
         }
 
@@ -1405,7 +1415,7 @@ namespace Baka_MPlayer.Forms
         {
             if (blackForm == null)
             {
-                blackForm = new BlackForm(this);
+                blackForm = new BlackForm(this, mp.FileInfo);
                 blackForm.RefreshTitle();
             }
 
@@ -1447,7 +1457,7 @@ namespace Baka_MPlayer.Forms
         private void setOnTop()
         {
             if (whenPlayingToolStripMenuItem.Checked)
-                this.TopMost = (Info.Current.PlayState == PlayStates.Playing);
+                this.TopMost = (mp.CurrentStatus.PlayState == PlayStates.Playing);
             else if (alwaysToolStripMenuItem.Checked)
                 this.TopMost = true;
             else if (neverToolStripMenuItem.Checked)
@@ -1515,14 +1525,14 @@ namespace Baka_MPlayer.Forms
 
             InitializeComponent();
 
-            mplayer = new MPlayer(mplayerPanel.Handle.ToInt32());
+            mp = new mpv.mpv(mplayerPanel.Handle.ToInt32());
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
             // check for mpv.exe
-            if (!File.Exists(Application.StartupPath + "\\mpv.exe"))
+            if (!File.Exists(Path.Combine(Application.StartupPath, "mpv.exe")))
             {
-                MessageBox.Show("Baka MPlayer cannot load without mpv.exe!",
+                MessageBox.Show("mpv.exe was not found!",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }
@@ -1530,12 +1540,12 @@ namespace Baka_MPlayer.Forms
             this.SuspendLayout(); // -- begin layout changes
 
             RegisterMPlayerEvents();
-            playlist.Init(this, mplayer);
+            playlist.Init(this, mp);
             trayIcon.ContextMenu = trayContextMenu;
             this.MouseWheel += MainForm_MouseWheel;
             this.MinimumSize = new Size(this.Width, this.Height - this.ClientSize.Height
                 + mainMenuStrip.Height + seekPanel.Height + controlPanel.Height);
-            folderToolStripMenuItem.Text = "Build " + Application.ProductVersion;
+            folderToolStripMenuItem.Text = "Build " + Program.GetVersion();
 
             SetLCDFont(); // Embbeding Font (LCD.ttf)
             ShowConsole = false;
@@ -1565,28 +1575,33 @@ namespace Baka_MPlayer.Forms
             {
                 if (arg[i].Equals("-lastfile", StringComparison.OrdinalIgnoreCase))
                 {
-                    if (File.Exists(settings.GetStringValue(SettingEnum.LastFile)))
-                        mplayer.OpenFile(settings.GetStringValue(SettingEnum.LastFile));
+                    var lastFile = settings.GetStringValue(SettingEnum.LastFile);
+                    if (File.Exists(lastFile))
+                    {
+                        mp.OpenFile(lastFile);
+                    }
                     else
+                    {
                         MessageBox.Show("Either there is no previous file or the previous file does not exist anymore.",
                             "No Previous File", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
                     break;
                 }
                 if (File.Exists(arg[i]))
                 {
-                    // Note: opening only one file is supported for now
-                    mplayer.OpenFile(arg[i]);
+                    // Note: opening only one file at a time is supported
+                    mp.OpenFile(arg[i]);
                     break;
                 }
             }
         }
         private void RegisterMPlayerEvents()
         {
-            mplayer.StdOutEvent += mplayer_StdOutEvent;
-            mplayer.StatusChangedEvent += mplayer_StatusChangedEvent;
-            mplayer.FileOpenedEvent += mplayer_FileOpenedEvent;
-            mplayer.PlayStateChangedEvent += mplayer_PlayStateChangedEvent;
-            mplayer.DurationChangedEvent += mplayer_DurationChangedEvent;
+            mp.StdOutEvent += mp_StdOutEvent;
+            mp.StatusChangedEvent += mp_StatusChangedEvent;
+            mp.FileOpenedEvent += mp_FileOpenedEvent;
+            mp.PlayStateChangedEvent += mp_PlayStateChangedEvent;
+            mp.DurationChangedEvent += mp_DurationChangedEvent;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -1621,7 +1636,7 @@ namespace Baka_MPlayer.Forms
             {
                 case Keys.Space: // play or pause
                     if (NotFocusedOnTextbox)
-                        mplayer.Pause(true);
+                        mp.Pause(true);
                     break;
                 case Keys.Escape:
                     if (FullScreen)
@@ -1636,30 +1651,25 @@ namespace Baka_MPlayer.Forms
             if (e.Delta > 0)
             {
                 // scroll up (increase volume)
-                if (Info.Current.Volume >= 95)
+                if (mp.Volume >= 95)
                     SetVolume(100);
                 else
-                    SetVolume(Info.Current.Volume + 5);
+                    SetVolume(mp.Volume + 5);
             }
             else
             {
                 // scroll down (decrease volume)
-                if (Info.Current.Volume <= 5)
+                if (mp.Volume <= 5)
                     SetVolume(0);
                 else
-                    SetVolume(Info.Current.Volume - 5);
+                    SetVolume(mp.Volume - 5);
             }
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (mplayer.MPlayerIsRunning())
-                e.Cancel = true;
-            else
-                return;
-
-            // save LastFile
-            if (!string.IsNullOrEmpty(Info.URL))
-                settings.SetConfig(Info.URL, SettingEnum.LastFile);
+            // save settings
+            if (!string.IsNullOrEmpty(mp.FileInfo.Url))
+                settings.SetConfig(mp.FileInfo.Url, SettingEnum.LastFile);
             settings.SaveConfig();
 
             if (voice != null)
@@ -1667,19 +1677,17 @@ namespace Baka_MPlayer.Forms
             UnhookWindowsHookEx(hHook);
             UnloadTray();
 
-            // This function will kill the mplayer process, which in turn will
-            // signal the Application to exit thus causing a one time recursion
-            mplayer.Kill();
+            mp.Quit();
         }
 
         #endregion
         #region MPlayer Events
 
-        private void mplayer_StdOutEvent(object sender, StdOutEventArgs e)
+        private void mp_StdOutEvent(object sender, StdOutEventArgs e)
         {
             Invoke((MethodInvoker)delegate
             {
-                if (e.StdOut.Equals("[Baka_MPlayer] CLEAR_OUTPUT"))
+                if (e.StdOut.Equals("[ACTION] CLEAR_OUTPUT"))
                 {
                     outputTextbox.Clear();
                     return;
@@ -1692,13 +1700,20 @@ namespace Baka_MPlayer.Forms
             });
         }
 
-        private void mplayer_StatusChangedEvent(object sender, StatusChangedEventArgs e)
+        private void mp_StatusChangedEvent(object sender, StatusChangedEventArgs e)
         {
             Invoke((MethodInvoker)delegate
             {
-                if (e.Status.Equals("[Baka_MPlayer] HIDE_STATUS_LABEL"))
+                if (e.Status.Equals("[ACTION] HIDE_STATUS_LABEL"))
                 {
                     HideStatusLabel();
+                    return;
+                }
+                if (e.Status.Equals("[ERROR] FAILED_TO_OPEN"))
+                {
+                    MessageBox.Show("Baka MPlayer couldn't open this file.\nThis can happen if the file is not supported, incomplete, or inaccessible.",
+                        "Cannot open file", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    SetStatusMsg("Open a file to begin playing", true);
                     return;
                 }
 
@@ -1714,7 +1729,7 @@ namespace Baka_MPlayer.Forms
                 statusTimer.Enabled = true;
         }
 
-        private void mplayer_FileOpenedEvent(object sender, EventArgs e)
+        private void mp_FileOpenedEvent(object sender, EventArgs e)
         {
             Invoke((MethodInvoker)delegate
             {
@@ -1727,7 +1742,7 @@ namespace Baka_MPlayer.Forms
                 if (firstFile)
                 {
                     firstFile = false;
-                    settings.SetConfig(Info.URL, SettingEnum.LastFile);
+                    settings.SetConfig(mp.FileInfo.Url, SettingEnum.LastFile);
                 }
                 else
                 {
@@ -1736,14 +1751,14 @@ namespace Baka_MPlayer.Forms
                     openLastFileToolStripMenuItem.Enabled = true;
                 }
                 settings.SaveConfig();
-                tempURL = Info.URL;
+                tempURL = mp.FileInfo.Url;
 
                 // set form's info
 
-                this.Text = Info.IsOnline ? Info.MovieName : Info.FullFileName;
+                this.Text = mp.FileInfo.IsOnline ? mp.FileInfo.MovieName : mp.FileInfo.FullFileName;
 
-                folderToolStripMenuItem.Text = Info.IsOnline ?
-                    new Uri(Info.URL).Host : Functions.String.AutoEllipsis(32, Functions.IO.GetFolderName(Info.URL));
+                folderToolStripMenuItem.Text = mp.FileInfo.IsOnline ?
+                    new Uri(mp.FileInfo.Url).Host : Functions.String.AutoEllipsis(32, Functions.IO.GetFolderName(mp.FileInfo.Url));
 
                 if (blackForm != null)
                     blackForm.RefreshTitle();
@@ -1753,9 +1768,9 @@ namespace Baka_MPlayer.Forms
 
                 // set menu strips
 
-                showInWindowsExplorerToolStripMenuItem.Enabled = !Info.IsOnline;
+                showInWindowsExplorerToolStripMenuItem.Enabled = !mp.FileInfo.IsOnline;
 
-                if (Info.VideoInfo.HasVideo)
+                if (mp.FileInfo.HasVideo)
                 {
                     // video file
                     albumArtPicbox.Visible = false;
@@ -1784,8 +1799,8 @@ namespace Baka_MPlayer.Forms
                     takeSnapshotToolStripMenuItem.Enabled = false;
 
                     // show album art (if it exists)
-                    if (Info.ID3Tags.AlbumArtTag != null)
-                        albumArtPicbox.Image = Info.ID3Tags.AlbumArtTag.AlbumArt;
+                    if (mp.FileInfo.Id3Tags.AlbumArtTag != null)
+                        albumArtPicbox.Image = mp.FileInfo.Id3Tags.AlbumArtTag.AlbumArt;
                     else
                         albumArtPicbox.Image = Properties.Resources.Music_128;
 
@@ -1798,7 +1813,7 @@ namespace Baka_MPlayer.Forms
                 }
                 ResizeMplayerPanel();
 
-                if (Info.Chapters.Count > 0)
+                if (mp.FileInfo.Chapters.Count > 0)
                 {
                     previousChapterToolStripMenuItem.Enabled = true;
                     nextChapterToolStripMenuItem.Enabled = true;
@@ -1819,16 +1834,16 @@ namespace Baka_MPlayer.Forms
                 SetChapters();
                 SetSubs();
 
-                mplayer.Play();
+                mp.Play();
             });
         }
 
-        private void mplayer_PlayStateChangedEvent(object sender, EventArgs e)
+        private void mp_PlayStateChangedEvent(object sender, EventArgs e)
         {
             Invoke((MethodInvoker)delegate
             {
                 setOnTop();
-                SetPlayState(Info.Current.PlayState);
+                SetPlayState(mp.CurrentStatus.PlayState);
             });
         }
         private void SetPlayState(PlayStates newPlayState)
@@ -1896,7 +1911,7 @@ namespace Baka_MPlayer.Forms
             else if (thisFileToolStripMenuItem.Checked)
             {
                 // repeat this file
-                mplayer.OpenFile(Info.URL);
+                mp.OpenFile(mp.FileInfo.Url);
             }
             else if (offToolStripMenuItem.Checked)
             {
@@ -1914,7 +1929,7 @@ namespace Baka_MPlayer.Forms
             SetStatusMsg("Reached the end", true);
         }
 
-        private void mplayer_DurationChangedEvent(object sender, EventArgs e)
+        private void mp_DurationChangedEvent(object sender, EventArgs e)
         {
             Invoke((MethodInvoker)delegate
             {
@@ -1923,13 +1938,13 @@ namespace Baka_MPlayer.Forms
                 if (seekBar_IsMouseDown)
                     return;
 
-                if (Info.Current.PlayState == PlayStates.Playing)
-                    durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration);
+                if (mp.CurrentStatus.PlayState == PlayStates.Playing)
+                    durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.Duration);
 
                 // check if file is seekable
-                if (Info.Current.TotalLength > 0.0)
+                if (mp.CurrentStatus.TotalLength > 0.0)
                 {
-                    seekBar.Value = Convert.ToInt32((Info.Current.Duration * seekBar.Maximum) / Info.Current.TotalLength); // %
+                    seekBar.Value = Convert.ToInt32((mp.CurrentStatus.Duration * seekBar.Maximum) / mp.CurrentStatus.TotalLength); // %
                 }
                 else
                 {
@@ -1941,11 +1956,11 @@ namespace Baka_MPlayer.Forms
                 if (settings.GetBoolValue(SettingEnum.ShowTimeRemaining))
                 {
                     timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(
-                        Math.Abs(Info.Current.TotalLength - Info.Current.Duration)));
+                        Math.Abs(mp.CurrentStatus.TotalLength - mp.CurrentStatus.Duration)));
                 }
                 else
                 {
-                    timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(Info.Current.TotalLength);
+                    timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.TotalLength);
                 }
             });
         }
@@ -1980,16 +1995,18 @@ namespace Baka_MPlayer.Forms
                 Properties.Resources.VideoFiles + "; " + Properties.Resources.AudioFiles,
                 Properties.Resources.VideoFiles, Properties.Resources.AudioFiles);
 
-            if (Info.IsOnline)
+            if (mp.FileInfo.IsOnline)
+            {
                 ofd.FileName = string.Empty;
+            }
             else
             {
-                ofd.InitialDirectory = Info.GetDirectoryName;
-                ofd.FileName = Info.FullFileName;
+                ofd.InitialDirectory = mp.FileInfo.GetDirectoryName;
+                ofd.FileName = mp.FileInfo.FullFileName;
             }
 
             if (ofd.ShowDialog() == DialogResult.OK && File.Exists(ofd.FileName))
-                mplayer.OpenFile(ofd.FileName);
+                mp.OpenFile(ofd.FileName);
         }
 
         private void HidePlayer()
@@ -2000,8 +2017,8 @@ namespace Baka_MPlayer.Forms
                 return;
             }
             
-            if (mplayer.MPlayerIsRunning())
-                mplayer.Pause(false);
+            if (mp.PlayerIsRunning())
+                mp.Pause(false);
 
             if (FullScreen)
                 FullScreen = false;
@@ -2009,7 +2026,7 @@ namespace Baka_MPlayer.Forms
                 blackForm.Hide();
             dimLightsToolStripMenuItem.Checked = false;
 
-            // hack required to bypass Windows' hide animation
+            // hack required to bypass Windows hide animation
             this.Opacity = 0.0;
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Minimized;
@@ -2019,7 +2036,7 @@ namespace Baka_MPlayer.Forms
 
         private void SetControls(bool enable, bool lastFile)
         {
-            seekBar.Enabled = Info.Current.TotalLength > 0.0 && enable;
+            seekBar.Enabled = mp.CurrentStatus.TotalLength > 0.0 && enable;
 
             stopToolStripMenuItem.Enabled = enable;
             jumpToTimeToolStripMenuItem.Enabled = enable;
@@ -2059,14 +2076,14 @@ namespace Baka_MPlayer.Forms
         private void SetChapterMarks()
         {
             // set chapter marks on seekBar
-            if (Info.Chapters.Count != 0)
+            if (mp.FileInfo.Chapters.Count != 0)
             {
                 var marks = new List<long>();
 
-                foreach (var c in Info.Chapters)
+                foreach (var c in mp.FileInfo.Chapters)
                     marks.Add(c.StartTime / 1000);
 
-                seekBar.AddMarks(marks, Info.Current.TotalLength);
+                seekBar.AddMarks(marks, mp.CurrentStatus.TotalLength);
             }
             else
             {
@@ -2076,20 +2093,20 @@ namespace Baka_MPlayer.Forms
 
         private void mouseHandler_XButtonDown(MouseButtons button)
         {
-            if (!mplayer.MPlayerIsRunning())
+            if (!mp.PlayerIsRunning())
                 return;
 
             switch (button)
             {
                 case MouseButtons.XButton1: // seek backwards
-                    if (Info.Current.Duration - 5 > -1)
-                        mplayer.Seek(Info.Current.Duration - 5);
+                    if (mp.CurrentStatus.Duration - 5 > -1)
+                        mp.Seek(mp.CurrentStatus.Duration - 5);
                     else //if (mplayer.currentPosition < 5)
-                        mplayer.Seek(0);
+                        mp.Seek(0);
                     break;
                 case MouseButtons.XButton2: // seek forwards
-                    if (Info.Current.Duration + 5 < Info.Current.TotalLength)
-                        mplayer.Seek(Info.Current.Duration + 5);
+                    if (mp.CurrentStatus.Duration + 5 < mp.CurrentStatus.TotalLength)
+                        mp.Seek(mp.CurrentStatus.Duration + 5);
                     else
                         playlist.PlayNext();
                     break;
@@ -2114,15 +2131,15 @@ namespace Baka_MPlayer.Forms
 
         private void ResizeMplayerPanel()
         {
-            if (string.IsNullOrEmpty(Info.URL) && !Info.VideoInfo.HasVideo)
+            if (mp == null || string.IsNullOrEmpty(mp.FileInfo.Url) || !mp.FileInfo.HasVideo)
                 return;
 
             var currentRatio = (double)mplayerSplitContainer.Panel1.Width / mplayerSplitContainer.Panel1.Height;
-            var ratio = Info.VideoInfo.AspectRatio;
-
+            
+            var ratio = VO_State.PanelAspectRatio;
             if (ratio.Equals(0.0))
-                ratio = (double)Info.VideoInfo.Width / Info.VideoInfo.Height;
-
+                ratio = (double)mp.FileInfo.VideoWidth / mp.FileInfo.VideoHeight;
+            
             int width, height;
 
             if (currentRatio < ratio)
@@ -2144,13 +2161,15 @@ namespace Baka_MPlayer.Forms
 
         private void UpdateNowPlayingInfo()
         {
-            switch(Info.Current.PlayState)
+            switch(mp.CurrentStatus.PlayState)
             {
                 case PlayStates.Playing:
-                    nowPlayingMenuItem.Text = string.Format("Now Playing ({0})", Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration));
+                    nowPlayingMenuItem.Text = string.Format("Now Playing ({0})",
+                        Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.Duration));
                     break;
                 case PlayStates.Paused:
-                    nowPlayingMenuItem.Text = string.Format("Paused ({0})", Functions.Time.ConvertTimeFromSeconds(Info.Current.Duration));
+                    nowPlayingMenuItem.Text = string.Format("Paused ({0})",
+                        Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.Duration));
                     break;
                 case PlayStates.Stopped:
                     nowPlayingMenuItem.Text = "Stopped";
@@ -2166,15 +2185,13 @@ namespace Baka_MPlayer.Forms
             if (newVol < 0 || newVol > 100)
                 return;
 
-            if (mplayer.MPlayerIsRunning())
-                mplayer.SetVolume(newVol);
-            Info.Current.Volume = newVol;
+            mp.SetVolume(newVol);
             settings.SetConfig(newVol, SettingEnum.Volume);
 
             if (newVol.Equals(0))
             { // mute
-                if (mplayer.MPlayerIsRunning())
-                    mplayer.Mute(true);
+                if (mp.PlayerIsRunning())
+                    mp.Mute(true);
                 volumeToolStripTextBox.Text = "Mute";
 
                 volumeBar.ThumbFirstColor = Color.DarkGray;
@@ -2183,8 +2200,8 @@ namespace Baka_MPlayer.Forms
             }
             else
             { // not mute
-                if (mplayer.MPlayerIsRunning())
-                    mplayer.Mute(false);
+                if (mp.PlayerIsRunning())
+                    mp.Mute(false);
                 volumeToolStripTextBox.Text = newVol.ToString(CultureInfo.InvariantCulture);
 
                 volumeBar.ThumbFirstColor = Color.Silver;
@@ -2267,7 +2284,7 @@ namespace Baka_MPlayer.Forms
                         Application.Exit();
                         break;
                     default:
-                        mplayer.SendCommand(inputTextbox.Text);
+                        mp.SendCommand(inputTextbox.Text);
                         break;
                 }
                 inputTextbox.SelectionStart = 0;
@@ -2277,8 +2294,8 @@ namespace Baka_MPlayer.Forms
 
         private void mplayerPanel_MouseClick(object sender, MouseEventArgs e)
         {
-            if (!string.IsNullOrEmpty(Info.URL) && e.Button == MouseButtons.Right)
-                mplayer.Pause(true);
+            if (!string.IsNullOrEmpty(mp.FileInfo.Url) && e.Button == MouseButtons.Right)
+                mp.Pause(true);
         }
 
         private void mplayerPanel_MouseDoubleClickFixed(object sender, MouseEventArgs e)
@@ -2289,14 +2306,14 @@ namespace Baka_MPlayer.Forms
 
         private void mplayerSplitContainer_Panel1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (!string.IsNullOrEmpty(Info.URL) && e.Button == MouseButtons.Right)
-                mplayer.Pause(true);
+            if (!string.IsNullOrEmpty(mp.FileInfo.Url) && e.Button == MouseButtons.Right)
+                mp.Pause(true);
         }
 
         private void albumArtPicbox_MouseClick(object sender, MouseEventArgs e)
         {
-            if (!string.IsNullOrEmpty(Info.URL) && e.Button == MouseButtons.Right)
-                mplayer.Pause(true);
+            if (!string.IsNullOrEmpty(mp.FileInfo.Url) && e.Button == MouseButtons.Right)
+                mp.Pause(true);
         }
 
         private void bodySplitContainer_SplitterMoved(object sender, SplitterEventArgs e)

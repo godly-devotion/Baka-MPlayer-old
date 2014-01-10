@@ -9,7 +9,7 @@ namespace Baka_MPlayer.Forms
         public AboutForm()
         {
             InitializeComponent();
-            versionLabel.Text = "Version: " + Application.ProductVersion;
+            versionLabel.Text = "Version: " + Program.GetVersion();
         }
 
         protected override void OnPaint(PaintEventArgs e)

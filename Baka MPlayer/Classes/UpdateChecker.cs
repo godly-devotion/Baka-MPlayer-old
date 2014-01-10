@@ -1,6 +1,9 @@
-﻿/******************************************
-* UpdateChecker (by Joshua Park & u8sand) *
-******************************************/
+﻿/*
+ * Update Checker
+ * 
+ * Copyright (c) 2014, Joshua Park & u8sand
+ */
+
 using System;
 using System.IO;
 using System.Net;
@@ -8,6 +11,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using Baka_MPlayer;
 using Baka_MPlayer.Forms;
 
 public class UpdateInfo
@@ -95,7 +99,7 @@ public class UpdateChecker
             if (string.IsNullOrEmpty(version))
                 throw new Exception("A valid version number was not returned.");
 
-            if (version.Equals(Application.ProductVersion))
+            if (version.Equals(Program.GetVersion()))
             {
                 if (!(bool) isSilent)
                 {

@@ -10,4 +10,9 @@ public static class VO_State
     /// Used as the global bool for full screen
     /// </summary>
     public static bool FullScreen { get; set; }
+
+    /// <summary>
+    /// Interal governer for mplayerPanel's display aspect ratio
+    /// </summary>
+    public static double PanelAspectRatio { get; set; }
 }
