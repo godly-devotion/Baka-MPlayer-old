@@ -105,6 +105,7 @@ namespace mpv
                     return true;
 
                 SendCommand("quit");
+                stdinWriter.Close();
                 mpvProcess.CancelOutputRead();
                 mpvProcess.CancelErrorRead();
             }
