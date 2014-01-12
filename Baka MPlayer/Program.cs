@@ -25,11 +25,12 @@ namespace Baka_MPlayer
         }
 
         /// <summary>
-        /// Returns version information (x.x.x.x)
+        /// Returns version information (x.x.x)
         /// </summary>
         public static string GetVersion()
         {
-            return Application.ProductVersion;
+            var ver = Application.ProductVersion;
+            return ver.Substring(0, ver.LastIndexOf('.'));
         }
 
 #if !DEBUG
