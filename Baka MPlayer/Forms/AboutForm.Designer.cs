@@ -65,11 +65,12 @@
             // webLinkLabel
             // 
             this.webLinkLabel.ActiveLinkColor = System.Drawing.Color.DodgerBlue;
+            this.webLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.webLinkLabel.AutoSize = true;
             this.webLinkLabel.BackColor = System.Drawing.Color.Transparent;
             this.webLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.webLinkLabel.LinkColor = System.Drawing.Color.DeepSkyBlue;
-            this.webLinkLabel.Location = new System.Drawing.Point(12, 278);
+            this.webLinkLabel.Location = new System.Drawing.Point(12, 288);
             this.webLinkLabel.Name = "webLinkLabel";
             this.webLinkLabel.Size = new System.Drawing.Size(214, 19);
             this.webLinkLabel.TabIndex = 4;
@@ -80,11 +81,14 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.richTextBox2);
             this.groupBox2.Font = new System.Drawing.Font("Calibri", 1.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(12, 90);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(380, 175);
+            this.groupBox2.Size = new System.Drawing.Size(380, 186);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             // 
@@ -100,12 +104,13 @@
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.ReadOnly = true;
             this.richTextBox2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.richTextBox2.Size = new System.Drawing.Size(374, 166);
+            this.richTextBox2.Size = new System.Drawing.Size(374, 177);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = resources.GetString("richTextBox2.Text");
             // 
             // closeButton
             // 
+            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButton.BackColor = System.Drawing.Color.Transparent;
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.closeButton.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
@@ -115,7 +120,7 @@
             this.closeButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.White;
             this.closeButton.IsDefaultButton = true;
-            this.closeButton.Location = new System.Drawing.Point(307, 272);
+            this.closeButton.Location = new System.Drawing.Point(307, 283);
             this.closeButton.Margin = new System.Windows.Forms.Padding(4);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(85, 30);
@@ -141,7 +146,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(404, 308);
+            this.ClientSize = new System.Drawing.Size(404, 319);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.logoPicbox);
             this.Controls.Add(this.versionLabel);
