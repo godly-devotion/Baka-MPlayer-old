@@ -45,6 +45,8 @@ namespace mpv
         }
         public int Volume { get; set; }
 
+        public bool ParentDisposed { get; set; }
+
         public mpv(int wid)
         {
             this.wid = wid;
@@ -118,9 +120,9 @@ namespace mpv
         }
         public bool Pause(bool toggle)
         {
-            if (toggle)
-                return SendCommand("cycle pause");
-            return SendCommand("set pause yes");
+            if (CurrentStatus.PlayState == PlayStates.Ended)
+                return OpenFile(FileInfo.Url);
+            return SendCommand(toggle ? "cycle pause" : "set pause yes");
         }
         public bool Stop()
         {
@@ -291,7 +293,7 @@ namespace mpv
 
         protected virtual void OnStdOut(StdOutEventArgs e)
         {
-            if (StdOutEvent != null)
+            if (StdOutEvent != null && !ParentDisposed)
             {
                 StdOutEvent(this, e);
             }
@@ -301,7 +303,7 @@ namespace mpv
 
         protected virtual void OnStatusChanged(StatusChangedEventArgs e)
         {
-            if (StatusChangedEvent != null)
+            if (StatusChangedEvent != null && !ParentDisposed)
             {
                 StatusChangedEvent(this, e);
             }
@@ -311,7 +313,7 @@ namespace mpv
 
         protected virtual void OnFileOpened(EventArgs e)
         {
-            if (FileOpenedEvent != null)
+            if (FileOpenedEvent != null && !ParentDisposed)
             {
                 FileOpenedEvent(this, e);
             }
@@ -321,7 +323,7 @@ namespace mpv
 
         protected virtual void OnPlayStateChanged(EventArgs e)
         {
-            if (PlayStateChangedEvent != null)
+            if (PlayStateChangedEvent != null && !ParentDisposed)
             {
                 PlayStateChangedEvent(this, e);
             }
@@ -331,7 +333,7 @@ namespace mpv
 
         protected virtual void OnDurationChanged(EventArgs e)
         {
-            if (DurationChangedEvent != null)
+            if (DurationChangedEvent != null && !ParentDisposed)
             {
                 DurationChangedEvent(this, e);
             }

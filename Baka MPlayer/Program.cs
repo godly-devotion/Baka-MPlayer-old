@@ -15,8 +15,10 @@ namespace Baka_MPlayer
         [STAThread]
         static void Main()
         {
+#if !DEBUG
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.ThreadException += ApplicationThreadException;
+#endif
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
@@ -29,6 +31,8 @@ namespace Baka_MPlayer
         {
             return Application.ProductVersion;
         }
+
+#if !DEBUG
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
@@ -85,5 +89,6 @@ namespace Baka_MPlayer
                 file.WriteLine(contents);
             }
         }
+#endif
     }
 }

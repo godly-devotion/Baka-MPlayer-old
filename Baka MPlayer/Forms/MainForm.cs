@@ -113,8 +113,6 @@ namespace Baka_MPlayer.Forms
                     trayIcon.ShowBalloonTip(4000, "Paused", this.Text, ToolTipIcon.None);
                     break;
                 case PlayStates.Paused:
-                    trayIcon.ShowBalloonTip(4000, "Playing", this.Text, ToolTipIcon.None);
-                    break;
                 case PlayStates.Stopped:
                     trayIcon.ShowBalloonTip(4000, "Playing", this.Text, ToolTipIcon.None);
                     break;
@@ -1677,6 +1675,7 @@ namespace Baka_MPlayer.Forms
             UnhookWindowsHookEx(hHook);
             UnloadTray();
 
+            mp.ParentDisposed = true;
             mp.Quit();
         }
 
