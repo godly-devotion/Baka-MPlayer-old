@@ -94,8 +94,8 @@ namespace mpv
         }
         public string GetProcessState()
         {
-            string strResp = mpvProcess.Responding ? "" : " - Not Responding";
-            return string.Format("MPlayer's Process ID: {0}{1}", mpvProcess.Id, strResp);
+            string strResp = mpvProcess.Responding ? "" : " - not responding";
+            return string.Format("mpv's process ID: {0}{1}", mpvProcess.Id, strResp);
         }
         public bool Quit()
         {
