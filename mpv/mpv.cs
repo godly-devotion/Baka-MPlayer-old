@@ -429,7 +429,7 @@ namespace mpv
                 var value = e.Data.Substring(i + 1);
 
                 ProcessDetails(key, value);
-                FileInfo.OtherInfos.Add(new ID_Info(key, value));
+                FileInfo.IdInfo.Add(key, value);
                 return;
             }
 

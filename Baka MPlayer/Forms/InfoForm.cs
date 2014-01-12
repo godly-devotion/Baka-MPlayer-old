@@ -86,9 +86,9 @@ namespace Baka_MPlayer.Forms
 
         private void SetTagsInfo()
         {
-            foreach (ID_Info info in mp.FileInfo.OtherInfos)
+            foreach (var info in mp.FileInfo.IdInfo)
             {
-                var item = new ListViewItem(info.ID, infoList.Groups[1]);
+                var item = new ListViewItem(info.Key, infoList.Groups[1]);
                 item.SubItems.Add(info.Value);
                 infoList.Items.Add(item);
             }

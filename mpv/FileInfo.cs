@@ -59,29 +59,45 @@ namespace MPlayer.Info
 
         public ID3Tag Id3Tags { get; set; }
 
-        // MiscInfo
-        public List<Subtitle> Subs { get; set; }
-        public List<Chapter> Chapters { get; set; }
-        public List<AudioTrack> AudioTracks { get; set; }
-        public List<ID_Info> OtherInfos { get; set; }
+        private Dictionary<string, string> _idInfo = new Dictionary<string, string>();
+        public Dictionary<string, string> IdInfo
+        {
+            get { return _idInfo; }
+            set { _idInfo = value; }
+        }
+
+        // Tracks
+        private List<Subtitle> _subs = new List<Subtitle>();
+        public List<Subtitle> Subs
+        {
+            get { return _subs; }
+            set { _subs = value; }
+        }
+
+        private List<Chapter> _chapters = new List<Chapter>();
+        public List<Chapter> Chapters
+        {
+            get { return _chapters; }
+            set { _chapters = value; }
+        }
+
+        private List<AudioTrack> _audioTracks = new List<AudioTrack>();
+        public List<AudioTrack> AudioTracks
+        {
+            get { return _audioTracks; }
+            set { _audioTracks = value; }
+        }
 
         /// <summary>
-        /// Always call before playing next file.
+        /// Always call before playing next file
         /// </summary>
         public void ResetInfo()
-        {
-            // MiscInfo
-            Subs = new List<Subtitle>();
-            Chapters = new List<Chapter>();
-            AudioTracks = new List<AudioTrack>();
-            OtherInfos = new List<ID_Info>();
-
+        {        
             // VideoInfo
             HasVideo = true;
             VideoWidth = 0;
             VideoHeight = 0;
 
-            // ID3Tags
             Id3Tags = new ID3Tag
             {
                 Album_Artist = String.Empty,
@@ -98,6 +114,13 @@ namespace MPlayer.Info
 
                 AlbumArtTag = null
             };
+
+            IdInfo.Clear();
+            
+            // Tracks
+            Subs.Clear();
+            Chapters.Clear();
+            AudioTracks.Clear();
         }
     }
 }

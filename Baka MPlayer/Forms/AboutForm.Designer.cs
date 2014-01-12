@@ -70,7 +70,7 @@
             this.webLinkLabel.BackColor = System.Drawing.Color.Transparent;
             this.webLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.webLinkLabel.LinkColor = System.Drawing.Color.DeepSkyBlue;
-            this.webLinkLabel.Location = new System.Drawing.Point(12, 288);
+            this.webLinkLabel.Location = new System.Drawing.Point(12, 285);
             this.webLinkLabel.Name = "webLinkLabel";
             this.webLinkLabel.Size = new System.Drawing.Size(214, 19);
             this.webLinkLabel.TabIndex = 4;
@@ -88,7 +88,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Calibri", 1.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(12, 90);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(380, 186);
+            this.groupBox2.Size = new System.Drawing.Size(380, 183);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             // 
@@ -104,7 +104,7 @@
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.ReadOnly = true;
             this.richTextBox2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.richTextBox2.Size = new System.Drawing.Size(374, 177);
+            this.richTextBox2.Size = new System.Drawing.Size(374, 174);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = resources.GetString("richTextBox2.Text");
             // 
@@ -120,7 +120,7 @@
             this.closeButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.White;
             this.closeButton.IsDefaultButton = true;
-            this.closeButton.Location = new System.Drawing.Point(307, 283);
+            this.closeButton.Location = new System.Drawing.Point(307, 280);
             this.closeButton.Margin = new System.Windows.Forms.Padding(4);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(85, 30);
@@ -146,7 +146,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(404, 319);
+            this.ClientSize = new System.Drawing.Size(404, 316);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.logoPicbox);
             this.Controls.Add(this.versionLabel);

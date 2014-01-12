@@ -51,12 +51,12 @@ namespace MPlayer.Info
         int VideoHeight { get; set; }
 
         ID3Tag Id3Tags { get; set; }
+        Dictionary<string, string> IdInfo { get; set; }
 
         // Tracks
         List<Subtitle> Subs { get; }
         List<Chapter> Chapters { get; }
         List<AudioTrack> AudioTracks { get; }
-        List<ID_Info> OtherInfos { get; }
 
         void ResetInfo();
     }
