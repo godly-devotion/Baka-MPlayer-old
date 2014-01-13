@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading;
 using MPlayer;
 using MPlayer.Info;
 using MPlayer.Info.Track;
@@ -44,8 +45,6 @@ namespace mpv
             set { _fileInfo = value; }
         }
         public int Volume { get; set; }
-
-        public bool ParentDisposed { get; set; }
 
         public mpv(int wid)
         {
@@ -294,7 +293,7 @@ namespace mpv
 
         protected virtual void OnStdOut(StdOutEventArgs e)
         {
-            if (StdOutEvent != null && !ParentDisposed)
+            if (StdOutEvent != null)
             {
                 StdOutEvent(this, e);
             }
@@ -304,7 +303,7 @@ namespace mpv
 
         protected virtual void OnStatusChanged(StatusChangedEventArgs e)
         {
-            if (StatusChangedEvent != null && !ParentDisposed)
+            if (StatusChangedEvent != null)
             {
                 StatusChangedEvent(this, e);
             }
@@ -314,7 +313,7 @@ namespace mpv
 
         protected virtual void OnFileOpened(EventArgs e)
         {
-            if (FileOpenedEvent != null && !ParentDisposed)
+            if (FileOpenedEvent != null)
             {
                 FileOpenedEvent(this, e);
             }
@@ -324,7 +323,7 @@ namespace mpv
 
         protected virtual void OnPlayStateChanged(EventArgs e)
         {
-            if (PlayStateChangedEvent != null && !ParentDisposed)
+            if (PlayStateChangedEvent != null)
             {
                 PlayStateChangedEvent(this, e);
             }
@@ -334,7 +333,7 @@ namespace mpv
 
         protected virtual void OnDurationChanged(EventArgs e)
         {
-            if (DurationChangedEvent != null && !ParentDisposed)
+            if (DurationChangedEvent != null)
             {
                 DurationChangedEvent(this, e);
             }
@@ -429,7 +428,7 @@ namespace mpv
                 var value = e.Data.Substring(i + 1);
 
                 ProcessDetails(key, value);
-                FileInfo.IdInfo.Add(key, value);
+                FileInfo.IdInfos.Add(new IdInfo(key, value));
                 return;
             }
 

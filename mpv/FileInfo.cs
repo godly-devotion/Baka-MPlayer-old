@@ -59,11 +59,11 @@ namespace MPlayer.Info
 
         public ID3Tag Id3Tags { get; set; }
 
-        private Dictionary<string, string> _idInfo = new Dictionary<string, string>();
-        public Dictionary<string, string> IdInfo
+        private List<IdInfo> _idInfos = new List<IdInfo>();
+        public List<IdInfo> IdInfos
         {
-            get { return _idInfo; }
-            set { _idInfo = value; }
+            get { return _idInfos; }
+            set { _idInfos = value; }
         }
 
         // Tracks
@@ -115,7 +115,7 @@ namespace MPlayer.Info
                 AlbumArtTag = null
             };
 
-            IdInfo.Clear();
+            IdInfos.Clear();
             
             // Tracks
             Subs.Clear();

@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Functions.cs" />
     <Compile Include="Info\ID3Tag.cs" />
+    <Compile Include="Info\IdInfo.cs" />
     <Compile Include="Info\IFileInfo.cs" />
     <Compile Include="Info\Status.cs" />
     <Compile Include="TagLib-Sharp\ID3Tag.cs" />

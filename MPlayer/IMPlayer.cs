@@ -15,7 +15,6 @@ namespace MPlayer
         Status CurrentStatus { get; }
         IFileInfo FileInfo { get; }
         int Volume { get; }
-        bool ParentDisposed { get; set; }
 
         bool OpenFile(string url);
         bool OpenFile(string url, string subFile);

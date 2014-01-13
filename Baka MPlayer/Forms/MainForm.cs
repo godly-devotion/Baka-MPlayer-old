@@ -1675,7 +1675,6 @@ namespace Baka_MPlayer.Forms
             UnhookWindowsHookEx(hHook);
             UnloadTray();
 
-            mp.ParentDisposed = true;
             mp.Quit();
         }
 
