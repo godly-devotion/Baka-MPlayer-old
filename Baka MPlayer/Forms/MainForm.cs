@@ -1600,6 +1600,7 @@ namespace Baka_MPlayer.Forms
             mp.FileOpenedEvent += mp_FileOpenedEvent;
             mp.PlayStateChangedEvent += mp_PlayStateChangedEvent;
             mp.DurationChangedEvent += mp_DurationChangedEvent;
+            mp.MPlayerQuitEvent += mp_MPlayerQuitEvent;
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -1665,6 +1666,14 @@ namespace Baka_MPlayer.Forms
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            mp.Quit();
+
+            if (mp.PlayerIsRunning())
+            {
+                e.Cancel = true;
+                return;
+            }
+
             // save settings
             if (!string.IsNullOrEmpty(mp.FileInfo.Url))
                 settings.SetConfig(mp.FileInfo.Url, SettingEnum.LastFile);
@@ -1674,8 +1683,6 @@ namespace Baka_MPlayer.Forms
                 voice.Dispose();
             UnhookWindowsHookEx(hHook);
             UnloadTray();
-
-            mp.Quit();
         }
 
         #endregion
@@ -1961,6 +1968,11 @@ namespace Baka_MPlayer.Forms
                     timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.TotalLength);
                 }
             });
+        }
+
+        private void mp_MPlayerQuitEvent(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
 
         #endregion

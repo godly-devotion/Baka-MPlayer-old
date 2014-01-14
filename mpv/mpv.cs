@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Threading;
 using MPlayer;
 using MPlayer.Info;
 using MPlayer.Info.Track;
@@ -339,12 +338,23 @@ namespace mpv
             }
         }
 
+        public event EventHandler<EventArgs> MPlayerQuitEvent;
+
+        protected virtual void OnMPlayerQuit(EventArgs e)
+        {
+            if (MPlayerQuitEvent != null)
+            {
+                MPlayerQuitEvent(this, e);
+            }
+        }
+
         private void Exited(object sender, EventArgs e)
         {
             if (mpvProcess.ExitCode != 0)
             {
                 throw new Exception("mpv quit unexpectedly!");
             }
+            OnMPlayerQuit(e);
         }
 
         #endregion
@@ -354,6 +364,9 @@ namespace mpv
         private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
             Debug.WriteLine("-stderr:" + e.Data);
+
+            if (e.Data == null)
+                return;
 
             if (ignoreStatus)
             {
@@ -396,6 +409,9 @@ namespace mpv
         private void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             Debug.WriteLine(e.Data);
+
+            if (e.Data == null)
+                return;
 
             // show output
             OnStdOut(new StdOutEventArgs(e.Data));
