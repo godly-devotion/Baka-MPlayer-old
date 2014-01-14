@@ -1,8 +1,9 @@
 
 -- libquvi-scripts
+-- Copyright (C) 2013  Toni Gundogdu <legatvs@gmail.com>
 -- Copyright (C) 2012 Raphaël Droz.
 --
--- This file is part of quvi <http://quvi.googlecode.com/>.
+-- This file is part of quvi <http://quvi.sourceforge.net/>.
 --
 -- This library is free software; you can redistribute it and/or
 -- modify it under the terms of the GNU Lesser General Public
@@ -50,10 +51,16 @@ function parse(self)
     self.title = p:match('<title>(.-)</title>')
                   or error("no match: media title")
 
-    self.thumbnail_url = p:match('image=(.-)&') or ''
+    local v = (p:match('"flashvars" value="(.-)"')
+                  or error('no match: flashvars'))
+                      :gsub('&amp;','&'):gsub(';','')
 
-    self.url = {p:match('name="flashvars" value=".-file=(.-flv)')
-                  or error("no match: media stream URL") }
+    local U = require 'quvi/util'
+    local d = U.decode(v)
+
+    self.url = {d.file or error("no match: media stream URL")}
+
+    self.thumbnail_url = d.image or ''
 
     return self
 end

@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2012  quvi project
+-- Copyright (C) 2013  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -20,22 +20,23 @@
 -- 02110-1301  USA
 --
 
-local Redtube = {} -- Utility functions unique to this script
+local Dorkly = {} -- Utility functions unique to this script
 
 -- Identify the script.
 function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
     local r      = {}
-    r.domain     = "redtube%.com"
+    r.domain     = "dorkly%.com"
     r.formats    = "default"
     r.categories = C.proto_http
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, {"/%d+", "/player/"})
+    r.handles    = U.handles(self.page_url, {r.domain},
+                    {"/video/%d+/", "/embed/%d+/"})
     return r
 end
 
--- Query available formats.
+-- Query formats.
 function query_formats(self)
     self.formats = 'default'
     return self
@@ -43,23 +44,28 @@ end
 
 -- Parse media URL.
 function parse(self)
-    self.host_id = "redtube"
+    self.host_id  = "dorkly"
 
-    Redtube.normalize(self)
+    self.id = self.page_url:match('/video/(%d+)/')
+                  or self.page_url:match('/embed/(%d+)/')
+                      or error('no match: media ID')
 
-    self.id = self.page_url:match('/(%d+)')
-                or error("no match: media ID")
+    if Dorkly.is_affiliate(self) then
+      return self
+    end
 
-    local p = quvi.fetch(self.page_url)
+    local t = {'http://www.dorkly.com/moogaloop/video/', self.id}
+    local x = quvi.fetch(table.concat(t), {fetch_type='config'})
 
-    self.title = p:match('<title>(.-) |')
-                  or error("no match: media title")
+    local U = require 'quvi/util'
 
-    self.thumbnail_url =
-        p:match('<img src=%"(.-)%" .- id=%"vidImgPoster%"') or ''
+    self.duration = tonumber(U.xml_get(x, 'duration', false))
 
-    self.url = {p:match("src='(.-)' type='video/")
-                  or error("no match: media stream URL")}
+    self.thumbnail_url = U.xml_get(x, 'thumbnail', true)
+
+    self.title = U.xml_get(x, 'caption', true)
+
+    self.url = { U.xml_get(x, 'file', true) }
 
     return self
 end
@@ -68,13 +74,17 @@ end
 -- Utility functions
 --
 
-function Redtube.normalize(self) -- "Normalize" an embedded URL
-    local p = 'http://embed%.redtube%.com/player/%?id=(%d+).?'
-
-    local id = self.page_url:match(p)
-    if not id then return end
-
-    self.page_url = 'http://www.redtube.com/' .. id
+function Dorkly.is_affiliate(self)
+    if not self.page_url:match('/embed/') then
+        return false
+    end
+    local p = quvi.fetch(self.page_url)
+    local u = p:match('iframe.-src="(.-)"') or error('no match: iframe: src')
+    if not u:match('^http%:') then    -- If the URL scheme is malformed...
+        u = table.concat({'http:',u}) -- ... Try to fix it.
+    end
+    self.redirect_url = u
+    return true
 end
 
 -- vim: set ts=4 sw=4 tw=72 expandtab:

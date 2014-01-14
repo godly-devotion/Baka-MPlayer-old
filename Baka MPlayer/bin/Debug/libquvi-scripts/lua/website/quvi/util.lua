@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2011  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010,2011,2013  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -185,6 +185,21 @@ function M.to_timestamp(s) -- Based on <http://is.gd/ee9ZTD>
 
     return os.time({day=d,month=m,year=y,
                     hour=hh,min=mm,sec=ss}) + offset
+end
+
+-- For very simple XML value extraction.
+function M.xml_get(d, e, is_cdata)
+    local p = is_cdata and '.-%w+%[(.-)%].-' or '(.-)'
+    local t = {'<',e,'>', p, '</',e,'>'}
+    return d:match(table.concat(t))
+              or error(table.concat({'no match: element: ',e}))
+end
+
+-- For very simple JSON value extraction.
+function M.json_get(p, e, is_num)
+  local c = is_num and '(%d+)' or '"(.-)"'
+  local t = {'"',e,'":',c}
+  return p:match(table.concat(t)) or ((is_num) and 0 or '')
 end
 
 return M

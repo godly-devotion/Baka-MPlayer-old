@@ -1,5 +1,6 @@
 
 -- libquvi-scripts
+-- Copyright (C) 2013  Toni Gundogdu <legatvs@gmail.com>
 -- Copyright (C) 2011  quvi project
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
@@ -52,37 +53,22 @@ end
 --
 
 function TCMag.check_external_content(self)
-    local page = quvi.fetch(self.page_url)
+    local p = quvi.fetch(self.page_url)
 
-    local article = page:match('<article id="article">(.-)</article>')
-                        or error("no match: article")
+    self.url = {p:match("file: '(.-)'")
+                  or error("no match: media stream URL")}
 
-    local s = article:match('http://.*youtube.com/embed/([^/]-)"')
-    if s then -- Hand over to youtube.lua
-        self.redirect_url = 'http://youtube.com/watch?v=' .. s
+    if self.url[1]:match('%.%w+$') then
+        -- Self-hosted content.
+        self.title = p:match('<h1>(.-)</h1>')
+                        or error ("no match: media title")
+        self.id = self.url[1]:match("/%d+/%d+/(.-)/sizes/")
+                        or error ("no match: media id")
+        self.thumbnail_url = p:match('"og:image" content="(.-)"') or ''
+    else -- Affiliate content.
+        self.redirect_url = self.url[1]
         return self
     end
-
-    local s = article:match('http://.*vimeo.com/video/([0-9]+)')
-    if s then -- Hand over to vimeo.lua
-        self.redirect_url = 'http://vimeo.com/video/' .. s
-        return self
-    end
-
-    local s = article:match('http://.*liveleak.com/e/([%w_]+)')
-    if s then -- Hand over to liveleak.lua
-        self.redirect_url = 'http://liveleak.com/e/' .. s
-        return self
-    end
-
-    self.title = article:match('<h1>(.-)</h1>')
-                    or error ("no match: media title")
-
-    self.url = {article:match("'file': '(.-)',")
-                or error("no match: media url")}
-
-    self.id = self.url[1]:match("/%d+/%d+/(.-)/sizes/")
-                or error ("no match: media id")
 
     return self
 end

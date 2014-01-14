@@ -59,9 +59,12 @@ function parse(self)
     self.host_id = 'imdb'
 
     self.id = self.page_url:match('/video/%w+/(vi%d-)/')
+                  or error('no match: media ID')
 
     local page = quvi.fetch(self.page_url)
+
     self.title = page:match('<title>(.-) %- IMDb</title>')
+                  or error('no match: title')
 
     --
     -- Format codes (for most videos):
@@ -82,14 +85,20 @@ function parse(self)
 
     local url = 'http://www.imdb.com' .. format.path
     local iframe = quvi.fetch(url, {fetch_type = 'config'})
+
     local file = iframe:match('so%.addVariable%("file", "(.-)"%);')
+                    or error('no match: file')
+
     file = U.unescape(file)
 
     if file:match('^http.-') then
         self.url = {file}
     else
         local path  = iframe:match('so%.addVariable%("id", "(.-)"%);')
+                          or error('no match: path')
+
         path = U.unescape(path)
+
         self.url = {file .. path}
     end
 

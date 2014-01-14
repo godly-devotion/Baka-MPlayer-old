@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2012,2013  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -26,29 +26,21 @@ local CBSNews = {} -- Utility functions unique to this script
 function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
-    local r      = {}
-    r.domain     = "cbsnews%.com"
-    r.formats    = "default|best"
-    r.categories = C.proto_http
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, {"/video/watch/"})
+    local B      = require 'quvi/bit'
+    local d      = 'cbsnews%.com'
+    local r      = {
+        handles    = U.handles(self.page_url, {d}, {"/videos/.-/?"}),
+        categories = B.bit_or(C.proto_http, C.proto_rtmp),
+        formats   = 'default',
+        domain    = d
+    }
     return r
 end
 
 -- Query available formats.
 function query_formats(self)
-    local U       = require 'quvi/util'
-    local config  = CBSNews.get_config(self)
-    local formats = CBSNews.iter_formats(config)
-
-    local t = {}
-    for k,v in pairs(formats) do
-        table.insert(t, CBSNews.to_s(v))
-    end
-
-    table.sort(t)
-    self.formats = table.concat(t, "|")
-
+    self.formats = 'default'
     return self
 end
 
@@ -56,88 +48,28 @@ end
 function parse(self)
     self.host_id = "cbsnews"
 
-    local c = CBSNews.get_config(self)
-
-    self.title = c:match('<Title>.-CDATA%[(.-)%]')
-                  or error ("no match: media title")
-
-    local formats = CBSNews.iter_formats(c)
-    local U       = require 'quvi/util'
-    local format  = U.choose_format(self, formats,
-                                     CBSNews.choose_best,
-                                     CBSNews.choose_default,
-                                     CBSNews.to_s)
-                        or error("unable to choose format")
-    self.url      = {format.url or error("no match: media url")}
-    return self
-end
-
---
--- Utility functions
---
-
-function CBSNews.get_config(self)
     local p = quvi.fetch(self.page_url)
 
-    -- Need "? because some videos have the " and some don't
-    self.id = p:match('CBSVideo.setVideoId%("?(.-)"?%);')
-                or error("no match: media id")
+    local d = p:match("data%-cbsvideoui%-options='(.-)'")
+                  or error('no match: player options')
 
-    local s_fmt =
-      "http://api.cnet.com/restApi/v1.0/videoSearch?videoIds=%s"
-       .. "&iod=videoMedia"
-
-    local c_url = string.format(s_fmt, self.id)
-
-    return quvi.fetch(c_url, {fetch_type='config'})
-end
-
-function CBSNews.iter_formats(config) -- Iterate available formats
-    local p = '<Width>(%d+)<'
-           .. '.-<Height>(%d+)<'
-           .. '.-<BitRate>(%d+)<'
-           .. '.-<DeliveryUrl>.-'
-           .. 'CDATA%[(.-)%]'
-    local t = {}
-    for w,h,b,u in config:gmatch(p) do
-        local s = u:match('%.(%w+)$')
---        print(w,h,b,s,u)
-        table.insert(t,
-            {width=tonumber(w),
-             height=tonumber(h),
-             bitrate=tonumber(b),
-             url=u,
-             container=s})
-    end
-    return t
-end
-
-function CBSNews.choose_best(formats) -- Highest quality available
-    local r = {width=0, height=0, bitrate=0, url=nil}
     local U = require 'quvi/util'
-    for _,v in pairs(formats) do
-        if U.is_higher_quality(v,r) then
-            r = v
-        end
-    end
---    for k,v in pairs(r) do print(k,v) end
-    return r
-end
 
-function CBSNews.choose_default(t) -- Lowest quality available
-    local r = {width=0xffff, height=0xffff, bitrate=0xffff, url=nil}
-    local U = require 'quvi/util'
-    for _,v in pairs(t) do
-        if U.is_lower_quality(v,r) then
-            r = v
-        end
-    end
---    for k,v in pairs(r) do print(k,v) end
-    return r
-end
+    self.thumbnail_url =
+        U.slash_unescape(d:match('"image":{"path":"(.-)"') or '')
 
-function CBSNews.to_s(t)
-    return string.format("%s_%sk_%sp", t.container, t.bitrate, t.height)
+    self.title = d:match('"title":"(.-)"')
+                    or error('no match: media ID')
+
+    self.id = d:match('"id":"(.-)"')
+                  or error('no match: media ID')
+
+    local u = d:match('"desktop":.-"uri":"(.-)"')
+                  or error('no match: media stream URL')
+
+    self.url = {U.slash_unescape(u)}
+
+    return self
 end
 
 -- vim: set ts=4 sw=4 tw=72 expandtab:

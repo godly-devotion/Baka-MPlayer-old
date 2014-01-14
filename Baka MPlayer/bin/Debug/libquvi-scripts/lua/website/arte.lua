@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2012  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2012,2013  Toni Gundogdu <legatvs@gmail.com>
 -- Copyright (C) 2011  Raphaël Droz <raphael.droz+floss@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.googlecode.com/>.
@@ -28,24 +28,25 @@ local Arte = {} -- Utility functions unique to to this script.
 function ident(self)
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
-    local r      = {}
-    r.domain     = "videos%.arte%.tv"
-    r.formats    = "default|best"
-    r.categories = C.proto_rtmp
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, {"/%w+/videos/"})
-    return r
+    local B      = require 'quvi/bit'
+    local d      = 'www%.arte%.tv'
+    return {
+        handles    = U.handles(self.page_url, {d}, {"/guide/%w+/"}),
+        categories = B.bit_or(C.proto_http, C.proto_rtmp),
+        formats    = 'default|best',
+        domain     = d
+    }
 end
 
 -- Query available formats.
 function query_formats(self)
-    local config  = Arte.get_config(self)
-    local U       = require 'quvi/util'
-    local formats = Arte.iter_formats(config, U)
+    local c,U = Arte.get_config(self)
+    local s = Arte.iter_streams(U, c)
 
     local t = {}
-    for _,v in pairs(formats) do
-        table.insert(t, Arte.to_s(v))
+    for _,v in pairs(s) do
+        table.insert(t, Arte.to_id(v))
     end
 
     table.sort(t)
@@ -57,18 +58,21 @@ end
 -- Parse media URL.
 function parse(self)
     self.host_id  = 'arte'
-    local config  = Arte.get_config(self)
-    local U       = require 'quvi/util'
-    local formats = Arte.iter_formats(config, U)
-    local format  = U.choose_format(self, formats,
-                                    Arte.choose_best,
-                                    Arte.choose_default,
-                                    Arte.to_s)
-                        or error("unable to choose format")
-    self.title         = format.title or error('no match: title')
-    self.id            = format.id or error('no match: id')
-    self.thumbnail_url = format.thumb or ''
-    self.url           = {format.url or error("no match: media url")}
+
+    local c,U = Arte.get_config(self)
+
+    self.duration = U.json_get(c, 'videoDurationSeconds', true) * 1000
+
+    self.thumbnail_url = U.json_get(c, 'programImage')
+
+    self.title = U.json_get(c, 'VTI')
+
+    self.id = U.json_get(c, 'VPI')
+
+    local c = U.choose_format(self, Arte.iter_streams(U,c), Arte.choose_best,
+                              Arte.choose_default, Arte.to_id)
+
+    self.url = {c.url or error("no match: media stream URL")}
 
     return self
 end
@@ -77,89 +81,94 @@ end
 -- Utility functions
 --
 
+function Arte.iter_streams(U, c)
+    local s = c:match('"VSR":(.-)$') or error('no match: VSR')
+    local r = {}
+    for id,p in s:gmatch('"(.-)":{(.-)}') do
+        local m = U.json_get(p, 'streamer')
+        local u = U.json_get(p, 'url')
+        local g = (#m >0) and table.concat({m,'mp4:',u}) or u
+        local t = {
+            bitrate = U.json_get(p, 'bitrate', true),
+            height = U.json_get(p, 'height', true),
+            width = U.json_get(p, 'width', true),
+            quality = U.json_get(p, 'quality'),
+            -- Refer to 0.9+ script for the description of "versionProg".
+            vprog = tonumber(U.json_get(p, 'versionProg')),
+            vcode = U.json_get(p, 'versionCode'),
+            mtype = U.json_get(p, 'mediaType'),
+            url = g
+        }
+        table.insert(r,t)
+    end
+    return r
+end
+
 function Arte.get_config(self)
     local p = quvi.fetch(self.page_url)
 
-    local c_url = p:match('videorefFileUrl = "(.-)"')
-                    or error('no match: config URL')
+    local u = p:match('arte_vp_url="(.-)">')
+                  or error('no match: config URL')
 
-    return Arte.get_lang_config(quvi.fetch(c_url, {fetch_type='config'}))
-end
+    local c = quvi.fetch(u, {fetch_type='config'})
+    local U = require 'quvi/util'
 
-function Arte.get_lang_config(config)
-    local t = {}
-    for lang,url in config:gmatch('<video lang="(%w+)" ref="(.-)"') do
-        table.insert(t, {lang=lang,
-                         config=quvi.fetch(url, {fetch_type = 'config'})})
-    end
-    return t
-end
-
-function Arte.iter_lang_formats(lang_config, t, U)
-
-    local p = '<video id="(%d+)" lang="(%w+)"'
-           .. '.-<name>(.-)<'
-           .. '.-<firstThumbnailUrl>(.-)<'
-           .. '.-<dateExpiration>(.-)<'
-           .. '.-<dateVideo>(.-)<'
-
-    local config = lang_config.config
-
-    local id,lang,title,thumb,exp,date = config:match(p)
-    if not id then error("no match: media id, etc.") end
-
-    if lang ~= lang_config.lang then
-        error("no match: lang")
+    local e = U.json_get(c, 'VRU')
+    if #e >0 and Arte.has_expired(U, e) then
+        error('media no longer available (expired)')
     end
 
-    if Arte.has_expired(exp, U) then
-        error('error: media no longer available (expired)')
-    end
-
-    local urls = config:match('<urls>(.-)</urls>')
-                  or error('no match: urls')
-
-    for q,u in urls:gmatch('<url quality="(%w+)">(.-)<') do
---        print(q,u)
-        table.insert(t, {lang=lang,   quality=q,   url=u,
-                         thumb=thumb, title=title, id=id})
-    end
+    return c,U
 end
 
-function Arte.iter_formats(config, U)
-    local t = {}
-    for _,v in pairs(config) do
-        Arte.iter_lang_formats(v, t, U)
+function Arte.has_expired(U, s)
+    local d, mo, y, h, m, sc =
+              s:match('(%d+)/(%d+)/(%d+) (%d+):(%d+):(%d+)')
+
+    local t = os.time({ year = y, month = mo, day = d,
+                        hour = h, min = m, sec = sc })
+
+    return (t - os.time()) < 0
+end
+
+function Arte.is_best(a,b)
+    -- Select the default language version rather than the alternative.
+    -- refer to 0.9+ script for versionProg description.
+    if b.vprog ==2 and a.vprog ~= 2 then
+        return true
     end
-    return t
+    -- Select the default language version rather than the original.
+    if a.vprog < b.vprog then
+        return true
+    end
+    -- Otherwise, compare the resolution and the bitrate properties.
+    return a.height >b.height
+                or (a.height ==b.height and a.bitrate >b.bitrate)
 end
 
-function Arte.has_expired(s, U)
-    return U.to_timestamp(s) - os.time() < 0
-end
-
-function Arte.choose_best(formats) -- Whatever matches 'hd' first
-    local r
-    for _,v in pairs(formats) do
-        if Arte.to_s(v):match('hd') then
-            return v
+function Arte.choose_best(t)
+    local r = t[1]
+    for _,v in pairs(t) do
+        if Arte.is_best(v, r) then
+            r = v
         end
     end
     return r
 end
 
-function Arte.choose_default(formats) -- Whatever matches 'sd' first
-    local r
-    for _,v in pairs(formats) do
-        if Arte.to_s(v):match('sd') then
-            return v
+function Arte.choose_default(t)
+    for _,v in pairs(t) do
+        if Arte.to_id(v):match('sd') and t.mtype == 'rtmp' then
+            return v  -- Anything that matches 'SD'.
         end
     end
-    return r
+    return t[1]  -- Or whatever was returned as the first stream.
 end
 
-function Arte.to_s(t)
-    return string.format("%s_%s", t.quality, t.lang)
+function Arte.to_id(t)
+    local s = (#t.mtype ==0) and 'http' or t.mtype
+    return string.format('%s_%s_%s', t.quality, s, t.vcode)
+                          :gsub('%s?%-%s?', '_'):lower()
 end
 
 -- vim: set ts=4 sw=4 tw=72 expandtab:

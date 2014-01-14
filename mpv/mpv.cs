@@ -380,12 +380,6 @@ namespace mpv
                 return;
             }
 
-            if (e.Data.StartsWith("Cache fill:"))
-            {
-                OnStatusChanged(new StatusChangedEventArgs(e.Data.Trim(), true));
-                return;
-            }
-
             //[fontconfig] Scanning dir C:/Windows/Fonts (must set FC_DEBUG to show)
             if (!cachingFonts && e.Data.StartsWith("[fontconfig]"))
             {
@@ -448,6 +442,11 @@ namespace mpv
                 return;
             }
 
+            if (e.Data.StartsWith("Cache fill:"))
+            {
+                OnStatusChanged(new StatusChangedEventArgs(e.Data.Trim(), true));
+                return;
+            }
             if (e.Data.StartsWith("Cache is not responding - slow/stuck network connection?") ||
                 e.Data.StartsWith("Cache keeps not responding."))
             {

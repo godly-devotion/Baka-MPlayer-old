@@ -48,7 +48,7 @@ function parse(self)
 
     local p = quvi.fetch(self.page_url)
 
-    self.title = p:match('<meta name="description" content="(.-)%.')
+    self.title = p:match('<title>(.-)%s+%-%s+beeg')
                   or error("no match: media title")
 
     self.url = {p:match("'file': '(http://.-)'")

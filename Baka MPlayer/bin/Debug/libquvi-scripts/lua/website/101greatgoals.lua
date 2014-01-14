@@ -94,8 +94,12 @@ end
 function HaOgg.chk_ext_content(self)
     local p = quvi.fetch(self.page_url)
 
-    self.redirect_url = HaOgg.chk_self_hosted(p) or HaOgg.chk_embedded(p)
-                          or error('unable to determine media source')
+    local r = HaOgg.chk_self_hosted(p) or HaOgg.chk_embedded(p)
+                  or error('unable to determine media source')
+
+    self.redirect_url = (not r:match('^%w+://'))
+                         and table.concat({'http:',r})
+                          or r
 
     return self
 end

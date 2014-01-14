@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2011-2012  quvi project
+-- Copyright (C) 2011-2013  quvi project
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -20,6 +20,8 @@
 -- 02110-1301  USA
 --
 
+local Spankwire = {}
+
 -- Identify the script.
 function ident(self)
     package.path = self.script_dir .. '/?.lua'
@@ -35,7 +37,17 @@ end
 
 -- Query available formats.
 function query_formats(self)
-    self.formats = 'default'
+    local p = quvi.fetch(self.page_url)
+    local U = require 'quvi/util'
+
+    local r = {}
+    for _,v in pairs(Spankwire.iter_streams(U,p)) do
+        table.insert(r, v.id)
+    end
+
+    table.sort(r)
+    self.formats = table.concat(r,'|')
+
     return self
 end
 
@@ -45,21 +57,49 @@ function parse(self)
 
     local p = quvi.fetch(self.page_url)
 
-    self.title = p:match('id="vidTitle">.-<h1>(.-)</')
-                  or error('no match: media title')
+    self.thumbnail_url = p:match('image_url%s+=%s+"(.-)"') or ''
 
-    self.id = p:match('ArticleId:%s+(%d+)')
-                or error('no match: media ID')
+    self.title = p:match('<title>(.-)%s+%-%s+Sp')
+                    or error('no match: media title')
 
-    local s = p:match('videoPath=(.-)"')
-                or error('no match: video path')
+    self.id = self.page_url:match('/video(%d+)/$')
+                  or error('no match: media ID')
 
-    local c = quvi.fetch(self.page_url .. s, {fetch_type='config'})
+    local U = require 'quvi/util'
 
-    self.url    = {c:match('<url>(.-)</url>')
-                    or error('no match: media URL')}
+    local c = U.choose_format(self, Spankwire.iter_streams(U,p),
+                              Spankwire.choose_best, Spankwire.choose_default,
+                              Spankwire.to_id)
+
+    self.url = {c.url or error('no match: media stream URL')}
 
     return self
+end
+
+--
+-- Utility functions
+--
+
+function Spankwire.iter_streams(U, p)
+    local r = {}
+    for id,u in p:gmatch('flashvars%.(quality_%d+p)%s+=%s"(.-)"') do
+        if #u >0 then
+            table.insert(r, {url=U.unescape(u),id=id})
+        end
+    end
+    return r
+end
+
+function Spankwire.choose_best(t)
+    return t[#t]
+end
+
+function Spankwire.choose_default(t)
+    return Spankwire.choose_best(t)
+end
+
+function Spankwire.to_id(t)
+    return t.id
 end
 
 -- vim: set ts=4 sw=4 tw=72 expandtab:

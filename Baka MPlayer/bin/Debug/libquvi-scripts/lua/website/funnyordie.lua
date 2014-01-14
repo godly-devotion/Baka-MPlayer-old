@@ -85,11 +85,14 @@ function FunnyOrDie.iter_formats(page)
     for u in page:gmatch('type: "video/mp4", src: "(.-)"') do
         table.insert(t, u)
     end
+    for u in page:gmatch('source src="(.-)"') do table.insert(t,u) end
     if #t ==0 then error('no match: media stream URL') end
     local r = {}
     for _,u in pairs(t) do
         local q,c = u:match('/(%w+)%.(%w+)$')
-        table.insert(r, {url=u, quality=q, container=c})
+        if q and c then
+          table.insert(r, {url=u, quality=q, container=c})
+        end
     end
     return r
 end

@@ -1,6 +1,6 @@
 
 -- libquvi-scripts
--- Copyright (C) 2010-2012  Toni Gundogdu <legatvs@gmail.com>
+-- Copyright (C) 2010-2013  Toni Gundogdu <legatvs@gmail.com>
 --
 -- This file is part of libquvi-scripts <http://quvi.sourceforge.net/>.
 --
@@ -41,12 +41,12 @@ end
 
 -- Query available formats.
 function query_formats(self)
-    local config  = Vimeo.get_config(self)
-    local formats = Vimeo.iter_formats(self, config)
+    local c = Vimeo.get_config(self)
+    local s = Vimeo.iter_streams(c)
 
     local t = {}
-    for _,v in pairs(formats) do
-        table.insert(t, Vimeo.to_s(v))
+    for _,v in pairs(s) do
+        table.insert(t, Vimeo.to_id(v))
     end
 
     table.sort(t)
@@ -60,25 +60,27 @@ function parse(self)
     self.host_id  = "vimeo"
 
     local c = Vimeo.get_config(self)
-
-    local s = c:match('"title":(.-),') or error("no match: media title")
     local U = require 'quvi/util'
-    self.title = U.slash_unescape(s):gsub('^"',''):gsub('"$','')
 
-    self.duration = (tonumber(c:match('"duration":(%d+)')) or 0) * 1000
+    local s = c:match('"title":"(.-)",') or error('no match: media title')
+    self.title = U.slash_unescape(s)
 
-    local s = c:match('"thumbnail":"(.-)"') or ''
-    if #s >0 then
-      self.thumbnail_url = U.slash_unescape(s)
+    self.duration = U.json_get(c, 'duration', true) * 1000
+
+    local t = c:match('"thumbs":({.-})')
+    if t and #t >0 then
+        local r = {}
+        for u in t:gmatch('"%d+":"(.-)"') do
+            table.insert(r,u)
+        end
+        self.thumbnail_url = r[#r] or ''
     end
 
-    local formats = Vimeo.iter_formats(self, c)
-    local format  = U.choose_format(self, formats,
-                                     Vimeo.choose_best,
-                                     Vimeo.choose_default,
-                                     Vimeo.to_s)
-                        or error("unable to choose format")
-    self.url      = {format.url or error("no match: media stream URL")}
+    local c = U.choose_format(self, Vimeo.iter_streams(c),
+                              Vimeo.choose_best, Vimeo.choose_default,
+                              Vimeo.to_id)
+
+    self.url = {c.url or error("no match: media stream URL")}
     return self
 end
 
@@ -98,64 +100,52 @@ function Vimeo.get_config(self)
     self.id = self.page_url:match('vimeo.com/(%d+)')
                 or error("no match: media ID")
 
-    local c_url = "http://vimeo.com/" .. self.id
-    local c = quvi.fetch(c_url, {fetch_type='config'})
+    local s = self.page_url:match('^(%w+)://') or 'http'
+    local t = {s, '://player.vimeo.com/video/', self.id}
+
+    local c = quvi.fetch(table.concat(t), {fetch_type='config'})
 
     if c:match('<error>') then
         local s = c:match('<message>(.-)[\n<]')
         error( (not s) and "no match: error message" or s )
     end
 
-    return c
+    return c:match('b=(.-);') or error('no match: b')
 end
 
-function Vimeo.iter_formats(self, config)
-    local t = {}
-    local qualities = config:match('"qualities":%[(.-)%]')
-                        or error('no match: qualities')
-    for q in qualities:gmatch('"(.-)"') do
-        Vimeo.add_format(self, config, t, q)
-    end
-    return t
+function Vimeo.iter_streams(c)
+      local p =
+          '"(%w+)":{"profile".-"url":"(.-)","height":(%d+).-"bitrate":(%d+)'
+      local r = {}
+      for q,url,h,br in c:gmatch(p) do
+          local t = {
+              bitrate = tonumber(br) or 0,
+              height  = tonumber(h) or 0,
+              quality = q,
+              url = url
+          }
+          t.id = Vimeo.to_id(t)
+          table.insert(r,t)
+      end
+      return r
 end
 
-function Vimeo.add_format(self, config, t, quality)
-    table.insert(t, {quality=quality,
-                     url=Vimeo.to_url(self, config, quality)})
+function Vimeo.to_id(t)
+    return string.format("%s_%dk_%dp", t.quality, t.height, t.bitrate)
 end
 
-function Vimeo.choose_best(t) -- First 'hd', then 'sd' and 'mobile' last.
+function Vimeo.choose_best(t)
+    local r = t[1]
     for _,v in pairs(t) do
-        local f = Vimeo.to_s(v)
-        for _,q in pairs({'hd','sd','mobile'}) do
-            if f == q then return v end
+        if v.height > r.height then
+            r = v
         end
     end
-    return Vimeo.choose_default(t)
+    return r
 end
 
 function Vimeo.choose_default(t)
-  for _,v in pairs(t) do
-      if Vimeo.to_s(v) == 'sd' then return v end -- Default to 'sd'.
-  end
-  return t[1] -- Or whatever is the first.
-end
-
-function Vimeo.to_url(self, config, quality)
-    local sign = config:match('"signature":"(.-)"')
-                  or error("no match: request signature")
-
-    local exp = config:match('"timestamp":(%d+)')
-                  or error("no match: request timestamp")
-
-    local s = "http://player.vimeo.com/play_redirect?clip_id=%s"
-              .. "&sig=%s&time=%s&quality=%s&type=moogaloop_local"
-
-    return string.format(s, self.id, sign, exp, quality)
-end
-
-function Vimeo.to_s(t)
-    return string.format("%s", t.quality)
+    return Vimeo.choose_best(t)
 end
 
 -- vim: set ts=4 sw=4 tw=72 expandtab:

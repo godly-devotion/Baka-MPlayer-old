@@ -1,5 +1,6 @@
 
 -- libquvi-scripts
+-- Copyright (C) 2013 Toni Gundogdu <legatvs@gmail.com>
 -- Copyright (C) 2012 Paul Kocialkowski <contact@paulk.fr>
 --
 -- This file is part of libquvi-scripts <http://quvi.googlecode.com/>.
@@ -23,40 +24,34 @@ local CanalPlus = {} -- Utility functions unique to to this script.
 
 -- Identify the script.
 function ident(self)
+    local domains= {"canalplus%.fr", "d17%.tv", "d8%.tv"}
     package.path = self.script_dir .. '/?.lua'
     local C      = require 'quvi/const'
-    local r      = {}
-    r.domain     = "canalplus%.fr"
-    r.formats    = "default|best"
-    r.categories = C.proto_rtmp
     local U      = require 'quvi/util'
-    r.handles    = U.handles(self.page_url, {r.domain}, {"/pid%d",
-                    -- presidentielle2012.canalplus.fr
-                    "/emissions", "/candidats", "/debats",
-                    -- canalstreet.canalplus.fr
-                    "/musique", "/actu", "/humour", "/tendances", "/sport", "/arts", "/danse"})
-
+    local B      = require 'quvi/bit'
+    local r      = {
+        handles    = U.handles(self.page_url, domains, {"/pid%d+"}),
+        categories = B.bit_or(C.proto_http, C.proto_rtmp),
+        domain     = table.concat(domains, '|'),
+        formats    = "default|best"
+    }
     return r
 end
 
 -- Query available formats.
 function query_formats(self)
-    local config  = CanalPlus.get_config(self)
+    local r = CanalPlus.rest_new(self)
+    local U = require 'quvi/util'
 
-    if #self.redirect_url >0 then
-        return self
+    local s = CanalPlus.iter_streams(U, r)
+    local r = {}
+
+    for _,v in pairs(s) do
+        table.insert(r, CanalPlus.to_s(v))
     end
 
-    local U       = require 'quvi/util'
-    local formats = CanalPlus.iter_formats(self, config, U)
-
-    local t = {}
-    for _,v in pairs(formats) do
-        table.insert(t, CanalPlus.to_s(v))
-    end
-
-    table.sort(t)
-    self.formats = table.concat(t, "|")
+    table.sort(r)
+    self.formats = table.concat(r, "|")
 
     return self
 end
@@ -65,20 +60,19 @@ end
 function parse(self)
     self.host_id  = 'canalplus'
 
-    local config  = CanalPlus.get_config(self)
+    local r = CanalPlus.rest_new(self)
+    local U = require 'quvi/util'
 
-    if #self.redirect_url >0 then
-        return self
-    end
+    self.thumbnail_url = U.xml_get(r, 'PETIT', false)
+    self.title         = U.xml_get(r, 'TITRE', true)
+    self.id            = U.xml_get(r, 'ID', false)
 
-    local U       = require 'quvi/util'
-    local formats = CanalPlus.iter_formats(self, config, U)
-    local format  = U.choose_format(self, formats,
-                                    CanalPlus.choose_best,
-                                    CanalPlus.choose_default,
-                                    CanalPlus.to_s)
-                        or error("unable to choose format")
-    self.url           = {format.url or error("no match: media url")}
+    local s = CanalPlus.iter_streams(U, r)
+
+    local c = U.choose_format(self, s, CanalPlus.choose_best,
+                              CanalPlus.choose_default, CanalPlus.to_s)
+
+    self.url = {c.url or error("no match: media stream URL")}
 
     return self
 end
@@ -87,74 +81,42 @@ end
 -- Utility functions
 --
 
-function CanalPlus.get_config(self)
-    local t    = {}
-    local page = quvi.fetch(self.page_url)
+function CanalPlus.rest_new(self)
+    self.id = self.page_url:match('vid=(%d+)')
+                  or error('no match: media ID')
 
-    local u = page:match('"og:video" content="(.-)"')
-    if u and not u:match('canalplus%.fr') then
-        self.redirect_url = u -- Media is hosted elsewhere, e.g. YouTube.
-        return
-    end
+    local c = self.page_url:match('http://www%.(%w+)%.%w+/')
+                  or error('unable to determine the second-level domain')
 
-    -- canalplus.fr
-    self.title = page:match('videoTitre%s-=%s-"(.-)"')
-    if not self.title then
-      -- presidentielle2012.canalplus.fr
-      self.title = page:match('property="og:title"%s+content="(.-)"')
-                    or error('no match: media title')
-    end
+    c = c:gsub('canalplus', 'cplus')
 
-    self.id = page:match('videoId=(%d+)')
-                or page:match('videoId%s+=%s+"(%d+)"')
-                or error('no match: media ID')
+    local t = {
+        'http://service.canal-plus.com/video/rest/getVideos/',
+        c, '/', self.id, '/?format=xml'
+    }
 
-    local u = "http://service.canal-plus.com/video/rest/getVideosLiees/cplus/"
-                .. self.id
-
-    return quvi.fetch(u, {fetch_type = 'config'})
+    return quvi.fetch(table.concat(t), {fetch_type = 'config'})
 end
 
-function CanalPlus.iter_formats(self, config, U)
-
-    local id = config:match('<ID>(.-)</ID>')
-    if id and id == '-1' then
-        error('Media is no longer available (expired)')
+function CanalPlus.iter_streams(U, r)
+    local m = U.xml_get(r, 'MEDIA')
+    local v = U.xml_get(m, 'VIDEOS')
+    local r = {}
+    for id,uri in v:gmatch('<(%w+)>(.-)</%1>') do
+        table.insert(r, {quality=id:lower(), url=uri})
     end
-
-    local p = '<ID>' .. self.id .. '</ID>'
-           .. '.-<INFOS>'
-           .. '.-<TITRAGE>'
-           .. '.-<MEDIA>'
-           .. '.-<IMAGES>'
-           .. '.-<PETIT>(.-)<'
-           .. '.-<VIDEOS>'
-           .. '.-<BAS_DEBIT>(.-)<'
-           .. '.-<HAUT_DEBIT>(.-)<'
-           .. '.-<HD>(.-)<'
-
-    -- sd = low definition flv
-    -- hd = high definition flv
-    -- hq = high definition mp4
-
-    local thumb,sd_url,hd_url,hq_url = config:match(p)
-    if not sd_url then error("no match: media url") end
-
-    self.thumbnail_url = thumb or ''
-
-    local t = {}
-    table.insert(t, {url=sd_url, quality="sd"})
-    table.insert(t, {url=hd_url, quality="hd"})
-    table.insert(t, {url=hq_url, quality="hq"})
-    return t
+    if #r ==0 then
+        error('failed to find any media stream URLs')
+    end
+    return r
 end
 
 function CanalPlus.choose_default(t)
-    return t[1] -- Presume the first to be the 'default'.
+    return t[1]
 end
 
 function CanalPlus.choose_best(t)
-    return t[#t] -- Presume the last to be the 'best'.
+    return CanalPlus.choose_default(t)
 end
 
 function CanalPlus.to_s(t)
