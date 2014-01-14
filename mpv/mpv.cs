@@ -232,6 +232,7 @@ namespace mpv
                 args.Append(" -osd-level=0");       // do not show volume + seek on OSD
                 args.Append(" -no-keepaspect");     // doesn't keep window aspect ratio when resizing windows
                 args.Append(" -no-autosub");        // do not auto load subs (via filename)
+                //args.Append(" -reset-on-next-file=pause");
                 args.Append(" -cursor-autohide=no");
                 args.Append(" -playing-msg=PLAYING_FILE:${media-title}");
                 args.AppendFormat(" -status-msg=status:{0}", statusMsg);
@@ -363,7 +364,7 @@ namespace mpv
 
         private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
         {
-            Debug.WriteLine("-stderr:" + e.Data);
+            Debug.WriteLine("#err:" + e.Data);
 
             if (e.Data == null)
                 return;
@@ -402,7 +403,7 @@ namespace mpv
 
         private void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            Debug.WriteLine(e.Data);
+            Debug.WriteLine("#out:" + e.Data);
 
             if (e.Data == null)
                 return;
