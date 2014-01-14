@@ -454,8 +454,11 @@ namespace Baka_MPlayer.Forms
                 }
                 catch (Exception)
                 {
-                    SetStatusMsg("There was a problem starting the voice command system. Check to see if your mic is plugged in.", true);
-                    
+                    MessageBox.Show(
+                        "There was a problem while starting voice command.\nPlease make sure your mic is plugged in.",
+                        "Voice Command", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    speechButton.Image = Properties.Resources.disabled_mic;
+   
                     if (voice != null)
                         voice.StopListening();
                     _voiceEnabled = false;
