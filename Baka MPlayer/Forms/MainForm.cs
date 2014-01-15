@@ -1812,7 +1812,7 @@ namespace Baka_MPlayer.Forms
                     else
                         albumArtPicbox.Image = Properties.Resources.Music_128;
 
-                    albumArtPicbox_SizeChanged(null, null);
+                    albumArtPicbox_SizeChanged(this, EventArgs.Empty);
 
                     for (var i = 0; i < aspectRatioToolStripMenuItem.DropDownItems.Count; i++)
                     {
