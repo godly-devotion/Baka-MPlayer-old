@@ -141,7 +141,7 @@ namespace mpv
         public bool Seek(double sec)
         {
             ignoreStatus = true;
-            return SendCommand("seek {0} absolute", (int)sec);
+            return SendCommand("seek {0} absolute", sec);
         }
         public bool SeekPercent(double percent)
         {

@@ -674,7 +674,7 @@ namespace Baka_MPlayer.Forms
         {
             if (seekBar_IsMouseDown)
             {
-                mp.Seek((seekBar.Value * mp.CurrentStatus.TotalLength) / seekBar.Maximum);
+                mp.SeekPercent((double)seekBar.Value / seekBar.Maximum * 100);
                 seekBar_IsMouseDown = false;
             }
         }
@@ -684,8 +684,8 @@ namespace Baka_MPlayer.Forms
             if (string.IsNullOrEmpty(mp.FileInfo.Url))
                 return;
 
-            var setting = !settings.GetBoolValue(SettingEnum.ShowTimeRemaining);
-            settings.SetConfig(setting, SettingEnum.ShowTimeRemaining);
+            var value = !settings.GetBoolValue(SettingEnum.ShowTimeRemaining);
+            settings.SetConfig(value, SettingEnum.ShowTimeRemaining);
             settings.SaveConfig();
         }
 
