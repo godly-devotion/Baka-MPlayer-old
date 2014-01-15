@@ -225,7 +225,7 @@ namespace mpv
                 // instructs fontconfig to show debug messages regarding font caching
                 Environment.SetEnvironmentVariable("FC_DEBUG", "128");
 
-                const string statusMsg = "PAUSED=${=pause};PERCENT=${=percent-pos};AV=${=time-pos};LENGTH=${=length};WIDTH=${=dwidth};HEIGHT=${=dheight}";
+                const string statusMsg = "PAUSED=${=pause};PERCENT=${=percent-pos};AV=${=time-pos};WIDTH=${=dwidth};HEIGHT=${=dheight}";
 
                 // set mplayer options (see mpv\config for more)
                 var args = new StringBuilder();
@@ -517,7 +517,7 @@ namespace mpv
         }
         private void ParseStatusMsg(string line)
         {
-            //PAUSED=no;PERCENT=123.456789;AV=123.456789;LENGTH=123.456789;WIDTH=1920;HEIGHT=1080;
+            //PAUSED=no;PERCENT=123.456789;AV=123.456789;WIDTH=1920;HEIGHT=1080;
             string[] info = line.Split(';');
 
             foreach (var s in info)
@@ -537,9 +537,6 @@ namespace mpv
                         break;
                     case "AV":
                         ProcessProgress(Functions.TryParse.ParseDouble(value));
-                        break;
-                    case "LENGTH":
-                        CurrentStatus.TotalLength = Functions.TryParse.ParseDouble(value);
                         break;
                     case "WIDTH":
                         FileInfo.VideoWidth = Functions.TryParse.ParseInt(value);
@@ -569,6 +566,9 @@ namespace mpv
                     FileInfo.FullFileName = Path.GetFileName(Functions.URL.DecodeUrl(value));
                     FileInfo.FileName = Path.GetFileNameWithoutExtension(FileInfo.FullFileName);
                     FileInfo.GetDirectoryName = Functions.IO.GetDirectoryName(value);
+                    break;
+                case "ID_LENGTH":
+                    CurrentStatus.TotalLength = Functions.TryParse.ParseDouble(value);
                     break;
                 default:
                     if (key.StartsWith("ID_CHAPTER_ID")) // Chapters
