@@ -127,7 +127,7 @@ namespace mpv
         {
             ignoreStatus = true;
             SetPlayState(PlayStates.Stopped, true);
-            return SendCommand("pausing seek 0 2 1");
+            return SendCommand("pausing seek 0 absolute");
         }
         public bool Restart()
         {
@@ -135,14 +135,20 @@ namespace mpv
         }
         public bool Rewind()
         {
-            return SendCommand("seek 0 2 1");
+            return SendCommand("seek 0 absolute");
         }
 
         public bool Seek(double sec)
         {
             ignoreStatus = true;
-            return SendCommand("seek {0} 2 1", (int)sec);
+            return SendCommand("seek {0} absolute", (int)sec);
         }
+        public bool SeekPercent(double percent)
+        {
+            ignoreStatus = true;
+            return SendCommand("seek {0} absolute-percent", percent);
+        }
+
         /// <summary>
         /// Sets chapter
         /// </summary>
@@ -232,7 +238,6 @@ namespace mpv
                 args.Append(" -osd-level=0");       // do not show volume + seek on OSD
                 args.Append(" -no-keepaspect");     // doesn't keep window aspect ratio when resizing windows
                 args.Append(" -no-autosub");        // do not auto load subs (via filename)
-                //args.Append(" -reset-on-next-file=pause");
                 args.Append(" -cursor-autohide=no");
                 args.Append(" -playing-msg=PLAYING_FILE:${media-title}");
                 args.AppendFormat(" -status-msg=status:{0}", statusMsg);

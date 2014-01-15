@@ -1952,7 +1952,9 @@ namespace Baka_MPlayer.Forms
                 // check if file is seekable
                 if (mp.CurrentStatus.TotalLength > 0.0)
                 {
-                    seekBar.Value = Convert.ToInt32((mp.CurrentStatus.Duration * seekBar.Maximum) / mp.CurrentStatus.TotalLength); // %
+                    var value = Convert.ToInt32((mp.CurrentStatus.Duration * seekBar.Maximum) / mp.CurrentStatus.TotalLength); // %;
+                    if (value <= seekBar.Maximum)
+                        seekBar.Value = value;
                 }
                 else
                 {

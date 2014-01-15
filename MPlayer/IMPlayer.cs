@@ -31,6 +31,7 @@ namespace MPlayer
         bool Rewind();
 
         bool Seek(double sec);
+        bool SeekPercent(double percent);
         bool SetChapter(int index);
         bool SkipChapter(int jump);
         bool PreviousChapter();
