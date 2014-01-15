@@ -1584,7 +1584,7 @@ namespace Baka_MPlayer.Forms
                     else
                     {
                         MessageBox.Show("Either there is no previous file or the previous file does not exist anymore.",
-                            "No Previous File", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            "Cannot Open Last File", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     break;
                 }
@@ -1985,7 +1985,6 @@ namespace Baka_MPlayer.Forms
             switch (m.Msg)
             {
                 case WM.WINDOWPOSCHANGING:
-                    // snap to desktop border
                     SnapToDesktopBorder(m.LParam);
                     break;
                 case WM.SYSCOMMAND:
