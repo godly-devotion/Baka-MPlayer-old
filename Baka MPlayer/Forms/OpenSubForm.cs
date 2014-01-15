@@ -46,7 +46,7 @@ namespace Baka_MPlayer.Forms
         {
             try
             {
-                if (File.Exists(MediaFile) || Functions.URL.IsValidURL(MediaFile))
+                if (File.Exists(MediaFile) || Functions.URL.IsValidUrl(MediaFile))
                 {
                     mediaCheckPicbox.Image = Properties.Resources.exists;
                     _isValidMediaFile = true;

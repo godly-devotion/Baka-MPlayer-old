@@ -9,6 +9,7 @@ namespace MPlayer.Info
 {
     public class Status
     {
+        public double PercentPos;
         public double Duration;
         public double TotalLength;
         public PlayStates PlayState;
@@ -18,8 +19,9 @@ namespace MPlayer.Info
             PlayState = PlayStates.Unidentified;
         }
 
-        public Status(double duration, double totalLength, PlayStates playState)
+        public Status(double percentPos, double duration, double totalLength, PlayStates playState)
         {
+            this.PercentPos = percentPos;
             this.Duration = duration;
             this.TotalLength = totalLength;
             this.PlayState = playState;

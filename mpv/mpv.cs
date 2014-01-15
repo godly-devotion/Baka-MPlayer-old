@@ -225,7 +225,7 @@ namespace mpv
                 // instructs fontconfig to show debug messages regarding font caching
                 Environment.SetEnvironmentVariable("FC_DEBUG", "128");
 
-                const string statusMsg = "PAUSED=${=pause};AV=${=time-pos};LENGTH=${=length};WIDTH=${=dwidth};HEIGHT=${=dheight}";
+                const string statusMsg = "PAUSED=${=pause};PERCENT=${=percent-pos};AV=${=time-pos};LENGTH=${=length};WIDTH=${=dwidth};HEIGHT=${=dheight}";
 
                 // set mplayer options (see mpv\config for more)
                 var args = new StringBuilder();
@@ -517,7 +517,7 @@ namespace mpv
         }
         private void ParseStatusMsg(string line)
         {
-            //PAUSED=no;AV=123.456789;LENGTH=123.456789;WIDTH=1920;HEIGHT=1080;
+            //PAUSED=no;PERCENT=123.456789;AV=123.456789;LENGTH=123.456789;WIDTH=1920;HEIGHT=1080;
             string[] info = line.Split(';');
 
             foreach (var s in info)
@@ -531,6 +531,9 @@ namespace mpv
                             SetPlayState(PlayStates.Paused, true);
                         else
                             SetPlayState(PlayStates.Playing, true);
+                        break;
+                    case "PERCENT":
+                        CurrentStatus.PercentPos = Functions.TryParse.ParseDouble(value);
                         break;
                     case "AV":
                         ProcessProgress(Functions.TryParse.ParseDouble(value));
@@ -563,7 +566,7 @@ namespace mpv
                 case "ID_FILENAME":
                     FileInfo.Url = value;
                     FileInfo.IsOnline = !File.Exists(FileInfo.Url);
-                    FileInfo.FullFileName = Path.GetFileName(Functions.URL.DecodeURL(value));
+                    FileInfo.FullFileName = Path.GetFileName(Functions.URL.DecodeUrl(value));
                     FileInfo.FileName = Path.GetFileNameWithoutExtension(FileInfo.FullFileName);
                     FileInfo.GetDirectoryName = Functions.IO.GetDirectoryName(value);
                     break;

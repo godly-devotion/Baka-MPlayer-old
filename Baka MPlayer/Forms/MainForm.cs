@@ -663,11 +663,11 @@ namespace Baka_MPlayer.Forms
             var currentPos = seekBar.Value * mp.CurrentStatus.TotalLength / seekBar.Maximum;
 
             if (settings.GetBoolValue(SettingEnum.ShowTimeRemaining))
-                timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.TotalLength - currentPos));
+                timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.TotalLength - currentPos));
             else
-                timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.TotalLength);
+                timeLeftLabel.Text = Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.TotalLength);
 
-            durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(currentPos);
+            durationLabel.Text = Functions.Time.ConvertSecondsToTime(currentPos);
         }
 
         private void seekBar_MouseUp(object sender, MouseEventArgs e)
@@ -961,7 +961,7 @@ namespace Baka_MPlayer.Forms
         {
             string clipText = Clipboard.GetText();
 
-            if (File.Exists(clipText) || Functions.URL.IsValidURL(clipText))
+            if (File.Exists(clipText) || Functions.URL.IsValidUrl(clipText))
             {
                 mp.OpenFile(clipText);
             }
@@ -1947,14 +1947,12 @@ namespace Baka_MPlayer.Forms
                     return;
 
                 if (mp.CurrentStatus.PlayState == PlayStates.Playing)
-                    durationLabel.Text = Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.Duration);
+                    durationLabel.Text = Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.Duration);
 
                 // check if file is seekable
                 if (mp.CurrentStatus.TotalLength > 0.0)
                 {
-                    var value = Convert.ToInt32((mp.CurrentStatus.Duration * seekBar.Maximum) / mp.CurrentStatus.TotalLength); // %;
-                    if (value <= seekBar.Maximum)
-                        seekBar.Value = value;
+                    seekBar.Value = Convert.ToInt32(mp.CurrentStatus.PercentPos * (seekBar.Maximum / 100.0));
                 }
                 else
                 {
@@ -1965,12 +1963,12 @@ namespace Baka_MPlayer.Forms
 
                 if (settings.GetBoolValue(SettingEnum.ShowTimeRemaining))
                 {
-                    timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertTimeFromSeconds(
+                    timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertSecondsToTime(
                         Math.Abs(mp.CurrentStatus.TotalLength - mp.CurrentStatus.Duration)));
                 }
                 else
                 {
-                    timeLeftLabel.Text = Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.TotalLength);
+                    timeLeftLabel.Text = Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.TotalLength);
                 }
             });
         }
@@ -2180,11 +2178,11 @@ namespace Baka_MPlayer.Forms
             {
                 case PlayStates.Playing:
                     nowPlayingMenuItem.Text = string.Format("Now Playing ({0})",
-                        Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.Duration));
+                        Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.Duration));
                     break;
                 case PlayStates.Paused:
                     nowPlayingMenuItem.Text = string.Format("Paused ({0})",
-                        Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.Duration));
+                        Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.Duration));
                     break;
                 case PlayStates.Stopped:
                     nowPlayingMenuItem.Text = "Stopped";

@@ -68,7 +68,7 @@ namespace Baka_MPlayer.Forms
 
             // media length
             var lengthItem = new ListViewItem("Media length", infoList.Groups[0]);
-            lengthItem.SubItems.Add(Functions.Time.ConvertTimeFromSeconds(mp.CurrentStatus.TotalLength));
+            lengthItem.SubItems.Add(Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.TotalLength));
 
             // video dimensions
             var dimensionsItem = new ListViewItem("Video dimensions", infoList.Groups[0]);

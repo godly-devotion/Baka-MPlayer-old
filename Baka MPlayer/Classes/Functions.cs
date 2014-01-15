@@ -22,7 +22,7 @@ namespace Functions
         /// <summary>
         /// Converts hour, min, sec to "0:00:00" format.
         /// </summary>
-        public static string ConvertTime(int hour, int min, int sec)
+        public static string ConvertToTime(int hour, int min, int sec)
         {
             if (hour > 0)
                 return string.Format("{0}:{1}:{2}", hour.ToString("#0"), min.ToString("00"), sec.ToString("00"));
@@ -31,11 +31,11 @@ namespace Functions
         /// <summary>
         /// Converts total seconds to "0:00:00" format;
         /// </summary>
-        public static string ConvertTimeFromSeconds(double totalSec)
+        public static string ConvertSecondsToTime(double totalSec)
         {
             int hour, min, sec;
             CalculateTimeFromSeconds(totalSec, out hour, out min, out sec);
-            return ConvertTime(hour, min, sec);
+            return ConvertToTime(hour, min, sec);
         }
     }
     
@@ -44,13 +44,13 @@ namespace Functions
         [DllImport("shlwapi.dll", CharSet = CharSet.Auto)]
         private static extern long PathIsURL(string pszPath);
 
-        public static bool IsValidURL(string url)
+        public static bool IsValidUrl(string url)
         {
             return PathIsURL(url).Equals(1);
         }
-        public static string DecodeURL(string input)
+        public static string DecodeUrl(string input)
         {
-            return IsValidURL(input) ? System.Web.HttpUtility.UrlDecode(input) : input;
+            return IsValidUrl(input) ? System.Web.HttpUtility.UrlDecode(input) : input;
         }
     }
     
@@ -70,8 +70,6 @@ namespace Functions
         /// <summary>
         /// NOTE: Conversion doesn't work on words with ALL CAPS
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
         public static string ToTitleCase(string input)
         {
             return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(input);

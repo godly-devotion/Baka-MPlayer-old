@@ -47,7 +47,7 @@ namespace Baka_MPlayer.Forms
 
             if (goToRadioButton.Checked)
             {
-                statusLabel.Text = string.Format("Total Time: " + Functions.Time.ConvertTimeFromSeconds(currentStatus.TotalLength));
+                statusLabel.Text = string.Format("Total Time: " + Functions.Time.ConvertSecondsToTime(currentStatus.TotalLength));
 
                 if (calculatedTotal > -1 && calculatedTotal < currentStatus.TotalLength)
                 {
@@ -59,7 +59,7 @@ namespace Baka_MPlayer.Forms
             else if (addRadioButton.Checked)
             {
                 double newTime = currentStatus.Duration + calculatedTotal;
-                statusLabel.Text = string.Format("Jumps To: " + Functions.Time.ConvertTimeFromSeconds(newTime));
+                statusLabel.Text = string.Format("Jumps To: " + Functions.Time.ConvertSecondsToTime(newTime));
 
                 if (calculatedTotal > -1 && newTime < currentStatus.TotalLength)
                 {
@@ -71,7 +71,7 @@ namespace Baka_MPlayer.Forms
             else if (subtractRadioButton.Checked)
             {
                 double newTime = currentStatus.Duration - calculatedTotal;
-                statusLabel.Text = string.Format("Jumps To: " + Functions.Time.ConvertTimeFromSeconds(newTime));
+                statusLabel.Text = string.Format("Jumps To: " + Functions.Time.ConvertSecondsToTime(newTime));
 
                 if (calculatedTotal > -1 && newTime > -1)
                 {
