@@ -14,10 +14,11 @@ Installer/
 _ReSharper*/
 *.[Rr]e[Ss]harper
 
-# Debug output (allow mpv.exe)
+# Filter Debug output (allow mpv.exe)
 Baka MPlayer/bin/Debug/Baka MPlayer*
+Baka MPlayer/bin/Debug/MPlayer.dll
+Baka MPlayer/bin/Debug/mpv.dll
 Baka MPlayer/bin/Debug/*.ttf
-Baka MPlayer/bin/Debug/*.dll
 Baka MPlayer/bin/Debug/*.pdb
 mpv/bin/Debug/
 MPlayer/bin/Debug/

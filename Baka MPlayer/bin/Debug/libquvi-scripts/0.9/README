@@ -1,0 +1,32 @@
+This directory contains the libquvi-scripts(7) written in Lua.
+
+  subtitle/export/  - Export scripts for the subtitle data
+  common/quvi/      - Importable quvi modules, see also quvi-modules(7)
+  playlist/         - Playlist property scripts
+  subtitle/         - Subtitle property scripts
+  media/            - Media property scripts
+  scan/             - Scripts for scanning embedded media URLs
+  util/             - Utility scripts used by the library
+
+If you are new to Lua:
+
+  http://www.lua.org/manual/5.1/manual.html   -- Lua 5.1 reference manual
+  http://www.lua.org/pil/contents.html        -- Programming in Lua (1st ed.)
+    (http://www.lua.org/pil/contents.html#20) -- String={patterns, captures}
+  http://lua-users.org/wiki/                  -- lua-users wiki
+  http://www.luafaq.org/                      -- Lua Unofficial FAQ (uFAQ)
+  http://lua.org/                             -- Lua home
+
+Additionally, the following 3rd party Lua modules can also be used:
+
+  http://w3.impa.br/~diego/software/luasocket/  -- LuaSocket
+  http://matthewwild.co.uk/projects/luaexpat/   -- LuaExpat
+  http://www.eharning.us/wiki/luajson/          -- LuaJSON
+  http://bitop.luajit.org                       -- LuaBitop
+
+Recommended manpages:
+
+  libquvi-scripts(7)  -- An overview of the installed scripts
+  quvi-modules(7)     -- An overview of 'quvi/*' modules (under 'common')
+  quvi-object(7)      -- quvi.* features
+  libquvi(3)          -- Environment variables
