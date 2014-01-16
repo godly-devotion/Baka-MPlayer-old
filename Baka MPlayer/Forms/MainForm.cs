@@ -1923,7 +1923,7 @@ namespace Baka_MPlayer.Forms
             }
             else if (offToolStripMenuItem.Checked)
             {
-                // repeat off/default
+                // repeat off (default)
                 if (playlist.GetPlayingItem.Index < playlist.GetTotalItems - 1)
                     playlist.PlayNext();
                 else
@@ -2187,7 +2187,7 @@ namespace Baka_MPlayer.Forms
                     nowPlayingMenuItem.Text = "Stopped";
                     break;
                 default:
-                    nowPlayingMenuItem.Text = "Now Playing (00:00:00)";
+                    nowPlayingMenuItem.Text = "Now Playing (0:00:00)";
                     break;
             }
         }
