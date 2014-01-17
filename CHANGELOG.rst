@@ -1,8 +1,20 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.3.7.1 (2013-12-16)
------------------------------------
+Latest Version 1.3.9 (2014-01-17)
+---------------------------------
+
+- NOTE: YOU MUST REMOVE ALL PREVIOUS FILES
+- Large parts of the code have been refactored for efficiency
+- Fixed: Several bugs
+- Fixed: Seeking from seekbar is much more accurate
+- Changed: Settings file is named 'Baka MPlayer.settings'
+- Added: Program creates 'error_info.txt' if a fatal problem is encountered
+- Added: Can permanently delete file from playlist via Shift+Del
+- Updated: mpv build
+
+Version 1.3.7.1 (2013-12-16)
+----------------------------
 
 - Fixed: Small bugs
 - Fixed: General lag in player response (temporary fix by using older mpv build)
