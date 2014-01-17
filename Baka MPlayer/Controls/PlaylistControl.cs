@@ -11,14 +11,12 @@ namespace Baka_MPlayer.Controls
 {
     public partial class PlaylistControl : UserControl
     {
-        #region Variables
+        #region Private Fields
 
         private MainForm mainForm;
         private IMPlayer mp;
 
         #endregion
-
-        #region Constructor
 
         public PlaylistControl()
         {
@@ -32,8 +30,6 @@ namespace Baka_MPlayer.Controls
 
             playlistList.ContextMenu = fileContextMenu;
         }
-
-        #endregion
 
         #region Accessors
 
@@ -323,12 +319,12 @@ namespace Baka_MPlayer.Controls
         {
             if (e.KeyCode != Keys.Enter || SelectedIndex.Equals(-1)) return;
 
-            var newURL = Path.Combine(mp.FileInfo.GetDirectoryName, GetSelectedItem.Text);
-            if (!newURL.Equals(mp.FileInfo.Url, StringComparison.OrdinalIgnoreCase))
+            var newUrl = Path.Combine(mp.FileInfo.GetDirectoryName, GetSelectedItem.Text);
+            if (!newUrl.Equals(mp.FileInfo.Url, StringComparison.OrdinalIgnoreCase))
             {
-                if (File.Exists(newURL))
+                if (File.Exists(newUrl))
                 {
-                    OpenFile(newURL);
+                    OpenFile(newUrl);
                     searchTextBox.Text = string.Empty;
                     playlistList.Focus();
                 }
@@ -448,10 +444,10 @@ namespace Baka_MPlayer.Controls
                     SelectedIndex = i;
 
                     // play selected item
-                    var newURL = Path.Combine(mp.FileInfo.GetDirectoryName, GetSelectedItem.Text);
+                    var newUrl = Path.Combine(mp.FileInfo.GetDirectoryName, GetSelectedItem.Text);
 
-                    if (File.Exists(newURL) && SelectedIndex != GetPlayingItem.Index)
-                        OpenFile(newURL);
+                    if (File.Exists(newUrl) && SelectedIndex != GetPlayingItem.Index)
+                        OpenFile(newUrl);
                 }
             }
             inputBox.Dispose();

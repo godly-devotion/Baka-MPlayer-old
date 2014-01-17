@@ -39,7 +39,7 @@ namespace Functions
         }
     }
 
-    public static class URL
+    public static class Url
     {
         [DllImport("shlwapi.dll", CharSet = CharSet.Auto)]
         private static extern long PathIsURL(string pszPath);

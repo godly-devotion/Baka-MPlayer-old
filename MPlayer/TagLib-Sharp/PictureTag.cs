@@ -5,7 +5,6 @@
  * Copyright (c) 2014, Joshua Park
  */
 
-using System;
 using System.Drawing;
 
 namespace MPlayer.TagLib_Sharp

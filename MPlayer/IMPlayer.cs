@@ -40,9 +40,9 @@ namespace MPlayer
         bool Mute(bool mute);
         bool SetVolume(int vol);
 
-        bool SetAudioTrack(int trackID);
-        bool SetVideoTrack(int trackID);
-        bool SetSubtitleTrack(int trackID);
+        bool SetAudioTrack(int trackId);
+        bool SetVideoTrack(int trackId);
+        bool SetSubtitleTrack(int trackId);
         bool SetSubtitleVisibility(bool showSubs);
 
         event EventHandler<StdOutEventArgs> StdOutEvent;

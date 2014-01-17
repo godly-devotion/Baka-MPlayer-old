@@ -62,6 +62,7 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -84,7 +85,12 @@
     <Compile Include="Classes\Functions.cs" />
     <Compile Include="Classes\GlobalMouseHandler.cs" />
     <Compile Include="Classes\KeysClass.cs" />
-    <Compile Include="Classes\Settings.cs" />
+    <Compile Include="PortableSettingsProvider.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Classes\Speech.cs" />
     <Compile Include="Classes\UpdateChecker.cs" />
     <Compile Include="Classes\Voice.cs" />
@@ -510,6 +516,11 @@
     <Compile Include="WinAPI Code Pack\Shell\Taskbar\UserRemovedJumpListItemsEventArg.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>

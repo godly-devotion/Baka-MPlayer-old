@@ -67,12 +67,12 @@ namespace Baka_MPlayer.Controls
                     thumbSize = value;
                 else
                     throw new ArgumentOutOfRangeException(
-                        "TrackSize has to be greather than zero and lower than half of Slider width");
+                        "TrackSize has to be greater than zero and lower than half of Slider width");
                 Invalidate();
             }
         }
 
-        private GraphicsPath thumbCustomShape = null;
+        private GraphicsPath thumbCustomShape;
         /// <summary>
         /// Gets or sets the thumb custom shape. Use ThumbRect property to determine bounding rectangle.
         /// </summary>
@@ -162,7 +162,7 @@ namespace Baka_MPlayer.Controls
             }
         }
 
-        private int barMinimum = 0;
+        private int barMinimum;
         /// <summary>
         /// Gets or sets the minimum value.
         /// </summary>
@@ -579,7 +579,7 @@ namespace Baka_MPlayer.Controls
             base.OnMouseMove(e);
             if (Capture & e.Button == MouseButtons.Left)
             {
-                ScrollEventType set = ScrollEventType.ThumbPosition;
+                var set = ScrollEventType.ThumbPosition;
                 Point pt = e.Location;
                 int margin = thumbSize.Width >> 1;
                 int p = pt.X - margin;

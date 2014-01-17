@@ -50,7 +50,7 @@ namespace MPlayer.Info
         int VideoWidth { get; set; }
         int VideoHeight { get; set; }
 
-        ID3Tag Id3Tags { get; set; }
+        Id3Tag Id3Tags { get; set; }
         List<IdInfo> IdInfos { get; set; }
 
         // Tracks

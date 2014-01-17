@@ -10,7 +10,7 @@ using System.IO;
 
 namespace MPlayer.TagLib_Sharp
 {
-    public class ID3Tag
+    public class Id3Tag
     {
         public PictureTag GetAlbumPictureTag(string url)
         {

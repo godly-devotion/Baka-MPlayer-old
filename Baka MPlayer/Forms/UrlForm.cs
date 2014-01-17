@@ -18,7 +18,7 @@ namespace Baka_MPlayer.Forms
 
         private void pasteButton_Click(object sender, EventArgs e)
         {
-            URL = Clipboard.GetText();
+            Url = Clipboard.GetText();
             urlTextbox.Focus();
         }
 
@@ -31,7 +31,7 @@ namespace Baka_MPlayer.Forms
 
         private void clearButton_Click(object sender, EventArgs e)
         {
-            URL = string.Empty;
+            Url = string.Empty;
             urlTextbox.Focus();
         }
 
@@ -42,7 +42,7 @@ namespace Baka_MPlayer.Forms
 
         #endregion
 
-        public string URL
+        public string Url
         {
             get { return urlTextbox.Text.Replace("\"", ""); }
             set { urlTextbox.Text = value; }
@@ -55,7 +55,7 @@ namespace Baka_MPlayer.Forms
             InitializeComponent();
 
             this.fileInfo = fileInfo;
-            this.URL = fileInfo.Url;
+            this.Url = fileInfo.Url;
         }
 
         private void WebForm_Load(object sender, EventArgs e)
@@ -75,14 +75,14 @@ namespace Baka_MPlayer.Forms
 
         private void OpenFile()
         {
-            if (URL.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+            if (Url.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
             {
                 MessageBox.Show("mpv cannot play HTTPS urls. Try the url's HTTP equivalent.",
                     "Cannot Open URL", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            if (URL.Equals(fileInfo.Url, StringComparison.OrdinalIgnoreCase))
+            if (Url.Equals(fileInfo.Url, StringComparison.OrdinalIgnoreCase))
             {
                 if (MessageBox.Show(string.Format("\"{0}\" is already playing.\nDo you still want to open this file?", fileInfo.FullFileName),
                     "Already Playing", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
@@ -101,13 +101,13 @@ namespace Baka_MPlayer.Forms
         {
             try
             {
-                if (string.IsNullOrEmpty(URL))
+                if (string.IsNullOrEmpty(Url))
                 {
                     SetControls(false);
                     return;
                 }
 
-                if (File.Exists(URL) || Functions.URL.IsValidUrl(URL))
+                if (File.Exists(Url) || Functions.URL.IsValidUrl(Url))
                 {
                     // local file or web file
                     SetControls(true);
@@ -129,7 +129,7 @@ namespace Baka_MPlayer.Forms
         {
             if (isValid)
             {
-                string fileType = Path.GetExtension(URL).ToUpperInvariant();
+                string fileType = Path.GetExtension(Url).ToUpperInvariant();
                 fileTypeLabel.Text = string.IsNullOrEmpty(fileType) ? "?" : fileType;
 
                 checkPicbox.Image = Properties.Resources.exists;

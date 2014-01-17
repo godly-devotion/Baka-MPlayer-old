@@ -17,13 +17,13 @@ namespace MPlayer.Info.Track
         public string Lang; // language (jpn, eng, ...)
 
         public Subtitle() { }
-        public Subtitle(string trackID)
+        public Subtitle(string trackId)
         {
-            this.TrackID = trackID;
+            this.TrackID = trackId;
         }
-        public Subtitle(string trackID, string name, string lang)
+        public Subtitle(string trackId, string name, string lang)
         {
-            this.TrackID = trackID;
+            this.TrackID = trackId;
             this.Name = name;
             this.Lang = lang;
         }

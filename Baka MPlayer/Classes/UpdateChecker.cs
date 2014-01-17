@@ -32,8 +32,8 @@ public class UpdateInfo
 
 public class UpdateChecker
 {
-    private const string website = "bakamplayer.u8sand.net";
-    private const string versionPath = "/version";
+    private const string Website = "bakamplayer.u8sand.net";
+    private const string VersionPath = "/version";
 
     public void Check(bool isSilent)
     {
@@ -41,13 +41,13 @@ public class UpdateChecker
         checkThread.Start(isSilent);
     }
 
-    private void check(object isSilent)
+    private static void check(object isSilent)
     {
         try
         {
             Socket client = null;
 
-            IPHostEntry host = Dns.GetHostEntry(website);
+            IPHostEntry host = Dns.GetHostEntry(Website);
             foreach (IPAddress address in host.AddressList)
             {
                 client = new Socket(address.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
@@ -56,7 +56,7 @@ public class UpdateChecker
                 break;
             }
             client.Send(
-                Encoding.ASCII.GetBytes("GET " + versionPath + " HTTP/1.0\r\nHost: " + website +
+                Encoding.ASCII.GetBytes("GET " + VersionPath + " HTTP/1.0\r\nHost: " + Website +
                                         "\r\nConnection: Close\r\n\r\n"));
 
             var recvd = new byte[1024];

@@ -21,7 +21,7 @@ namespace mpv
 
         private Process mpvProcess;
         private StreamWriter stdinWriter;
-        private readonly MPlayer.TagLib_Sharp.ID3Tag id3Tag = new MPlayer.TagLib_Sharp.ID3Tag();
+        private readonly MPlayer.TagLib_Sharp.Id3Tag id3Tag = new MPlayer.TagLib_Sharp.Id3Tag();
         private readonly int wid;
         private bool cachingFonts;
         private bool parsingClipInfo;
@@ -187,28 +187,28 @@ namespace mpv
         /// <summary>
         /// Switches the audio track to the index specified
         /// </summary>
-        /// <param name="trackID">The audio index (index starts from 1)</param>
-        public bool SetAudioTrack(int trackID)
+        /// <param name="trackId">The audio index (index starts from 1)</param>
+        public bool SetAudioTrack(int trackId)
         {
             OnStatusChanged(new StatusChangedEventArgs(
                 string.Format("Audio {0}: \"{1} ({2})\"",
-                    FileInfo.AudioTracks[trackID - 1].ID, FileInfo.AudioTracks[trackID - 1].Name, FileInfo.AudioTracks[trackID - 1].Lang), true));
-            return SendCommand("set audio {0}", trackID);
+                    FileInfo.AudioTracks[trackId - 1].ID, FileInfo.AudioTracks[trackId - 1].Name, FileInfo.AudioTracks[trackId - 1].Lang), true));
+            return SendCommand("set audio {0}", trackId);
         }
-        public bool SetVideoTrack(int trackID)
+        public bool SetVideoTrack(int trackId)
         {
-            return SendCommand("set vid {0}", trackID);
+            return SendCommand("set vid {0}", trackId);
         }
         /// <summary>
         /// Set subtitle track
         /// </summary>
-        /// <param name="trackID">The subtitle index (index start from 1)</param>
-        public bool SetSubtitleTrack(int trackID)
+        /// <param name="trackId">The subtitle index (index start from 1)</param>
+        public bool SetSubtitleTrack(int trackId)
         {
             OnStatusChanged(new StatusChangedEventArgs(
                 string.Format("Sub {0}: \"{1} ({2})\"",
-                    FileInfo.Subs[trackID - 1].TrackID, FileInfo.Subs[trackID - 1].Name, FileInfo.Subs[trackID - 1].Lang), true));
-            return SendCommand("set sub {0}", trackID);
+                    FileInfo.Subs[trackId - 1].TrackID, FileInfo.Subs[trackId - 1].Name, FileInfo.Subs[trackId - 1].Lang), true));
+            return SendCommand("set sub {0}", trackId);
         }
         public bool SetSubtitleVisibility(bool showSubs)
         {
@@ -453,8 +453,8 @@ namespace mpv
                 OnStatusChanged(new StatusChangedEventArgs(e.Data.Trim(), true));
                 return;
             }
-            if (e.Data.StartsWith("Cache is not responding - slow/stuck network connection?") ||
-                e.Data.StartsWith("Cache keeps not responding."))
+            if (e.Data.StartsWith("[cache] Cache is not responding - slow/stuck network connection?") ||
+                e.Data.StartsWith("[cache] Cache keeps not responding."))
             {
                 OnStatusChanged(new StatusChangedEventArgs("Your network is slow or stuck, please wait a bit", true));
                 return;
@@ -527,10 +527,7 @@ namespace mpv
                 switch (s.Substring(0, i))
                 {
                     case "PAUSED":
-                        if (value.Equals("yes"))
-                            SetPlayState(PlayStates.Paused, true);
-                        else
-                            SetPlayState(PlayStates.Playing, true);
+                        SetPlayState(value == "yes" ? PlayStates.Paused : PlayStates.Playing, true);
                         break;
                     case "PERCENT":
                         CurrentStatus.PercentPos = Functions.TryParse.ParseDouble(value);
@@ -563,7 +560,7 @@ namespace mpv
                 case "ID_FILENAME":
                     FileInfo.Url = value;
                     FileInfo.IsOnline = !File.Exists(FileInfo.Url);
-                    FileInfo.FullFileName = Path.GetFileName(Functions.URL.DecodeUrl(value));
+                    FileInfo.FullFileName = Path.GetFileName(Functions.Url.DecodeUrl(value));
                     FileInfo.FileName = Path.GetFileNameWithoutExtension(FileInfo.FullFileName);
                     FileInfo.GetDirectoryName = Functions.IO.GetDirectoryName(value);
                     break;
@@ -659,7 +656,7 @@ namespace mpv
             else if (data.StartsWith("comment:"))
                 FileInfo.Id3Tags.Comment = s;
             else if (data.StartsWith("album_artist:"))
-                FileInfo.Id3Tags.Album_Artist = s;
+                FileInfo.Id3Tags.AlbumArtist = s;
             else if (data.StartsWith("encoder:"))
                 FileInfo.Id3Tags.Encoder = s;
             else if (data.StartsWith("disk:"))

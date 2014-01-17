@@ -15,7 +15,7 @@ namespace Baka_MPlayer.Controls
 
         #region Properties
 
-        private int min = 0;
+        private int min;
         /// <summary>
         /// Gets or sets the minimum value
         /// </summary>
@@ -58,7 +58,7 @@ namespace Baka_MPlayer.Controls
             }
         }
 
-        private int val = 0;
+        private int val;
         /// <summary>
         /// Gets or sets the audio level value
         /// </summary>
@@ -102,7 +102,7 @@ namespace Baka_MPlayer.Controls
             float percent = (val - min) / (float)(max - min);
 
             // calculate area for drawing the progress
-            int t = (int)(rect.Height * percent);
+            var t = (int)(rect.Height * percent);
             rect.Height = t;
             rect.Y = this.ClientRectangle.Height - t;
 

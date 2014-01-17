@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.Windows.Forms;
 using MPlayer;
-using MPlayer.Info;
 
 namespace Baka_MPlayer.Forms
 {
@@ -135,7 +134,7 @@ namespace Baka_MPlayer.Forms
 
         #region InfoList Code
 
-        public int infoList_SelectedIndex
+        public int InfoListSelectedIndex
         {
             get
             {
@@ -158,7 +157,7 @@ namespace Baka_MPlayer.Forms
         {
             if (searchTextbox.TextLength < 1)
             {
-                infoList_SelectedIndex = -1;
+                InfoListSelectedIndex = -1;
                 return;
             }
 
@@ -167,7 +166,7 @@ namespace Baka_MPlayer.Forms
                 var itemText = item.Text.Replace('_', ' ').ToUpperInvariant();
                 if (itemText.Contains(searchTextbox.Text.ToUpperInvariant()))
                 {
-                    infoList_SelectedIndex = item.Index;
+                    InfoListSelectedIndex = item.Index;
                     //infoList.TopItem = item;
                     infoList.EnsureVisible(item.Index);
                     break;
@@ -176,7 +175,7 @@ namespace Baka_MPlayer.Forms
         }
         private void infoContextMenu_Popup(object sender, EventArgs e)
         {
-            if (infoList_SelectedIndex > -1)
+            if (InfoListSelectedIndex > -1)
             {
                 menuItem1.Enabled = true;
                 menuItem2.Enabled = true;
@@ -190,19 +189,19 @@ namespace Baka_MPlayer.Forms
         private void menuItem1_Click(object sender, EventArgs e)
         {
             // Copy Info Type
-            Clipboard.SetText(infoList.Items[infoList_SelectedIndex].Text, TextDataFormat.UnicodeText);
+            Clipboard.SetText(infoList.Items[InfoListSelectedIndex].Text, TextDataFormat.UnicodeText);
         }
         private void menuItem2_Click(object sender, EventArgs e)
         {
             // Copy Info Value
-            Clipboard.SetText(infoList.Items[infoList_SelectedIndex].SubItems[1].Text, TextDataFormat.UnicodeText);
+            Clipboard.SetText(infoList.Items[InfoListSelectedIndex].SubItems[1].Text, TextDataFormat.UnicodeText);
         }
 
         #endregion
 
         #region TagList Code
 
-        public int tagList_SelectedIndex
+        public int TagListSelectedIndex
         {
             get
             {
@@ -223,13 +222,13 @@ namespace Baka_MPlayer.Forms
         }
         private void tagContextMenu_Popup(object sender, EventArgs e)
         {
-            menuItem4.Enabled = tagList_SelectedIndex > -1;
+            menuItem4.Enabled = TagListSelectedIndex > -1;
         }
 
         private void menuItem4_Click(object sender, EventArgs e)
         {
             // Copy Tag Value
-            Clipboard.SetText(tagList.Items[tagList_SelectedIndex].SubItems[1].Text, TextDataFormat.UnicodeText);
+            Clipboard.SetText(tagList.Items[TagListSelectedIndex].SubItems[1].Text, TextDataFormat.UnicodeText);
         }
 
         #endregion

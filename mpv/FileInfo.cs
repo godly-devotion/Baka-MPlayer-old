@@ -57,7 +57,7 @@ namespace MPlayer.Info
         public int VideoWidth { get; set; }
         public int VideoHeight { get; set; }
 
-        public ID3Tag Id3Tags { get; set; }
+        public Id3Tag Id3Tags { get; set; }
 
         private List<IdInfo> _idInfos = new List<IdInfo>();
         public List<IdInfo> IdInfos
@@ -98,9 +98,9 @@ namespace MPlayer.Info
             VideoWidth = 0;
             VideoHeight = 0;
 
-            Id3Tags = new ID3Tag
+            Id3Tags = new Id3Tag
             {
-                Album_Artist = String.Empty,
+                AlbumArtist = String.Empty,
                 Encoder = String.Empty,
                 Artist = String.Empty,
                 Genre = String.Empty,

@@ -8,10 +8,10 @@ using MPlayer.TagLib_Sharp;
 
 namespace MPlayer.Info
 {
-    public class ID3Tag
+    public class Id3Tag
     {
         // ID_CLIP_INFO
-        public string Album_Artist;
+        public string AlbumArtist;
         public string Encoder;
         public string Artist;
         public string Genre;

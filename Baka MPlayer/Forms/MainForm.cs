@@ -41,7 +41,6 @@ namespace Baka_MPlayer.Forms
         private InfoForm infoForm;
 
         private readonly IMPlayer mp;
-        private readonly Settings settings = new Settings();
         private Voice voice;
         private Speech speech;
 
@@ -438,7 +437,7 @@ namespace Baka_MPlayer.Forms
                     {
                         if (voice == null)
                         {
-                            var name = settings.GetStringValue(SettingEnum.CallName).Trim();
+                            var name = Properties.Settings.Default.CallName.Trim();
                             voice = new Voice(this, string.IsNullOrEmpty(name) ? "baka" : name);
                         }
                         voice.StartListening();
@@ -662,7 +661,7 @@ namespace Baka_MPlayer.Forms
 
             var currentPos = seekBar.Value * mp.CurrentStatus.TotalLength / seekBar.Maximum;
 
-            if (settings.GetBoolValue(SettingEnum.ShowTimeRemaining))
+            if (Properties.Settings.Default.ShowTimeRemaining)
                 timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.TotalLength - currentPos));
             else
                 timeLeftLabel.Text = Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.TotalLength);
@@ -684,9 +683,9 @@ namespace Baka_MPlayer.Forms
             if (string.IsNullOrEmpty(mp.FileInfo.Url))
                 return;
 
-            var value = !settings.GetBoolValue(SettingEnum.ShowTimeRemaining);
-            settings.SetConfig(value, SettingEnum.ShowTimeRemaining);
-            settings.SaveConfig();
+            var value = !Properties.Settings.Default.ShowTimeRemaining;
+            Properties.Settings.Default.ShowTimeRemaining = value;
+            Properties.Settings.Default.Save();
         }
 
         #endregion
@@ -715,7 +714,7 @@ namespace Baka_MPlayer.Forms
                     var webForm = new UrlForm(mp.FileInfo);
                     if (webForm.ShowDialog(this) == DialogResult.OK)
                     {
-                        mp.OpenFile(webForm.URL);
+                        mp.OpenFile(webForm.Url);
                         webForm.Dispose();
                     }
                     break;
@@ -952,7 +951,7 @@ namespace Baka_MPlayer.Forms
             var webForm = new UrlForm(mp.FileInfo);
 
             if (webForm.ShowDialog(this) == DialogResult.OK)
-                mp.OpenFile(webForm.URL);
+                mp.OpenFile(webForm.Url);
 
             webForm.Dispose();
         }
@@ -974,7 +973,7 @@ namespace Baka_MPlayer.Forms
 
         private void openLastFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var lastFile = settings.GetStringValue(SettingEnum.LastFile);
+            var lastFile = Properties.Settings.Default.LastFile;
             if (File.Exists(lastFile))
                 mp.OpenFile(lastFile);
         }
@@ -1436,7 +1435,7 @@ namespace Baka_MPlayer.Forms
             alwaysToolStripMenuItem.Checked = true;
             whenPlayingToolStripMenuItem.Checked = false;
             neverToolStripMenuItem.Checked = false;
-            setOnTop();
+            SetOnTop();
         }
 
         private void whenPlayingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1444,7 +1443,7 @@ namespace Baka_MPlayer.Forms
             whenPlayingToolStripMenuItem.Checked = true;
             alwaysToolStripMenuItem.Checked = false;
             neverToolStripMenuItem.Checked = false;
-            setOnTop();
+            SetOnTop();
         }
 
         private void neverToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1452,10 +1451,10 @@ namespace Baka_MPlayer.Forms
             neverToolStripMenuItem.Checked = true;
             alwaysToolStripMenuItem.Checked = false;
             whenPlayingToolStripMenuItem.Checked = false;
-            setOnTop();
+            SetOnTop();
         }
 
-        private void setOnTop()
+        private void SetOnTop()
         {
             if (whenPlayingToolStripMenuItem.Checked)
                 this.TopMost = (mp.CurrentStatus.PlayState == PlayStates.Playing);
@@ -1469,21 +1468,21 @@ namespace Baka_MPlayer.Forms
         {
             if (showIconInTrayToolStripMenuItem.Checked)
             {
-                settings.SetConfig(true, SettingEnum.ShowIcon);
+                Properties.Settings.Default.ShowIcon = true;
                 trayIcon.Visible = true;
             }
             else
             {
-                settings.SetConfig(false, SettingEnum.ShowIcon);
+                Properties.Settings.Default.ShowIcon = false;
                 trayIcon.Visible = false;
             }
-            settings.SaveConfig();
+            Properties.Settings.Default.Save();
         }
 
         private void hidePopupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            settings.SetConfig(hidePopupToolStripMenuItem.Checked, SettingEnum.HidePopup);
-            settings.SaveConfig();
+            Properties.Settings.Default.HidePopup = hidePopupToolStripMenuItem.Checked;
+            Properties.Settings.Default.Save();
         }
 
         #endregion
@@ -1560,14 +1559,14 @@ namespace Baka_MPlayer.Forms
             var dfi = DateTimeFormatInfo.CurrentInfo;
             var week = dfi.Calendar.GetWeekOfYear(DateTime.Today, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
 
-            var lastCheck = settings.GetIntValue(SettingEnum.LastUpdateCheck);
+            var lastCheck = Properties.Settings.Default.LastUpdateCheck;
             if (week != lastCheck)
             {
                 var checker = new UpdateChecker();
                 checker.Check(true);
 
-                settings.SetConfig(week, SettingEnum.LastUpdateCheck);
-                settings.SaveConfig();
+                Properties.Settings.Default.LastUpdateCheck = week;
+                Properties.Settings.Default.Save();
             }
 
             // check for command line args
@@ -1576,7 +1575,7 @@ namespace Baka_MPlayer.Forms
             {
                 if (arg[i].Equals("-lastfile", StringComparison.OrdinalIgnoreCase))
                 {
-                    var lastFile = settings.GetStringValue(SettingEnum.LastFile);
+                    var lastFile = Properties.Settings.Default.LastFile;
                     if (File.Exists(lastFile))
                     {
                         mp.OpenFile(lastFile);
@@ -1614,18 +1613,18 @@ namespace Baka_MPlayer.Forms
         private void LoadSettings()
         {
             // load volume
-            SetVolume(settings.GetIntValue(SettingEnum.Volume));
+            SetVolume(Properties.Settings.Default.Volume);
 
             // tray icon
-            if (!settings.GetBoolValue(SettingEnum.ShowIcon))
+            if (!Properties.Settings.Default.ShowIcon)
             {
                 trayIcon.Visible = false;
                 showIconInTrayToolStripMenuItem.Checked = false;
             }
-            hidePopupToolStripMenuItem.Checked = settings.GetBoolValue(SettingEnum.HidePopup);
+            hidePopupToolStripMenuItem.Checked = Properties.Settings.Default.HidePopup;
 
-            // set previous file
-            var lastFile = settings.GetStringValue(SettingEnum.LastFile);
+            // set last file
+            var lastFile = Properties.Settings.Default.LastFile;
             if (File.Exists(lastFile))
             {
                 openLastFileToolStripMenuItem.ToolTipText = Path.GetFileName(lastFile);
@@ -1679,8 +1678,8 @@ namespace Baka_MPlayer.Forms
 
             // save settings
             if (!string.IsNullOrEmpty(mp.FileInfo.Url))
-                settings.SetConfig(mp.FileInfo.Url, SettingEnum.LastFile);
-            settings.SaveConfig();
+                Properties.Settings.Default.LastFile = mp.FileInfo.Url;
+            Properties.Settings.Default.Save();
 
             if (voice != null)
                 voice.Dispose();
@@ -1750,15 +1749,15 @@ namespace Baka_MPlayer.Forms
                 if (firstFile)
                 {
                     firstFile = false;
-                    settings.SetConfig(mp.FileInfo.Url, SettingEnum.LastFile);
+                    Properties.Settings.Default.LastFile = mp.FileInfo.Url;
                 }
                 else
                 {
-                    settings.SetConfig(tempURL, SettingEnum.LastFile);
+                    Properties.Settings.Default.LastFile = tempURL;
                     openLastFileToolStripMenuItem.ToolTipText = Path.GetFileName(tempURL);
                     openLastFileToolStripMenuItem.Enabled = true;
                 }
-                settings.SaveConfig();
+                Properties.Settings.Default.Save();
                 tempURL = mp.FileInfo.Url;
 
                 // set form's info
@@ -1850,7 +1849,7 @@ namespace Baka_MPlayer.Forms
         {
             Invoke((MethodInvoker)delegate
             {
-                setOnTop();
+                SetOnTop();
                 SetPlayState(mp.CurrentStatus.PlayState);
             });
         }
@@ -1961,7 +1960,7 @@ namespace Baka_MPlayer.Forms
                     return;
                 }
 
-                if (settings.GetBoolValue(SettingEnum.ShowTimeRemaining))
+                if (Properties.Settings.Default.ShowTimeRemaining)
                 {
                     timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertSecondsToTime(
                         Math.Abs(mp.CurrentStatus.TotalLength - mp.CurrentStatus.Duration)));
@@ -2198,7 +2197,7 @@ namespace Baka_MPlayer.Forms
                 return;
 
             mp.SetVolume(newVol);
-            settings.SetConfig(newVol, SettingEnum.Volume);
+            Properties.Settings.Default.Volume = newVol;
 
             if (newVol.Equals(0))
             { // mute
