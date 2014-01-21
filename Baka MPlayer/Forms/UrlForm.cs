@@ -107,7 +107,7 @@ namespace Baka_MPlayer.Forms
                     return;
                 }
 
-                if (File.Exists(Url) || Functions.URL.IsValidUrl(Url))
+                if (File.Exists(Url) || Functions.Url.IsValidUrl(Url))
                 {
                     // local file or web file
                     SetControls(true);

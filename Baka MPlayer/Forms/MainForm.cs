@@ -739,12 +739,18 @@ namespace Baka_MPlayer.Forms
 
             if (mp.CurrentStatus.Duration < 3)
                 mp.Stop();
-            else if (mp.CurrentStatus.PlayState == PlayStates.Playing)
-                mp.Rewind();
-            else if (mp.CurrentStatus.PlayState == PlayStates.Ended)
-                mp.OpenFile(mp.FileInfo.Url);
-            else
-                mp.Stop();
+            else switch (mp.CurrentStatus.PlayState)
+            {
+                case PlayStates.Playing:
+                    mp.Rewind();
+                    break;
+                case PlayStates.Ended:
+                    mp.OpenFile(mp.FileInfo.Url);
+                    break;
+                default:
+                    mp.Stop();
+                    break;
+            }
         }
         private void rewindButton_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -962,7 +968,7 @@ namespace Baka_MPlayer.Forms
         {
             string clipText = Clipboard.GetText();
 
-            if (File.Exists(clipText) || Functions.URL.IsValidUrl(clipText))
+            if (File.Exists(clipText) || Functions.Url.IsValidUrl(clipText))
             {
                 mp.OpenFile(clipText);
             }
@@ -1252,7 +1258,7 @@ namespace Baka_MPlayer.Forms
 
         private void volumeToolStripTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            var newVol = Functions.TryParse.ParseInt(volumeToolStripTextBox.Text);
+            var newVol = Functions.TryParse.ToInt(volumeToolStripTextBox.Text);
 
             switch (e.KeyCode)
             {
@@ -2003,10 +2009,12 @@ namespace Baka_MPlayer.Forms
 
         private void OpenFile()
         {
-            var ofd = new OpenFileDialog();
-            ofd.Filter = string.Format("Multimedia|{0}|Video Files|{1}|Audio Files|{2}|All Files (*.*)|*.*",
-                Properties.Resources.VideoFiles + "; " + Properties.Resources.AudioFiles,
-                Properties.Resources.VideoFiles, Properties.Resources.AudioFiles);
+            var ofd = new OpenFileDialog
+            {
+                Filter = string.Format("Multimedia|{0}|Video Files|{1}|Audio Files|{2}|All Files (*.*)|*.*",
+                    Properties.Resources.VideoFiles + "; " + Properties.Resources.AudioFiles,
+                    Properties.Resources.VideoFiles, Properties.Resources.AudioFiles)
+            };
 
             if (mp.FileInfo.IsOnline)
             {

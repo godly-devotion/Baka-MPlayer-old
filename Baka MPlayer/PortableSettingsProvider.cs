@@ -1,4 +1,8 @@
-﻿using System;
+﻿/*
+ * Copyright (c) 2007, CodeChimp (from codeproject.com)
+ */
+
+using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Configuration;

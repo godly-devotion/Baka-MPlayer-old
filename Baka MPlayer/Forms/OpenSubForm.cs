@@ -23,11 +23,12 @@ namespace Baka_MPlayer.Forms
 
         private void browseMediaButton_Click(object sender, EventArgs e)
         {
-            var ofd = new OpenFileDialog();
-
-            ofd.Filter = string.Format("Multimedia|{0}|Video Files|{1}|Audio Files|{2}|All Files (*.*)|*.*",
-                Properties.Resources.VideoFiles + "; " + Properties.Resources.AudioFiles,
-                Properties.Resources.VideoFiles, Properties.Resources.AudioFiles);
+            var ofd = new OpenFileDialog
+            {
+                Filter = string.Format("Multimedia|{0}|Video Files|{1}|Audio Files|{2}|All Files (*.*)|*.*",
+                    Properties.Resources.VideoFiles + "; " + Properties.Resources.AudioFiles,
+                    Properties.Resources.VideoFiles, Properties.Resources.AudioFiles)
+            };
 
             if (ofd.ShowDialog() == DialogResult.OK && File.Exists(ofd.FileName))
                 mediaTextbox.Text = ofd.FileName;
@@ -35,8 +36,10 @@ namespace Baka_MPlayer.Forms
 
         private void browseSubButton_Click(object sender, EventArgs e)
         {
-            var ofd = new OpenFileDialog();
-            ofd.Filter = "Subtitles|*.sub;*.srt;*.ass;*.ssa|All Files (*.*)|*.*";
+            var ofd = new OpenFileDialog
+            {
+                Filter = "Subtitles|*.sub;*.srt;*.ass;*.ssa|All Files (*.*)|*.*"
+            };
 
             if (ofd.ShowDialog() == DialogResult.OK && File.Exists(ofd.FileName))
                 subTextbox.Text = ofd.FileName;
@@ -46,7 +49,7 @@ namespace Baka_MPlayer.Forms
         {
             try
             {
-                if (File.Exists(MediaFile) || Functions.URL.IsValidUrl(MediaFile))
+                if (File.Exists(MediaFile) || Functions.Url.IsValidUrl(MediaFile))
                 {
                     mediaCheckPicbox.Image = Properties.Resources.exists;
                     _isValidMediaFile = true;

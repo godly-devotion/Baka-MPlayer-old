@@ -1,6 +1,9 @@
-﻿/*****************************
-* Functions (by Joshua Park) *
-*****************************/
+﻿/*
+ * Common Static Functions
+ * 
+ * Copyright (c) 2014, Joshua Park
+ */
+
 using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
@@ -39,7 +42,7 @@ namespace Functions
         }
     }
     
-    public static class URL
+    public static class Url
     {
         [DllImport("shlwapi.dll", CharSet = CharSet.Auto)]
         private static extern long PathIsURL(string pszPath);
@@ -137,7 +140,7 @@ namespace Functions
         /// <summary>
         /// Parses to double with InvariantCulture
         /// </summary>
-        public static double ParseDouble(string value)
+        public static double ToDouble(string value)
         {
             double result;
             double.TryParse(value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
@@ -146,7 +149,7 @@ namespace Functions
         /// <summary>
         /// Parses to int with InvariantCulture
         /// </summary>
-        public static int ParseInt(string value)
+        public static int ToInt(string value)
         {
             int result;
             int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);
@@ -155,7 +158,7 @@ namespace Functions
         /// <summary>
         /// Parses to long with InvariantCulture
         /// </summary>
-        public static long ParseLong(string value)
+        public static long ToLong(string value)
         {
             long result;
             long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);

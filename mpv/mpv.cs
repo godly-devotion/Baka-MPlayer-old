@@ -530,16 +530,16 @@ namespace mpv
                         SetPlayState(value == "yes" ? PlayStates.Paused : PlayStates.Playing, true);
                         break;
                     case "PERCENT":
-                        CurrentStatus.PercentPos = Functions.TryParse.ParseDouble(value);
+                        CurrentStatus.PercentPos = Helper.TryParse.ToDouble(value);
                         break;
                     case "AV":
-                        ProcessProgress(Functions.TryParse.ParseDouble(value));
+                        ProcessProgress(Helper.TryParse.ToDouble(value));
                         break;
                     case "WIDTH":
-                        FileInfo.VideoWidth = Functions.TryParse.ParseInt(value);
+                        FileInfo.VideoWidth = Helper.TryParse.ToInt(value);
                         break;
                     case "HEIGHT":
-                        FileInfo.VideoHeight = Functions.TryParse.ParseInt(value);
+                        FileInfo.VideoHeight = Helper.TryParse.ToInt(value);
                         break;
                 }
             }
@@ -560,12 +560,12 @@ namespace mpv
                 case "ID_FILENAME":
                     FileInfo.Url = value;
                     FileInfo.IsOnline = !File.Exists(FileInfo.Url);
-                    FileInfo.FullFileName = Path.GetFileName(Functions.Url.DecodeUrl(value));
+                    FileInfo.FullFileName = Path.GetFileName(Helper.Url.DecodeUrl(value));
                     FileInfo.FileName = Path.GetFileNameWithoutExtension(FileInfo.FullFileName);
-                    FileInfo.GetDirectoryName = Functions.IO.GetDirectoryName(value);
+                    FileInfo.GetDirectoryName = Helper.IO.GetDirectoryName(value);
                     break;
                 case "ID_LENGTH":
-                    CurrentStatus.TotalLength = Functions.TryParse.ParseDouble(value);
+                    CurrentStatus.TotalLength = Helper.TryParse.ToDouble(value);
                     break;
                 default:
                     if (key.StartsWith("ID_CHAPTER_ID")) // Chapters
@@ -576,7 +576,7 @@ namespace mpv
                     {
                         if (key.Contains("_START"))
                         {
-                            FileInfo.Chapters[FileInfo.Chapters.Count - 1].StartTime = Functions.TryParse.ParseLong(value);
+                            FileInfo.Chapters[FileInfo.Chapters.Count - 1].StartTime = Helper.TryParse.ToLong(value);
                         }
                         else if (key.Contains("_NAME"))
                         {
@@ -660,7 +660,7 @@ namespace mpv
             else if (data.StartsWith("encoder:"))
                 FileInfo.Id3Tags.Encoder = s;
             else if (data.StartsWith("disk:"))
-                FileInfo.Id3Tags.Disc = Functions.TryParse.ParseInt(s);
+                FileInfo.Id3Tags.Disc = Helper.TryParse.ToInt(s);
         }
 
         #endregion

@@ -437,7 +437,7 @@ namespace Baka_MPlayer.Controls
 
             if (inputBox.ShowDialog(this) == DialogResult.OK)
             {
-                var i = Functions.TryParse.ParseInt(inputBox.GetInputText) - 1;
+                var i = Functions.TryParse.ToInt(inputBox.GetInputText) - 1;
 
                 if (i >= 0 && i < GetTotalItems)
                 {

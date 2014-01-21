@@ -1,44 +1,15 @@
-﻿/*****************************
-* Functions (by Joshua Park) *
-*****************************/
+﻿/*
+ * Helper Functions
+ * 
+ * Copyright (c) 2014, Joshua Park
+ */
+
 using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 
-namespace Functions
+namespace Helper
 {
-    public static class Time
-    {
-        /// <summary>
-        /// Calculates the total seconds from hour, min, sec.
-        /// </summary>
-        public static void CalculateTimeFromSeconds(double time, out int hour, out int min, out int sec)
-        {
-            hour = (int)(time / 3600);
-            min = (int)((time % 3600) / 60);
-            sec = (int)((time % 3600) % 60);
-        }
-        /// <summary>
-        /// Converts hour, min, sec to "0:00:00" format.
-        /// </summary>
-        public static string ConvertToTime(int hour, int min, int sec)
-        {
-            if (hour > 0)
-                return string.Format("{0}:{1}:{2}", hour.ToString("#0"), min.ToString("00"), sec.ToString("00"));
-            return string.Format("{0}:{1}", min.ToString("#0"), sec.ToString("00"));
-        }
-        /// <summary>
-        /// Converts total seconds to "0:00:00" format;
-        /// </summary>
-        public static string ConvertSecondsToTime(double totalSec)
-        {
-            int hour, min, sec;
-            CalculateTimeFromSeconds(totalSec, out hour, out min, out sec);
-            return ConvertToTime(hour, min, sec);
-        }
-    }
-
     public static class Url
     {
         [DllImport("shlwapi.dll", CharSet = CharSet.Auto)]
@@ -51,28 +22,6 @@ namespace Functions
         public static string DecodeUrl(string input)
         {
             return IsValidUrl(input) ? System.Web.HttpUtility.UrlDecode(input) : input;
-        }
-    }
-
-    public static class String
-    {
-        public static string AutoEllipsis(int max, string toUse)
-        {
-            if (max < toUse.Length)
-                return toUse.Remove(max, toUse.Length - max) + "...";
-            return toUse;
-        }
-        public static bool IsAlphanumeric(string text)
-        {
-            var r = new Regex("[a-zA-Z0-9]");
-            return r.IsMatch(text);
-        }
-        /// <summary>
-        /// NOTE: Conversion doesn't work on words with ALL CAPS
-        /// </summary>
-        public static string ToTitleCase(string input)
-        {
-            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(input);
         }
     }
 
@@ -137,7 +86,7 @@ namespace Functions
         /// <summary>
         /// Parses to double with InvariantCulture
         /// </summary>
-        public static double ParseDouble(string value)
+        public static double ToDouble(string value)
         {
             double result;
             double.TryParse(value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
@@ -146,7 +95,7 @@ namespace Functions
         /// <summary>
         /// Parses to int with InvariantCulture
         /// </summary>
-        public static int ParseInt(string value)
+        public static int ToInt(string value)
         {
             int result;
             int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);
@@ -155,45 +104,11 @@ namespace Functions
         /// <summary>
         /// Parses to long with InvariantCulture
         /// </summary>
-        public static long ParseLong(string value)
+        public static long ToLong(string value)
         {
             long result;
             long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);
             return result;
-        }
-    }
-
-    public static class OS
-    {
-        public static bool IsRunning64Bit()
-        {
-            // if (IntPtr.Size == 4) 32-bit
-            // if (IntPtr.Size == 8) 64-bit
-
-            return IntPtr.Size.Equals(8);
-        }
-        public static bool RunningOnWin7
-        {
-            get
-            {
-                return (Environment.OSVersion.Version.Major > 6) ||
-                    (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor >= 1);
-            }
-        }
-    }
-
-    public static class Calculate
-    {
-        public static int GetGCD(int x, int y)
-        {
-            while (x != y)
-            {
-                if (x > y)
-                    x = x - y;
-                else
-                    y = y - x;
-            }
-            return x;
         }
     }
 }
