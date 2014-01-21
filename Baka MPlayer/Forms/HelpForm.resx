@@ -136,7 +136,7 @@
 [Ctrl+Down] Decrease Volume</value>
   </data>
   <data name="richTextBox3.Text" xml:space="preserve">
-    <value>Note: you must call Baka MPlayer's name before you say the command, by default the name is "baka". You can change its name via the settings file (Baka MPlayer.EXE.xml)
+    <value>Note: Call Baka MPlayer's name before you say the command, by default the name is "baka". You can change its name via the settings file (Baka MPlayer.settings)
 
 open [file]
 mute
