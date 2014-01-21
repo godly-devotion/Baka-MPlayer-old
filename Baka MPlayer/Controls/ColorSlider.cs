@@ -154,11 +154,7 @@ namespace Baka_MPlayer.Controls
                     if (ValueChanged != null) ValueChanged(this, new EventArgs());
                     Invalidate();
                 }
-                else
-                {
-                    Console.WriteLine("Value is outside appropriate range (min, max)");
-                    //throw new ArgumentOutOfRangeException("Value is outside appropriate range (min, max)");
-                }
+                else throw new ArgumentOutOfRangeException("Value is outside appropriate range (min, max)");
             }
         }
 
