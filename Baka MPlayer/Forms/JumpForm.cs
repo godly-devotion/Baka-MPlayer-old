@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Globalization;
 using System.Windows.Forms;
 using MPlayer.Info;
 
@@ -40,9 +41,9 @@ namespace Baka_MPlayer.Forms
 
         private void CheckTimes_ValueChanged(object sender, EventArgs e)
         {
-            var hour = Convert.ToInt32(hourBox.Value);
-            var min = Convert.ToInt32(minBox.Value);
-            var sec = Convert.ToInt32(secBox.Value);
+            var hour = Convert.ToInt32(hourBox.Value, CultureInfo.InvariantCulture);
+            var min = Convert.ToInt32(minBox.Value, CultureInfo.InvariantCulture);
+            var sec = Convert.ToInt32(secBox.Value, CultureInfo.InvariantCulture);
             double calculatedTotal = (hour * 3600) + (min * 60) + sec;
 
             if (goToRadioButton.Checked)
@@ -52,9 +53,9 @@ namespace Baka_MPlayer.Forms
                 if (calculatedTotal > -1 && calculatedTotal < currentStatus.TotalLength)
                 {
                     GetNewTime = calculatedTotal;
-                    validEntry(true);
+                    ValidEntry(true);
                 }
-                else validEntry(false);
+                else ValidEntry(false);
             }
             else if (addRadioButton.Checked)
             {
@@ -64,9 +65,9 @@ namespace Baka_MPlayer.Forms
                 if (calculatedTotal > -1 && newTime < currentStatus.TotalLength)
                 {
                     GetNewTime = newTime;
-                    validEntry(true);
+                    ValidEntry(true);
                 }
-                else validEntry(false);
+                else ValidEntry(false);
             }
             else if (subtractRadioButton.Checked)
             {
@@ -76,12 +77,12 @@ namespace Baka_MPlayer.Forms
                 if (calculatedTotal > -1 && newTime > -1)
                 {
                     GetNewTime = newTime;
-                    validEntry(true);
+                    ValidEntry(true);
                 }
-                else validEntry(false);
+                else ValidEntry(false);
             }
         }
-        private void validEntry(bool allowJump)
+        private void ValidEntry(bool allowJump)
         {
             checkPicbox.Image = allowJump ?
                 Properties.Resources.exists : Properties.Resources.not_exists;

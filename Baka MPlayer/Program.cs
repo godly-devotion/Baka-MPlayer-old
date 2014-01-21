@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -19,6 +20,7 @@ namespace Baka_MPlayer
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.ThreadException += ApplicationThreadException;
 #endif
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

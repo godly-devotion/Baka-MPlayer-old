@@ -93,22 +93,22 @@ namespace Functions
         {
             try
             {
-                var FileProperties = new System.IO.FileInfo(filePath);
-                if (FileProperties.Length < 1024) {
+                var fileProperties = new System.IO.FileInfo(filePath);
+                if (fileProperties.Length < 1024) {
                     // Bytes
-                    return (FileProperties.Length + " B");
-                } if (FileProperties.Length >= 1024 && FileProperties.Length < 1048576) {
+                    return (fileProperties.Length + " B");
+                } if (fileProperties.Length >= 1024 && fileProperties.Length < 1048576) {
                     // Kilobytes
-                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1024, roundTo) + " kB";
-                } if (FileProperties.Length >= 1048576 && FileProperties.Length < 1073741824) {
+                    return Math.Round(Convert.ToDecimal(fileProperties.Length) / 1024, roundTo) + " kB";
+                } if (fileProperties.Length >= 1048576 && fileProperties.Length < 1073741824) {
                     // Megabytes
-                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1048576, roundTo) + " MB";
-                } if (FileProperties.Length >= 1073741824 && FileProperties.Length < 1099511627776L) {
+                    return Math.Round(Convert.ToDecimal(fileProperties.Length) / 1048576, roundTo) + " MB";
+                } if (fileProperties.Length >= 1073741824 && fileProperties.Length < 1099511627776L) {
                     // Gigabytes
-                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1073741824, roundTo) + " GB";
-                } if (FileProperties.Length >= 1099511627776L && FileProperties.Length < 1099511627776L) {
+                    return Math.Round(Convert.ToDecimal(fileProperties.Length) / 1073741824, roundTo) + " GB";
+                } if (fileProperties.Length >= 1099511627776L && fileProperties.Length < 1099511627776L) {
                     // Terabytes
-                    return Math.Round(Convert.ToDecimal(FileProperties.Length) / 1099511627776L, roundTo) + " TB";
+                    return Math.Round(Convert.ToDecimal(fileProperties.Length) / 1099511627776L, roundTo) + " TB";
                 }
                 return "Not Available";
             }
