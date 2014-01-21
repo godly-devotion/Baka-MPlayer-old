@@ -1,8 +1,15 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.3.9 (2014-01-17)
+Latest Version 1.4.0 (2014-01-21)
 ---------------------------------
+
+- NOTE: You must remove all files before version 1.3.9
+- Fixed: Small bugs
+- Fixed: Broken seekbar on some computers with different languages
+
+Version 1.3.9 (2014-01-17)
+--------------------------
 
 - NOTE: YOU MUST REMOVE ALL PREVIOUS FILES
 - Large parts of the code have been refactored for efficiency
