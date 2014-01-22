@@ -84,7 +84,7 @@ namespace mpv
         /// </summary>
         public bool SendCommand(string command, object value)
         {
-            return SendCommand(string.Format(command, value));
+            return SendCommand(string.Format(CultureInfo.InvariantCulture, command, value));
         }
         public bool PlayerIsRunning()
         {
@@ -180,7 +180,7 @@ namespace mpv
         {
             Volume = volume;
             if (PlayerIsRunning())
-                return volume >= 0 && SendCommand("set volume {0}", volume);
+                return volume > -1 && SendCommand("set volume {0}", volume);
             return true;
         }
 

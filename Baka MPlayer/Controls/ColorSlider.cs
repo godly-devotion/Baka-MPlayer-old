@@ -460,8 +460,8 @@ namespace Baka_MPlayer.Controls
             try
             {
                 // set up thumbRect aproprietly
-                int TrackX = (((trackerValue - barMinimum) * (ClientRectangle.Width - thumbSize.Width)) / (barMaximum - barMinimum));
-                thumbRect = new Rectangle(TrackX, (ClientRectangle.Height - thumbSize.Height) / 2, thumbSize.Width - 1, thumbSize.Height);
+                int trackX = (((trackerValue - barMinimum) * (ClientRectangle.Width - thumbSize.Width)) / (barMaximum - barMinimum));
+                thumbRect = new Rectangle(trackX, (ClientRectangle.Height - thumbSize.Height) / 2, thumbSize.Width - 1, thumbSize.Height);
 
                 // get thumb shape path 
                 GraphicsPath thumbPath;
