@@ -8,6 +8,7 @@ using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Windows.Input;
 
 namespace Functions
 {
@@ -27,12 +28,13 @@ namespace Functions
         /// </summary>
         public static string ConvertToTime(int hour, int min, int sec)
         {
+            var invC = CultureInfo.InvariantCulture;
             if (hour > 0)
-                return string.Format("{0}:{1}:{2}", hour.ToString("#0"), min.ToString("00"), sec.ToString("00"));
-            return string.Format("{0}:{1}", min.ToString("#0"), sec.ToString("00"));
+                return string.Format("{0}:{1}:{2}", hour.ToString("#0", invC), min.ToString("00", invC), sec.ToString("00", invC));
+            return string.Format("{0}:{1}", min.ToString("#0", invC), sec.ToString("00", invC));
         }
         /// <summary>
-        /// Converts total seconds to "0:00:00" format;
+        /// Converts seconds to "0:00:00" format;
         /// </summary>
         public static string ConvertSecondsToTime(double totalSec)
         {
@@ -94,24 +96,34 @@ namespace Functions
         }
         public static string GetFileSize(string filePath, int roundTo)
         {
+            var invC = CultureInfo.InvariantCulture;
             try
             {
                 var fileProperties = new System.IO.FileInfo(filePath);
-                if (fileProperties.Length < 1024) {
+                if (fileProperties.Length < 1024)
+                {
                     // Bytes
                     return (fileProperties.Length + " B");
-                } if (fileProperties.Length >= 1024 && fileProperties.Length < 1048576) {
+                }
+                if (fileProperties.Length >= 1024 && fileProperties.Length < 1048576)
+                {
                     // Kilobytes
-                    return Math.Round(Convert.ToDecimal(fileProperties.Length) / 1024, roundTo) + " kB";
-                } if (fileProperties.Length >= 1048576 && fileProperties.Length < 1073741824) {
+                    return Math.Round(Convert.ToDecimal(fileProperties.Length, invC) / 1024, roundTo) + " kB";
+                }
+                if (fileProperties.Length >= 1048576 && fileProperties.Length < 1073741824)
+                {
                     // Megabytes
-                    return Math.Round(Convert.ToDecimal(fileProperties.Length) / 1048576, roundTo) + " MB";
-                } if (fileProperties.Length >= 1073741824 && fileProperties.Length < 1099511627776L) {
+                    return Math.Round(Convert.ToDecimal(fileProperties.Length, invC) / 1048576, roundTo) + " MB";
+                }
+                if (fileProperties.Length >= 1073741824 && fileProperties.Length < 1099511627776L)
+                {
                     // Gigabytes
-                    return Math.Round(Convert.ToDecimal(fileProperties.Length) / 1073741824, roundTo) + " GB";
-                } if (fileProperties.Length >= 1099511627776L && fileProperties.Length < 1099511627776L) {
+                    return Math.Round(Convert.ToDecimal(fileProperties.Length, invC) / 1073741824, roundTo) + " GB";
+                }
+                if (fileProperties.Length >= 1099511627776L && fileProperties.Length < 1099511627776L)
+                {
                     // Terabytes
-                    return Math.Round(Convert.ToDecimal(fileProperties.Length) / 1099511627776L, roundTo) + " TB";
+                    return Math.Round(Convert.ToDecimal(fileProperties.Length, invC) / 1099511627776L, roundTo) + " TB";
                 }
                 return "Not Available";
             }
@@ -137,13 +149,14 @@ namespace Functions
 
     public static class TryParse
     {
+        private static readonly CultureInfo InvC = CultureInfo.InvariantCulture;
         /// <summary>
         /// Parses to double with InvariantCulture
         /// </summary>
         public static double ToDouble(string value)
         {
             double result;
-            double.TryParse(value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
+            double.TryParse(value, NumberStyles.AllowDecimalPoint, InvC, out result);
             return result;
         }
         /// <summary>
@@ -152,7 +165,7 @@ namespace Functions
         public static int ToInt(string value)
         {
             int result;
-            int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);
+            int.TryParse(value, NumberStyles.Integer, InvC, out result);
             return result;
         }
         /// <summary>
@@ -161,7 +174,7 @@ namespace Functions
         public static long ToLong(string value)
         {
             long result;
-            long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);
+            long.TryParse(value, NumberStyles.Integer, InvC, out result);
             return result;
         }
     }
