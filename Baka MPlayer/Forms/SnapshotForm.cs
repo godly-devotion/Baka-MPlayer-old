@@ -8,7 +8,7 @@ namespace Baka_MPlayer.Forms
 {
     public partial class SnapshotForm : Form
     {
-        private Image image
+        private Image SnapshotImage
         {
             get { return snapshotPicbox.Image; }
             set { snapshotPicbox.Image = value; }
@@ -20,7 +20,7 @@ namespace Baka_MPlayer.Forms
         {
             InitializeComponent();
             
-            this.image = image;
+            this.SnapshotImage = image;
             this.fileInfo = fileInfo;
             snapshotPicbox_SizeChanged(null, null);
         }
@@ -28,17 +28,24 @@ namespace Baka_MPlayer.Forms
         private void SnapshotForm_Load(object sender, EventArgs e)
         {
             this.MinimumSize = new Size(this.Width, 50);
-            dimensionsLabel.Text = string.Format("Demensions: {0} x {1}", image.Width, image.Height);
+            dimensionsLabel.Text = string.Format("Demensions: {0} x {1}", SnapshotImage.Width, SnapshotImage.Height);
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
             // set file name
             var fileName = cleanNameCheckbox.Checked ?
-                cleanName(fileInfo.MovieName) : fileInfo.MovieName;
+                CleanName(fileInfo.MovieName) : fileInfo.MovieName;
 
-            var sfd = new SaveFileDialog();
-            sfd.FileName = fileName + "_snapshot[1].png";
+            var sfd = new SaveFileDialog
+            {
+                FileName = fileName + "_snapshot[1].png",
+                Filter = "PNG Images|*.png|" +
+                         "Bitmap Images|*.bmp|" +
+                         "GIF Images|*.gif|" +
+                         "JPEG Images|*.jpg|" +
+                         "TIFF Images|*.tiff"
+            };
 
             int total = 1;
             while (File.Exists(string.Format("{0}\\{1}_snapshot[{2}].png", fileInfo.GetDirectoryName, fileName, total)))
@@ -47,29 +54,32 @@ namespace Baka_MPlayer.Forms
                 sfd.FileName = string.Format("{0}_snapshot[{1}].png", fileName, total);
             }
 
-            sfd.Filter = "PNG Images|*.png|" +
-                         "Bitmap Images|*.bmp|" +
-                         "GIF Images|*.gif|" +
-                         "JPEG Images|*.jpg|" +
-                         "TIFF Images|*.tiff";
             if (sfd.ShowDialog() == DialogResult.OK && sfd.FileName.Length > 0)
             {
-                if (sfd.FilterIndex.Equals(0))
-                    image.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                if (sfd.FilterIndex.Equals(1))
-                    image.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
-                if (sfd.FilterIndex.Equals(2))
-                    image.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Gif);
-                if (sfd.FilterIndex.Equals(3))
-                    image.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
-                if (sfd.FilterIndex.Equals(4))
-                    image.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Tiff);
+                switch (sfd.FilterIndex)
+                {
+                    case 0:
+                        SnapshotImage.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                        break;
+                    case 1:
+                        SnapshotImage.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
+                        break;
+                    case 2:
+                        SnapshotImage.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Gif);
+                        break;
+                    case 3:
+                        SnapshotImage.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        break;
+                    case 4:
+                        SnapshotImage.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Tiff);
+                        break;
+                }
             }
         }
 
         private void copyLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Clipboard.SetImage(image);
+            Clipboard.SetImage(SnapshotImage);
         }
 
         private void snapshotPicbox_SizeChanged(object sender, EventArgs e)
@@ -81,21 +91,22 @@ namespace Baka_MPlayer.Forms
                 snapshotPicbox.SizeMode = PictureBoxSizeMode.CenterImage;
         }
 
-        private static string cleanName(string input)
+        private static string CleanName(string input)
         {
-            var extension = Path.GetExtension(input);
-            input = input.Remove(input.LastIndexOf(extension, StringComparison.OrdinalIgnoreCase), extension.Length);
+            var ext = Path.GetExtension(input);
+            const StringComparison ord = StringComparison.Ordinal;
+            input = input.Remove(input.LastIndexOf(ext, StringComparison.OrdinalIgnoreCase), ext.Length);
 
             // Remove all [ and ending ]
-            while (input.IndexOf("[") != -1 && input.IndexOf("]") != -1)
-                input = input.Replace(input.Substring(input.IndexOf("["), (input.IndexOf("]") - input.IndexOf("[") + 1)), "");
+            while (input.IndexOf("[", ord) != -1 && input.IndexOf("]", ord) != -1)
+                input = input.Replace(input.Substring(input.IndexOf("[", ord), (input.IndexOf("]", ord) - input.IndexOf("[", ord) + 1)), "");
 
             //Remove all { and ending }
-            while (input.IndexOf("{") != -1 && input.IndexOf("}") != -1)
-                input = input.Replace(input.Substring(input.IndexOf("{"), (input.IndexOf("}") - input.IndexOf("{") + 1)), "");
+            while (input.IndexOf("{", ord) != -1 && input.IndexOf("}", ord) != -1)
+                input = input.Replace(input.Substring(input.IndexOf("{", ord), (input.IndexOf("}", ord) - input.IndexOf("{", ord) + 1)), "");
 
             input = input.Replace("_", " ");
-            return input.Trim() + extension;
+            return input.Trim() + ext;
         }
     }
 }
