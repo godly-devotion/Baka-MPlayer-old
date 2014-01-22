@@ -5,8 +5,8 @@ namespace Baka_MPlayer.Forms
 {
     public partial class UpdateForm : Form
     {
-        private const string url_x86_64  = "http://bakamplayer.u8sand.net/Baka MPlayer.7z"; // x86_64
-        private const string url_x86 = "http://bakamplayer.u8sand.net/Baka MPlayer x86.7z"; // x86
+        private const string Url64Bit  = "http://bakamplayer.u8sand.net/Baka MPlayer.7z"; // x86_64
+        private const string Url32Bit = "http://bakamplayer.u8sand.net/Baka MPlayer x86.7z"; // x86
 
         public UpdateForm(UpdateInfo info)
         {
@@ -44,7 +44,7 @@ namespace Baka_MPlayer.Forms
 
         private void downloadButton_Click(object sender, System.EventArgs e)
         {
-            Process.Start(Functions.OS.IsRunning64Bit() ? url_x86_64 : url_x86);
+            Process.Start(Functions.OS.IsRunning64Bit() ? Url64Bit : Url32Bit);
             this.Dispose();
         }
 

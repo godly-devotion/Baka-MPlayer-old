@@ -14,22 +14,6 @@ using System.Windows.Forms;
 using Baka_MPlayer;
 using Baka_MPlayer.Forms;
 
-public class UpdateInfo
-{
-    public bool UpdateAvailable;
-    public string LatestVer;
-    public string Date;
-    public string BugFixes;
-
-    public UpdateInfo(bool updateAvailable, string latestVer, string date, string bugFixes)
-    {
-        this.UpdateAvailable = updateAvailable;
-        this.LatestVer = latestVer;
-        this.Date = date;
-        this.BugFixes = bugFixes;
-    }
-}
-
 public class UpdateChecker
 {
     private const string Website = "bakamplayer.u8sand.net";
