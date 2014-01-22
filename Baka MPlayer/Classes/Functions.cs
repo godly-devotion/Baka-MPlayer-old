@@ -149,14 +149,13 @@ namespace Functions
 
     public static class TryParse
     {
-        private static readonly CultureInfo InvC = CultureInfo.InvariantCulture;
         /// <summary>
         /// Parses to double with InvariantCulture
         /// </summary>
         public static double ToDouble(string value)
         {
             double result;
-            double.TryParse(value, NumberStyles.AllowDecimalPoint, InvC, out result);
+            double.TryParse(value, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out result);
             return result;
         }
         /// <summary>
@@ -165,7 +164,7 @@ namespace Functions
         public static int ToInt(string value)
         {
             int result;
-            int.TryParse(value, NumberStyles.Integer, InvC, out result);
+            int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);
             return result;
         }
         /// <summary>
@@ -174,7 +173,7 @@ namespace Functions
         public static long ToLong(string value)
         {
             long result;
-            long.TryParse(value, NumberStyles.Integer, InvC, out result);
+            long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);
             return result;
         }
     }
