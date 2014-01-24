@@ -1953,8 +1953,7 @@ namespace Baka_MPlayer.Forms
                 if (seekBar_IsMouseDown)
                     return;
 
-                if (mp.CurrentStatus.PlayState == PlayStates.Playing)
-                    durationLabel.Text = Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.Duration);
+                durationLabel.Text = Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.Duration);
 
                 // check if file is seekable
                 if (mp.CurrentStatus.TotalLength > 0.0)
@@ -2033,7 +2032,8 @@ namespace Baka_MPlayer.Forms
         private void HidePlayer()
         {
             if (seekBar_IsMouseDown)
-            { // stop mouse movement
+            {
+                // if seeking, release focus from seekBar
                 seekBar_IsMouseDown = false;
                 return;
             }
@@ -2047,7 +2047,7 @@ namespace Baka_MPlayer.Forms
                 blackForm.Hide();
             dimLightsToolStripMenuItem.Checked = false;
 
-            // hack required to bypass Windows hide animation
+            // hack required to bypass Windows' hide animation
             this.Opacity = 0.0;
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Minimized;
@@ -2156,8 +2156,8 @@ namespace Baka_MPlayer.Forms
                 return;
 
             var currentRatio = (double)mplayerSplitContainer.Panel1.Width / mplayerSplitContainer.Panel1.Height;
-            
             var ratio = VO_State.PanelAspectRatio;
+
             if (ratio.Equals(0.0))
                 ratio = (double)mp.FileInfo.VideoWidth / mp.FileInfo.VideoHeight;
             

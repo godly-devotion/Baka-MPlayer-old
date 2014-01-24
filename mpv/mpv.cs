@@ -114,18 +114,21 @@ namespace mpv
 
         public bool Play()
         {
+            ignoreStatusMsg = false;
             if (CurrentStatus.PlayState == PlayStates.Ended)
                 return OpenFile(FileInfo.Url);
             return SendCommand("set pause no");
         }
         public bool Pause(bool toggle)
         {
+            ignoreStatusMsg = false;
             if (CurrentStatus.PlayState == PlayStates.Ended)
                 return OpenFile(FileInfo.Url);
             return SendCommand(toggle ? "cycle pause" : "set pause yes");
         }
         public bool Stop()
         {
+            ignoreStatusMsg = true;
             SetPlayState(PlayStates.Stopped, true);
             return SendCommand("pausing seek 0 absolute");
         }
@@ -140,10 +143,12 @@ namespace mpv
 
         public bool Seek(double sec)
         {
+            ignoreStatusMsg = false;
             return SendCommand("seek {0} absolute", sec);
         }
         public bool SeekPercent(double percent)
         {
+            ignoreStatusMsg = false;
             return SendCommand("seek {0} absolute-percent", percent);
         }
 
