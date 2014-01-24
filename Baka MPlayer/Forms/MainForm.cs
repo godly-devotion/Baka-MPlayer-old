@@ -1941,7 +1941,7 @@ namespace Baka_MPlayer.Forms
         {
             SetControls(false, true);
             SetPlayState(PlayStates.Stopped);
-            SetStatusMsg("Reached the end", true);
+            SetStatusMsg("Reached the end of the playlist", true);
         }
 
         private void mp_DurationChangedEvent(object sender, EventArgs e)
@@ -1970,8 +1970,8 @@ namespace Baka_MPlayer.Forms
 
                 if (Properties.Settings.Default.ShowTimeRemaining)
                 {
-                    timeLeftLabel.Text = string.Format("-{0}", Functions.Time.ConvertSecondsToTime(
-                        Math.Abs(mp.CurrentStatus.TotalLength - mp.CurrentStatus.Duration)));
+                    timeLeftLabel.Text = string.Format(CultureInfo.InvariantCulture, "-{0}",
+                        Functions.Time.ConvertSecondsToTime(Math.Abs(mp.CurrentStatus.TotalLength - mp.CurrentStatus.Duration)));
                 }
                 else
                 {
