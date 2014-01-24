@@ -25,7 +25,7 @@ namespace mpv
         private readonly int wid;
         private bool cachingFonts;
         private bool parsingClipInfo;
-        private bool ignoreStatus;
+        private bool ignoreStatusMsg;
         private string externalSub;
 
         #endregion
@@ -52,6 +52,7 @@ namespace mpv
 
         public bool OpenFile(string url)
         {
+            ignoreStatusMsg = false;
             FileInfo.ResetInfo();
             OnStdOut(new StdOutEventArgs("[ACTION] CLEAR_OUTPUT"));
             OnStatusChanged(new StatusChangedEventArgs("Loading file...", false));
@@ -125,7 +126,6 @@ namespace mpv
         }
         public bool Stop()
         {
-            ignoreStatus = true;
             SetPlayState(PlayStates.Stopped, true);
             return SendCommand("pausing seek 0 absolute");
         }
@@ -140,12 +140,10 @@ namespace mpv
 
         public bool Seek(double sec)
         {
-            ignoreStatus = true;
             return SendCommand("seek {0} absolute", sec);
         }
         public bool SeekPercent(double percent)
         {
-            ignoreStatus = true;
             return SendCommand("seek {0} absolute-percent", percent);
         }
 
@@ -218,7 +216,7 @@ namespace mpv
 
         #region Functions
 
-        public bool InitPlayer(string url)
+        private bool InitPlayer(string url)
         {
             try
             {
@@ -371,14 +369,8 @@ namespace mpv
         {
             Debug.WriteLine("#err:" + e.Data);
 
-            if (e.Data == null)
+            if (e.Data == null || ignoreStatusMsg)
                 return;
-
-            if (ignoreStatus)
-            {
-                ignoreStatus = false;
-                return;
-            }
             
             if (e.Data.StartsWith("status:"))
             {
@@ -420,6 +412,7 @@ namespace mpv
             if (e.Data.StartsWith("[cplayer] EOF code: 1") ||
                 e.Data.StartsWith("[cplayer] EOF code: 2"))
             {
+                ignoreStatusMsg = true;
                 CurrentStatus.PlayState = PlayStates.Ended;
                 OnPlayStateChanged(new EventArgs());
                 return;
