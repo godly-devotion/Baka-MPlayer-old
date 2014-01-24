@@ -48,7 +48,7 @@ namespace MPlayer
         event EventHandler<StdOutEventArgs> StdOutEvent;
         event EventHandler<StatusChangedEventArgs> StatusChangedEvent;
         event EventHandler<EventArgs> FileOpenedEvent;
-        event EventHandler<EventArgs> PlayStateChangedEvent;
+        event EventHandler<PlayStateChangedEventArgs> PlayStateChangedEvent;
         event EventHandler<EventArgs> DurationChangedEvent;
         event EventHandler<EventArgs> MPlayerQuitEvent;
     }

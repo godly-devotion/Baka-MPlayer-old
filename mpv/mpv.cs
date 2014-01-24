@@ -290,7 +290,7 @@ namespace mpv
 
             CurrentStatus.PlayState = newState;
             if (callPlayStateChanged)
-                OnPlayStateChanged(new EventArgs());
+                OnPlayStateChanged(new PlayStateChangedEventArgs(newState));
         }
 
         #endregion
@@ -327,9 +327,9 @@ namespace mpv
             }
         }
 
-        public event EventHandler<EventArgs> PlayStateChangedEvent;
+        public event EventHandler<PlayStateChangedEventArgs> PlayStateChangedEvent;
 
-        protected virtual void OnPlayStateChanged(EventArgs e)
+        protected virtual void OnPlayStateChanged(PlayStateChangedEventArgs e)
         {
             if (PlayStateChangedEvent != null)
             {
@@ -419,7 +419,7 @@ namespace mpv
             {
                 ignoreStatusMsg = true;
                 CurrentStatus.PlayState = PlayStates.Ended;
-                OnPlayStateChanged(new EventArgs());
+                OnPlayStateChanged(new PlayStateChangedEventArgs(PlayStates.Ended));
                 return;
             }
 

@@ -5,6 +5,7 @@
  */
 
 using System;
+using MPlayer.Info;
 
 namespace MPlayer
 {
@@ -27,6 +28,16 @@ namespace MPlayer
         {
             Status = status;
             AutoHide = autoHide;
+        }
+    }
+
+    public class PlayStateChangedEventArgs : EventArgs
+    {
+        public PlayStates PlayState { get; private set; }
+
+        public PlayStateChangedEventArgs(PlayStates playState)
+        {
+            PlayState = playState;
         }
     }
 }

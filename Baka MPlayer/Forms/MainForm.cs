@@ -1853,12 +1853,12 @@ namespace Baka_MPlayer.Forms
             });
         }
 
-        private void mp_PlayStateChangedEvent(object sender, EventArgs e)
+        private void mp_PlayStateChangedEvent(object sender, PlayStateChangedEventArgs e)
         {
             Invoke((MethodInvoker)delegate
             {
                 SetOnTop();
-                SetPlayState(mp.CurrentStatus.PlayState);
+                SetPlayState(e.PlayState);
             });
         }
         private void SetPlayState(PlayStates newPlayState)
