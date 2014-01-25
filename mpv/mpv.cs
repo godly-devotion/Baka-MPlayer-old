@@ -129,7 +129,7 @@ namespace mpv
         public bool Stop()
         {
             ignoreStatusMsg = true;
-            SetPlayState(PlayStates.Stopped, true);
+            SetPlayState(PlayStates.Stopped);
             return SendCommand("pausing seek 0 absolute");
         }
         public bool Restart()
@@ -283,14 +283,13 @@ namespace mpv
             return true;
         }
 
-        private void SetPlayState(PlayStates newState, bool callPlayStateChanged)
+        private void SetPlayState(PlayStates newState)
         {
             if (CurrentStatus.PlayState == newState)
                 return;
 
             CurrentStatus.PlayState = newState;
-            if (callPlayStateChanged)
-                OnPlayStateChanged(new PlayStateChangedEventArgs(newState));
+            OnPlayStateChanged(new PlayStateChangedEventArgs(newState));
         }
 
         #endregion
@@ -418,8 +417,7 @@ namespace mpv
                 e.Data.StartsWith("[cplayer] EOF code: 2"))
             {
                 ignoreStatusMsg = true;
-                CurrentStatus.PlayState = PlayStates.Ended;
-                OnPlayStateChanged(new PlayStateChangedEventArgs(PlayStates.Ended));
+                SetPlayState(PlayStates.Ended);
                 return;
             }
 
@@ -525,7 +523,7 @@ namespace mpv
                 switch (s.Substring(0, i))
                 {
                     case "PAUSED":
-                        SetPlayState(value == "yes" ? PlayStates.Paused : PlayStates.Playing, true);
+                        SetPlayState(value == "yes" ? PlayStates.Paused : PlayStates.Playing);
                         break;
                     case "PERCENT":
                         CurrentStatus.PercentPos = Helper.TryParse.ToDouble(value);
