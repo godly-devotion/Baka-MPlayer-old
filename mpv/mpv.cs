@@ -265,7 +265,6 @@ namespace mpv
                     }
                 };
                 mpvProcess.Start();
-                mpvProcess.EnableRaisingEvents = true;
 
                 stdinWriter = new StreamWriter(mpvProcess.StandardInput.BaseStream, new UTF8Encoding(false))
                 {
