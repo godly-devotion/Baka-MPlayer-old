@@ -1948,7 +1948,7 @@ namespace Baka_MPlayer.Forms
         {
             Invoke((MethodInvoker)delegate
             {
-                UpdateNowPlayingInfo();
+                UpdateTrayIconInfo();
 
                 if (seekBar_IsMouseDown)
                     return;
@@ -2180,7 +2180,7 @@ namespace Baka_MPlayer.Forms
             mplayerPanel.SetBounds(x, y, width, height);
         }
 
-        private void UpdateNowPlayingInfo()
+        private void UpdateTrayIconInfo()
         {
             switch(mp.CurrentStatus.PlayState)
             {

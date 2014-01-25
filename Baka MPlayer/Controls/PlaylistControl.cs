@@ -411,10 +411,13 @@ namespace Baka_MPlayer.Controls
         }
         private void playlistList_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete && e.Shift)
-                DeleteFile(SelectedIndex);
-            else if (e.KeyCode == Keys.Delete)
-                RemoveAt(SelectedIndex);
+            if (e.KeyCode == Keys.Delete)
+            {
+                if (e.Shift)
+                    DeleteFile(SelectedIndex);
+                else
+                    RemoveAt(SelectedIndex);
+            }
         }
         private void playlistList_SelectedIndexChanged(object sender, EventArgs e)
         {
