@@ -226,37 +226,37 @@ namespace Baka_MPlayer.Forms
             // as the form is moved near that border.
 
             // Marshal the LPARAM value which is a WINDOWPOS struct
-            var WPNewPosition = (WINDOWPOS)Marshal.PtrToStructure(LParam, typeof(WINDOWPOS));
+            var wpNewPosition = (WINDOWPOS)Marshal.PtrToStructure(LParam, typeof(WINDOWPOS));
 
-            if ((WPNewPosition.flags & SWP.NoSize) == 0 || (WPNewPosition.flags & SWP.NoMove) == 0)
+            if ((wpNewPosition.flags & SWP.NoSize) == 0 || (wpNewPosition.flags & SWP.NoMove) == 0)
             {
-                var RWorking = Screen.FromControl(this).WorkingArea;
-                var Changed = false;
+                Rectangle rWorking = Screen.FromControl(this).WorkingArea;
+                bool changed = false;
 
-                if (Math.Abs(WPNewPosition.x - RWorking.X) <= SnapOffset)
+                if (Math.Abs(wpNewPosition.x - rWorking.X) <= SnapOffset)
                 {
-                    WPNewPosition.x = RWorking.X;
-                    Changed = true;
+                    wpNewPosition.x = rWorking.X;
+                    changed = true;
                 }
-                else if (Math.Abs(WPNewPosition.x + WPNewPosition.cx - RWorking.Right) <= SnapOffset)
+                else if (Math.Abs(wpNewPosition.x + wpNewPosition.cx - rWorking.Right) <= SnapOffset)
                 {
-                    WPNewPosition.x = RWorking.Right - WPNewPosition.cx;
-                    Changed = true;
+                    wpNewPosition.x = rWorking.Right - wpNewPosition.cx;
+                    changed = true;
                 }
 
-                if (Math.Abs(WPNewPosition.y - RWorking.Y) <= SnapOffset)
+                if (Math.Abs(wpNewPosition.y - rWorking.Y) <= SnapOffset)
                 {
-                    WPNewPosition.y = RWorking.Y;
-                    Changed = true;
+                    wpNewPosition.y = rWorking.Y;
+                    changed = true;
                 }
-                else if (Math.Abs(WPNewPosition.y + WPNewPosition.cy - RWorking.Bottom) <= SnapOffset)
+                else if (Math.Abs(wpNewPosition.y + wpNewPosition.cy - rWorking.Bottom) <= SnapOffset)
                 {
-                    WPNewPosition.y = RWorking.Bottom - WPNewPosition.cy;
-                    Changed = true;
+                    wpNewPosition.y = rWorking.Bottom - wpNewPosition.cy;
+                    changed = true;
                 }
 
                 // Marshal it back
-                if (Changed) Marshal.StructureToPtr(WPNewPosition, LParam, true);
+                if (changed) Marshal.StructureToPtr(wpNewPosition, LParam, true);
             }
         }
 
@@ -1985,7 +1985,7 @@ namespace Baka_MPlayer.Forms
         }
 
         #endregion
-
+        
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)

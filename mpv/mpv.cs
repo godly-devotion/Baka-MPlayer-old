@@ -503,13 +503,6 @@ namespace mpv
             }
         }
 
-        public void ParseStdErr(string line)
-        {
-            if (line.StartsWith("status:"))
-            {
-                ParseStatusMsg(line.Substring(7));
-            }
-        }
         private void ParseStatusMsg(string line)
         {
             //PAUSED=no;PERCENT=123.456789;AV=123.456789;WIDTH=1920;HEIGHT=1080;
@@ -541,7 +534,7 @@ namespace mpv
         }
         private void ProcessProgress(double sec)
         {
-            if (sec > 0.0)
+            if (sec > 0.0 && Math.Abs(CurrentStatus.Duration - sec) > 0.000001)
             {
                 CurrentStatus.Duration = sec;
                 OnDurationChanged(new EventArgs());
