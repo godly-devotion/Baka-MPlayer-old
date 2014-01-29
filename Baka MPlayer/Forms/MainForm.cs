@@ -1180,7 +1180,7 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private void SetAudioTracksMenuItems()
+        private void SetAudioTrackMenuItems()
         {
             audioTracksToolStripMenuItem.DropDownItems.Clear();
 
@@ -1845,7 +1845,7 @@ namespace Baka_MPlayer.Forms
                 SetSystemTray();
 
                 // create menu items
-                SetAudioTracksMenuItems();
+                SetAudioTrackMenuItems();
                 SetChapters();
                 SetSubs();
 
