@@ -673,7 +673,7 @@ namespace Baka_MPlayer.Forms
         {
             if (seekBar_IsMouseDown)
             {
-                mp.SeekPercent((double)seekBar.Value / seekBar.Maximum * 100);
+                mp.SeekPercent((double)seekBar.Value / seekBar.Maximum * 100.0);
                 seekBar_IsMouseDown = false;
             }
         }
@@ -1180,7 +1180,7 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private void SetAudioTracks()
+        private void SetAudioTracksMenuItems()
         {
             audioTracksToolStripMenuItem.DropDownItems.Clear();
 
@@ -1189,7 +1189,7 @@ namespace Baka_MPlayer.Forms
                 string text;
 
                 if (string.IsNullOrEmpty(track.Name) && string.IsNullOrEmpty(track.Lang))
-                    text = string.Format("{0}: [ main ]", track.ID);
+                    text = string.Format("{0}: [ unnamed track ]", track.ID);
                 else
                     text = string.Format("{0}: {1} ({2})", track.ID, track.Name, track.Lang);
 
@@ -1845,7 +1845,7 @@ namespace Baka_MPlayer.Forms
                 SetSystemTray();
 
                 // create menu items
-                SetAudioTracks();
+                SetAudioTracksMenuItems();
                 SetChapters();
                 SetSubs();
 
