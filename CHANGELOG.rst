@@ -1,8 +1,17 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.4.0 (2014-01-21)
+Latest Version 1.4.1 (2014-01-29)
 ---------------------------------
+
+- NOTE: You must remove all files before version 1.3.9
+- Fixed: Several bugs
+- Fixed: Random program freeze
+- Fixed: Continued attempt to make program work correctly under different languages
+- Changed: Do not show Url window in taskbar
+
+Version 1.4.0 (2014-01-21)
+--------------------------
 
 - NOTE: You must remove all files before version 1.3.9
 - Fixed: Small bugs
