@@ -64,15 +64,6 @@ namespace Baka_MPlayer.Forms
             urlTextbox.Focus();
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            using (var gradientBrush = new LinearGradientBrush(
-                this.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical))
-            {
-                e.Graphics.FillRectangle(gradientBrush, this.ClientRectangle);
-            }
-        }
-
         private void OpenFile()
         {
             if (Url.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
