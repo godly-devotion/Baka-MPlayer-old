@@ -17,5 +17,5 @@
 
 
 # Write your default config options here!
-vo=direct3d
+vo=direct3d_shaders,direct3d
 ao=dsound

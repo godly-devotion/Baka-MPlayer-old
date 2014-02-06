@@ -235,7 +235,7 @@ namespace mpv
                 args.Append(" -slave-broken");
                 args.Append(" -no-consolecontrols");// prevents the player from reading key events from standard input
                 args.Append(" -idle");              // wait insead of quit
-                args.Append(" -volstep=5");         // volume step
+                args.Append(" -volstep=5");
                 args.Append(" -msglevel=cplayer=v");// needed for EOF message
                 args.Append(" -identify");          // needed for ID_* info
                 args.Append(" -osd-level=0");       // do not show volume + seek on OSD
@@ -244,7 +244,7 @@ namespace mpv
                 args.Append(" -cursor-autohide=no");
                 args.Append(" -playing-msg=PLAYING_FILE:${media-title}");
                 args.AppendFormat(" -status-msg=status:{0}", statusMsg);
-                args.AppendFormat(" -volume={0}", Volume); // sets previous volume
+                args.AppendFormat(" -volume={0}", Volume); // set previous volume
                 args.AppendFormat(" -wid={0}", wid); // output handle
 
                 mpvProcess = new Process
@@ -420,7 +420,7 @@ namespace mpv
                 return;
             }
 
-            if (e.Data.Equals("Clip info:"))
+            if (e.Data.Equals("Clip info:")) // ** RENAME TO 'File tags:' in future builds
             {
                 parsingClipInfo = true;
                 return;
@@ -566,7 +566,7 @@ namespace mpv
                     {
                         FileInfo.Chapters.Add(new Chapter());
                     }
-                    else if (key.StartsWith("ID_CHAPTER_")) // Chapters
+                    else if (key.StartsWith("ID_CHAPTER_"))
                     {
                         if (key.Contains("_START"))
                         {
@@ -583,7 +583,7 @@ namespace mpv
                     {
                         FileInfo.Subs.Add(new Subtitle(value));
                     }
-                    else if (key.StartsWith("ID_SID_")) // Subtitles
+                    else if (key.StartsWith("ID_SID_"))
                     {
                         if (key.Contains("_NAME"))
                         {
