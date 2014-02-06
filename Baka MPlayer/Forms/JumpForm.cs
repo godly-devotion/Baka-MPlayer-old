@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Windows.Forms;
 using MPlayer.Info;
@@ -87,15 +85,6 @@ namespace Baka_MPlayer.Forms
             checkPicbox.Image = allowJump ?
                 Properties.Resources.exists : Properties.Resources.not_exists;
             jumpButton.Enabled = allowJump;
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            using (var gradientBrush = new LinearGradientBrush(
-                this.ClientRectangle, Color.FromArgb(255, 60, 60, 60), Color.Black, LinearGradientMode.Vertical))
-            {
-                e.Graphics.FillRectangle(gradientBrush, ClientRectangle);
-            }
         }
 
         private void JumpForm_KeyDown(object sender, KeyEventArgs e)
