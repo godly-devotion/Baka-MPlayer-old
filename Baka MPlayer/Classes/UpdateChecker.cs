@@ -98,7 +98,7 @@ public class UpdateChecker
         }
         catch (Exception e)
         {
-            if (!(bool)isSilent && MessageBox.Show("We couldn't check for updates.\nDetails: " + e.Message,
+            if (!(bool)isSilent && MessageBox.Show("We couldn't check for updates.\n\nDetails: " + e.Message,
                 "Cannot Check for Updates", MessageBoxButtons.OK, MessageBoxIcon.Error) == DialogResult.OK) { }
         }
     }

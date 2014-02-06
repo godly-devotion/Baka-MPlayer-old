@@ -443,6 +443,12 @@ namespace mpv
                 return;
             }
 
+            if (e.Data.Trim().StartsWith("**** Audio/Video desynchronisation detected! ****"))
+            {
+                OnStatusChanged(new StatusChangedEventArgs("Playback lag detected!", true));
+                return;
+            }
+
             if (e.Data.StartsWith("Cache fill:"))
             {
                 OnStatusChanged(new StatusChangedEventArgs(e.Data.Trim(), true));
@@ -477,7 +483,7 @@ namespace mpv
             {
                 OnStatusChanged(new StatusChangedEventArgs("[ACTION] HIDE_STATUS_LABEL", false));
 
-                // sets appropriate movie name (e.g. media name or Youtube title)
+                // parse the string after 'PLAYING_FILE:' (e.g. the media name or Youtube title)
                 FileInfo.MovieName = e.Data.Substring(13);
 
                 // load external sub if requested
