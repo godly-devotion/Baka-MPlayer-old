@@ -69,7 +69,7 @@ namespace Helper
                     // Terabytes
                     return Math.Round(Convert.ToDecimal(fileProperties.Length, invC) / 1099511627776L, roundTo) + " TB";
                 }
-                return "Not Available";
+                return "n/a";
             }
             catch (Exception ex)
             {

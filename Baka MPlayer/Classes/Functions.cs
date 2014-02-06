@@ -23,7 +23,7 @@ namespace Functions
             sec = (int)((time % 3600) % 60);
         }
         /// <summary>
-        /// Converts hour, min, sec to "0:00:00" format.
+        /// Converts hour, min, sec to "0:00:00" format
         /// </summary>
         public static string ConvertToTime(int hour, int min, int sec)
         {
@@ -33,7 +33,7 @@ namespace Functions
             return string.Format("{0}:{1}", min.ToString("#0", invC), sec.ToString("00", invC));
         }
         /// <summary>
-        /// Converts seconds to "0:00:00" format;
+        /// Converts seconds to "0:00:00" format
         /// </summary>
         public static string ConvertSecondsToTime(double totalSec)
         {
@@ -124,7 +124,7 @@ namespace Functions
                     // Terabytes
                     return Math.Round(Convert.ToDecimal(fileProperties.Length, invC) / 1099511627776L, roundTo) + " TB";
                 }
-                return "Not Available";
+                return "n/a";
             }
             catch (Exception ex)
             {

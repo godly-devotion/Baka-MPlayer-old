@@ -34,7 +34,7 @@ namespace Baka_MPlayer.Forms
         {
             nameLabel.Text = mp.FileInfo.MovieName;
 
-            // set Media Info tagpage
+            // set Media Info tabpage
             infoList.BeginUpdate();
             infoList.Items.Clear();
 
@@ -50,33 +50,27 @@ namespace Baka_MPlayer.Forms
 
         private void SetGeneralInfo()
         {
-            // file name
             var nameItem = new ListViewItem("File name", infoList.Groups[0]);
             nameItem.SubItems.Add(mp.FileInfo.GetName);
 
-            // file format
             var typeItem = new ListViewItem("File format", infoList.Groups[0]);
             typeItem.SubItems.Add(mp.FileInfo.FileFormat);
 
-            // file size
             var sizeItem = new ListViewItem("File size", infoList.Groups[0]);
             if (mp.FileInfo.IsOnline)
-                sizeItem.SubItems.Add("Not Available");
+                sizeItem.SubItems.Add("n/a");
             else
                 sizeItem.SubItems.Add(Functions.IO.GetFileSize(mp.FileInfo.Url, 2));
 
-            // media length
             var lengthItem = new ListViewItem("Media length", infoList.Groups[0]);
             lengthItem.SubItems.Add(Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.TotalLength));
 
-            // video dimensions
             var dimensionsItem = new ListViewItem("Video dimensions", infoList.Groups[0]);
             dimensionsItem.SubItems.Add(string.Format("{0} x {1}", mp.FileInfo.VideoWidth, mp.FileInfo.VideoHeight));
 
-            // last modified
             var modifiedItem = new ListViewItem("Last modified", infoList.Groups[0]);
             if (mp.FileInfo.IsOnline)
-                modifiedItem.SubItems.Add("Not Available");
+                modifiedItem.SubItems.Add("n/a");
             else
                 modifiedItem.SubItems.Add(File.GetLastWriteTime(mp.FileInfo.Url).ToLocalTime().ToString(CultureInfo.InvariantCulture));
 

@@ -225,7 +225,7 @@
             this.imgTypeTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.imgTypeTextBox.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.imgTypeTextBox.ForeColor = System.Drawing.Color.White;
-            this.imgTypeTextBox.Location = new System.Drawing.Point(283, 195);
+            this.imgTypeTextBox.Location = new System.Drawing.Point(285, 195);
             this.imgTypeTextBox.Name = "imgTypeTextBox";
             this.imgTypeTextBox.ReadOnly = true;
             this.imgTypeTextBox.Size = new System.Drawing.Size(100, 22);
@@ -238,7 +238,7 @@
             this.imgLabel.AutoEllipsis = true;
             this.imgLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.imgLabel.ForeColor = System.Drawing.Color.Black;
-            this.imgLabel.Location = new System.Drawing.Point(283, 173);
+            this.imgLabel.Location = new System.Drawing.Point(285, 173);
             this.imgLabel.Name = "imgLabel";
             this.imgLabel.Size = new System.Drawing.Size(100, 19);
             this.imgLabel.TabIndex = 2;
@@ -251,7 +251,7 @@
             this.demTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.demTextBox.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.demTextBox.ForeColor = System.Drawing.Color.White;
-            this.demTextBox.Location = new System.Drawing.Point(283, 249);
+            this.demTextBox.Location = new System.Drawing.Point(285, 249);
             this.demTextBox.Name = "demTextBox";
             this.demTextBox.ReadOnly = true;
             this.demTextBox.Size = new System.Drawing.Size(100, 22);
@@ -264,7 +264,7 @@
             this.demLabel.AutoEllipsis = true;
             this.demLabel.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.demLabel.ForeColor = System.Drawing.Color.Black;
-            this.demLabel.Location = new System.Drawing.Point(283, 227);
+            this.demLabel.Location = new System.Drawing.Point(285, 227);
             this.demLabel.Name = "demLabel";
             this.demLabel.Size = new System.Drawing.Size(100, 19);
             this.demLabel.TabIndex = 4;

@@ -89,7 +89,7 @@ namespace MPlayer.Info
         }
 
         /// <summary>
-        /// Always call before playing next file
+        /// Reset all info (always call before playing next file)
         /// </summary>
         public void ResetInfo()
         {        
