@@ -26,7 +26,7 @@ namespace Baka_MPlayer.Forms
 
         private void inputTextbox_TextChanged(object sender, EventArgs e)
         {
-            okButton.Enabled = inputTextbox.TextLength > 0;
+            okButton.Enabled = !string.IsNullOrEmpty(inputTextbox.Text.Trim());
         }
 
         private void okButton_Click(object sender, EventArgs e)
