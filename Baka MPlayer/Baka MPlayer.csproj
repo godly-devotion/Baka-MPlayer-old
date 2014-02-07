@@ -85,7 +85,7 @@
   <ItemGroup>
     <Compile Include="Classes\CursorPosition.cs" />
     <Compile Include="GlobalKeyHook\KeyHookManager.cs" />
-    <Compile Include="Classes\UpdateInfo.cs" />
+    <Compile Include="Updates\UpdateInfo.cs" />
     <Compile Include="Classes\Functions.cs" />
     <Compile Include="Classes\GlobalMouseHandler.cs" />
     <Compile Include="Classes\KeysClass.cs" />
@@ -97,7 +97,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Classes\Speech.cs" />
-    <Compile Include="Classes\UpdateChecker.cs" />
+    <Compile Include="Updates\UpdateChecker.cs" />
     <Compile Include="Classes\Voice.cs" />
     <Compile Include="Classes\Win32.cs" />
     <Compile Include="Classes\VO_State.cs" />

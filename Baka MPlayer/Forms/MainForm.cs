@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Baka_MPlayer.GlobalKeyHook;
+using Baka_MPlayer.Updates;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using MPlayer;
 using MPlayer.Info;
