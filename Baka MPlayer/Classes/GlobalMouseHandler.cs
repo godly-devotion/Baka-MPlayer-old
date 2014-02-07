@@ -1,8 +1,10 @@
 ﻿// http://stackoverflow.com/questions/2063974/how-do-i-capture-the-mouse-mouse-move-event-in-my-winform-application
 
+using System.Drawing;
 using System.Windows.Forms;
+using Win32;
 
-public delegate void MouseMovedEvent();
+public delegate void MouseMovedEvent(Point cursorPos);
 public delegate void XButtonDownEvent(MouseButtons button);
 
 public class GlobalMouseHandler : IMessageFilter
@@ -17,7 +19,7 @@ public class GlobalMouseHandler : IMessageFilter
             case WM.MOUSEMOVE:
                 if (MouseMoved != null)
                 {
-                    MouseMoved();
+                    MouseMoved(CursorPosition.GetCursorPosition());
                 }
                 break;
             case WM.XBUTTONDOWN:

@@ -12,6 +12,7 @@ using Microsoft.WindowsAPICodePack.Taskbar;
 using MPlayer;
 using MPlayer.Info;
 using MPlayer.Info.Track;
+using Win32;
 
 namespace Baka_MPlayer.Forms
 {
@@ -895,16 +896,18 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private void mouseHandler_MouseMoved()
+        private void mouseHandler_MouseMoved(Point cursorPos)
         {
             if (!FullScreen) return;
-            if (VO_State.LastCursorPos != Cursor.Position)
+
+            // convert cursorPos' location relative to MainForm
+            cursorPos = this.PointToClient(cursorPos);
+
+            if (VO_State.LastCursorPos != cursorPos)
             {
-                VO_State.LastCursorPos = Cursor.Position;
+                VO_State.LastCursorPos = cursorPos;
 
-                var scrn = Screen.FromControl(this);
-
-                if (Cursor.Position.Y > scrn.Bounds.Height - (seekPanel.Height + controlPanel.Height + 10))
+                if (cursorPos.Y > this.Bounds.Height - (seekPanel.Height + controlPanel.Height + 10))
                 {
                     cursorTimer.Stop();
 
