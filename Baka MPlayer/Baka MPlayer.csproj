@@ -84,10 +84,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\CursorPosition.cs" />
+    <Compile Include="GlobalKeyHook\KeyHookManager.cs" />
     <Compile Include="Classes\UpdateInfo.cs" />
     <Compile Include="Classes\Functions.cs" />
     <Compile Include="Classes\GlobalMouseHandler.cs" />
     <Compile Include="Classes\KeysClass.cs" />
+    <Compile Include="GlobalKeyHook\KeyCodeEventArgs.cs" />
     <Compile Include="PortableSettingsProvider.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

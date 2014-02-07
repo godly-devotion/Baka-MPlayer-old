@@ -8,6 +8,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using Baka_MPlayer.GlobalKeyHook;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using MPlayer;
 using MPlayer.Info;
@@ -18,30 +19,13 @@ namespace Baka_MPlayer.Forms
 {
     public partial class MainForm : Form
     {
-        #region DLL Imports
-
-        // global key hook
-        public delegate int HookProc(int nCode, IntPtr wParam, IntPtr lParam);
-        private readonly HookProc myCallbackDelegate;
-        private static IntPtr hHook;
-
-        [DllImport("user32.dll")]
-        protected static extern IntPtr SetWindowsHookEx(int code, HookProc func, IntPtr hInstance, int threadID);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool UnhookWindowsHookEx(IntPtr hhk);
-
-        [DllImport("user32.dll")]
-        static extern int CallNextHookEx(IntPtr hhk, int nCode, IntPtr wParam, IntPtr lParam);
-
-        #endregion
         #region Private Fields
 
         private BlackForm blackForm;
         private InfoForm infoForm;
 
         private readonly IMPlayer mp;
+        private KeyHookManager globalKeyHook;
         private Voice voice;
         private Speech speech;
 
@@ -311,59 +295,50 @@ namespace Baka_MPlayer.Forms
         #endregion
         #region Keyboard Hook
 
-        private int callbackFunction_KeyboardHook(int code, IntPtr wParam, IntPtr lParam)
+        private void KeyboardHook(object sender, KeyCodeEventArgs e)
         {
-            // checks bit 30 of WM_KEYDOWN to see the previous key state
-            bool isBitSet = (lParam.ToInt64() & (1 << 30)) == 0;
-
-            if (code.Equals(3) && isBitSet && NotFocusedOnTextbox)
+            switch (e.KeyCode)
             {
-                switch ((Keys)wParam.ToInt32())
-                {
-                    case Keys.Left:
-                        if (mp.CurrentStatus.Duration - 5 > -1)
-                            mp.Seek(mp.CurrentStatus.Duration - 5);
-                        else //if (mplayer.currentPosition < 5)
-                            mp.Seek(0);
-                        break;
-                    case Keys.Right:
-                        if (mp.CurrentStatus.Duration + 5 < mp.CurrentStatus.TotalLength)
-                            mp.Seek(mp.CurrentStatus.Duration + 5);
-                        else
-                            playlist.PlayNext();
-                        break;
-                    case Keys.PageUp:
-                        mp.PreviousChapter();
-                        break;
-                    case Keys.PageDown:
-                        mp.NextChapter();
-                        break;
-                    case Keys.MediaNextTrack:
+                case Keys.Left:
+                    if (mp.CurrentStatus.Duration - 5 > -1)
+                        mp.Seek(mp.CurrentStatus.Duration - 5);
+                    else //if (mplayer.currentPosition < 5)
+                        mp.Seek(0);
+                    break;
+                case Keys.Right:
+                    if (mp.CurrentStatus.Duration + 5 < mp.CurrentStatus.TotalLength)
+                        mp.Seek(mp.CurrentStatus.Duration + 5);
+                    else
                         playlist.PlayNext();
-                        break;
-                    case Keys.MediaPreviousTrack:
-                        playlist.PlayPrevious();
-                        break;
-                    case Keys.MediaStop:
-                        mp.Stop();
-                        break;
-                    case Keys.MediaPlayPause:
-                        switch (mp.CurrentStatus.PlayState)
-                        {
-                            case PlayStates.Playing:
-                                mp.Pause(false);
-                                break;
-                            case PlayStates.Paused:
-                            case PlayStates.Stopped:
-                                mp.Pause(true);
-                                break;
-                        }
-                        return -1;
-                }
+                    break;
+                case Keys.PageUp:
+                    mp.PreviousChapter();
+                    break;
+                case Keys.PageDown:
+                    mp.NextChapter();
+                    break;
+                case Keys.MediaNextTrack:
+                    playlist.PlayNext();
+                    break;
+                case Keys.MediaPreviousTrack:
+                    playlist.PlayPrevious();
+                    break;
+                case Keys.MediaStop:
+                    mp.Stop();
+                    break;
+                case Keys.MediaPlayPause:
+                    switch (mp.CurrentStatus.PlayState)
+                    {
+                        case PlayStates.Playing:
+                            mp.Pause(false);
+                            break;
+                        case PlayStates.Paused:
+                        case PlayStates.Stopped:
+                            mp.Pause(true);
+                            break;
+                    }
+                    break;
             }
-
-            // return the value returned by CallNextHookEx
-            return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
         }
 
         #endregion
@@ -1524,9 +1499,8 @@ namespace Baka_MPlayer.Forms
 
         public MainForm()
         {
-            // set keyboard hook
-            this.myCallbackDelegate = this.callbackFunction_KeyboardHook;
-            hHook = SetWindowsHookEx(WH.KEYBOARD, this.myCallbackDelegate, IntPtr.Zero, AppDomain.GetCurrentThreadId());
+            globalKeyHook = new KeyHookManager();
+            globalKeyHook.KeyDownEvent += KeyboardHook;
 
             // message filter for mouse events
             var mouseHandler = new GlobalMouseHandler();
@@ -1679,9 +1653,7 @@ namespace Baka_MPlayer.Forms
         }
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            mp.Quit();
-
-            if (mp.PlayerIsRunning())
+            if (mp.Quit() && mp.PlayerIsRunning())
             {
                 e.Cancel = true;
                 return;
@@ -1694,7 +1666,7 @@ namespace Baka_MPlayer.Forms
 
             if (voice != null)
                 voice.Dispose();
-            UnhookWindowsHookEx(hHook);
+            globalKeyHook.Dispose();
             UnloadTray();
         }
 
