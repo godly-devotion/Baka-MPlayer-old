@@ -297,6 +297,8 @@ namespace Baka_MPlayer.Forms
 
         private void KeyboardHook(object sender, KeyCodeEventArgs e)
         {
+            if (!NotFocusedOnTextbox) return;
+
             switch (e.KeyCode)
             {
                 case Keys.Left:
