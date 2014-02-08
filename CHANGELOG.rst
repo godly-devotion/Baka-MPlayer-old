@@ -1,8 +1,18 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.4.1 (2014-01-29)
+Latest Version 1.4.2 (2014-02-07)
 ---------------------------------
+
+- More code clean up & bug fixes
+- Fixed: Full screen controls didn't show up on other monitors
+- Changed: vo set to 'direct3d_shaders'
+- Changed: Use solid colored backgrounds for some windows
+- Added: Show basic message for A/V desync (aka lag)
+- Updated: mpv build
+
+Version 1.4.1 (2014-01-29)
+--------------------------
 
 - NOTE: You must remove all files before version 1.3.9
 - Fixed: Several bugs

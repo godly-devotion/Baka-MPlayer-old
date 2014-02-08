@@ -264,7 +264,7 @@ namespace Baka_MPlayer.Forms
 
         private void SetLCDFont()
         {
-            var fontFile = Application.StartupPath + @"\LCD.ttf";
+            var fontFile = Path.Combine(Application.StartupPath, "LCD.ttf");
 
             if (!File.Exists(fontFile))
                 File.WriteAllBytes(fontFile, Properties.Resources.LCD);
