@@ -128,7 +128,7 @@ namespace Baka_MPlayer.Forms
 
         #region InfoList Code
 
-        public int InfoListSelectedIndex
+        private int InfoListSelectedIndex
         {
             get
             {
