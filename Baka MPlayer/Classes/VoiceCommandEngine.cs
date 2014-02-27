@@ -3,14 +3,14 @@ using System.Media;
 using System.Speech.Recognition;
 using Baka_MPlayer.Forms;
 
-public class Voice : IDisposable
+public class VoiceCommandEngine : IDisposable
 {
     private readonly SpeechRecognitionEngine engine;
     private readonly SoundPlayer sfx = new SoundPlayer();
     private readonly MainForm mainForm;
     private readonly string callName;
 
-    public Voice(MainForm mainForm, string callName)
+    public VoiceCommandEngine(MainForm mainForm, string callName)
     {
         this.mainForm = mainForm;
         this.callName = callName;

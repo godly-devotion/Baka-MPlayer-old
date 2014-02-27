@@ -1103,6 +1103,7 @@ namespace Baka_MPlayer.Forms
             this.xToolTip.SetToolTip(this.speechButton, "Toggle voice recognition");
             this.speechButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.speechButton_MouseClick);
             this.speechButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.speechButton_MouseDown);
+            this.speechButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.speechButton_MouseUp);
             // 
             // volumeBar
             // 

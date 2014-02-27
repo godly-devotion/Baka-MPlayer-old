@@ -27,7 +27,7 @@ namespace Baka_MPlayer.Forms
 
         private readonly IMPlayer mp;
         private KeyHookManager globalKeyHook;
-        private Voice voice;
+        private VoiceCommandEngine voice;
         private Speech speech;
 
         // Win 7 thumbnail toolbar buttons
@@ -410,14 +410,14 @@ namespace Baka_MPlayer.Forms
             get { return _voiceEnabled; }
             set
             {
-                try
-                {
+                //try
+                //{
                     if (value)
                     {
                         if (voice == null)
                         {
                             var name = Properties.Settings.Default.CallName.Trim();
-                            voice = new Voice(this, string.IsNullOrEmpty(name) ? "baka" : name);
+                            voice = new VoiceCommandEngine(this, string.IsNullOrEmpty(name) ? "baka" : name);
                         }
                         voice.StartListening();
                         speechButton.Image = Properties.Resources.enabled_mic;
@@ -429,7 +429,7 @@ namespace Baka_MPlayer.Forms
                         speechButton.Image = Properties.Resources.disabled_mic;
                         _voiceEnabled = false;
                     }
-                }
+                /*}
                 catch (Exception)
                 {
                     MessageBox.Show(
@@ -440,7 +440,7 @@ namespace Baka_MPlayer.Forms
                     if (voice != null)
                         voice.StopListening();
                     _voiceEnabled = false;
-                }
+                }*/
             }
         }
 
@@ -708,6 +708,10 @@ namespace Baka_MPlayer.Forms
         private void speechButton_MouseDown(object sender, MouseEventArgs e)
         {
             speechButton.Image = Properties.Resources.down_mic;
+        }
+        private void speechButton_MouseUp(object sender, MouseEventArgs e)
+        {
+            speechButton.Image = Properties.Resources.disabled_mic;
         }
 
         // RewindButton
