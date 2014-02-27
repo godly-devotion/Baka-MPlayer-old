@@ -1,16 +1,10 @@
-## You can customize mpv's options by setting it's config file (located in the mpv folder)
+~ Important Readme ~
 
-## HOWEVER, do NOT set the following options as Baka MPlayer sets them automatically
-## and changing the following options could make Baka MPlayer unstable or crash.
-## Setting other options should result in no problems.
+If you do not understand what any of this means, you can safely ignore this file.
 
-# volstep
-# msglevel
-# osd-level
-# no-keepaspect
-# no-autosub
-# cursor-autohide
-# playing-msg
-# status-msg
-# volume
-# wid
+1) You can customize mpv's options by setting its config file (located in the 'mpv' folder).
+   More details can be found in the options file.
+
+2) If you are trying to play non-English subtitles and some letters/characters show up corrupted,
+   try deleting the 'fonts.conf' file under 'mpv' folder. This will make fontconfig start
+   caching fonts (will only happen once per modifications to your system fonts).
