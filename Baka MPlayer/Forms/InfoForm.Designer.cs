@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("General", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("MPlayer Tags", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("File Tags", System.Windows.Forms.HorizontalAlignment.Left);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InfoForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -109,7 +109,7 @@
             this.infoList.FullRowSelect = true;
             listViewGroup1.Header = "General";
             listViewGroup1.Name = "listViewGroup1";
-            listViewGroup2.Header = "MPlayer Tags";
+            listViewGroup2.Header = "File Tags";
             listViewGroup2.Name = "listViewGroup2";
             this.infoList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup1,
