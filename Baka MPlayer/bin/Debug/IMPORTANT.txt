@@ -1,10 +1,11 @@
 ~ Important Readme ~
 
-If you do not understand what any of this means, you can safely ignore this file.
+If you do not understand what any of this means, you can safely disregard this file.
 
 1) You can customize mpv's options by setting its config file (located in the 'mpv' folder).
    More details can be found in the options file.
 
 2) If you are trying to play non-English subtitles and some letters/characters show up corrupted,
    try deleting the 'fonts.conf' file under 'mpv' folder. This will make fontconfig start
-   caching fonts (will only happen once per modifications to your system fonts).
+   caching fonts. This process will only happen once for now, but will happen again if you add or
+   remove a font from your system.
