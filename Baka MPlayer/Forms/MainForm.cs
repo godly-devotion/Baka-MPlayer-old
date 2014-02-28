@@ -882,7 +882,7 @@ namespace Baka_MPlayer.Forms
         {
             if (!FullScreen) return;
 
-            // convert cursorPos' location relative to MainForm
+            // convert cursorPos location relative to MainForm
             cursorPos = this.PointToClient(cursorPos);
 
             if (VO_State.LastCursorPos != cursorPos)
@@ -896,8 +896,10 @@ namespace Baka_MPlayer.Forms
                     seekPanel.Show();
                     controlPanel.Show();
                 }
-                else
+                else if (!seekBar_IsMouseDown)
                 {
+                    // do not hide controls if seeking with mouse
+
                     cursorTimer.Start();
 
                     seekPanel.Hide();
