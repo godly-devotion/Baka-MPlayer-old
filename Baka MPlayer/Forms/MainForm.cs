@@ -1635,9 +1635,16 @@ namespace Baka_MPlayer.Forms
                     break;
                 case Keys.Escape:
                     if (FullScreen)
-                        FullScreen = false;
+                    {
+                        if (seekBar_IsMouseDown)
+                            seekBar_IsMouseDown = false;
+                        else
+                            FullScreen = false;
+                    }
                     else
+                    {
                         HidePlayer();
+                    }
                     break;
             }
         }
