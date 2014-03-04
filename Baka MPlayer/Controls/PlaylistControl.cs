@@ -233,7 +233,7 @@ namespace Baka_MPlayer.Controls
         {
             if (GetPlayingItem.Index == index)
             {
-                MessageBox.Show("You can't remove the currently playing file.", "I'm afraid you can't do that",
+                MessageBox.Show("You can't remove the currently playing file.", "Playlist",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -272,7 +272,7 @@ namespace Baka_MPlayer.Controls
             }
             else
             {
-                MessageBox.Show("You can't delete the currently playing file.", "I'm afraid you can't do that",
+                MessageBox.Show("You can't delete the currently playing file.", "Playlist",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -433,14 +433,14 @@ namespace Baka_MPlayer.Controls
         }
         private void currentFileLabel_MouseDown(object sender, MouseEventArgs e)
         {
-            var inputBox = new InputForm(
+            var inputForm = new InputForm(
                 "Enter the file number you want to play:\nNote: Value must be between 1 - " + GetTotalItems,
                 "Enter File Number",
                 (GetPlayingItem.Index + 1).ToString(CultureInfo.InvariantCulture));
 
-            if (inputBox.ShowDialog(this) == DialogResult.OK)
+            if (inputForm.ShowDialog(this) == DialogResult.OK)
             {
-                var i = Functions.TryParse.ToInt(inputBox.GetInputText) - 1;
+                var i = Functions.TryParse.ToInt(inputForm.GetInputText) - 1;
 
                 if (i >= 0 && i < GetTotalItems)
                 {
@@ -453,7 +453,7 @@ namespace Baka_MPlayer.Controls
                         OpenFile(newUrl);
                 }
             }
-            inputBox.Dispose();
+            inputForm.Dispose();
         }
         private void showAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {

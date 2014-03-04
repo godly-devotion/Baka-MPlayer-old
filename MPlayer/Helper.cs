@@ -6,6 +6,7 @@
 
 using System;
 using System.Globalization;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace Helper
@@ -31,7 +32,7 @@ namespace Helper
         {
             try
             {
-                return f.Substring(0, f.LastIndexOf('\\'));
+                return f.Substring(0, f.LastIndexOf(Path.DirectorySeparatorChar));
             }
             catch
             {

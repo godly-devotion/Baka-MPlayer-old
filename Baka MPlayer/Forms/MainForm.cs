@@ -410,8 +410,8 @@ namespace Baka_MPlayer.Forms
             get { return _voiceEnabled; }
             set
             {
-                //try
-                //{
+                try
+                {
                     if (value)
                     {
                         if (voice == null)
@@ -429,7 +429,7 @@ namespace Baka_MPlayer.Forms
                         speechButton.Image = Properties.Resources.disabled_mic;
                         _voiceEnabled = false;
                     }
-                /*}
+                }
                 catch (Exception)
                 {
                     MessageBox.Show(
@@ -440,7 +440,7 @@ namespace Baka_MPlayer.Forms
                     if (voice != null)
                         voice.StopListening();
                     _voiceEnabled = false;
-                }*/
+                }
             }
         }
 
