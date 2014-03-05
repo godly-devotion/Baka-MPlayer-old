@@ -1343,7 +1343,7 @@ namespace Baka_MPlayer.Forms
                     else
                     {
                         MessageBox.Show("Please enter a value that is between 1 - 100.",
-                            "Invalid Number", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            "Invalid Value", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         SetVolume(mp.Volume);
                     }
                     break;

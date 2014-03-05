@@ -58,7 +58,7 @@ namespace mpv
             OnStatusChanged(new StatusChangedEventArgs("Loading file...", false));
 
             if (!PlayerIsRunning())
-                return InitPlayer(url);
+                InitPlayer();
 
             return SendCommand("loadfile \"{0}\"", url.Replace("\\", "\\\\"));
         }
@@ -221,7 +221,7 @@ namespace mpv
 
         #region Functions
 
-        private bool InitPlayer(string url)
+        private bool InitPlayer()
         {
             try
             {
@@ -261,7 +261,7 @@ namespace mpv
                         StandardOutputEncoding = Encoding.UTF8,
                         StandardErrorEncoding = Encoding.UTF8,
 
-                        Arguments = args.AppendFormat(" \"{0}\"", url).ToString()
+                        Arguments = args.ToString()
                     }
                 };
                 mpvProcess.Start();

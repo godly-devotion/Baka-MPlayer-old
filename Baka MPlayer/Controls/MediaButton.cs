@@ -7,9 +7,7 @@ namespace Baka_MPlayer.Controls
 {
     public partial class MediaButton : PictureBox
     {
-        private Image _DefaultImg;
-        private Image _DisabledImg;
-        private Image _MouseDownImg;
+        private Image _defaultImg, _disabledImg, _mouseDownImg;
 
         public MediaButton()
         {
@@ -31,22 +29,22 @@ namespace Baka_MPlayer.Controls
         [Description("Image used for default state.")]
         public Image DefaultImage
         {
-            get { return _DefaultImg; }
-            set { _DefaultImg = value; Refresh(); }
+            get { return _defaultImg; }
+            set { _defaultImg = value; Refresh(); }
         }
 
         [Description("Image used for disabled state.")]
         public Image DisabledImage
         {
-            get { return _DisabledImg; }
-            set { _DisabledImg = value; Refresh(); }
+            get { return _disabledImg; }
+            set { _disabledImg = value; Refresh(); }
         }
 
         [Description("Image used for mouse down state.")]
         public Image MouseDownImage
         {
-            get { return _MouseDownImg; }
-            set { _MouseDownImg = value; Refresh(); }
+            get { return _mouseDownImg; }
+            set { _mouseDownImg = value; Refresh(); }
         }
 
         #endregion
@@ -55,18 +53,18 @@ namespace Baka_MPlayer.Controls
 
         private void MediaButton_EnabledChanged(object sender, EventArgs e)
         {
-            this.Image = this.Enabled ? _DefaultImg : _DisabledImg;
+            this.Image = this.Enabled ? _defaultImg : _disabledImg;
         }
 
         private void MediaButton_MouseDown(object sender, MouseEventArgs e)
         {
             if (this.Enabled && e.Button == MouseButtons.Left)
-                this.Image = _MouseDownImg;
+                this.Image = _mouseDownImg;
         }
 
         private void MediaButton_MouseUp(object sender, MouseEventArgs e)
         {
-            this.Image = this.Enabled ? _DefaultImg : _DisabledImg;
+            this.Image = this.Enabled ? _defaultImg : _disabledImg;
         }
 
         #endregion
