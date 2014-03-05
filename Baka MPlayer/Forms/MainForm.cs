@@ -1840,19 +1840,22 @@ namespace Baka_MPlayer.Forms
                     openLastFileToolStripMenuItem.Enabled = true;
                 }
 
-                // auto fit window if playing directory changes
-                if (File.Exists(tempUrl) && !mp.FileInfo.IsOnline)
+                if (mp.FileInfo.HasVideo)
                 {
-                    var path1 = Functions.IO.GetDirectoryName(Path.GetFullPath(tempUrl));
-                    var path2 = Functions.IO.GetDirectoryName(Path.GetFullPath(mp.FileInfo.Url));
-                    if (!string.Equals(path1, path2, StringComparison.OrdinalIgnoreCase) && mp.FileInfo.HasVideo)
+                    // auto fit window if playing directory changes
+                    if (File.Exists(tempUrl) && !mp.FileInfo.IsOnline)
+                    {
+                        var path1 = Functions.IO.GetDirectoryName(Path.GetFullPath(tempUrl));
+                        var path2 = Functions.IO.GetDirectoryName(Path.GetFullPath(mp.FileInfo.Url));
+                        if (!string.Equals(path1, path2, StringComparison.OrdinalIgnoreCase))
+                        {
+                            FitWindow(1, false);
+                        }
+                    }
+                    else
                     {
                         FitWindow(1, false);
                     }
-                }
-                else
-                {
-                    FitWindow(1, false);
                 }
 
                 Properties.Settings.Default.Save();
