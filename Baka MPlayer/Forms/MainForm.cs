@@ -1842,9 +1842,9 @@ namespace Baka_MPlayer.Forms
 
                 if (mp.FileInfo.HasVideo)
                 {
-                    // auto fit window if playing directory changes
                     if (File.Exists(tempUrl) && !mp.FileInfo.IsOnline)
                     {
+                        // auto fit window if playing directory changes
                         var path1 = Functions.IO.GetDirectoryName(Path.GetFullPath(tempUrl));
                         var path2 = Functions.IO.GetDirectoryName(Path.GetFullPath(mp.FileInfo.Url));
                         if (!string.Equals(path1, path2, StringComparison.OrdinalIgnoreCase))
@@ -1854,6 +1854,7 @@ namespace Baka_MPlayer.Forms
                     }
                     else
                     {
+                        // online file so just auto fit window
                         FitWindow(1, false);
                     }
                 }
