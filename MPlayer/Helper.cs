@@ -28,11 +28,11 @@ namespace Helper
 
     public static class IO
     {
-        public static string GetDirectoryName(string f)
+        public static string GetDirectoryName(string path)
         {
             try
             {
-                return f.Substring(0, f.LastIndexOf(Path.DirectorySeparatorChar));
+                return path.Substring(0, path.LastIndexOf(Path.DirectorySeparatorChar));
             }
             catch
             {
@@ -44,7 +44,7 @@ namespace Helper
             var invC = CultureInfo.InvariantCulture;
             try
             {
-                var fileProperties = new System.IO.FileInfo(filePath);
+                var fileProperties = new FileInfo(filePath);
                 if (fileProperties.Length < 1024)
                 {
                     // Bytes
@@ -81,7 +81,7 @@ namespace Helper
         {
             try
             {
-                var objInfo = new System.IO.FileInfo(fileLocation);
+                var objInfo = new FileInfo(fileLocation);
                 return objInfo.Directory.Name;
             }
             catch (Exception ex)
