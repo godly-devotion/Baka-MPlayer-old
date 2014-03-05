@@ -68,7 +68,12 @@ namespace Baka_MPlayer.Forms
             this.jumpToTimeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mediaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fullScreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fitToVideoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fitWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.currentSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.previousChapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nextChapterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -489,7 +494,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.mediaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fullScreenToolStripMenuItem,
-            this.fitToVideoToolStripMenuItem,
+            this.fitWindowToolStripMenuItem,
             this.toolStripSeparator14,
             this.previousChapterToolStripMenuItem,
             this.nextChapterToolStripMenuItem,
@@ -510,31 +515,78 @@ namespace Baka_MPlayer.Forms
             this.fullScreenToolStripMenuItem.Enabled = false;
             this.fullScreenToolStripMenuItem.Name = "fullScreenToolStripMenuItem";
             this.fullScreenToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Return)));
-            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.fullScreenToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.fullScreenToolStripMenuItem.Text = "Full &Screen";
             this.fullScreenToolStripMenuItem.Click += new System.EventHandler(this.fullScreenToolStripMenuItem_Click);
             // 
-            // fitToVideoToolStripMenuItem
+            // fitWindowToolStripMenuItem
             // 
-            this.fitToVideoToolStripMenuItem.Enabled = false;
-            this.fitToVideoToolStripMenuItem.Name = "fitToVideoToolStripMenuItem";
-            this.fitToVideoToolStripMenuItem.ShortcutKeyDisplayString = "Ctrl+` (Tilde key)";
-            this.fitToVideoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Oemtilde)));
-            this.fitToVideoToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.fitToVideoToolStripMenuItem.Text = "&Fit To Video";
-            this.fitToVideoToolStripMenuItem.Click += new System.EventHandler(this.fitToVideoToolStripMenuItem_Click);
+            this.fitWindowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.currentSizeToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItem3,
+            this.toolStripMenuItem4,
+            this.toolStripMenuItem5});
+            this.fitWindowToolStripMenuItem.Name = "fitWindowToolStripMenuItem";
+            this.fitWindowToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.fitWindowToolStripMenuItem.Text = "&Fit Window";
+            // 
+            // currentSizeToolStripMenuItem
+            // 
+            this.currentSizeToolStripMenuItem.Enabled = false;
+            this.currentSizeToolStripMenuItem.Name = "currentSizeToolStripMenuItem";
+            this.currentSizeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D1)));
+            this.currentSizeToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.currentSizeToolStripMenuItem.Text = "To &Current Size";
+            this.currentSizeToolStripMenuItem.Click += new System.EventHandler(this.currentSizeToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Enabled = false;
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D2)));
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(186, 22);
+            this.toolStripMenuItem2.Text = "50%";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Enabled = false;
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D3)));
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(186, 22);
+            this.toolStripMenuItem3.Text = "75%";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Enabled = false;
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D4)));
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(186, 22);
+            this.toolStripMenuItem4.Text = "100%";
+            this.toolStripMenuItem4.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Enabled = false;
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D5)));
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(186, 22);
+            this.toolStripMenuItem5.Text = "200%";
+            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
             // 
             // toolStripSeparator14
             // 
             this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator14.Size = new System.Drawing.Size(193, 6);
             // 
             // previousChapterToolStripMenuItem
             // 
             this.previousChapterToolStripMenuItem.Enabled = false;
             this.previousChapterToolStripMenuItem.Name = "previousChapterToolStripMenuItem";
             this.previousChapterToolStripMenuItem.ShortcutKeyDisplayString = "PgUp";
-            this.previousChapterToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.previousChapterToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.previousChapterToolStripMenuItem.Text = "&Previous Chapter";
             this.previousChapterToolStripMenuItem.Click += new System.EventHandler(this.previousChapterToolStripMenuItem_Click);
             // 
@@ -543,21 +595,21 @@ namespace Baka_MPlayer.Forms
             this.nextChapterToolStripMenuItem.Enabled = false;
             this.nextChapterToolStripMenuItem.Name = "nextChapterToolStripMenuItem";
             this.nextChapterToolStripMenuItem.ShortcutKeyDisplayString = "PgDn";
-            this.nextChapterToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.nextChapterToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.nextChapterToolStripMenuItem.Text = "&Next Chapter";
             this.nextChapterToolStripMenuItem.Click += new System.EventHandler(this.nextChapterToolStripMenuItem_Click);
             // 
             // toolStripSeparator9
             // 
             this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator9.Size = new System.Drawing.Size(193, 6);
             // 
             // chaptersToolStripMenuItem
             // 
             this.chaptersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.noneToolStripMenuItem1});
             this.chaptersToolStripMenuItem.Name = "chaptersToolStripMenuItem";
-            this.chaptersToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.chaptersToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.chaptersToolStripMenuItem.Text = "&Chapters";
             // 
             // noneToolStripMenuItem1
@@ -575,7 +627,7 @@ namespace Baka_MPlayer.Forms
             this.force169ToolStripMenuItem,
             this.force2351ToolStripMenuItem});
             this.aspectRatioToolStripMenuItem.Name = "aspectRatioToolStripMenuItem";
-            this.aspectRatioToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.aspectRatioToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.aspectRatioToolStripMenuItem.Text = "Aspect &Ratio";
             // 
             // autodetectToolStripMenuItem
@@ -615,7 +667,7 @@ namespace Baka_MPlayer.Forms
             this.audioTracksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainToolStripMenuItem});
             this.audioTracksToolStripMenuItem.Name = "audioTracksToolStripMenuItem";
-            this.audioTracksToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.audioTracksToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.audioTracksToolStripMenuItem.Text = "Audio &Tracks";
             // 
             // mainToolStripMenuItem
@@ -628,7 +680,7 @@ namespace Baka_MPlayer.Forms
             // toolStripSeparator10
             // 
             this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator10.Size = new System.Drawing.Size(193, 6);
             // 
             // volumeToolStripMenuItem
             // 
@@ -636,7 +688,7 @@ namespace Baka_MPlayer.Forms
             this.increaseToolStripMenuItem,
             this.decreaseToolStripMenuItem});
             this.volumeToolStripMenuItem.Name = "volumeToolStripMenuItem";
-            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.volumeToolStripMenuItem.Text = "&Volume:";
             // 
             // increaseToolStripMenuItem
@@ -1593,7 +1645,6 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showIconInTrayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hidePopupToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fitToVideoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem chaptersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem noneToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem fullScreenToolStripMenuItem;
@@ -1640,6 +1691,12 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem increaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decreaseToolStripMenuItem;
         private AudioLevelBar audioLevelBar;
+        private System.Windows.Forms.ToolStripMenuItem fitWindowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem currentSizeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
     }
 }
 

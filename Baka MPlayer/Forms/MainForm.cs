@@ -1106,21 +1106,93 @@ namespace Baka_MPlayer.Forms
             FullScreen = !FullScreen;
         }
 
-        private void fitToVideoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SetFitWindowToolStripMenuItems(bool enable)
         {
-            if (!mp.FileInfo.HasVideo)
+            for (var i = 0; i < fitWindowToolStripMenuItem.DropDownItems.Count; i++)
             {
-                this.Size = this.MinimumSize;
-                return;
+                fitWindowToolStripMenuItem.DropDownItems[i].Enabled = enable;
             }
+        }
 
-            int playlistWidth = ShowPlaylist ?
+        private void currentSizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (FullScreen)
+                return;
+
+            var clientTargetSize = new Size()
+            {
+                Width = mplayerPanel.Width,
+                Height = mplayerPanel.Height + mainMenuStrip.Height + seekPanel.Height + controlPanel.Height
+            };
+
+            clientTargetSize.Width += ShowPlaylist ?
                 bodySplitContainer.Width - bodySplitContainer.SplitterDistance : 0;
-            int consoleHeight = ShowConsole ?
+            clientTargetSize.Height += ShowConsole ?
                 mplayerSplitContainer.Height - mplayerSplitContainer.SplitterDistance : 0;
 
-            this.ClientSize = new Size(mplayerPanel.Width + playlistWidth,
-                mainMenuStrip.Height + mplayerPanel.Height + consoleHeight + seekPanel.Height + controlPanel.Height);
+            this.ClientSize = clientTargetSize;
+            SetStatusMsg("Fit Window: To Current Size", true);
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            FitWindow(0.5, true);
+            SetStatusMsg("Fit Window: 50%", true);
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            FitWindow(0.75, true);
+            SetStatusMsg("Fit Window: 75%", true);
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            FitWindow(1, true);
+            SetStatusMsg("Fit Window: 100%", true);
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            FitWindow(2, true);
+            SetStatusMsg("Fit Window: 200%", true);
+        }
+
+        private void FitWindow(double scale, bool considerPlaylist)
+        {
+            if (FullScreen)
+                return;
+
+            int w = Convert.ToInt32(mp.FileInfo.VideoWidth * scale);
+            if (considerPlaylist && ShowPlaylist)
+                w += bodySplitContainer.Width - bodySplitContainer.SplitterDistance;
+
+            int h = Convert.ToInt32(mp.FileInfo.VideoHeight * scale);
+            h += mainMenuStrip.Height + seekPanel.Height + controlPanel.Height;
+            if (ShowConsole)
+                h += mplayerSplitContainer.Height - mplayerSplitContainer.SplitterDistance;
+
+            // consider the caption and border size
+            w += this.Width - this.ClientSize.Width;
+            h += this.Height - this.ClientSize.Height;
+
+            var scrn = Screen.FromControl(this);
+            var workArea = scrn.WorkingArea;
+
+            // fit within the screen's working area
+            w = Math.Min(w, workArea.Right - workArea.Left);
+            h = Math.Min(h, workArea.Bottom - workArea.Top);
+
+            if (w > this.MinimumSize.Width)
+            {
+                // center window
+                this.Location = new Point()
+                {
+                    X = workArea.X + (workArea.Width - w) / 2,
+                    Y = workArea.Y + (workArea.Height - h) / 2
+                };
+            }
+            this.Size = new Size(w, h);
         }
 
         private void previousChapterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1131,6 +1203,14 @@ namespace Baka_MPlayer.Forms
         private void nextChapterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mp.NextChapter();
+        }
+
+        private void SetAspectRatioToolStripMenuItems(bool enable)
+        {
+            for (var i = 0; i < aspectRatioToolStripMenuItem.DropDownItems.Count; i++)
+            {
+                aspectRatioToolStripMenuItem.DropDownItems[i].Enabled = enable;
+            }
         }
 
         private void autodetectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1787,11 +1867,8 @@ namespace Baka_MPlayer.Forms
                     HideAlbumArt = false;
                     hideAlbumArtToolStripMenuItem.Enabled = false;
                     takeSnapshotToolStripMenuItem.Enabled = true;
-
-                    for (var i = 0; i < aspectRatioToolStripMenuItem.DropDownItems.Count; i++)
-                    {
-                        aspectRatioToolStripMenuItem.DropDownItems[i].Enabled = true;
-                    }
+                    SetFitWindowToolStripMenuItems(true);
+                    SetAspectRatioToolStripMenuItems(true);
                 }
                 else
                 {
@@ -1803,6 +1880,8 @@ namespace Baka_MPlayer.Forms
                     frameBackStepToolStripMenuItem.Enabled = false;
                     hideAlbumArtToolStripMenuItem.Enabled = true;
                     takeSnapshotToolStripMenuItem.Enabled = false;
+                    SetFitWindowToolStripMenuItems(false);
+                    SetAspectRatioToolStripMenuItems(false);
 
                     // show album art (if it exists)
                     if (mp.FileInfo.Id3Tags.AlbumArtTag != null)
@@ -1811,11 +1890,6 @@ namespace Baka_MPlayer.Forms
                         albumArtPicbox.Image = Properties.Resources.Music_128;
 
                     albumArtPicbox_SizeChanged(this, EventArgs.Empty);
-
-                    for (var i = 0; i < aspectRatioToolStripMenuItem.DropDownItems.Count; i++)
-                    {
-                        aspectRatioToolStripMenuItem.DropDownItems[i].Enabled = false;
-                    }
                 }
                 ResizeMplayerPanel();
 
@@ -2054,7 +2128,6 @@ namespace Baka_MPlayer.Forms
             jumpToTimeToolStripMenuItem.Enabled = enable;
 
             fullScreenToolStripMenuItem.Enabled = enable;
-            fitToVideoToolStripMenuItem.Enabled = enable;
             sayMediaNameToolStripMenuItem.Enabled = enable;
             mediaInfoToolStripMenuItem.Enabled = enable;
 
@@ -2087,7 +2160,6 @@ namespace Baka_MPlayer.Forms
 
         private void SetChapterMarks()
         {
-            // set chapter marks on seekBar
             if (mp.FileInfo.Chapters.Count != 0)
             {
                 var marks = new List<long>();
@@ -2095,6 +2167,7 @@ namespace Baka_MPlayer.Forms
                 foreach (var c in mp.FileInfo.Chapters)
                     marks.Add(c.StartTime / 1000);
 
+                // add chapter marks on seekBar
                 seekBar.AddMarks(marks, mp.CurrentStatus.TotalLength);
             }
             else
