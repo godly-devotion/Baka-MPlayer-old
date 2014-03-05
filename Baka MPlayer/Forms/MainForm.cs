@@ -711,7 +711,10 @@ namespace Baka_MPlayer.Forms
         }
         private void speechButton_MouseUp(object sender, MouseEventArgs e)
         {
-            speechButton.Image = Properties.Resources.disabled_mic;
+            if (EnableVoiceCommand)
+                speechButton.Image = Properties.Resources.enabled_mic;
+            else
+                speechButton.Image = Properties.Resources.disabled_mic;
         }
 
         // RewindButton
