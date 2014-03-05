@@ -1829,16 +1829,17 @@ namespace Baka_MPlayer.Forms
                 {
                     firstFile = false;
                     Properties.Settings.Default.LastFile = mp.FileInfo.Url;
-
-                    FitWindow(1, false);
                 }
                 else
                 {
                     Properties.Settings.Default.LastFile = tempUrl;
                     openLastFileToolStripMenuItem.ToolTipText = Path.GetFileName(tempUrl);
                     openLastFileToolStripMenuItem.Enabled = true;
+                }
 
-                    // auto fit window if playing directory changes
+                // auto fit window if playing directory changes
+                if (File.Exists(tempUrl) && !mp.FileInfo.IsOnline)
+                {
                     var path1 = Functions.IO.GetDirectoryName(Path.GetFullPath(tempUrl));
                     var path2 = Functions.IO.GetDirectoryName(Path.GetFullPath(mp.FileInfo.Url));
                     if (!string.Equals(path1, path2, StringComparison.OrdinalIgnoreCase) && mp.FileInfo.HasVideo)
@@ -1846,6 +1847,11 @@ namespace Baka_MPlayer.Forms
                         FitWindow(1, false);
                     }
                 }
+                else
+                {
+                    FitWindow(1, false);
+                }
+
                 Properties.Settings.Default.Save();
                 tempUrl = mp.FileInfo.Url;
 
