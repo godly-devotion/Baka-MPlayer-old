@@ -40,7 +40,7 @@ namespace Baka_MPlayer.Forms
 
         // lastFile feature
         private bool firstFile = true;
-        private string tempUrl = string.Empty;
+        private string previousUrl = string.Empty;
 
         private bool seekBar_IsMouseDown;
 
@@ -1835,18 +1835,18 @@ namespace Baka_MPlayer.Forms
                 }
                 else
                 {
-                    Properties.Settings.Default.LastFile = tempUrl;
-                    openLastFileToolStripMenuItem.ToolTipText = Path.GetFileName(tempUrl);
+                    Properties.Settings.Default.LastFile = previousUrl;
+                    openLastFileToolStripMenuItem.ToolTipText = Path.GetFileName(previousUrl);
                     openLastFileToolStripMenuItem.Enabled = true;
                 }
 
                 if (mp.FileInfo.HasVideo)
                 {
-                    if (File.Exists(tempUrl) && !mp.FileInfo.IsOnline)
+                    if (File.Exists(previousUrl) && !mp.FileInfo.IsOnline)
                     {
                         // auto fit window if playing directory changes
-                        var path1 = Functions.IO.GetDirectoryName(Path.GetFullPath(tempUrl));
-                        var path2 = Functions.IO.GetDirectoryName(Path.GetFullPath(mp.FileInfo.Url));
+                        var path1 = Functions.IO.GetDirectoryName(previousUrl);
+                        var path2 = Functions.IO.GetDirectoryName(mp.FileInfo.Url);
                         if (!string.Equals(path1, path2, StringComparison.OrdinalIgnoreCase))
                         {
                             FitWindow(1, false);
@@ -1860,7 +1860,7 @@ namespace Baka_MPlayer.Forms
                 }
 
                 Properties.Settings.Default.Save();
-                tempUrl = mp.FileInfo.Url;
+                previousUrl = mp.FileInfo.Url;
 
                 // set form's info
 
