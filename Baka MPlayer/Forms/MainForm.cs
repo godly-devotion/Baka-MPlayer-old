@@ -1175,7 +1175,7 @@ namespace Baka_MPlayer.Forms
             if (ShowConsole)
                 h += mplayerSplitContainer.Height - mplayerSplitContainer.SplitterDistance;
 
-            // consider the caption and border size
+            // add the caption and border size
             w += this.Width - this.ClientSize.Width;
             h += this.Height - this.ClientSize.Height;
 
@@ -1186,15 +1186,18 @@ namespace Baka_MPlayer.Forms
             w = Math.Min(w, workArea.Right - workArea.Left);
             h = Math.Min(h, workArea.Bottom - workArea.Top);
 
-            if (w > this.MinimumSize.Width)
+            // center window
+            var loc = new Point
             {
-                // center window
-                this.Location = new Point()
-                {
-                    X = workArea.X + (workArea.Width - w) / 2,
-                    Y = workArea.Y + (workArea.Height - h) / 2
-                };
-            }
+                Y = workArea.Y + (workArea.Height - h) / 2
+            };
+
+            if (w > this.MinimumSize.Width)
+                loc.X = workArea.X + (workArea.Width - w) / 2;
+            else
+                loc.X = workArea.X + (workArea.Width - this.MinimumSize.Width) / 2;
+
+            this.Location = loc;
             this.Size = new Size(w, h);
         }
 
@@ -1854,7 +1857,7 @@ namespace Baka_MPlayer.Forms
                     }
                     else
                     {
-                        // online file so just auto fit window
+                        // file is online so just auto fit window
                         FitWindow(1, false);
                     }
                 }
