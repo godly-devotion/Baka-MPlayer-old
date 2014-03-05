@@ -508,9 +508,12 @@ namespace Baka_MPlayer.Controls
                         }
                     }
 
-                    // create tick marks (for chapter marks)
+                    // create tick marks (chapter marks)
                     foreach (var m in marks)
                     {
+                        if (m > maxMarkValue)
+                            continue;
+
                         var x = (m * this.ClientRectangle.Width) / maxMarkValue;
                         var r = new Rectangle((int)x, barRect.Y, barRect.Height, barRect.Height);
                         r.Inflate(0, 2);
