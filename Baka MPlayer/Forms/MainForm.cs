@@ -1848,9 +1848,7 @@ namespace Baka_MPlayer.Forms
                     if (File.Exists(previousUrl) && !mp.FileInfo.IsOnline)
                     {
                         // auto fit window if playing directory changes
-                        var path1 = Functions.IO.GetDirectoryName(previousUrl);
-                        var path2 = Functions.IO.GetDirectoryName(mp.FileInfo.Url);
-                        if (!string.Equals(path1, path2, StringComparison.OrdinalIgnoreCase))
+                        if (!Functions.IO.IsDirectorySame(previousUrl, mp.FileInfo.Url))
                         {
                             FitWindow(1, false);
                         }

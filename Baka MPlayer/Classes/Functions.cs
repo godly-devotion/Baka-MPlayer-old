@@ -94,6 +94,15 @@ namespace Functions
                 return string.Empty;
             }
         }
+        public static bool IsDirectorySame(string path1, string path2)
+        {
+            // Note: Path.GetFullPath shouldn't be required because mpv seems
+            // to return the full path of the media file anyway
+
+            path1 = GetDirectoryName(path1);
+            path2 = GetDirectoryName(path2);
+            return string.Equals(path1, path2, StringComparison.InvariantCultureIgnoreCase);
+        }
         public static string GetFileSize(string filePath, int roundTo)
         {
             var invC = CultureInfo.InvariantCulture;
