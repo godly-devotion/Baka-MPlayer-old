@@ -1,8 +1,19 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.4.2 (2014-02-07)
+Latest Version 1.4.3 (2014-03-06)
 ---------------------------------
+
+- Fixed: Don't hide media controls in full screen mode when seeking
+- Fixed: Pressing Esc while seeking in full screen cancels seek properly
+- Fixed: Seekbar gets messed up if chapter has invalid value
+- Changed: Simplified and edited IMPORTANT.txt
+- Changed: Renamed 'MPlayer Tags' to 'File Tags' in Media Info
+- Added: Fit Window feature
+- Added: Auto fit video window on file open
+
+Version 1.4.2 (2014-02-07)
+--------------------------
 
 - More code clean up & bug fixes
 - Fixed: Full screen controls didn't show up on other monitors
