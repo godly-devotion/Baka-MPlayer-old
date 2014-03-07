@@ -420,7 +420,7 @@ namespace mpv
                 return;
             }
 
-            if (e.Data.Equals("Clip info:")) // ** RENAME TO 'File tags:' in future builds
+            if (e.Data.Equals("File tags:"))
             {
                 parsingClipInfo = true;
                 return;
