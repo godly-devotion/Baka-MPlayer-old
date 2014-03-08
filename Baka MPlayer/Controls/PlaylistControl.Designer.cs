@@ -51,7 +51,7 @@
             // playlistList
             // 
             this.playlistList.AllowDrop = true;
-            this.playlistList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.playlistList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.playlistList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.playlistList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.playlistHeader});
@@ -190,7 +190,7 @@
             // 
             // searchTextBox
             // 
-            this.searchTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.searchTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.searchTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.searchTextBox.CueText = "Search Playlist";
             this.searchTextBox.Dock = System.Windows.Forms.DockStyle.Top;
@@ -207,7 +207,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.Controls.Add(this.playlistList);
             this.Controls.Add(this.playlistStatusStrip);
             this.Controls.Add(this.seperatorBox);

@@ -61,6 +61,7 @@
             // 
             this.inputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(15)))), ((int)(((byte)(15)))));
             this.inputTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inputTextbox.CueText = "";
             this.inputTextbox.ForeColor = System.Drawing.Color.White;
             this.inputTextbox.Location = new System.Drawing.Point(62, 65);
             this.inputTextbox.Name = "inputTextbox";
@@ -73,9 +74,9 @@
             this.okButton.BackColor = System.Drawing.Color.Transparent;
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.okButton.Enabled = false;
-            this.okButton.FlatAppearance.BorderColor = System.Drawing.Color.DeepSkyBlue;
-            this.okButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.DimGray;
-            this.okButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DeepSkyBlue;
+            this.okButton.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
+            this.okButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SteelBlue;
+            this.okButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DodgerBlue;
             this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.okButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.okButton.ForeColor = System.Drawing.Color.White;
@@ -114,7 +115,7 @@
             this.AcceptButton = this.okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(484, 106);
             this.ControlBox = false;

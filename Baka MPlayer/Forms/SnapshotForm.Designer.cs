@@ -41,7 +41,7 @@
             // 
             // sidePanel
             // 
-            this.sidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.sidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.sidePanel.Controls.Add(this.copyLink);
             this.sidePanel.Controls.Add(this.saveButton);
             this.sidePanel.Controls.Add(this.cancelButton);
@@ -134,7 +134,7 @@
             // 
             // snapshotPicbox
             // 
-            this.snapshotPicbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(35)))));
+            this.snapshotPicbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
             this.snapshotPicbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.snapshotPicbox.Location = new System.Drawing.Point(202, 0);
             this.snapshotPicbox.Name = "snapshotPicbox";

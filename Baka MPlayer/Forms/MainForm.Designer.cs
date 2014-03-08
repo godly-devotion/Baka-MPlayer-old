@@ -188,7 +188,7 @@ namespace Baka_MPlayer.Forms
             // mainMenuStrip
             // 
             this.mainMenuStrip.AutoSize = false;
-            this.mainMenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.mainMenuStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.mainMenuStrip.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.mainMenuStrip.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 0);
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1012,7 +1012,7 @@ namespace Baka_MPlayer.Forms
             // 
             // controlPanel
             // 
-            this.controlPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.controlPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.controlPanel.Controls.Add(this.audioLevelBar);
             this.controlPanel.Controls.Add(this.quickButton);
             this.controlPanel.Controls.Add(this.nextButton);
@@ -1031,7 +1031,7 @@ namespace Baka_MPlayer.Forms
             // 
             // audioLevelBar
             // 
-            this.audioLevelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.audioLevelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.audioLevelBar.Location = new System.Drawing.Point(68, 10);
             this.audioLevelBar.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
             this.audioLevelBar.Maximum = 100;
@@ -1046,7 +1046,7 @@ namespace Baka_MPlayer.Forms
             // 
             // quickButton
             // 
-            this.quickButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.quickButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.quickButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.quickButton.DefaultImage = global::Baka_MPlayer.Properties.Resources.default_open;
             this.quickButton.DisabledImage = null;
@@ -1064,7 +1064,7 @@ namespace Baka_MPlayer.Forms
             // nextButton
             // 
             this.nextButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.nextButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.nextButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.nextButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.nextButton.DefaultImage = global::Baka_MPlayer.Properties.Resources.default_next;
             this.nextButton.DisabledImage = global::Baka_MPlayer.Properties.Resources.disabled_next;
@@ -1084,7 +1084,7 @@ namespace Baka_MPlayer.Forms
             // previousButton
             // 
             this.previousButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.previousButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.previousButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.previousButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.previousButton.DefaultImage = global::Baka_MPlayer.Properties.Resources.default_previous;
             this.previousButton.DisabledImage = global::Baka_MPlayer.Properties.Resources.disabled_previous;
@@ -1104,7 +1104,7 @@ namespace Baka_MPlayer.Forms
             // rewindButton
             // 
             this.rewindButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.rewindButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.rewindButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.rewindButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.rewindButton.DefaultImage = global::Baka_MPlayer.Properties.Resources.default_reverse;
             this.rewindButton.DisabledImage = global::Baka_MPlayer.Properties.Resources.disabled_reverse;
@@ -1125,7 +1125,7 @@ namespace Baka_MPlayer.Forms
             // playlistButton
             // 
             this.playlistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.playlistButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.playlistButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.playlistButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.playlistButton.DefaultImage = global::Baka_MPlayer.Properties.Resources.default_playlist;
             this.playlistButton.DisabledImage = global::Baka_MPlayer.Properties.Resources.disabled_playlist;
@@ -1142,7 +1142,7 @@ namespace Baka_MPlayer.Forms
             // 
             // speechButton
             // 
-            this.speechButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.speechButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.speechButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.speechButton.Image = global::Baka_MPlayer.Properties.Resources.disabled_mic;
             this.speechButton.Location = new System.Drawing.Point(43, 10);
@@ -1160,7 +1160,7 @@ namespace Baka_MPlayer.Forms
             // volumeBar
             // 
             this.volumeBar.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.volumeBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.volumeBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.volumeBar.BarHeight = 1;
             this.volumeBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
             this.volumeBar.DrawSemitransparentThumb = false;
@@ -1172,7 +1172,7 @@ namespace Baka_MPlayer.Forms
             this.volumeBar.SmallChange = ((uint)(1u));
             this.volumeBar.TabIndex = 1;
             this.volumeBar.TabStop = false;
-            this.volumeBar.ThumbBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.volumeBar.ThumbBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.volumeBar.ThumbFirstColor = System.Drawing.Color.Silver;
             this.volumeBar.ThumbRoundRectSize = new System.Drawing.Size(14, 16);
             this.volumeBar.ThumbSecondColor = System.Drawing.Color.DarkGray;
@@ -1182,7 +1182,7 @@ namespace Baka_MPlayer.Forms
             // playButton
             // 
             this.playButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.playButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.playButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.playButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.playButton.Enabled = false;
             this.playButton.Image = global::Baka_MPlayer.Properties.Resources.disabled_play;
@@ -1222,7 +1222,7 @@ namespace Baka_MPlayer.Forms
             this.seekBar.SmallChange = ((uint)(1u));
             this.seekBar.TabIndex = 1;
             this.seekBar.TabStop = false;
-            this.seekBar.ThumbBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.seekBar.ThumbBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.seekBar.ThumbFirstColor = System.Drawing.Color.Silver;
             this.seekBar.ThumbRoundRectSize = new System.Drawing.Size(12, 12);
             this.seekBar.ThumbSecondColor = System.Drawing.Color.DarkGray;
@@ -1289,7 +1289,7 @@ namespace Baka_MPlayer.Forms
             // 
             // mplayerSplitContainer.Panel1
             // 
-            this.mplayerSplitContainer.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.mplayerSplitContainer.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.mplayerSplitContainer.Panel1.Controls.Add(this.statusLabel);
             this.mplayerSplitContainer.Panel1.Controls.Add(this.albumArtPicbox);
             this.mplayerSplitContainer.Panel1.Controls.Add(this.mplayerPanel);
@@ -1323,7 +1323,7 @@ namespace Baka_MPlayer.Forms
             // 
             // albumArtPicbox
             // 
-            this.albumArtPicbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.albumArtPicbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.albumArtPicbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.albumArtPicbox.Image = global::Baka_MPlayer.Properties.Resources.Music_128;
             this.albumArtPicbox.Location = new System.Drawing.Point(0, 0);
@@ -1351,7 +1351,7 @@ namespace Baka_MPlayer.Forms
             // 
             // outputTextbox
             // 
-            this.outputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.outputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.outputTextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.outputTextbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.outputTextbox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1367,7 +1367,7 @@ namespace Baka_MPlayer.Forms
             // 
             // inputTextbox
             // 
-            this.inputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.inputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.inputTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inputTextbox.CueText = "> Insert command here";
             this.inputTextbox.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -1382,7 +1382,7 @@ namespace Baka_MPlayer.Forms
             // 
             // playlist
             // 
-            this.playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.playlist.Dock = System.Windows.Forms.DockStyle.Fill;
             this.playlist.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.playlist.ForeColor = System.Drawing.Color.White;
@@ -1516,7 +1516,7 @@ namespace Baka_MPlayer.Forms
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.ClientSize = new System.Drawing.Size(584, 391);
             this.Controls.Add(this.bodySplitContainer);
             this.Controls.Add(this.seekPanel);

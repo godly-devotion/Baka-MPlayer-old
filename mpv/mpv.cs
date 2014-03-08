@@ -268,7 +268,7 @@ namespace mpv
 
                 stdinWriter = new StreamWriter(mpvProcess.StandardInput.BaseStream, new UTF8Encoding(false))
                 {
-                    // use LF instead of CRLF
+                    // use LF instead of default CRLF
                     NewLine = "\n"
                 };
 
@@ -489,10 +489,9 @@ namespace mpv
                 // load external sub if requested
                 if (!string.IsNullOrEmpty(externalSub))
                 {
+                    // Note: added sub file will be automatically selected
                     SendCommand("sub_add \"{0}\"", externalSub.Replace("\\", "\\\\"));
                     FileInfo.Subs.Add(new Subtitle(FileInfo.Subs.Count.ToString(CultureInfo.InvariantCulture), "[ External Sub ]", "★"));
-                    SetSubtitleTrack(FileInfo.Subs.Count);
-
                     externalSub = string.Empty;
                 }
 
