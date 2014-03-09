@@ -235,7 +235,6 @@ namespace mpv
                 args.Append(" -slave-broken");
                 args.Append(" -no-consolecontrols");// prevents the player from reading key events from standard input
                 args.Append(" -idle");              // wait insead of quit
-                args.Append(" -volstep=5");
                 args.Append(" -msglevel=cplayer=v");// needed for EOF message
                 args.Append(" -identify");          // needed for ID_* info
                 args.Append(" -osd-level=0");       // do not show volume + seek on OSD
