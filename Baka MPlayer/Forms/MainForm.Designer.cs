@@ -155,6 +155,7 @@ namespace Baka_MPlayer.Forms
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
+            this.loadSubtitleFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mplayerPanel = new Baka_MPlayer.Controls.VO_Panel();
             this.inputTextbox = new Baka_MPlayer.Controls.CustomTextBox();
             this.playlist = new Baka_MPlayer.Controls.PlaylistControl();
@@ -166,7 +167,6 @@ namespace Baka_MPlayer.Forms
             this.rewindButton = new Baka_MPlayer.Controls.MediaButton();
             this.playlistButton = new Baka_MPlayer.Controls.MediaButton();
             this.volumeBar = new Baka_MPlayer.Controls.ColorSlider();
-            this.loadSubtitleFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.speechButton)).BeginInit();
@@ -737,21 +737,21 @@ namespace Baka_MPlayer.Forms
             this.showSubtitlesToolStripMenuItem.Enabled = false;
             this.showSubtitlesToolStripMenuItem.Name = "showSubtitlesToolStripMenuItem";
             this.showSubtitlesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.showSubtitlesToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.showSubtitlesToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.showSubtitlesToolStripMenuItem.Text = "&Show Subtitles";
             this.showSubtitlesToolStripMenuItem.Click += new System.EventHandler(this.showSubtitlesToolStripMenuItem_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(192, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(198, 6);
             // 
             // subtitleTrackToolStripMenuItem
             // 
             this.subtitleTrackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.noneToolStripMenuItem});
             this.subtitleTrackToolStripMenuItem.Name = "subtitleTrackToolStripMenuItem";
-            this.subtitleTrackToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.subtitleTrackToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.subtitleTrackToolStripMenuItem.Text = "Subtitle &Track";
             // 
             // noneToolStripMenuItem
@@ -768,7 +768,7 @@ namespace Baka_MPlayer.Forms
             this.sizeToolStripMenuItem1,
             this.resetSizeToolStripMenuItem});
             this.fontSizeToolStripMenuItem.Name = "fontSizeToolStripMenuItem";
-            this.fontSizeToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+            this.fontSizeToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.fontSizeToolStripMenuItem.Text = "&Font Size";
             // 
             // sizeToolStripMenuItem
@@ -1315,6 +1315,15 @@ namespace Baka_MPlayer.Forms
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
             // 
+            // loadSubtitleFileToolStripMenuItem
+            // 
+            this.loadSubtitleFileToolStripMenuItem.Enabled = false;
+            this.loadSubtitleFileToolStripMenuItem.Name = "loadSubtitleFileToolStripMenuItem";
+            this.loadSubtitleFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+            this.loadSubtitleFileToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.loadSubtitleFileToolStripMenuItem.Text = "&Load Subtitle File";
+            this.loadSubtitleFileToolStripMenuItem.Click += new System.EventHandler(this.loadSubtitleFileToolStripMenuItem_Click);
+            // 
             // mplayerPanel
             // 
             this.mplayerPanel.BackColor = System.Drawing.Color.Black;
@@ -1512,14 +1521,6 @@ namespace Baka_MPlayer.Forms
             this.volumeBar.ThumbSecondColor = System.Drawing.Color.DarkGray;
             this.volumeBar.ThumbSize = new System.Drawing.Size(16, 14);
             this.volumeBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.volumeBar_Scroll);
-            // 
-            // loadSubtitleFileToolStripMenuItem
-            // 
-            this.loadSubtitleFileToolStripMenuItem.Enabled = false;
-            this.loadSubtitleFileToolStripMenuItem.Name = "loadSubtitleFileToolStripMenuItem";
-            this.loadSubtitleFileToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.loadSubtitleFileToolStripMenuItem.Text = "&Load Subtitle File";
-            this.loadSubtitleFileToolStripMenuItem.Click += new System.EventHandler(this.loadSubtitleFileToolStripMenuItem_Click);
             // 
             // MainForm
             // 
