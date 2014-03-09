@@ -7,6 +7,7 @@
 
 using System;
 using MPlayer.Info;
+using MPlayer.Info.Track;
 
 namespace MPlayer
 {
@@ -42,6 +43,7 @@ namespace MPlayer
 
         bool SetAudioTrack(int trackId);
         bool SetVideoTrack(int trackId);
+        bool AddSubtitle(string subPath);
         bool SetSubtitleTrack(int trackId);
         bool SetSubtitleVisibility(bool showSubs);
 

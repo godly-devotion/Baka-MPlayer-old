@@ -1291,7 +1291,7 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private void SetChapters()
+        private void SetChapterToolStripMenuItems()
         {
             chaptersToolStripMenuItem.DropDownItems.Clear();
 
@@ -1372,6 +1372,19 @@ namespace Baka_MPlayer.Forms
             mp.SetSubtitleVisibility(showSubtitlesToolStripMenuItem.Checked);
         }
 
+        private void loadSubtitleFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var ofd = new OpenFileDialog
+            {
+                Filter = "Subtitles|*.sub;*.srt;*.ass;*.ssa|All Files (*.*)|*.*"
+            };
+
+            if (ofd.ShowDialog() == DialogResult.OK && File.Exists(ofd.FileName))
+                mp.AddSubtitle(ofd.FileName);
+
+            SetSubToolStripMenuItems();
+        }
+
         private void sizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // increase size
@@ -1399,7 +1412,7 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        private void SetSubs()
+        private void SetSubToolStripMenuItems()
         {
             subtitleTrackToolStripMenuItem.DropDownItems.Clear();
 
@@ -1867,8 +1880,10 @@ namespace Baka_MPlayer.Forms
 
                 this.Text = mp.FileInfo.IsOnline ? mp.FileInfo.MovieName : mp.FileInfo.FullFileName;
 
-                folderToolStripMenuItem.Text = mp.FileInfo.IsOnline ?
-                    new Uri(mp.FileInfo.Url).Host : Functions.String.AutoEllipsis(32, Functions.IO.GetFolderName(mp.FileInfo.Url));
+                if (mp.FileInfo.IsOnline)
+                    folderToolStripMenuItem.Text = new Uri(mp.FileInfo.Url).Host;
+                else
+                    folderToolStripMenuItem.Text = Functions.String.AutoEllipsis(32, Functions.IO.GetFolderName(mp.FileInfo.Url));
 
                 if (blackForm != null)
                     blackForm.RefreshTitle();
@@ -1888,6 +1903,7 @@ namespace Baka_MPlayer.Forms
 
                     frameStepToolStripMenuItem.Enabled = true;
                     frameBackStepToolStripMenuItem.Enabled = true;
+                    loadSubtitleFileToolStripMenuItem.Enabled = true;
                     HideAlbumArt = false;
                     hideAlbumArtToolStripMenuItem.Enabled = false;
                     takeSnapshotToolStripMenuItem.Enabled = true;
@@ -1902,6 +1918,7 @@ namespace Baka_MPlayer.Forms
 
                     frameStepToolStripMenuItem.Enabled = false;
                     frameBackStepToolStripMenuItem.Enabled = false;
+                    loadSubtitleFileToolStripMenuItem.Enabled = false;
                     hideAlbumArtToolStripMenuItem.Enabled = true;
                     takeSnapshotToolStripMenuItem.Enabled = false;
                     SetFitWindowToolStripMenuItems(false);
@@ -1935,8 +1952,8 @@ namespace Baka_MPlayer.Forms
 
                 // create menu items
                 SetAudioTrackMenuItems();
-                SetChapters();
-                SetSubs();
+                SetChapterToolStripMenuItems();
+                SetSubToolStripMenuItems();
 
                 mp.Play();
             });

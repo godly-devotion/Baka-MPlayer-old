@@ -203,6 +203,24 @@ namespace mpv
             return SendCommand("set vid {0}", trackId);
         }
         /// <summary>
+        /// Loads an additional subtitle file
+        /// Note: added sub file will be automatically displayed
+        /// </summary>
+        public bool AddSubtitle(string subPath)
+        {
+            var sub = new Subtitle
+            {
+                TrackID = (FileInfo.Subs.Count + 1).ToString(CultureInfo.InvariantCulture),
+                Name = Path.GetFileName(subPath),
+                Lang = "external"
+            };
+            FileInfo.Subs.Add(sub);
+            OnStatusChanged(new StatusChangedEventArgs(
+                string.Format("Sub {0}: \"{1} ({2})\"",
+                    sub.TrackID, sub.Name, sub.Lang), true));
+            return SendCommand("sub_add \"{0}\"", subPath.Replace("\\", "\\\\"));
+        }
+        /// <summary>
         /// Set subtitle track
         /// </summary>
         /// <param name="trackId">The subtitle index (index start from 1)</param>
@@ -487,16 +505,7 @@ namespace mpv
                 // load external sub if requested
                 if (!string.IsNullOrEmpty(externalSub))
                 {
-                    // Note: added sub file will be automatically displayed
-                    SendCommand("sub_add \"{0}\"", externalSub.Replace("\\", "\\\\"));
-                    var sub = new Subtitle
-                    {
-                        TrackID = (FileInfo.Subs.Count + 1).ToString(CultureInfo.InvariantCulture),
-                        Name = Path.GetFileName(externalSub),
-                        Lang = "external"
-                    };
-                    FileInfo.Subs.Add(sub);
-
+                    AddSubtitle(externalSub);
                     externalSub = string.Empty;
                 }
 
