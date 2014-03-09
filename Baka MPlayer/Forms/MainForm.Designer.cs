@@ -37,7 +37,6 @@ namespace Baka_MPlayer.Forms
             this.newPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.openFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileWithExternalSubsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openLocationFromClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openLastFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -214,7 +213,6 @@ namespace Baka_MPlayer.Forms
             this.newPlayerToolStripMenuItem,
             this.toolStripSeparator1,
             this.openFileToolStripMenuItem,
-            this.openFileWithExternalSubsToolStripMenuItem,
             this.openURLToolStripMenuItem,
             this.openLocationFromClipboardToolStripMenuItem,
             this.openLastFileToolStripMenuItem,
@@ -250,13 +248,6 @@ namespace Baka_MPlayer.Forms
             this.openFileToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
             this.openFileToolStripMenuItem.Text = "&Open File";
             this.openFileToolStripMenuItem.Click += new System.EventHandler(this.openFileToolStripMenuItem_Click);
-            // 
-            // openFileWithExternalSubsToolStripMenuItem
-            // 
-            this.openFileWithExternalSubsToolStripMenuItem.Name = "openFileWithExternalSubsToolStripMenuItem";
-            this.openFileWithExternalSubsToolStripMenuItem.Size = new System.Drawing.Size(271, 22);
-            this.openFileWithExternalSubsToolStripMenuItem.Text = "Open File with External &Subs";
-            this.openFileWithExternalSubsToolStripMenuItem.Click += new System.EventHandler(this.openFileWithExternalSubsToolStripMenuItem_Click);
             // 
             // openURLToolStripMenuItem
             // 
@@ -1692,7 +1683,6 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem force43ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem force169ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem force2351ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openFileWithExternalSubsToolStripMenuItem;
         protected internal VO_Panel mplayerPanel;
         private System.Windows.Forms.ToolStripMenuItem frameBackStepToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;

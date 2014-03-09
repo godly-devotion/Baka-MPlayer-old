@@ -934,16 +934,6 @@ namespace Baka_MPlayer.Forms
             OpenFile();
         }
 
-        private void openFileWithExternalSubsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var subForm = new OpenSubForm();
-
-            if (subForm.ShowDialog(this) == DialogResult.OK)
-                mp.OpenFile(subForm.MediaFile, subForm.SubFile);
-
-            subForm.Dispose();
-        }
-
         private void openURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var webForm = new UrlForm(mp.FileInfo);
