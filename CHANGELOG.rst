@@ -1,8 +1,17 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.4.3 (2014-03-06)
+Latest Version 1.4.4 (2014-03-08)
 ---------------------------------
+
+- Note: This update came out fast. If you didn't upgrade to v1.4.3 yet, I recommend you read the Changelog. You might like the new features I've added in the previous build :)
+- Changed: Subtitle files will load automatically if it's in the same folder
+- Changed: Darkened the interface a bit more (you probably can't tell though)
+- Added: Can load subtitles manually and as many as you want (under Subtitle menu)
+- Updated: mpv build
+
+Version 1.4.3 (2014-03-06)
+--------------------------
 
 - Fixed: Don't hide media controls in full screen mode when seeking
 - Fixed: Pressing Esc while seeking in full screen cancels seek properly
