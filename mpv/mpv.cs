@@ -240,7 +240,6 @@ namespace mpv
                 args.Append(" -identify");          // needed for ID_* info
                 args.Append(" -osd-level=0");       // do not show volume + seek on OSD
                 args.Append(" -no-keepaspect");     // doesn't keep window aspect ratio when resizing windows
-                args.Append(" -no-autosub");        // do not auto load subs (via filename)
                 args.Append(" -cursor-autohide=no");
                 args.Append(" -playing-msg=PLAYING_FILE:${media-title}");
                 args.AppendFormat(" -status-msg=status:{0}", statusMsg);
@@ -489,9 +488,16 @@ namespace mpv
                 // load external sub if requested
                 if (!string.IsNullOrEmpty(externalSub))
                 {
-                    // Note: added sub file will be automatically selected
+                    // Note: added sub file will be automatically displayed
                     SendCommand("sub_add \"{0}\"", externalSub.Replace("\\", "\\\\"));
-                    FileInfo.Subs.Add(new Subtitle(FileInfo.Subs.Count.ToString(CultureInfo.InvariantCulture), "[ External Sub ]", "★"));
+                    var sub = new Subtitle
+                    {
+                        TrackID = (FileInfo.Subs.Count + 1).ToString(CultureInfo.InvariantCulture),
+                        Name = Path.GetFileName(externalSub),
+                        Lang = "external"
+                    };
+                    FileInfo.Subs.Add(sub);
+
                     externalSub = string.Empty;
                 }
 
@@ -577,24 +583,7 @@ namespace mpv
                         }
                         return true;
                     }
-				
-                    else if (key.StartsWith("ID_SID_ID")) // Subtitles
-                    {
-                        FileInfo.Subs.Add(new Subtitle(value));
-                    }
-                    else if (key.StartsWith("ID_SID_"))
-                    {
-                        if (key.Contains("_NAME"))
-                        {
-                            FileInfo.Subs[FileInfo.Subs.Count - 1].Name = value;
-                        }
-                        else if (key.Contains("_LANG"))
-                        {
-                            FileInfo.Subs[FileInfo.Subs.Count - 1].Lang = value;
-                        }
-                        return true;
-                    }
-                
+
                     else if (key.StartsWith("ID_AID_ID")) // Audio tracks
                     {
                         FileInfo.AudioTracks.Add(new AudioTrack(value));
@@ -608,6 +597,33 @@ namespace mpv
                         else if (key.Contains("_LANG"))
                         {
                             FileInfo.AudioTracks[FileInfo.AudioTracks.Count - 1].Lang = value;
+                        }
+                        return true;
+                    }
+
+                    else if (key.StartsWith("ID_SID_ID")) // Subtitles
+                    {
+                        FileInfo.Subs.Add(new Subtitle(value));
+                    }
+                    else if (key.StartsWith("ID_SID_"))
+                    {
+                        if (key.Contains("_NAME"))
+                        {
+                            var i = FileInfo.Subs.Count - 1;
+                            // check if mpv loaded an external sub file
+                            if (File.Exists(value))
+                            {
+                                FileInfo.Subs[i].Name = Path.GetFileName(value);
+                                FileInfo.Subs[i].Lang = "external";
+                            }
+                            else
+                            {
+                                FileInfo.Subs[i].Name = value;   
+                            }
+                        }
+                        else if (key.Contains("_LANG"))
+                        {
+                            FileInfo.Subs[FileInfo.Subs.Count - 1].Lang = value;
                         }
                         return true;
                     }
