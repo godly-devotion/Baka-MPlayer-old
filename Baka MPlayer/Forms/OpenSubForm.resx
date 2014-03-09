@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label3.Text" xml:space="preserve">
-    <value>Note: You only need to use this if you want to play a video with subtitles that are seperate from the video. You don't need to open the file from here if the subtitle file is embedded within the container (i.e. MKV files).</value>
+    <value>Note: You don't need to open the file from here if the external sub file has the same file name (excluding the extension) as the movie file name and/or if the subtitle file is embedded within the file (e.g. mkv files).</value>
   </data>
 </root>
