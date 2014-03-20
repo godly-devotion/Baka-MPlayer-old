@@ -118,57 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="default_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\nextButton\default_next.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="default_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\openButton\default_open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="default_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\pauseButton\default_pause.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="default_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\playButton\default_play.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="default_previous" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\previousButton\default_previous.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="default_reverse" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\reverseButton\default_reverse.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="disabled_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\nextButton\disabled_next.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="disabled_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\pauseButton\disabled_pause.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="disabled_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\playButton\disabled_play.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="disabled_previous" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\previousButton\disabled_previous.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="disabled_reverse" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\reverseButton\disabled_reverse.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="down_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\nextButton\down_next.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="down_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\openButton\down_open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="down_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\pauseButton\down_pause.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="down_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\playButton\down_play.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="down_previous" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\previousButton\down_previous.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="down_reverse" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\reverseButton\down_reverse.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icon.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -183,15 +132,6 @@
   </data>
   <data name="warning_blue_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\InputBox\warning_blue-48.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="disabled_mic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\mic image\disabled_mic.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="down_mic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\mic image\down_mic.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="enabled_mic" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\mic image\enabled_mic.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="AudioFiles" xml:space="preserve">
     <value>*.mp3; *.ogg; *.wav; *.wma; *.m4a; *.ac3; *.ape; *.flac; *.cue; *.thd; *.ra</value>
@@ -217,19 +157,79 @@
   <data name="tool_previous" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MainForm\ToolBar Buttons\tool-previous.ico;System.Drawing.Icon, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="default_playlist" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\playlistButton\default_playlist.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="disabled_playlist" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\playlistButton\disabled_playlist.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="down_playlist" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\playlistButton\down_playlist.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="exists" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Shared\check images\exists.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="not_exists" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\shared\check images\not_exists.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\nextButton\default_next.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\openButton\default_open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\pauseButton\default_pause.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\playButton\default_play.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_playlist" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\playlistButton\default_playlist.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_previous" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\previousButton\default_previous.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_reverse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\reverseButton\default_reverse.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="disabled_mic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\mic image\disabled_mic.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="disabled_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\nextButton\disabled_next.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="disabled_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\pauseButton\disabled_pause.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="disabled_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\playButton\disabled_play.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="disabled_playlist" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\playlistButton\disabled_playlist.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="disabled_previous" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\previousButton\disabled_previous.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="disabled_reverse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\reverseButton\disabled_reverse.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="down_mic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\mic image\down_mic.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="down_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\nextButton\down_next.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="down_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\openButton\down_open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="down_pause" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\pauseButton\down_pause.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="down_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\playButton\down_play.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="down_playlist" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\playlistButton\down_playlist.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="down_previous" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\previousButton\down_previous.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="down_reverse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\reverseButton\down_reverse.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="enabled_mic" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\mic image\enabled_mic.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

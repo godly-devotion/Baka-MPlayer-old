@@ -755,7 +755,7 @@ namespace Baka_MPlayer.Forms
             if (!previousButton.Enabled)
                 return;
 
-            using (var drawFont = new Font("Segoe UI", 10f))
+            using (var drawFont = new Font("Segoe UI", 7f))
             {
                 var displayNum = playlist.GetPlayingItem.Index.ToString(CultureInfo.InvariantCulture);
                 var stringSize = new SizeF(e.Graphics.MeasureString(displayNum, drawFont));
@@ -776,7 +776,7 @@ namespace Baka_MPlayer.Forms
             if (!nextButton.Enabled)
                 return;
 
-            using (var drawFont = new Font("Segoe UI", 10f))
+            using (var drawFont = new Font("Segoe UI", 7f))
             {
                 var displayNum = (playlist.GetPlayingItem.Index + 2).ToString(CultureInfo.InvariantCulture);
                 var stringSize = new SizeF(e.Graphics.MeasureString(displayNum, drawFont));
