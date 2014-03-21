@@ -1499,10 +1499,10 @@ namespace Baka_MPlayer.Forms
             this.volumeBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
             this.volumeBar.DrawSemitransparentThumb = false;
             this.volumeBar.LargeChange = ((uint)(5u));
-            this.volumeBar.Location = new System.Drawing.Point(354, 10);
+            this.volumeBar.Location = new System.Drawing.Point(354, 8);
             this.volumeBar.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.volumeBar.Name = "volumeBar";
-            this.volumeBar.Size = new System.Drawing.Size(110, 20);
+            this.volumeBar.Size = new System.Drawing.Size(110, 25);
             this.volumeBar.SmallChange = ((uint)(1u));
             this.volumeBar.TabIndex = 1;
             this.volumeBar.TabStop = false;

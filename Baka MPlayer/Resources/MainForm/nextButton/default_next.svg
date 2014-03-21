@@ -1,107 +1,16 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   version="1.1"
-   id="Layer_1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="default_next.svg"
-   inkscape:export-xdpi="36.713268"
-   inkscape:export-filename="D:\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\Resources\MainForm\nextButton\default_next.png"
-   inkscape:export-ydpi="36.713268"
-   x="0px"
-   y="0px"
-   width="71.091461"
-   height="49.21035"
-   viewBox="0 0 71.091461 49.21035"
-   enable-background="new 0 0 100 100"
-   xml:space="preserve"><metadata
-   id="metadata8"><rdf:RDF><cc:Work
-       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
-   id="defs6" />
-<sodipodi:namedview
-   bordercolor="#666666"
-   pagecolor="#ffffff"
-   borderopacity="1"
-   objecttolerance="10"
-   gridtolerance="10"
-   guidetolerance="10"
-   showgrid="false"
-   showguides="true"
-   inkscape:zoom="4.2992092"
-   inkscape:cy="26.008587"
-   inkscape:cx="78.796677"
-   id="namedview3009"
-   inkscape:pageopacity="0"
-   inkscape:pageshadow="2"
-   inkscape:window-width="1920"
-   inkscape:window-height="1017"
-   inkscape:guide-bbox="true"
-   inkscape:snap-global="true"
-   inkscape:snap-page="true"
-   inkscape:snap-bbox="true"
-   inkscape:snap-center="true"
-   inkscape:window-x="-8"
-   inkscape:window-y="-8"
-   inkscape:window-maximized="1"
-   inkscape:current-layer="Layer_1"
-   inkscape:snap-object-midpoints="false"
-   inkscape:bbox-paths="true"
-   inkscape:bbox-nodes="true"
-   inkscape:snap-bbox-edge-midpoints="true"
-   inkscape:snap-bbox-midpoints="true"
-   fit-margin-top="0"
-   fit-margin-left="0"
-   fit-margin-right="0"
-   fit-margin-bottom="0">
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="Layer_1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" inkscape:version="0.48.4 r9939" sodipodi:docname="default_next.svg" inkscape:export-xdpi="36.713268" inkscape:export-filename="D:\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\Resources\MainForm\nextButton\default_next.png" inkscape:export-ydpi="36.713268"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="28.893px" height="20px"
+	 viewBox="21.099 14.605 28.893 20" enable-background="new 21.099 14.605 28.893 20" xml:space="preserve">
+<sodipodi:namedview  id="namedview3009" bordercolor="#666666" pagecolor="#ffffff" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" showgrid="false" showguides="true" inkscape:zoom="4.2992092" inkscape:cx="78.796677" inkscape:cy="26.008587" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1017" inkscape:guide-bbox="true" inkscape:snap-global="true" inkscape:snap-page="true" inkscape:snap-bbox="true" inkscape:snap-center="true" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="Layer_1" inkscape:snap-bbox-edge-midpoints="true" fit-margin-right="0" inkscape:snap-object-midpoints="false" inkscape:bbox-nodes="true" inkscape:snap-bbox-midpoints="true" inkscape:bbox-paths="true" fit-margin-bottom="0" fit-margin-top="0" fit-margin-left="0">
 	</sodipodi:namedview>
-<path
-   id="path2983"
-   sodipodi:arg2="1.0471976"
-   sodipodi:arg1="0"
-   sodipodi:r2="14.205805"
-   sodipodi:r1="28.41161"
-   sodipodi:cy="24.404701"
-   sodipodi:cx="2.7912109"
-   sodipodi:sides="3"
-   sodipodi:type="star"
-   inkscape:transform-center-x="-7.1029023"
-   inkscape:randomized="0"
-   inkscape:rounded="0"
-   inkscape:flatsided="false"
-   d="M 31.202821,24.404701 9.8941127,36.707289 -11.414594,49.009877 l 0,-24.605176 0,-24.60517549 L 9.8941139,12.102114 z"
-   transform="translate(11.414594,0.20047449)"
-   style="fill:#808080" />
-<path
-   id="path2983-1"
-   sodipodi:arg2="1.0471976"
-   sodipodi:arg1="0"
-   sodipodi:r2="14.205805"
-   sodipodi:r1="28.41161"
-   sodipodi:cy="24.404701"
-   sodipodi:cx="2.7912109"
-   sodipodi:sides="3"
-   sodipodi:type="star"
-   inkscape:transform-center-x="-7.1029023"
-   inkscape:randomized="0"
-   inkscape:rounded="0"
-   inkscape:flatsided="false"
-   d="M 31.202821,24.404701 9.8941127,36.707289 -11.414594,49.009877 l 0,-24.605176 0,-24.60517549 L 9.8941139,12.102114 z"
-   transform="translate(32.723301,0.20047449)"
-   style="fill:#808080" />
-<rect
-   style="fill:#808080;fill-opacity:1;stroke:none"
-   id="rect2985"
-   width="14.330682"
-   height="49.21035"
-   x="56.76078"
-   y="8.1385974e-007"
-   ry="3.0621336" /></svg>
+<path id="path2983" inkscape:transform-center-x="-7.1029023" inkscape:rounded="0" inkscape:flatsided="false" inkscape:randomized="0" sodipodi:r1="28.41161" sodipodi:arg1="0" sodipodi:cx="2.7912109" sodipodi:r2="14.205805" sodipodi:type="star" sodipodi:cy="24.404701" sodipodi:sides="3" sodipodi:arg2="1.0471976" fill="#808080" d="
+	M38.42,24.605l-8.66,5l-8.66,5v-10v-10l8.66,5L38.42,24.605z"/>
+<path id="path2983-1" inkscape:transform-center-x="-7.1029023" inkscape:rounded="0" inkscape:flatsided="false" inkscape:randomized="0" sodipodi:r1="28.41161" sodipodi:arg1="0" sodipodi:cx="2.7912109" sodipodi:r2="14.205805" sodipodi:type="star" sodipodi:cy="24.404701" sodipodi:sides="3" sodipodi:arg2="1.0471976" fill="#808080" d="
+	M47.08,24.605l-8.66,5l-8.66,5v-10v-10l8.66,5L47.08,24.605z"/>
+<path id="rect2985" fill="#808080" d="M45.412,14.605h3.335c0.687,0,1.245,0.557,1.245,1.245v17.511
+	c0,0.687-0.557,1.245-1.245,1.245h-3.335c-0.687,0-1.245-0.557-1.245-1.245V15.85C44.168,15.162,44.725,14.605,45.412,14.605z"/>
+</svg>

@@ -1,76 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   version="1.1"
-   id="Layer_1"
-   inkscape:export-ydpi="71.801628"
-   inkscape:export-filename="D:\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\Resources\MainForm\pauseButton\down_pause.png"
-   sodipodi:docname="down_pause.svg"
-   inkscape:export-xdpi="71.801628"
-   inkscape:version="0.48.4 r9939"
-   x="0px"
-   y="0px"
-   width="35.000492"
-   height="49.209999"
-   viewBox="0 0 35.000491 49.21"
-   enable-background="new 0 0 42.617 49.21"
-   xml:space="preserve"><metadata
-   id="metadata10"><rdf:RDF><cc:Work
-       rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
-   id="defs8" />
-<sodipodi:namedview
-   fit-margin-left="0"
-   fit-margin-top="0"
-   inkscape:cx="12.980213"
-   inkscape:cy="22.183031"
-   inkscape:zoom="4.2992092"
-   showguides="true"
-   showgrid="false"
-   guidetolerance="10"
-   gridtolerance="10"
-   objecttolerance="10"
-   borderopacity="1"
-   bordercolor="#666666"
-   pagecolor="#ffffff"
-   id="namedview3009"
-   fit-margin-bottom="0"
-   fit-margin-right="0"
-   inkscape:snap-bbox-midpoints="true"
-   inkscape:bbox-nodes="true"
-   inkscape:bbox-paths="true"
-   inkscape:snap-object-midpoints="false"
-   inkscape:current-layer="Layer_1"
-   inkscape:window-maximized="1"
-   inkscape:window-y="-8"
-   inkscape:window-x="-8"
-   inkscape:snap-center="true"
-   inkscape:snap-bbox="true"
-   inkscape:snap-page="true"
-   inkscape:snap-global="true"
-   inkscape:guide-bbox="true"
-   inkscape:window-height="1017"
-   inkscape:window-width="1920"
-   inkscape:pageshadow="2"
-   inkscape:pageopacity="0"
-   inkscape:snap-bbox-edge-midpoints="true">
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="Layer_1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" inkscape:version="0.48.4 r9939" sodipodi:docname="down_pause.svg" inkscape:export-xdpi="71.801628" inkscape:export-filename="D:\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\Resources\MainForm\pauseButton\down_pause.png" inkscape:export-ydpi="71.801628"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="27.74px" height="39px"
+	 viewBox="3.63 5.105 27.74 39" enable-background="new 3.63 5.105 27.74 39" xml:space="preserve">
+<sodipodi:namedview  id="namedview3009" bordercolor="#666666" pagecolor="#ffffff" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" showgrid="false" showguides="true" inkscape:zoom="4.2992092" inkscape:cx="12.980213" inkscape:cy="22.183031" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1017" inkscape:guide-bbox="true" inkscape:snap-global="true" inkscape:snap-page="true" inkscape:snap-bbox="true" inkscape:snap-center="true" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="Layer_1" inkscape:snap-bbox-edge-midpoints="true" fit-margin-right="0" inkscape:snap-object-midpoints="false" inkscape:bbox-nodes="true" inkscape:snap-bbox-midpoints="true" inkscape:bbox-paths="true" fit-margin-bottom="0" fit-margin-top="0" fit-margin-left="0">
 	</sodipodi:namedview>
-<path
-   d="m 13.80449,42.627 c 0,3.636 -3.090349,6.583 -6.9022456,6.583 l 0,0 C 3.090348,49.21 -8.1627647e-7,46.263 -8.1627647e-7,42.627 V 6.583 C -8.1627647e-7,2.947 3.090348,0 6.9022444,0 l 0,0 C 10.714141,0 13.80449,2.947 13.80449,6.583 v 36.044 z"
-   id="path4"
-   style="fill:#f5f5f5;fill-opacity:1"
-   inkscape:connector-curvature="0" />
-<path
-   d="m 35.000491,42.627 c 0,3.636 -3.090349,6.583 -6.902245,6.583 l 0,0 C 24.286349,49.21 21.196,46.263 21.196,42.627 V 6.583 C 21.195068,2.947 24.285417,0 28.098246,0 l 0,0 c 3.811896,0 6.902245,2.947 6.902245,6.583 v 36.044 z"
-   id="path6"
-   style="fill:#f5f5f5;fill-opacity:1"
-   inkscape:connector-curvature="0" />
+<path id="path4" inkscape:connector-curvature="0" fill="#F5F5F5" d="M14.571,38.888c0,2.882-2.449,5.217-5.471,5.217l0,0
+	c-3.02,0-5.471-2.336-5.471-5.217V10.322c0-2.882,2.449-5.217,5.471-5.217l0,0c3.02,0,5.471,2.336,5.471,5.217V38.888z"/>
+<path id="path6" inkscape:connector-curvature="0" fill="#F5F5F5" d="M31.369,38.888c0,2.882-2.449,5.217-5.471,5.217l0,0
+	c-3.02,0-5.471-2.336-5.471-5.217V10.322c-0.001-2.882,2.449-5.217,5.471-5.217l0,0c3.02,0,5.471,2.336,5.471,5.217V38.888z"/>
 </svg>

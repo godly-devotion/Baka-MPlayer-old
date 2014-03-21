@@ -484,8 +484,8 @@ namespace Baka_MPlayer.Controls
 
                 // adjust drawing rects
                 barRect = ClientRectangle;
-                
                 barRect.Inflate(0, (barHeight - barRect.Height) / 2);
+
                 elapsedRect = barRect;
                 elapsedRect.Width = thumbRect.Left + thumbSize.Width / 2;
 
