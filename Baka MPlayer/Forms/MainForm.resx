@@ -365,17 +365,15 @@
   </data>
   <data name="playButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAACIAAAAnCAYAAABqippxAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        CwAACwsBbQSEtwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAHcSURBVFhH5djP
-        RwRhHMfx3TqUraRbokSie0RiD9FfEB2SRIeif6BDh52dzW5WrNW5QyS2Q3ToHBGJiM6Jfki69btoen+z
-        D4/pqXa3nX2Glpd2Z77f5/lYT7MzTySRSOygz/O8iE0SxMMbcul0us1UVAsqiHLrOM5coVCoNxUHyR9E
-        OSHQiKkhKHqQFexqn8W267q9psZq04PMygG+iVHen2rHX7GcyWRa/c3V9CWIyOfzDXyex512/oaQM0Gt
-        H2MQhWPtWMV7sUYcY9hf+1c/BlGSyWQ/5/e0WrHF+ukx1VeipCAKNWM403pesMSrxVRfjrKCCOoasYD7
-        Yp+4Zv1M87fO1FOKsoMo1HdgDfr6OULcVP+bioMo9A1gXxtHbKLbVP+dPwdR6B/HuTbeExbRbKr3q1oQ
-        wRgxyOsBatwrTHE+6q/XVTWIkkqlOhlvXRtbHHIZGDLVi0CCKEw8yLgH2hxiA13+2kCDFEUZexKX2lyP
-        cBBTdbUI8imbzTYxhwtZxGrOC0xwPlqzIArzxPGszSty/+obsb9GrP/XWL+OMIb9Kyv9dn9r6LP760u9
-        3fsR6uzfoVFj957V+l08x+w+14TiSS8Mz76h2Q3QWd0fEdZ3jEKxhxaCXUUv8gERWXFprNOaxAAAAABJ
-        RU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAAB8AAAAoCAYAAAAG0SEsAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EwAACxMBAJqcGAAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAGZSURBVFhHvZcN
+        ccMwDEYDYRAKoRAKoRAGoRACYRAGYRAKYRAGoQy877uLdrKjOf6Rkrt3zRJFz1Yb2VvWdb2BL/CWUlrO
+        ROQJvMDdCopCywVW4WIFe2PJCavwsB7wpJR/q3PyBGFVyOS8gE8enLkMIKwKOznB+QVw1jIAwqpcJcYD
+        Uy7g2gPoKhAGZnGjVOUE18OqcCgXcP8Oyip8gOHm1CwnFAH2AT2AH3Cz4o/okguIdanCkJxQBCjUA2AV
+        mlv0sFzYnqdUD6JpoZqWE4pAWQV+LdUquMiFLVfZov9dqFzlAnLx0AMwW3SInCDfFVQXqjC5gLw89Gv5
+        V4VwOUFuVqHsC88zZs785qsYJmdyUH39QuRbznK2nyBrPK5yJgfNC4+bHM93LzbTciYHQ8vslBzPTG2z
+        huSIddladcsR57apbJbjPrtUOdusV/fSJMc9HlrKmU//I1GV49rhyjSDKcc5Xx8eWsrZvkuMBzv59vfQ
+        nqyXTA6692EzlHLNbiHwxpI3tUYPrLKHzlajf2CnzFZD+WkzzUnLL79sczaGDjGoAAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="trayIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

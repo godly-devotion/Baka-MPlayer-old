@@ -1055,10 +1055,10 @@ namespace Baka_MPlayer.Forms
             this.playButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.playButton.Enabled = false;
             this.playButton.Image = ((System.Drawing.Image)(resources.GetObject("playButton.Image")));
-            this.playButton.Location = new System.Drawing.Point(275, 0);
+            this.playButton.Location = new System.Drawing.Point(277, 0);
             this.playButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(34, 39);
+            this.playButton.Size = new System.Drawing.Size(31, 39);
             this.playButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.playButton.TabIndex = 0;
             this.playButton.TabStop = false;
@@ -1421,7 +1421,7 @@ namespace Baka_MPlayer.Forms
             this.nextButton.DisabledImage = ((System.Drawing.Image)(resources.GetObject("nextButton.DisabledImage")));
             this.nextButton.Enabled = false;
             this.nextButton.Image = ((System.Drawing.Image)(resources.GetObject("nextButton.Image")));
-            this.nextButton.Location = new System.Drawing.Point(319, 10);
+            this.nextButton.Location = new System.Drawing.Point(318, 10);
             this.nextButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.nextButton.MouseDownImage = ((System.Drawing.Image)(resources.GetObject("nextButton.MouseDownImage")));
             this.nextButton.Name = "nextButton";
@@ -1441,7 +1441,7 @@ namespace Baka_MPlayer.Forms
             this.previousButton.DisabledImage = ((System.Drawing.Image)(resources.GetObject("previousButton.DisabledImage")));
             this.previousButton.Enabled = false;
             this.previousButton.Image = ((System.Drawing.Image)(resources.GetObject("previousButton.Image")));
-            this.previousButton.Location = new System.Drawing.Point(236, 10);
+            this.previousButton.Location = new System.Drawing.Point(238, 10);
             this.previousButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.previousButton.MouseDownImage = ((System.Drawing.Image)(resources.GetObject("previousButton.MouseDownImage")));
             this.previousButton.Name = "previousButton";
@@ -1461,7 +1461,7 @@ namespace Baka_MPlayer.Forms
             this.rewindButton.DisabledImage = ((System.Drawing.Image)(resources.GetObject("rewindButton.DisabledImage")));
             this.rewindButton.Enabled = false;
             this.rewindButton.Image = ((System.Drawing.Image)(resources.GetObject("rewindButton.Image")));
-            this.rewindButton.Location = new System.Drawing.Point(201, 10);
+            this.rewindButton.Location = new System.Drawing.Point(203, 10);
             this.rewindButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.rewindButton.MouseDownImage = ((System.Drawing.Image)(resources.GetObject("rewindButton.MouseDownImage")));
             this.rewindButton.Name = "rewindButton";
@@ -1499,7 +1499,7 @@ namespace Baka_MPlayer.Forms
             this.volumeBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
             this.volumeBar.DrawSemitransparentThumb = false;
             this.volumeBar.LargeChange = ((uint)(5u));
-            this.volumeBar.Location = new System.Drawing.Point(358, 7);
+            this.volumeBar.Location = new System.Drawing.Point(357, 7);
             this.volumeBar.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
             this.volumeBar.Name = "volumeBar";
             this.volumeBar.Size = new System.Drawing.Size(110, 25);
