@@ -755,13 +755,13 @@ namespace Baka_MPlayer.Forms
             if (!previousButton.Enabled)
                 return;
 
-            using (var drawFont = new Font("Consolas", 7f))
+            using (var drawFont = new Font("Segoe UI Semibold", 10f))
             {
                 var displayNum = playlist.GetPlayingItem.Index.ToString(CultureInfo.InvariantCulture);
                 var stringSize = new SizeF(e.Graphics.MeasureString(displayNum, drawFont));
                 var x = ((previousButton.Width - stringSize.Width) / 2) + 5;
                 var y = (previousButton.Height - stringSize.Height) / 2;
-                e.Graphics.DrawString(displayNum, drawFont, new SolidBrush(Color.Black), x, y);
+                e.Graphics.DrawString(displayNum, drawFont, new SolidBrush(controlPanel.BackColor), x, y);
             }
         }
 
@@ -776,13 +776,13 @@ namespace Baka_MPlayer.Forms
             if (!nextButton.Enabled)
                 return;
 
-            using (var drawFont = new Font("Consolas", 7f))
+            using (var drawFont = new Font("Segoe UI Semibold", 10f))
             {
                 var displayNum = (playlist.GetPlayingItem.Index + 2).ToString(CultureInfo.InvariantCulture);
                 var stringSize = new SizeF(e.Graphics.MeasureString(displayNum, drawFont));
                 var x = ((nextButton.Width - stringSize.Width) / 2) - 5;
                 var y = (nextButton.Height - stringSize.Height) / 2;
-                e.Graphics.DrawString(displayNum, drawFont, new SolidBrush(Color.Black), x, y);
+                e.Graphics.DrawString(displayNum, drawFont, new SolidBrush(controlPanel.BackColor), x, y);
             }
         }
 
