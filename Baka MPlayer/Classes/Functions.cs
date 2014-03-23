@@ -83,6 +83,20 @@ namespace Functions
 
     public static class IO
     {
+        /// <summary>
+        /// Checks to see if file exists locally or is of valid url
+        /// </summary>
+        public static bool IsValidPath(string path)
+        {
+            try
+            {
+                return File.Exists(path) || Url.IsValidUrl(path);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         public static string GetDirectoryName(string path)
         {
             try

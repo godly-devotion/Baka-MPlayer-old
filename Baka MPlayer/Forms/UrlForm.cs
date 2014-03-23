@@ -42,7 +42,7 @@ namespace Baka_MPlayer.Forms
 
         public string Url
         {
-            get { return urlTextbox.Text.Replace("\"", ""); }
+            get { return urlTextbox.Text.Replace("\"", string.Empty); }
             set { urlTextbox.Text = value; }
         }
 
@@ -88,26 +88,18 @@ namespace Baka_MPlayer.Forms
 
         private void urlTextbox_TextChanged(object sender, EventArgs e)
         {
-            try
+            if (string.IsNullOrEmpty(Url))
             {
-                if (string.IsNullOrEmpty(Url))
-                {
-                    SetControls(false);
-                    return;
-                }
-
-                if (File.Exists(Url) || Functions.Url.IsValidUrl(Url))
-                {
-                    // local file or web file
-                    SetControls(true);
-                }
-                else
-                {
-                    fileTypeLabel.Text = "*.*";
-                    SetControls(false);
-                }
+                SetControls(false);
+                return;
             }
-            catch (ArgumentException)
+
+            // check if its valid file or url
+            if (Functions.IO.IsValidPath(Url))
+            {
+                SetControls(true);
+            }
+            else
             {
                 fileTypeLabel.Text = "*.*";
                 SetControls(false);

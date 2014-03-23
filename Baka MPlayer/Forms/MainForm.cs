@@ -946,9 +946,9 @@ namespace Baka_MPlayer.Forms
 
         private void openLocationFromClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string clipText = Clipboard.GetText();
+            var clipText = Clipboard.GetText().Replace("\"", string.Empty);
 
-            if (File.Exists(clipText) || Functions.Url.IsValidUrl(clipText))
+            if (Functions.IO.IsValidPath(clipText))
             {
                 mp.OpenFile(clipText);
             }
