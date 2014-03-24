@@ -64,7 +64,7 @@
             this.playlistList.MultiSelect = false;
             this.playlistList.Name = "playlistList";
             this.playlistList.ShowGroups = false;
-            this.playlistList.Size = new System.Drawing.Size(170, 255);
+            this.playlistList.Size = new System.Drawing.Size(170, 256);
             this.playlistList.TabIndex = 2;
             this.playlistList.TabStop = false;
             this.playlistList.UseCompatibleStateImageBehavior = false;
@@ -90,29 +90,28 @@
             this.currentFileButton,
             this.currentFileLabel,
             this.optionsDropDownButton});
-            this.playlistStatusStrip.Location = new System.Drawing.Point(0, 277);
+            this.playlistStatusStrip.Location = new System.Drawing.Point(0, 278);
             this.playlistStatusStrip.Name = "playlistStatusStrip";
-            this.playlistStatusStrip.Size = new System.Drawing.Size(170, 23);
+            this.playlistStatusStrip.Size = new System.Drawing.Size(170, 22);
             this.playlistStatusStrip.SizingGrip = false;
             this.playlistStatusStrip.TabIndex = 3;
             // 
             // currentFileButton
             // 
             this.currentFileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.currentFileButton.Font = new System.Drawing.Font("Wingdings 3", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.currentFileButton.Image = ((System.Drawing.Image)(resources.GetObject("currentFileButton.Image")));
             this.currentFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.currentFileButton.Name = "currentFileButton";
             this.currentFileButton.ShowDropDownArrow = false;
-            this.currentFileButton.Size = new System.Drawing.Size(26, 21);
-            this.currentFileButton.Text = "Ê";
+            this.currentFileButton.Size = new System.Drawing.Size(19, 20);
+            this.currentFileButton.Text = ">";
             this.currentFileButton.ToolTipText = "Select current file";
             this.currentFileButton.Click += new System.EventHandler(this.currentFileButton_Click);
             // 
             // currentFileLabel
             // 
             this.currentFileLabel.Name = "currentFileLabel";
-            this.currentFileLabel.Size = new System.Drawing.Size(99, 18);
+            this.currentFileLabel.Size = new System.Drawing.Size(101, 17);
             this.currentFileLabel.Spring = true;
             this.currentFileLabel.Text = "File 0 of 0";
             this.currentFileLabel.ToolTipText = "Click here to choose the index of the file to play";
@@ -127,8 +126,8 @@
             this.optionsDropDownButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.optionsDropDownButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.optionsDropDownButton.Name = "optionsDropDownButton";
-            this.optionsDropDownButton.Size = new System.Drawing.Size(30, 21);
-            this.optionsDropDownButton.Text = "▲";
+            this.optionsDropDownButton.Size = new System.Drawing.Size(35, 20);
+            this.optionsDropDownButton.Text = "•••";
             this.optionsDropDownButton.ToolTipText = "Playlist options";
             // 
             // showAllFilesToolStripMenuItem
