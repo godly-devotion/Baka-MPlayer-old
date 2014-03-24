@@ -45,6 +45,14 @@ namespace MPlayer.Info
         /// </summary>
         public string FileFormat { get; set; }
         /// <summary>
+        /// Selected audio codec
+        /// </summary>
+        public string AudioCodec { get; set; }
+        /// <summary>
+        /// Selected video codec
+        /// </summary>
+        public string VideoCodec { get; set; }
+        /// <summary>
         /// Returns file size in kilobytes
         /// </summary>
         public int FileSize { get; set; }
@@ -92,7 +100,10 @@ namespace MPlayer.Info
         /// Reset all info (always call before playing next file)
         /// </summary>
         public void ResetInfo()
-        {        
+        {
+            AudioCodec = string.Empty;
+            VideoCodec = string.Empty;
+
             // VideoInfo
             HasVideo = true;
             VideoWidth = 0;
@@ -100,17 +111,17 @@ namespace MPlayer.Info
 
             Id3Tags = new Id3Tag
             {
-                AlbumArtist = String.Empty,
-                Encoder = String.Empty,
-                Artist = String.Empty,
-                Genre = String.Empty,
-                Track = String.Empty,
+                AlbumArtist = string.Empty,
+                Encoder = string.Empty,
+                Artist = string.Empty,
+                Genre = string.Empty,
+                Track = string.Empty,
                 Disc = 0,
-                Title = String.Empty,
-                Album = String.Empty,
-                Date = String.Empty,
-                Comment = String.Empty,
-                Description = String.Empty,
+                Title = string.Empty,
+                Album = string.Empty,
+                Date = string.Empty,
+                Comment = string.Empty,
+                Description = string.Empty,
 
                 AlbumArtTag = null
             };

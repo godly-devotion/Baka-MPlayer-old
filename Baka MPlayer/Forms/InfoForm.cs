@@ -65,6 +65,18 @@ namespace Baka_MPlayer.Forms
             var lengthItem = new ListViewItem("Media length", infoList.Groups[0]);
             lengthItem.SubItems.Add(Functions.Time.ConvertSecondsToTime(mp.CurrentStatus.TotalLength));
 
+            var audCodecItem = new ListViewItem("Audio codec", infoList.Groups[0]);
+            if (!string.IsNullOrEmpty(mp.FileInfo.AudioCodec))
+                audCodecItem.SubItems.Add(mp.FileInfo.AudioCodec);
+            else
+                audCodecItem.SubItems.Add("n/a");
+
+            var vidCodecItem = new ListViewItem("Video codec", infoList.Groups[0]);
+            if (!string.IsNullOrEmpty(mp.FileInfo.VideoCodec))
+                vidCodecItem.SubItems.Add(mp.FileInfo.VideoCodec);
+            else
+                vidCodecItem.SubItems.Add("n/a");
+
             var dimensionsItem = new ListViewItem("Video dimensions", infoList.Groups[0]);
             dimensionsItem.SubItems.Add(string.Format("{0} x {1}", mp.FileInfo.VideoWidth, mp.FileInfo.VideoHeight));
 
@@ -74,7 +86,10 @@ namespace Baka_MPlayer.Forms
             else
                 modifiedItem.SubItems.Add(File.GetLastWriteTime(mp.FileInfo.Url).ToLocalTime().ToString(CultureInfo.InvariantCulture));
 
-            infoList.Items.AddRange(new[]{nameItem, typeItem, sizeItem, lengthItem, dimensionsItem, modifiedItem});
+            infoList.Items.AddRange(new[]
+            {
+                nameItem, typeItem, sizeItem, lengthItem, audCodecItem, vidCodecItem, dimensionsItem, modifiedItem
+            });
         }
 
         private void SetTagsInfo()

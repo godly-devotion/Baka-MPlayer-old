@@ -477,7 +477,7 @@ namespace mpv
                 return;
             }
 
-            if (e.Data.StartsWith("Detected file format: ") && string.IsNullOrEmpty(FileInfo.FileFormat))
+            if (e.Data.StartsWith("Detected file format: "))
             {
                 FileInfo.FileFormat = e.Data.Substring(22);
                 return;
@@ -486,6 +486,17 @@ namespace mpv
                 e.Data.StartsWith("Failed to open "))
             {
                 OnStatusChanged(new StatusChangedEventArgs("[ERROR] FAILED_TO_OPEN", true));
+                return;
+            }
+
+            if (e.Data.StartsWith("Selected audio codec: "))
+            {
+                FileInfo.AudioCodec = e.Data.Substring(22);
+                return;
+            }
+            if (e.Data.StartsWith("Selected video codec: "))
+            {
+                FileInfo.VideoCodec = e.Data.Substring(22);
                 return;
             }
 

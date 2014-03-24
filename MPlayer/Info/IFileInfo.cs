@@ -38,6 +38,14 @@ namespace MPlayer.Info
         /// </summary>
         string FileFormat { get; set; }
         /// <summary>
+        /// The selected audio codec
+        /// </summary>
+        string AudioCodec { get; set; }
+        /// <summary>
+        /// The selected video codec
+        /// </summary>
+        string VideoCodec { get; set; }
+        /// <summary>
         /// Returns file size in kilobytes
         /// </summary>
         int FileSize { get; set; }
