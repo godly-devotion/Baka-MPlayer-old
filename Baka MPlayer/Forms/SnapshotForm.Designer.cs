@@ -50,7 +50,7 @@
             this.sidePanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.sidePanel.Location = new System.Drawing.Point(0, 0);
             this.sidePanel.Name = "sidePanel";
-            this.sidePanel.Size = new System.Drawing.Size(202, 402);
+            this.sidePanel.Size = new System.Drawing.Size(202, 401);
             this.sidePanel.TabIndex = 0;
             // 
             // copyLink
@@ -81,7 +81,7 @@
             this.saveButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.saveButton.ForeColor = System.Drawing.Color.White;
             this.saveButton.IsDefaultButton = true;
-            this.saveButton.Location = new System.Drawing.Point(103, 359);
+            this.saveButton.Location = new System.Drawing.Point(103, 358);
             this.saveButton.Margin = new System.Windows.Forms.Padding(4);
             this.saveButton.Name = "saveButton";
             this.saveButton.Size = new System.Drawing.Size(85, 30);
@@ -102,7 +102,7 @@
             this.cancelButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cancelButton.ForeColor = System.Drawing.Color.White;
             this.cancelButton.IsDefaultButton = false;
-            this.cancelButton.Location = new System.Drawing.Point(13, 359);
+            this.cancelButton.Location = new System.Drawing.Point(13, 358);
             this.cancelButton.Margin = new System.Windows.Forms.Padding(4);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(85, 30);
@@ -114,7 +114,7 @@
             // 
             this.cleanNameCheckbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cleanNameCheckbox.AutoSize = true;
-            this.cleanNameCheckbox.Location = new System.Drawing.Point(13, 329);
+            this.cleanNameCheckbox.Location = new System.Drawing.Point(13, 328);
             this.cleanNameCheckbox.Name = "cleanNameCheckbox";
             this.cleanNameCheckbox.Size = new System.Drawing.Size(163, 23);
             this.cleanNameCheckbox.TabIndex = 2;
@@ -134,11 +134,11 @@
             // 
             // snapshotPicbox
             // 
-            this.snapshotPicbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.snapshotPicbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.snapshotPicbox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.snapshotPicbox.Location = new System.Drawing.Point(202, 0);
             this.snapshotPicbox.Name = "snapshotPicbox";
-            this.snapshotPicbox.Size = new System.Drawing.Size(532, 402);
+            this.snapshotPicbox.Size = new System.Drawing.Size(532, 401);
             this.snapshotPicbox.TabIndex = 1;
             this.snapshotPicbox.TabStop = false;
             this.snapshotPicbox.SizeChanged += new System.EventHandler(this.snapshotPicbox_SizeChanged);
@@ -149,7 +149,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(734, 402);
+            this.ClientSize = new System.Drawing.Size(734, 401);
             this.Controls.Add(this.snapshotPicbox);
             this.Controls.Add(this.sidePanel);
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
