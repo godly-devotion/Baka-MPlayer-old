@@ -477,7 +477,7 @@ namespace mpv
                 return;
             }
 
-            if (e.Data.StartsWith("Detected file format: "))
+            if (e.Data.StartsWith("Detected file format: ") && string.IsNullOrEmpty(FileInfo.FileFormat))
             {
                 FileInfo.FileFormat = e.Data.Substring(22);
                 return;
