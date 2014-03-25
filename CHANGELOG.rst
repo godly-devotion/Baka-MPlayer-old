@@ -1,8 +1,17 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.4.4 (2014-03-08)
+Latest Version 1.4.5 (2014-03-24)
 ---------------------------------
+
+- Fixed: Small bugs
+- Fixed: Small visual tweaks
+- Fixed: Remade the playback button graphics
+- Changed: Decrease playback button size
+- Added: Display selected audio/video codec in Info window
+
+Version 1.4.4 (2014-03-08)
+--------------------------
 
 - Note: This update came out fast. If you didn't upgrade to v1.4.3 yet, I recommend you read the Changelog. You might like the new features I've added in the previous build :)
 - Changed: Subtitle files will load automatically if it's in the same folder
