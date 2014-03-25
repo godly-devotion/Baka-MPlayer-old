@@ -120,45 +120,10 @@
   <metadata name="mainMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="quickButton.DefaultImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAB
-        xAAAAcQBaD85zwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEtSURBVDhPrZUx
-        joMwEEVB2oILcAWkbTkFRWoaakRBhyiB5U4cY++RK6T0zrMw65hJAhLFQ87Mny/bM5DIGLNjnuevYRhu
-        0zTN4zguwn1lIUYOjVa7C4j4W4p+pdi8Aw3asP5/EUWxCDvh4Rd+AG1H7c6QhCc8S/dkyNYleGZnIQ93
-        fNuAT3fWtq1FyznwwIvd3TSBT5ZlFi3ng1fEGGhJR1VVdMzCWtM4xPCHZjBnrwQmTdPNkDUxTbuyYMjA
-        aklTFMVm5iCmaVfuLw37vjdJkuwMiZHTagRrqB45z/OdmYOcViMsalPqujZxHKtmQA5NWGebQqvDRNM0
-        pizLt6AJ6/A6NNhH2Ab78lePB0jwuo+DXVz9+XKw9SN3isYd0+fph4PLpWPrSJ34CzDRH5PNlHwejs4k
-        AAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="quickButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAB
-        xAAAAcQBaD85zwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEtSURBVDhPrZUx
-        joMwEEVB2oILcAWkbTkFRWoaakRBhyiB5U4cY++RK6T0zrMw65hJAhLFQ87Mny/bM5DIGLNjnuevYRhu
-        0zTN4zguwn1lIUYOjVa7C4j4W4p+pdi8Aw3asP5/EUWxCDvh4Rd+AG1H7c6QhCc8S/dkyNYleGZnIQ93
-        fNuAT3fWtq1FyznwwIvd3TSBT5ZlFi3ng1fEGGhJR1VVdMzCWtM4xPCHZjBnrwQmTdPNkDUxTbuyYMjA
-        aklTFMVm5iCmaVfuLw37vjdJkuwMiZHTagRrqB45z/OdmYOcViMsalPqujZxHKtmQA5NWGebQqvDRNM0
-        pizLt6AJ6/A6NNhH2Ab78lePB0jwuo+DXVz9+XKw9SN3isYd0+fph4PLpWPrSJ34CzDRH5PNlHwejs4k
-        AAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="quickButton.MouseDownImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAB
-        xAAAAcQBaD85zwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEgSURBVDhPrZXN
-        DYMwDIUp6gCswSqILdigC7QLsAf3DIEEJ2ZA6gAg4Oj6uQlFiUt/xOGTgu33hIkTIiLSOE/TlDM3xjB3
-        C9aI5ajxNEIQGMcxZUHL0Ada1Pr67cNpnucLFy6ecI8FGmidz2pozTTRR6zpy9C2+cub+SyufRhiA3a/
-        Wdd1gpbb0MIr4gV2UytYybJM0HIeOQwxBlpSMMZwH5GAtVaz4QpDzJaWpGEYKE3T1RBrxLRai4EhBlZL
-        UlmWq5kDMa3Wcn9r2Pc9JUkSGCKGnKZhxFBtuSiKwMyBnKZhpOVgU+q6pjiOVTOAHGp8HSObEoxN0zRU
-        VdUuqPF1TP7VYH/Jc7BxXI4+esKhl4Pl2OvLYds/5ILd8ucvgKIHe4RK9B8VnKoAAAAASUVORK5CYII=
-</value>
-  </data>
   <metadata name="xToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>393, 17</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="nextButton.DefaultImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAB0AAAAUCAYAAABxnDbHAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAF

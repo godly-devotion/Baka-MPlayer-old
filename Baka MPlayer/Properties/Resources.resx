@@ -163,12 +163,6 @@
   <data name="not_exists" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\shared\check images\not_exists.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="default_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\openButton\default_open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="down_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MainForm\openButton\down_open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="default_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MainForm\nextButton\default_next.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -231,5 +225,11 @@
   </data>
   <data name="down_play" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MainForm\playButton\down_play.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="default_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\openButton\default_open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="down_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MainForm\openButton\down_open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

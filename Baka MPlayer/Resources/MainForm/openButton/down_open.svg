@@ -2,11 +2,12 @@
 <!-- Generator: Adobe Illustrator 17.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1"
-	 id="Layer_1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" inkscape:version="0.48.4 r9939" sodipodi:docname="down_open.svg" inkscape:export-xdpi="11.487798" inkscape:export-filename="D:\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\Resources\MainForm\openButton\down_open.png" inkscape:export-ydpi="11.487798"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="20px" height="20px"
-	 viewBox="40 40 20 20" enable-background="new 40 40 20 20" xml:space="preserve">
-<sodipodi:namedview  bordercolor="#666666" pagecolor="#ffffff" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" showgrid="false" showguides="true" inkscape:zoom="4.2992092" inkscape:cy="51.549409" inkscape:cx="15.195835" id="namedview3009" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="1920" inkscape:window-height="1017" inkscape:guide-bbox="true" inkscape:snap-global="true" inkscape:snap-page="true" inkscape:snap-bbox="true" inkscape:snap-center="true" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="Layer_1">
+	 id="Layer_1" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" inkscape:export-ydpi="11.487798" inkscape:export-filename="D:\Files\Programming\Baka MPlayer (Git)\Baka MPlayer\Resources\MainForm\openButton\down_open.png" sodipodi:docname="down_open.svg" inkscape:export-xdpi="11.487798" inkscape:version="0.48.4 r9939"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="19px" height="19px"
+	 viewBox="0.5 0.5 19 19" enable-background="new 0.5 0.5 19 19" xml:space="preserve">
+<sodipodi:namedview  id="namedview3009" inkscape:cx="15.195835" inkscape:cy="51.549409" inkscape:zoom="4.2992092" showguides="true" showgrid="false" guidetolerance="10" gridtolerance="10" objecttolerance="10" borderopacity="1" pagecolor="#ffffff" bordercolor="#666666" inkscape:current-layer="Layer_1" inkscape:window-maximized="1" inkscape:window-y="-8" inkscape:window-x="-8" inkscape:snap-center="true" inkscape:snap-bbox="true" inkscape:snap-page="true" inkscape:snap-global="true" inkscape:guide-bbox="true" inkscape:window-height="1017" inkscape:window-width="1920" inkscape:pageshadow="2" inkscape:pageopacity="0">
 	</sodipodi:namedview>
-<path id="path3015" fill="#F5F5F5" d="M50,40c-5.523,0-10,4.477-10,10s4.477,10,10,10s10-4.477,10-10S55.523,40,50,40z"/>
-<polygon id="polygon3025" points="50,53.191 45.357,53.191 47.679,49.17 50,45.15 52.321,49.17 54.643,53.191 "/>
+<path id="path3015" fill="#F5F5F5" d="M10,0.5c-5.247,0-9.5,4.253-9.5,9.5s4.253,9.5,9.5,9.5s9.5-4.253,9.5-9.5S15.247,0.5,10,0.5z"
+	/>
+<polygon id="polygon3025" points="10,12.869 5.589,12.869 7.795,9.05 10,5.231 12.205,9.05 14.411,12.869 "/>
 </svg>

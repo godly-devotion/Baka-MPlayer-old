@@ -127,16 +127,27 @@ namespace Baka_MPlayer.Forms
             this.aboutBakaMPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.controlPanel = new System.Windows.Forms.Panel();
+            this.audioLevelBar = new Baka_MPlayer.Controls.AudioLevelBar();
+            this.quickButton = new Baka_MPlayer.Controls.MediaButton();
+            this.nextButton = new Baka_MPlayer.Controls.MediaButton();
+            this.previousButton = new Baka_MPlayer.Controls.MediaButton();
+            this.rewindButton = new Baka_MPlayer.Controls.MediaButton();
+            this.playlistButton = new Baka_MPlayer.Controls.MediaButton();
             this.speechButton = new System.Windows.Forms.PictureBox();
+            this.volumeBar = new Baka_MPlayer.Controls.ColorSlider();
             this.playButton = new System.Windows.Forms.PictureBox();
             this.seekPanel = new System.Windows.Forms.Panel();
+            this.seekBar = new Baka_MPlayer.Controls.ColorSlider();
             this.timeLeftLabel = new System.Windows.Forms.Label();
             this.durationLabel = new System.Windows.Forms.Label();
             this.bodySplitContainer = new System.Windows.Forms.SplitContainer();
             this.mplayerSplitContainer = new System.Windows.Forms.SplitContainer();
             this.statusLabel = new System.Windows.Forms.Label();
             this.albumArtPicbox = new System.Windows.Forms.PictureBox();
+            this.mplayerPanel = new Baka_MPlayer.Controls.VO_Panel();
             this.outputTextbox = new System.Windows.Forms.RichTextBox();
+            this.inputTextbox = new Baka_MPlayer.Controls.CustomTextBox();
+            this.playlist = new Baka_MPlayer.Controls.PlaylistControl();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayContextMenu = new System.Windows.Forms.ContextMenu();
             this.showMenuItem = new System.Windows.Forms.MenuItem();
@@ -155,19 +166,13 @@ namespace Baka_MPlayer.Forms
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
-            this.mplayerPanel = new Baka_MPlayer.Controls.VO_Panel();
-            this.inputTextbox = new Baka_MPlayer.Controls.CustomTextBox();
-            this.playlist = new Baka_MPlayer.Controls.PlaylistControl();
-            this.seekBar = new Baka_MPlayer.Controls.ColorSlider();
-            this.audioLevelBar = new Baka_MPlayer.Controls.AudioLevelBar();
-            this.quickButton = new Baka_MPlayer.Controls.MediaButton();
-            this.nextButton = new Baka_MPlayer.Controls.MediaButton();
-            this.previousButton = new Baka_MPlayer.Controls.MediaButton();
-            this.rewindButton = new Baka_MPlayer.Controls.MediaButton();
-            this.playlistButton = new Baka_MPlayer.Controls.MediaButton();
-            this.volumeBar = new Baka_MPlayer.Controls.ColorSlider();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.quickButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nextButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.previousButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rewindButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playlistButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.speechButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.playButton)).BeginInit();
             this.seekPanel.SuspendLayout();
@@ -178,11 +183,6 @@ namespace Baka_MPlayer.Forms
             this.mplayerSplitContainer.Panel2.SuspendLayout();
             this.mplayerSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.albumArtPicbox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.quickButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nextButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.previousButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rewindButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.playlistButton)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -1031,6 +1031,117 @@ namespace Baka_MPlayer.Forms
             this.controlPanel.TabIndex = 1;
             this.controlPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
+            // audioLevelBar
+            // 
+            this.audioLevelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.audioLevelBar.Location = new System.Drawing.Point(68, 11);
+            this.audioLevelBar.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
+            this.audioLevelBar.Maximum = 100;
+            this.audioLevelBar.Minimum = 0;
+            this.audioLevelBar.Name = "audioLevelBar";
+            this.audioLevelBar.ProgressBarColor = System.Drawing.Color.DodgerBlue;
+            this.audioLevelBar.Size = new System.Drawing.Size(2, 25);
+            this.audioLevelBar.TabIndex = 0;
+            this.audioLevelBar.TabStop = false;
+            this.audioLevelBar.Value = 0;
+            this.audioLevelBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
+            // 
+            // quickButton
+            // 
+            this.quickButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.quickButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.quickButton.DefaultImage = global::Baka_MPlayer.Properties.Resources.default_open;
+            this.quickButton.DisabledImage = null;
+            this.quickButton.Image = global::Baka_MPlayer.Properties.Resources.default_open;
+            this.quickButton.Location = new System.Drawing.Point(12, 10);
+            this.quickButton.MouseDownImage = global::Baka_MPlayer.Properties.Resources.down_open;
+            this.quickButton.Name = "quickButton";
+            this.quickButton.Size = new System.Drawing.Size(20, 20);
+            this.quickButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.quickButton.TabIndex = 12;
+            this.quickButton.TabStop = false;
+            this.xToolTip.SetToolTip(this.quickButton, "Left Click to Open File\r\nMouse Wheel Click to Jump\r\nRight Click to Open URL");
+            this.quickButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.quickButton_MouseClick);
+            // 
+            // nextButton
+            // 
+            this.nextButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.nextButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.nextButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.nextButton.DefaultImage = ((System.Drawing.Image)(resources.GetObject("nextButton.DefaultImage")));
+            this.nextButton.DisabledImage = ((System.Drawing.Image)(resources.GetObject("nextButton.DisabledImage")));
+            this.nextButton.Enabled = false;
+            this.nextButton.Image = ((System.Drawing.Image)(resources.GetObject("nextButton.Image")));
+            this.nextButton.Location = new System.Drawing.Point(318, 10);
+            this.nextButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.nextButton.MouseDownImage = ((System.Drawing.Image)(resources.GetObject("nextButton.MouseDownImage")));
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(29, 20);
+            this.nextButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.nextButton.TabIndex = 11;
+            this.nextButton.TabStop = false;
+            this.nextButton.Paint += new System.Windows.Forms.PaintEventHandler(this.nextButton_Paint);
+            this.nextButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.nextButton_MouseClick);
+            // 
+            // previousButton
+            // 
+            this.previousButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.previousButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.previousButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.previousButton.DefaultImage = ((System.Drawing.Image)(resources.GetObject("previousButton.DefaultImage")));
+            this.previousButton.DisabledImage = ((System.Drawing.Image)(resources.GetObject("previousButton.DisabledImage")));
+            this.previousButton.Enabled = false;
+            this.previousButton.Image = ((System.Drawing.Image)(resources.GetObject("previousButton.Image")));
+            this.previousButton.Location = new System.Drawing.Point(238, 10);
+            this.previousButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.previousButton.MouseDownImage = ((System.Drawing.Image)(resources.GetObject("previousButton.MouseDownImage")));
+            this.previousButton.Name = "previousButton";
+            this.previousButton.Size = new System.Drawing.Size(29, 20);
+            this.previousButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.previousButton.TabIndex = 10;
+            this.previousButton.TabStop = false;
+            this.previousButton.Paint += new System.Windows.Forms.PaintEventHandler(this.previousButton_Paint);
+            this.previousButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.previousButton_MouseClick);
+            // 
+            // rewindButton
+            // 
+            this.rewindButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.rewindButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.rewindButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.rewindButton.DefaultImage = ((System.Drawing.Image)(resources.GetObject("rewindButton.DefaultImage")));
+            this.rewindButton.DisabledImage = ((System.Drawing.Image)(resources.GetObject("rewindButton.DisabledImage")));
+            this.rewindButton.Enabled = false;
+            this.rewindButton.Image = ((System.Drawing.Image)(resources.GetObject("rewindButton.Image")));
+            this.rewindButton.Location = new System.Drawing.Point(203, 10);
+            this.rewindButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.rewindButton.MouseDownImage = ((System.Drawing.Image)(resources.GetObject("rewindButton.MouseDownImage")));
+            this.rewindButton.Name = "rewindButton";
+            this.rewindButton.Size = new System.Drawing.Size(25, 20);
+            this.rewindButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.rewindButton.TabIndex = 9;
+            this.rewindButton.TabStop = false;
+            this.xToolTip.SetToolTip(this.rewindButton, "Click to Rewind\r\nDouble Click to Stop");
+            this.rewindButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rewindButton_MouseClick);
+            this.rewindButton.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.rewindButton_MouseDoubleClick);
+            // 
+            // playlistButton
+            // 
+            this.playlistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.playlistButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.playlistButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.playlistButton.DefaultImage = ((System.Drawing.Image)(resources.GetObject("playlistButton.DefaultImage")));
+            this.playlistButton.DisabledImage = ((System.Drawing.Image)(resources.GetObject("playlistButton.DisabledImage")));
+            this.playlistButton.Enabled = false;
+            this.playlistButton.Image = ((System.Drawing.Image)(resources.GetObject("playlistButton.Image")));
+            this.playlistButton.Location = new System.Drawing.Point(552, 10);
+            this.playlistButton.MouseDownImage = ((System.Drawing.Image)(resources.GetObject("playlistButton.MouseDownImage")));
+            this.playlistButton.Name = "playlistButton";
+            this.playlistButton.Size = new System.Drawing.Size(20, 20);
+            this.playlistButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.playlistButton.TabIndex = 8;
+            this.playlistButton.TabStop = false;
+            this.playlistButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.playlistButton_MouseClick);
+            // 
             // speechButton
             // 
             this.speechButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
@@ -1047,6 +1158,28 @@ namespace Baka_MPlayer.Forms
             this.speechButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.speechButton_MouseClick);
             this.speechButton.MouseDown += new System.Windows.Forms.MouseEventHandler(this.speechButton_MouseDown);
             this.speechButton.MouseUp += new System.Windows.Forms.MouseEventHandler(this.speechButton_MouseUp);
+            // 
+            // volumeBar
+            // 
+            this.volumeBar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.volumeBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.volumeBar.BarHeight = 1;
+            this.volumeBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
+            this.volumeBar.DrawSemitransparentThumb = false;
+            this.volumeBar.LargeChange = ((uint)(5u));
+            this.volumeBar.Location = new System.Drawing.Point(357, 7);
+            this.volumeBar.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
+            this.volumeBar.Name = "volumeBar";
+            this.volumeBar.Size = new System.Drawing.Size(110, 25);
+            this.volumeBar.SmallChange = ((uint)(1u));
+            this.volumeBar.TabIndex = 1;
+            this.volumeBar.TabStop = false;
+            this.volumeBar.ThumbBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.volumeBar.ThumbFirstColor = System.Drawing.Color.Silver;
+            this.volumeBar.ThumbRoundRectSize = new System.Drawing.Size(14, 16);
+            this.volumeBar.ThumbSecondColor = System.Drawing.Color.DarkGray;
+            this.volumeBar.ThumbSize = new System.Drawing.Size(16, 14);
+            this.volumeBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.volumeBar_Scroll);
             // 
             // playButton
             // 
@@ -1076,6 +1209,30 @@ namespace Baka_MPlayer.Forms
             this.seekPanel.Name = "seekPanel";
             this.seekPanel.Size = new System.Drawing.Size(584, 14);
             this.seekPanel.TabIndex = 0;
+            // 
+            // seekBar
+            // 
+            this.seekBar.BackColor = System.Drawing.Color.Transparent;
+            this.seekBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
+            this.seekBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.seekBar.Enabled = false;
+            this.seekBar.LargeChange = ((uint)(5u));
+            this.seekBar.Location = new System.Drawing.Point(65, 0);
+            this.seekBar.Maximum = 1000000;
+            this.seekBar.Name = "seekBar";
+            this.seekBar.Size = new System.Drawing.Size(449, 14);
+            this.seekBar.SmallChange = ((uint)(1u));
+            this.seekBar.TabIndex = 1;
+            this.seekBar.TabStop = false;
+            this.seekBar.ThumbBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.seekBar.ThumbFirstColor = System.Drawing.Color.Silver;
+            this.seekBar.ThumbRoundRectSize = new System.Drawing.Size(12, 12);
+            this.seekBar.ThumbSecondColor = System.Drawing.Color.DarkGray;
+            this.seekBar.ThumbSize = new System.Drawing.Size(20, 11);
+            this.seekBar.Value = 0;
+            this.seekBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseDown);
+            this.seekBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseMove);
+            this.seekBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseUp);
             // 
             // timeLeftLabel
             // 
@@ -1182,6 +1339,18 @@ namespace Baka_MPlayer.Forms
             this.albumArtPicbox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.albumArtPicbox_MouseClick);
             this.albumArtPicbox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
             // 
+            // mplayerPanel
+            // 
+            this.mplayerPanel.BackColor = System.Drawing.Color.Black;
+            this.mplayerPanel.Location = new System.Drawing.Point(0, 0);
+            this.mplayerPanel.Name = "mplayerPanel";
+            this.mplayerPanel.Size = new System.Drawing.Size(410, 204);
+            this.mplayerPanel.TabIndex = 0;
+            this.mplayerPanel.Visible = false;
+            this.mplayerPanel.MouseDoubleClickFixed += new System.Windows.Forms.MouseEventHandler(this.mplayerPanel_MouseDoubleClickFixed);
+            this.mplayerPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mplayerPanel_MouseClick);
+            this.mplayerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
+            // 
             // outputTextbox
             // 
             this.outputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
@@ -1197,6 +1366,35 @@ namespace Baka_MPlayer.Forms
             this.outputTextbox.TabIndex = 0;
             this.outputTextbox.TabStop = false;
             this.outputTextbox.Text = "Baka MPlayer Loaded...";
+            // 
+            // inputTextbox
+            // 
+            this.inputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.inputTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inputTextbox.CueText = "> Insert command here";
+            this.inputTextbox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.inputTextbox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.inputTextbox.ForeColor = System.Drawing.Color.White;
+            this.inputTextbox.Location = new System.Drawing.Point(0, 72);
+            this.inputTextbox.Name = "inputTextbox";
+            this.inputTextbox.Size = new System.Drawing.Size(410, 23);
+            this.inputTextbox.TabIndex = 1;
+            this.inputTextbox.TabStop = false;
+            this.inputTextbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputTextbox_KeyDown);
+            // 
+            // playlist
+            // 
+            this.playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.playlist.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playlist.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.playlist.ForeColor = System.Drawing.Color.White;
+            this.playlist.Location = new System.Drawing.Point(0, 0);
+            this.playlist.Margin = new System.Windows.Forms.Padding(4);
+            this.playlist.Name = "playlist";
+            this.playlist.SelectedIndex = -1;
+            this.playlist.Size = new System.Drawing.Size(170, 312);
+            this.playlist.TabIndex = 0;
+            this.playlist.TabStop = false;
             // 
             // trayIcon
             // 
@@ -1315,204 +1513,6 @@ namespace Baka_MPlayer.Forms
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
             // 
-            // mplayerPanel
-            // 
-            this.mplayerPanel.BackColor = System.Drawing.Color.Black;
-            this.mplayerPanel.Location = new System.Drawing.Point(0, 0);
-            this.mplayerPanel.Name = "mplayerPanel";
-            this.mplayerPanel.Size = new System.Drawing.Size(410, 204);
-            this.mplayerPanel.TabIndex = 0;
-            this.mplayerPanel.Visible = false;
-            this.mplayerPanel.MouseDoubleClickFixed += new System.Windows.Forms.MouseEventHandler(this.mplayerPanel_MouseDoubleClickFixed);
-            this.mplayerPanel.MouseClick += new System.Windows.Forms.MouseEventHandler(this.mplayerPanel_MouseClick);
-            this.mplayerPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
-            // 
-            // inputTextbox
-            // 
-            this.inputTextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.inputTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inputTextbox.CueText = "> Insert command here";
-            this.inputTextbox.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.inputTextbox.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.inputTextbox.ForeColor = System.Drawing.Color.White;
-            this.inputTextbox.Location = new System.Drawing.Point(0, 72);
-            this.inputTextbox.Name = "inputTextbox";
-            this.inputTextbox.Size = new System.Drawing.Size(410, 23);
-            this.inputTextbox.TabIndex = 1;
-            this.inputTextbox.TabStop = false;
-            this.inputTextbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputTextbox_KeyDown);
-            // 
-            // playlist
-            // 
-            this.playlist.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.playlist.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.playlist.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.playlist.ForeColor = System.Drawing.Color.White;
-            this.playlist.Location = new System.Drawing.Point(0, 0);
-            this.playlist.Margin = new System.Windows.Forms.Padding(4);
-            this.playlist.Name = "playlist";
-            this.playlist.SelectedIndex = -1;
-            this.playlist.Size = new System.Drawing.Size(170, 312);
-            this.playlist.TabIndex = 0;
-            this.playlist.TabStop = false;
-            // 
-            // seekBar
-            // 
-            this.seekBar.BackColor = System.Drawing.Color.Transparent;
-            this.seekBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
-            this.seekBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.seekBar.Enabled = false;
-            this.seekBar.LargeChange = ((uint)(5u));
-            this.seekBar.Location = new System.Drawing.Point(65, 0);
-            this.seekBar.Maximum = 1000000;
-            this.seekBar.Name = "seekBar";
-            this.seekBar.Size = new System.Drawing.Size(449, 14);
-            this.seekBar.SmallChange = ((uint)(1u));
-            this.seekBar.TabIndex = 1;
-            this.seekBar.TabStop = false;
-            this.seekBar.ThumbBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.seekBar.ThumbFirstColor = System.Drawing.Color.Silver;
-            this.seekBar.ThumbRoundRectSize = new System.Drawing.Size(12, 12);
-            this.seekBar.ThumbSecondColor = System.Drawing.Color.DarkGray;
-            this.seekBar.ThumbSize = new System.Drawing.Size(20, 11);
-            this.seekBar.Value = 0;
-            this.seekBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseDown);
-            this.seekBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseMove);
-            this.seekBar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.seekBar_MouseUp);
-            // 
-            // audioLevelBar
-            // 
-            this.audioLevelBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.audioLevelBar.Location = new System.Drawing.Point(68, 11);
-            this.audioLevelBar.Margin = new System.Windows.Forms.Padding(0, 4, 4, 4);
-            this.audioLevelBar.Maximum = 100;
-            this.audioLevelBar.Minimum = 0;
-            this.audioLevelBar.Name = "audioLevelBar";
-            this.audioLevelBar.ProgressBarColor = System.Drawing.Color.DodgerBlue;
-            this.audioLevelBar.Size = new System.Drawing.Size(2, 25);
-            this.audioLevelBar.TabIndex = 0;
-            this.audioLevelBar.TabStop = false;
-            this.audioLevelBar.Value = 0;
-            this.audioLevelBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DraggableWindow_MouseDown);
-            // 
-            // quickButton
-            // 
-            this.quickButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.quickButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.quickButton.DefaultImage = ((System.Drawing.Image)(resources.GetObject("quickButton.DefaultImage")));
-            this.quickButton.DisabledImage = null;
-            this.quickButton.Image = ((System.Drawing.Image)(resources.GetObject("quickButton.Image")));
-            this.quickButton.Location = new System.Drawing.Point(12, 10);
-            this.quickButton.MouseDownImage = ((System.Drawing.Image)(resources.GetObject("quickButton.MouseDownImage")));
-            this.quickButton.Name = "quickButton";
-            this.quickButton.Size = new System.Drawing.Size(20, 20);
-            this.quickButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.quickButton.TabIndex = 12;
-            this.quickButton.TabStop = false;
-            this.xToolTip.SetToolTip(this.quickButton, "Left Click to Open File\r\nMouse Wheel Click to Jump\r\nRight Click to Open URL");
-            this.quickButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.quickButton_MouseClick);
-            // 
-            // nextButton
-            // 
-            this.nextButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.nextButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.nextButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.nextButton.DefaultImage = ((System.Drawing.Image)(resources.GetObject("nextButton.DefaultImage")));
-            this.nextButton.DisabledImage = ((System.Drawing.Image)(resources.GetObject("nextButton.DisabledImage")));
-            this.nextButton.Enabled = false;
-            this.nextButton.Image = ((System.Drawing.Image)(resources.GetObject("nextButton.Image")));
-            this.nextButton.Location = new System.Drawing.Point(318, 10);
-            this.nextButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.nextButton.MouseDownImage = ((System.Drawing.Image)(resources.GetObject("nextButton.MouseDownImage")));
-            this.nextButton.Name = "nextButton";
-            this.nextButton.Size = new System.Drawing.Size(29, 20);
-            this.nextButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.nextButton.TabIndex = 11;
-            this.nextButton.TabStop = false;
-            this.nextButton.Paint += new System.Windows.Forms.PaintEventHandler(this.nextButton_Paint);
-            this.nextButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.nextButton_MouseClick);
-            // 
-            // previousButton
-            // 
-            this.previousButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.previousButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.previousButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.previousButton.DefaultImage = ((System.Drawing.Image)(resources.GetObject("previousButton.DefaultImage")));
-            this.previousButton.DisabledImage = ((System.Drawing.Image)(resources.GetObject("previousButton.DisabledImage")));
-            this.previousButton.Enabled = false;
-            this.previousButton.Image = ((System.Drawing.Image)(resources.GetObject("previousButton.Image")));
-            this.previousButton.Location = new System.Drawing.Point(238, 10);
-            this.previousButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.previousButton.MouseDownImage = ((System.Drawing.Image)(resources.GetObject("previousButton.MouseDownImage")));
-            this.previousButton.Name = "previousButton";
-            this.previousButton.Size = new System.Drawing.Size(29, 20);
-            this.previousButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.previousButton.TabIndex = 10;
-            this.previousButton.TabStop = false;
-            this.previousButton.Paint += new System.Windows.Forms.PaintEventHandler(this.previousButton_Paint);
-            this.previousButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.previousButton_MouseClick);
-            // 
-            // rewindButton
-            // 
-            this.rewindButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.rewindButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.rewindButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rewindButton.DefaultImage = ((System.Drawing.Image)(resources.GetObject("rewindButton.DefaultImage")));
-            this.rewindButton.DisabledImage = ((System.Drawing.Image)(resources.GetObject("rewindButton.DisabledImage")));
-            this.rewindButton.Enabled = false;
-            this.rewindButton.Image = ((System.Drawing.Image)(resources.GetObject("rewindButton.Image")));
-            this.rewindButton.Location = new System.Drawing.Point(203, 10);
-            this.rewindButton.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.rewindButton.MouseDownImage = ((System.Drawing.Image)(resources.GetObject("rewindButton.MouseDownImage")));
-            this.rewindButton.Name = "rewindButton";
-            this.rewindButton.Size = new System.Drawing.Size(25, 20);
-            this.rewindButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.rewindButton.TabIndex = 9;
-            this.rewindButton.TabStop = false;
-            this.xToolTip.SetToolTip(this.rewindButton, "Click to Rewind\r\nDouble Click to Stop");
-            this.rewindButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.rewindButton_MouseClick);
-            this.rewindButton.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.rewindButton_MouseDoubleClick);
-            // 
-            // playlistButton
-            // 
-            this.playlistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.playlistButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.playlistButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.playlistButton.DefaultImage = ((System.Drawing.Image)(resources.GetObject("playlistButton.DefaultImage")));
-            this.playlistButton.DisabledImage = ((System.Drawing.Image)(resources.GetObject("playlistButton.DisabledImage")));
-            this.playlistButton.Enabled = false;
-            this.playlistButton.Image = ((System.Drawing.Image)(resources.GetObject("playlistButton.Image")));
-            this.playlistButton.Location = new System.Drawing.Point(552, 10);
-            this.playlistButton.MouseDownImage = ((System.Drawing.Image)(resources.GetObject("playlistButton.MouseDownImage")));
-            this.playlistButton.Name = "playlistButton";
-            this.playlistButton.Size = new System.Drawing.Size(20, 20);
-            this.playlistButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.playlistButton.TabIndex = 8;
-            this.playlistButton.TabStop = false;
-            this.playlistButton.MouseClick += new System.Windows.Forms.MouseEventHandler(this.playlistButton_MouseClick);
-            // 
-            // volumeBar
-            // 
-            this.volumeBar.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.volumeBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.volumeBar.BarHeight = 1;
-            this.volumeBar.BorderRoundRectSize = new System.Drawing.Size(1, 1);
-            this.volumeBar.DrawSemitransparentThumb = false;
-            this.volumeBar.LargeChange = ((uint)(5u));
-            this.volumeBar.Location = new System.Drawing.Point(357, 7);
-            this.volumeBar.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.volumeBar.Name = "volumeBar";
-            this.volumeBar.Size = new System.Drawing.Size(110, 25);
-            this.volumeBar.SmallChange = ((uint)(1u));
-            this.volumeBar.TabIndex = 1;
-            this.volumeBar.TabStop = false;
-            this.volumeBar.ThumbBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.volumeBar.ThumbFirstColor = System.Drawing.Color.Silver;
-            this.volumeBar.ThumbRoundRectSize = new System.Drawing.Size(14, 16);
-            this.volumeBar.ThumbSecondColor = System.Drawing.Color.DarkGray;
-            this.volumeBar.ThumbSize = new System.Drawing.Size(16, 14);
-            this.volumeBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.volumeBar_Scroll);
-            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -1542,6 +1542,11 @@ namespace Baka_MPlayer.Forms
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.controlPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.quickButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nextButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.previousButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rewindButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playlistButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.speechButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.playButton)).EndInit();
             this.seekPanel.ResumeLayout(false);
@@ -1554,11 +1559,6 @@ namespace Baka_MPlayer.Forms
             this.mplayerSplitContainer.Panel2.PerformLayout();
             this.mplayerSplitContainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.albumArtPicbox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.quickButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nextButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.previousButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.rewindButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.playlistButton)).EndInit();
             this.ResumeLayout(false);
 
         }
