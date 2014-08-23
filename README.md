@@ -1,5 +1,16 @@
 # [Baka MPlayer](http://bakamplayer.u8sand.net)
 
+## News Update 2014-08-22
+
+If you've visited this page or used Baka MPlayer before, you've probably noticed that there was no new updates after March 24th. I am please to announce that we are working on the next generation of Baka MPlayer.
+So what's changed?
+
+* The new Baka MPlayer has been coded from the ground up by a different, more experienced programmer.
+* We've switched from mpv to **libmpv**, making it easier to update our code.
+* We've switched from .Net to Qt thereby achieving a faster, lighter, and best of all, cross-platform media player.
+
+**View the code at https://github.com/u8sand/Baka-MPlayer**
+
 ## Introduction
 
 Baka MPlayer is a free and open source, **mpv** based multimedia player.
