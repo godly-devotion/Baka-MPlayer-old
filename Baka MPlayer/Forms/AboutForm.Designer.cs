@@ -29,87 +29,59 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
-            this.logoPicbox = new System.Windows.Forms.PictureBox();
-            this.versionLabel = new System.Windows.Forms.Label();
             this.webLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
+            this.creditsTextBox = new System.Windows.Forms.RichTextBox();
             this.closeButton = new Baka_MPlayer.Controls.SimpleButton();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.versionLabel = new System.Windows.Forms.Label();
+            this.logoPicbox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPicbox)).BeginInit();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // logoPicbox
-            // 
-            this.logoPicbox.BackColor = System.Drawing.Color.Transparent;
-            this.logoPicbox.Image = global::Baka_MPlayer.Properties.Resources.icon_128;
-            this.logoPicbox.Location = new System.Drawing.Point(12, 12);
-            this.logoPicbox.Name = "logoPicbox";
-            this.logoPicbox.Size = new System.Drawing.Size(64, 64);
-            this.logoPicbox.TabIndex = 9;
-            this.logoPicbox.TabStop = false;
-            // 
-            // versionLabel
-            // 
-            this.versionLabel.AutoSize = true;
-            this.versionLabel.BackColor = System.Drawing.Color.Transparent;
-            this.versionLabel.ForeColor = System.Drawing.Color.White;
-            this.versionLabel.Location = new System.Drawing.Point(88, 51);
-            this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(109, 19);
-            this.versionLabel.TabIndex = 2;
-            this.versionLabel.Text = "Version: 0.0.0.0";
             // 
             // webLinkLabel
             // 
             this.webLinkLabel.ActiveLinkColor = System.Drawing.Color.DodgerBlue;
-            this.webLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.webLinkLabel.AutoSize = true;
             this.webLinkLabel.BackColor = System.Drawing.Color.Transparent;
+            this.webLinkLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.webLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
             this.webLinkLabel.LinkColor = System.Drawing.Color.DeepSkyBlue;
-            this.webLinkLabel.Location = new System.Drawing.Point(12, 285);
+            this.webLinkLabel.Location = new System.Drawing.Point(3, 325);
             this.webLinkLabel.Name = "webLinkLabel";
             this.webLinkLabel.Size = new System.Drawing.Size(214, 19);
-            this.webLinkLabel.TabIndex = 4;
+            this.webLinkLabel.TabIndex = 2;
             this.webLinkLabel.TabStop = true;
             this.webLinkLabel.Text = "http://bakamplayer.u8sand.net/";
             this.webLinkLabel.VisitedLinkColor = System.Drawing.Color.DarkOrchid;
             this.webLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.webLinkLabel_LinkClicked);
             // 
-            // groupBox2
+            // creditsTextBox
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.richTextBox2);
-            this.groupBox2.Font = new System.Drawing.Font("Calibri", 1.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(12, 90);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(380, 183);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            // 
-            // richTextBox2
-            // 
-            this.richTextBox2.BackColor = System.Drawing.Color.Black;
-            this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox2.Cursor = System.Windows.Forms.Cursors.Default;
-            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox2.ForeColor = System.Drawing.Color.White;
-            this.richTextBox2.Location = new System.Drawing.Point(3, 6);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
-            this.richTextBox2.Size = new System.Drawing.Size(374, 174);
-            this.richTextBox2.TabIndex = 0;
-            this.richTextBox2.Text = resources.GetString("richTextBox2.Text");
+            this.creditsTextBox.BackColor = System.Drawing.Color.Black;
+            this.creditsTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.creditsTextBox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.creditsTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.creditsTextBox.ForeColor = System.Drawing.Color.White;
+            this.creditsTextBox.Location = new System.Drawing.Point(3, 3);
+            this.creditsTextBox.Name = "creditsTextBox";
+            this.creditsTextBox.ReadOnly = true;
+            this.creditsTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.creditsTextBox.Size = new System.Drawing.Size(356, 341);
+            this.creditsTextBox.TabIndex = 0;
+            this.creditsTextBox.Text = resources.GetString("creditsTextBox.Text");
             // 
             // closeButton
             // 
-            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.closeButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.closeButton.BackColor = System.Drawing.Color.Transparent;
             this.closeButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.closeButton.FlatAppearance.BorderColor = System.Drawing.Color.DodgerBlue;
@@ -119,7 +91,7 @@
             this.closeButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.closeButton.ForeColor = System.Drawing.Color.White;
             this.closeButton.IsDefaultButton = true;
-            this.closeButton.Location = new System.Drawing.Point(307, 280);
+            this.closeButton.Location = new System.Drawing.Point(155, 401);
             this.closeButton.Margin = new System.Windows.Forms.Padding(4);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(85, 30);
@@ -128,16 +100,102 @@
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(370, 379);
+            this.tabControl1.TabIndex = 1;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.Black;
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.versionLabel);
+            this.tabPage1.Controls.Add(this.logoPicbox);
+            this.tabPage1.Controls.Add(this.webLinkLabel);
+            this.tabPage1.Location = new System.Drawing.Point(4, 28);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(362, 347);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "About";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.Black;
+            this.tabPage2.Controls.Add(this.creditsTextBox);
+            this.tabPage2.Location = new System.Drawing.Point(4, 28);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(362, 347);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Credits";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.Color.Black;
+            this.tabPage3.Controls.Add(this.richTextBox1);
+            this.tabPage3.Location = new System.Drawing.Point(4, 28);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(362, 347);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "License";
+            // 
+            // versionLabel
+            // 
+            this.versionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.versionLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.versionLabel.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.versionLabel.Location = new System.Drawing.Point(3, 131);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(356, 39);
+            this.versionLabel.TabIndex = 0;
+            this.versionLabel.Text = "Baka MPlayer 0.0.0";
+            this.versionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // logoPicbox
+            // 
+            this.logoPicbox.BackColor = System.Drawing.Color.Transparent;
+            this.logoPicbox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.logoPicbox.Image = global::Baka_MPlayer.Properties.Resources.icon_128;
+            this.logoPicbox.Location = new System.Drawing.Point(3, 3);
+            this.logoPicbox.Name = "logoPicbox";
+            this.logoPicbox.Size = new System.Drawing.Size(356, 128);
+            this.logoPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.logoPicbox.TabIndex = 15;
+            this.logoPicbox.TabStop = false;
+            // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(82, 12);
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Location = new System.Drawing.Point(3, 170);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(191, 39);
+            this.label1.Size = new System.Drawing.Size(356, 155);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Baka MPlayer";
+            this.label1.Text = resources.GetString("label1.Text");
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.BackColor = System.Drawing.Color.Black;
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.ForeColor = System.Drawing.Color.White;
+            this.richTextBox1.Location = new System.Drawing.Point(3, 3);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
+            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.richTextBox1.Size = new System.Drawing.Size(356, 341);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
             // AboutForm
             // 
@@ -145,13 +203,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.CancelButton = this.closeButton;
-            this.ClientSize = new System.Drawing.Size(404, 316);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.logoPicbox);
-            this.Controls.Add(this.versionLabel);
+            this.ClientSize = new System.Drawing.Size(394, 441);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.webLinkLabel);
-            this.Controls.Add(this.groupBox2);
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -163,21 +217,28 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "About Baka MPlayer";
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logoPicbox)).EndInit();
-            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private Baka_MPlayer.Controls.SimpleButton closeButton;
-        private System.Windows.Forms.PictureBox logoPicbox;
-        private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.LinkLabel webLinkLabel;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.RichTextBox creditsTextBox;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label versionLabel;
+        private System.Windows.Forms.PictureBox logoPicbox;
+        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }

@@ -117,29 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="richTextBox2.Text" xml:space="preserve">
-    <value>Baka MPlayer
-Copyright © 2014 - Joshua Park
-GNU General Public License version 2 (GPLv2)
+  <data name="creditsTextBox.Text" xml:space="preserve">
+    <value>mpv - video player based on MPlayer/mplayer2
+GPLv2 &lt;mpv.io&gt;
 
-Special thanks to:
-- u8sand: for help coding mpv.cs and for hosting the website
-- lachs0r: for mpv builds on Windows and helpful programming tips
+TagLib# (taglib-sharp)
+LGPLv2.1 &lt;Mono Project&gt;
 
-mpv is licensed under GPLv2
+ColorSlider - control
+LGPLv3 &lt;Michal Brylka&gt;
 
-TagLib# (taglib-sharp) is licensed under LGPLv2.1
+Glyhphis - icons
+Creative Commons Attribution license &lt;Joseph Wain&gt;
 
-ColorSlider control is licensed under LGPLv3
-Michal Brylka (http://www.codeproject.com/KB/selection/ColorSlider.aspx)
+GNOME Desktop - icons
+GPLv2 &lt;GNOME icon artists&gt;
 
-Glyhphis by Joseph Wain
-Creative Commons Attribution license
-
-GNOME Desktop by GNOME icon artists
-GNU General Public License, version 2
-
-LCD.tff Embedded Font
+LCD.tff - embedded font
 LCD is trademark of Esselte Letraset Ltd., 1990-1997, which may be registered in certain jurisdiction. All rights reserved. Portions: Copyright (c) Microsoft Corporation. All rights reserved.</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Baka MPlayer is a free and open source, cross-platform, libmpv based multimedia player. Its simple design reflects the idea for an uncluttered, simple, and enjoyable environment for watching tv shows.
+
+Copyright © 2014 godly-devotion, u8sand</value>
+  </data>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>                GNU GENERAL PUBLIC LICENSE
+                   Version 2, June 1991
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA</value>
   </data>
 </root>
