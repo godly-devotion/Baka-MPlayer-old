@@ -12,7 +12,8 @@
     <AssemblyName>Baka MPlayer</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -85,6 +86,11 @@
   <ItemGroup>
     <Compile Include="Classes\CursorPosition.cs" />
     <Compile Include="GlobalKeyHook\KeyHookManager.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Updates\UpdateInfo.cs" />
     <Compile Include="Classes\Functions.cs" />
     <Compile Include="Classes\GlobalMouseHandler.cs" />
@@ -269,11 +275,6 @@
     <EmbeddedResource Include="WinAPI Code Pack\Shell\Resources\LocalizedMessages.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="WinAPI Code Pack\Core\AppRestartRecovery\ApplicationRecoveryException.cs" />
     <Compile Include="WinAPI Code Pack\Core\AppRestartRecovery\ApplicationRestartRecoveryManager.cs" />
     <Compile Include="WinAPI Code Pack\Core\AppRestartRecovery\RecoveryData.cs" />
@@ -517,7 +518,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MainForm\mic image\disabled_mic.png" />
@@ -595,13 +595,14 @@
     <None Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowserDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icon-64.png" />
     <None Include="Resources\MainForm\ToolBar Buttons\tool-next.ico" />
     <None Include="Resources\MainForm\ToolBar Buttons\tool-previous.ico" />
     <None Include="Resources\MainForm\ToolBar Buttons\tool-pause.ico" />
     <None Include="Resources\MainForm\ToolBar Buttons\tool-play.ico" />
     <None Include="Resources\Shared\check images\exists.png" />
     <None Include="Resources\Shared\check images\not_exists.png" />
+    <None Include="Resources\icon_128.png" />
+    <None Include="Resources\icon.ico" />
     <Content Include="WinAPI Code Pack\Core\Core.csproj" />
     <Content Include="WinAPI Code Pack\Core\CustomDictionary.xml" />
     <Content Include="WinAPI Code Pack\Shell\CustomDictionary.xml" />

@@ -43,11 +43,10 @@
             // logoPicbox
             // 
             this.logoPicbox.BackColor = System.Drawing.Color.Transparent;
-            this.logoPicbox.Image = global::Baka_MPlayer.Properties.Resources.icon_64;
+            this.logoPicbox.Image = global::Baka_MPlayer.Properties.Resources.icon_128;
             this.logoPicbox.Location = new System.Drawing.Point(12, 12);
             this.logoPicbox.Name = "logoPicbox";
             this.logoPicbox.Size = new System.Drawing.Size(64, 64);
-            this.logoPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.logoPicbox.TabIndex = 9;
             this.logoPicbox.TabStop = false;
             // 
