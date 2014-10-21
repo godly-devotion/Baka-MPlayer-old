@@ -303,12 +303,14 @@ namespace Baka_MPlayer.Forms
             switch (e.KeyCode)
             {
                 case Keys.Left:
+                    if ((ModifierKeys & Keys.Shift) != 0) return;
                     if (mp.CurrentStatus.Duration - 5 > -1)
                         mp.Seek(mp.CurrentStatus.Duration - 5);
                     else //if (mplayer.currentPosition < 5)
                         mp.Seek(0);
                     break;
                 case Keys.Right:
+                    if ((ModifierKeys & Keys.Shift) != 0) return;
                     if (mp.CurrentStatus.Duration + 5 < mp.CurrentStatus.TotalLength)
                         mp.Seek(mp.CurrentStatus.Duration + 5);
                     else
