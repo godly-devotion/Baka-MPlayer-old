@@ -1086,7 +1086,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.albumArtPicbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.albumArtPicbox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.albumArtPicbox.Image = global::Baka_MPlayer.Properties.Resources.Music_128;
+            this.albumArtPicbox.Image = global::Baka_MPlayer.Properties.Resources.music_128;
             this.albumArtPicbox.Location = new System.Drawing.Point(0, 0);
             this.albumArtPicbox.Name = "albumArtPicbox";
             this.albumArtPicbox.Size = new System.Drawing.Size(410, 213);

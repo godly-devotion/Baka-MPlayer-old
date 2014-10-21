@@ -1890,7 +1890,7 @@ namespace Baka_MPlayer.Forms
                     if (mp.FileInfo.Id3Tags.AlbumArtTag != null)
                         albumArtPicbox.Image = mp.FileInfo.Id3Tags.AlbumArtTag.AlbumArt;
                     else
-                        albumArtPicbox.Image = Properties.Resources.Music_128;
+                        albumArtPicbox.Image = Properties.Resources.music_128;
 
                     albumArtPicbox_SizeChanged(this, EventArgs.Empty);
                 }

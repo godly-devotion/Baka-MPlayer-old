@@ -518,89 +518,47 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MainForm\mic image\disabled_mic.png" />
-    <None Include="Resources\MainForm\mic image\down_mic.png" />
-    <None Include="Resources\MainForm\mic image\enabled_mic.png" />
-    <None Include="Resources\MainForm\pauseButton\default_pause.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\pauseButton\down_pause.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\pauseButton\disabled_pause.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\playButton\default_play.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\playButton\down_play.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\playButton\disabled_play.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\playlistButton\default_playlist.png" />
-    <None Include="Resources\MainForm\playlistButton\disabled_playlist.png" />
-    <None Include="Resources\MainForm\playlistButton\down_playlist.png" />
-    <None Include="Resources\MainForm\previousButton\default_previous.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\previousButton\down_previous.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\previousButton\disabled_previous.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\nextButton\default_next.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\nextButton\down_next.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\nextButton\disabled_next.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\openButton\down_open.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\openButton\default_open.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\music image\Music_128.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\playback images\repeat.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\playback images\shuffle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\reverseButton\default_reverse.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\reverseButton\disabled_reverse.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MainForm\reverseButton\down_reverse.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\InputBox\warning_blue-48.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\LCD.ttf" />
     <None Include="WinAPI Code Pack\Shell\Design\ShellObjects.cd" />
     <None Include="WinAPI Code Pack\Shell\Design\ShellThumbnailClassDiagram.cd" />
     <None Include="WinAPI Code Pack\Shell\ExplorerBrowser\ExplorerBrowserDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MainForm\ToolBar Buttons\tool-next.ico" />
-    <None Include="Resources\MainForm\ToolBar Buttons\tool-previous.ico" />
-    <None Include="Resources\MainForm\ToolBar Buttons\tool-pause.ico" />
-    <None Include="Resources\MainForm\ToolBar Buttons\tool-play.ico" />
-    <None Include="Resources\Shared\check images\exists.png" />
-    <None Include="Resources\Shared\check images\not_exists.png" />
     <None Include="Resources\icon_128.png" />
     <None Include="Resources\icon.ico" />
+    <None Include="Resources\warning_blue-48.png" />
+    <None Include="Resources\not_exists.png" />
+    <None Include="Resources\exists.png" />
+    <None Include="Resources\disabled_mic.png" />
+    <None Include="Resources\down_mic.png" />
+    <None Include="Resources\enabled_mic.png" />
+    <None Include="Resources\music_128.png" />
+    <None Include="Resources\default_next.png" />
+    <None Include="Resources\disabled_next.png" />
+    <None Include="Resources\down_next.png" />
+    <None Include="Resources\default_open.png" />
+    <None Include="Resources\down_open.png" />
+    <None Include="Resources\default_pause.png" />
+    <None Include="Resources\disabled_pause.png" />
+    <None Include="Resources\down_pause.png" />
+    <None Include="Resources\repeat.png" />
+    <None Include="Resources\shuffle.png" />
+    <None Include="Resources\default_play.png" />
+    <None Include="Resources\disabled_play.png" />
+    <None Include="Resources\down_play.png" />
+    <None Include="Resources\default_playlist.png" />
+    <None Include="Resources\disabled_playlist.png" />
+    <None Include="Resources\down_playlist.png" />
+    <None Include="Resources\default_previous.png" />
+    <None Include="Resources\disabled_previous.png" />
+    <None Include="Resources\down_previous.png" />
+    <None Include="Resources\default_reverse.png" />
+    <None Include="Resources\disabled_reverse.png" />
+    <None Include="Resources\down_reverse.png" />
+    <None Include="Resources\tool-next.ico" />
+    <None Include="Resources\tool-pause.ico" />
+    <None Include="Resources\tool-play.ico" />
+    <None Include="Resources\tool-previous.ico" />
     <Content Include="WinAPI Code Pack\Core\Core.csproj" />
     <Content Include="WinAPI Code Pack\Core\CustomDictionary.xml" />
     <Content Include="WinAPI Code Pack\Shell\CustomDictionary.xml" />
@@ -642,6 +600,7 @@
       <Name>mpv</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

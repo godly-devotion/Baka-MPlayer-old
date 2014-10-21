@@ -342,9 +342,9 @@ namespace Baka_MPlayer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Music_128 {
+        internal static System.Drawing.Bitmap music_128 {
             get {
-                object obj = ResourceManager.GetObject("Music_128", resourceCulture);
+                object obj = ResourceManager.GetObject("music_128", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
