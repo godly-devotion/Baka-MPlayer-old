@@ -279,8 +279,7 @@ namespace Baka_MPlayer.Forms
 
         private void nameLabel_Click(object sender, EventArgs e)
         {
-            if (!nameLabel.Text.Equals("Baka MPlayer"))
-                Clipboard.SetText(nameLabel.Text);
+            Clipboard.SetText(nameLabel.Text);
         }
 
         private void closeButton_Click(object sender, EventArgs e)

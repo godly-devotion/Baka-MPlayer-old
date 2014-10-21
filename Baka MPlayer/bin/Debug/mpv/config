@@ -16,5 +16,5 @@
 
 
 # Write your default config options here!
-vo=opengl-hq
+vo=opengl-hq,direct3d_shaders
 ao=dsound

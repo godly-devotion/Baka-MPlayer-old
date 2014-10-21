@@ -165,6 +165,7 @@ namespace Baka_MPlayer.Forms
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
+            this.voiceCommandHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.quickButton)).BeginInit();
@@ -954,6 +955,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bakaMPlayerHelpToolStripMenuItem,
+            this.voiceCommandHelpToolStripMenuItem,
             this.checkForUpdatesToolStripMenuItem,
             this.toolStripSeparator18,
             this.aboutBakaMPlayerToolStripMenuItem});
@@ -966,26 +968,26 @@ namespace Baka_MPlayer.Forms
             // 
             this.bakaMPlayerHelpToolStripMenuItem.Name = "bakaMPlayerHelpToolStripMenuItem";
             this.bakaMPlayerHelpToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.bakaMPlayerHelpToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.bakaMPlayerHelpToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.bakaMPlayerHelpToolStripMenuItem.Text = "Online &Help";
             this.bakaMPlayerHelpToolStripMenuItem.Click += new System.EventHandler(this.bakaMPlayerHelpToolStripMenuItem_Click);
             // 
             // checkForUpdatesToolStripMenuItem
             // 
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
-            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.checkForUpdatesToolStripMenuItem.Text = "&Check for Updates";
             this.checkForUpdatesToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdatesToolStripMenuItem_Click);
             // 
             // toolStripSeparator18
             // 
             this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(174, 6);
+            this.toolStripSeparator18.Size = new System.Drawing.Size(181, 6);
             // 
             // aboutBakaMPlayerToolStripMenuItem
             // 
             this.aboutBakaMPlayerToolStripMenuItem.Name = "aboutBakaMPlayerToolStripMenuItem";
-            this.aboutBakaMPlayerToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.aboutBakaMPlayerToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.aboutBakaMPlayerToolStripMenuItem.Text = "&About Baka MPlayer";
             this.aboutBakaMPlayerToolStripMenuItem.Click += new System.EventHandler(this.aboutBakaMPlayerToolStripMenuItem_Click);
             // 
@@ -1500,6 +1502,13 @@ namespace Baka_MPlayer.Forms
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
             // 
+            // voiceCommandHelpToolStripMenuItem
+            // 
+            this.voiceCommandHelpToolStripMenuItem.Name = "voiceCommandHelpToolStripMenuItem";
+            this.voiceCommandHelpToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.voiceCommandHelpToolStripMenuItem.Text = "&Voice Command Help";
+            this.voiceCommandHelpToolStripMenuItem.Click += new System.EventHandler(this.voiceCommandHelpToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -1685,6 +1694,7 @@ namespace Baka_MPlayer.Forms
         private System.Windows.Forms.ToolStripMenuItem showIconInTrayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hidePopupToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem voiceCommandHelpToolStripMenuItem;
     }
 }
 

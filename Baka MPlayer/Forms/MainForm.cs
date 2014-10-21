@@ -419,7 +419,7 @@ namespace Baka_MPlayer.Forms
                         if (voice == null)
                         {
                             var name = Properties.Settings.Default.CallName.Trim();
-                            voice = new VoiceCommandEngine(this, string.IsNullOrEmpty(name) ? "baka" : name);
+                            voice = new VoiceCommandEngine(this, name);
                         }
                         voice.StartListening();
                         speechButton.Image = Properties.Resources.enabled_mic;
@@ -704,6 +704,19 @@ namespace Baka_MPlayer.Forms
         // Speech Button
         private void speechButton_MouseClick(object sender, MouseEventArgs e)
         {
+            if (EnableVoiceCommand == false && string.IsNullOrEmpty(Properties.Settings.Default.CallName.Trim()))
+            {
+                var voiceForm = new VoiceForm();
+                if (voiceForm.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default.CallName = voiceForm.GetName;
+                    Properties.Settings.Default.Save();
+
+                    EnableVoiceCommand = true;
+                }
+                voiceForm.Dispose();
+                return;
+            }
             EnableVoiceCommand = !EnableVoiceCommand;
         }
         private void speechButton_MouseDown(object sender, MouseEventArgs e)
@@ -1550,10 +1563,21 @@ namespace Baka_MPlayer.Forms
             Process.Start("http://bakamplayer.u8sand.net/help.php");
         }
 
+        private void voiceCommandHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var voiceForm = new VoiceForm();
+            if (voiceForm.ShowDialog() == DialogResult.OK)
+            {
+                Properties.Settings.Default.CallName = voiceForm.GetName;
+                Properties.Settings.Default.Save();
+            }
+            voiceForm.Dispose();
+        }
+
         private void checkForUpdatesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var checker = new UpdateChecker();
-            checker.Check(false);
+            var checker = new UpdateEngine();
+            checker.CheckForUpdates(false);
         }
 
         private void aboutBakaMPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1617,8 +1641,8 @@ namespace Baka_MPlayer.Forms
             var lastCheck = Properties.Settings.Default.LastUpdateCheck;
             if (week != lastCheck)
             {
-                var checker = new UpdateChecker();
-                checker.Check(true);
+                var checker = new UpdateEngine();
+                checker.CheckForUpdates(true);
 
                 Properties.Settings.Default.LastUpdateCheck = week;
                 Properties.Settings.Default.Save();

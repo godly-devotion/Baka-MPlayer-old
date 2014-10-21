@@ -15,18 +15,18 @@ using Baka_MPlayer.Forms;
 
 namespace Baka_MPlayer.Updates
 {
-    public class UpdateChecker
+    public class UpdateEngine
     {
         private const string Website = "bakamplayer.u8sand.net";
         private const string VersionPath = "/version";
 
-        public void Check(bool isSilent)
+        public void CheckForUpdates(bool isSilent)
         {
-            var checkThread = new Thread(check);
+            var checkThread = new Thread(Check);
             checkThread.Start(isSilent);
         }
 
-        private static void check(object isSilent)
+        private static void Check(object isSilent)
         {
             try
             {
