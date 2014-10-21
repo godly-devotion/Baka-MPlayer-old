@@ -1220,6 +1220,7 @@ namespace Baka_MPlayer.Forms
             // re-add "Add Subtitle File..." menu item
             var addSubItem = new ToolStripMenuItem("&Add Subtitle File...", null, addSubtitleFileToolStripMenuItem_Click);
             subtitleTrackToolStripMenuItem.DropDownItems.Add(addSubItem);
+            subtitleTrackToolStripMenuItem.DropDownItems.Add("-");
 
             if (mp.FileInfo.Subs.Count > 0)
             {
