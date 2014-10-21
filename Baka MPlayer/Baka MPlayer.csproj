@@ -559,6 +559,7 @@
     <None Include="Resources\tool-pause.ico" />
     <None Include="Resources\tool-play.ico" />
     <None Include="Resources\tool-previous.ico" />
+    <None Include="Resources\select_current.png" />
     <Content Include="WinAPI Code Pack\Core\Core.csproj" />
     <Content Include="WinAPI Code Pack\Core\CustomDictionary.xml" />
     <Content Include="WinAPI Code Pack\Shell\CustomDictionary.xml" />

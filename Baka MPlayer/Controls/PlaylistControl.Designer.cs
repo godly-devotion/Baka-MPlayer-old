@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlaylistControl));
             this.playlistList = new System.Windows.Forms.ListView();
             this.playlistHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.playlistStatusStrip = new System.Windows.Forms.StatusStrip();
@@ -98,13 +97,13 @@
             // 
             // currentFileButton
             // 
-            this.currentFileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.currentFileButton.Image = ((System.Drawing.Image)(resources.GetObject("currentFileButton.Image")));
+            this.currentFileButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.currentFileButton.Image = global::Baka_MPlayer.Properties.Resources.select_current;
+            this.currentFileButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.currentFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.currentFileButton.Name = "currentFileButton";
             this.currentFileButton.ShowDropDownArrow = false;
             this.currentFileButton.Size = new System.Drawing.Size(19, 20);
-            this.currentFileButton.Text = ">";
             this.currentFileButton.ToolTipText = "Select current file";
             this.currentFileButton.Click += new System.EventHandler(this.currentFileButton_Click);
             // 
