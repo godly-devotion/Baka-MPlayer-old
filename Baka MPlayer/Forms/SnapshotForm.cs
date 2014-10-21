@@ -58,19 +58,19 @@ namespace Baka_MPlayer.Forms
             {
                 switch (sfd.FilterIndex)
                 {
-                    case 0:
+                    case 1:
                         SnapshotImage.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
                         break;
-                    case 1:
+                    case 2:
                         SnapshotImage.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Bmp);
                         break;
-                    case 2:
+                    case 3:
                         SnapshotImage.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Gif);
                         break;
-                    case 3:
+                    case 4:
                         SnapshotImage.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Jpeg);
                         break;
-                    case 4:
+                    case 5:
                         SnapshotImage.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Tiff);
                         break;
                 }
