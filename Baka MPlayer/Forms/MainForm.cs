@@ -1467,7 +1467,7 @@ namespace Baka_MPlayer.Forms
         {
             if (blackForm == null)
             {
-                blackForm = new BlackForm(this, mp.FileInfo);
+                blackForm = new BlackForm(this, Functions.Url.DecodeUrl(mp.FileInfo.MovieName));
                 blackForm.RefreshTitle();
             }
 
