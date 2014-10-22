@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VoiceForm));
             System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("open [file]");
             System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("mute");
             System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("unmute");
@@ -82,9 +83,7 @@
             this.label2.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
             this.label2.Size = new System.Drawing.Size(444, 117);
             this.label2.TabIndex = 4;
-            this.label2.Text = "With Voice Command, you can say simple commands to control Baka MPlayer.\r\n\r\nTo in" +
-    "itiate a command, say its name and then the command. For example: \"baka pause\"\r\n" +
-    "You can say the following commands:";
+            this.label2.Text = resources.GetString("label2.Text");
             // 
             // listView1
             // 
