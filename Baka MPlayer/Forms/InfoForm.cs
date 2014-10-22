@@ -11,15 +11,11 @@ namespace Baka_MPlayer.Forms
     {
         private readonly IMPlayer mp;
 
-        #region Accessor
-
         private Image AlbumArt
         {
             set { albumArtPicbox.Image = value; }
             get { return albumArtPicbox.Image; }
         }
-
-        #endregion
 
         public InfoForm(IMPlayer mp)
         {
@@ -27,8 +23,6 @@ namespace Baka_MPlayer.Forms
 
             this.mp = mp;
         }
-
-        #region Functions
 
         public void RefreshInfo()
         {
@@ -138,8 +132,6 @@ namespace Baka_MPlayer.Forms
         {
             tagList.Items.Add(tagName).SubItems.Add(tagValue);
         }
-
-        #endregion
 
         #region InfoList Code
 

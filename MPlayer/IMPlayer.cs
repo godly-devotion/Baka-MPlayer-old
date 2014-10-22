@@ -7,7 +7,6 @@
 
 using System;
 using MPlayer.Info;
-using MPlayer.Info.Track;
 
 namespace MPlayer
 {
