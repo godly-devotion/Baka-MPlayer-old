@@ -1271,7 +1271,8 @@ namespace Baka_MPlayer.Forms
         private void mediaInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (infoForm == null || infoForm.IsDisposed)
-                infoForm = new InfoForm(mp);
+                infoForm = new InfoForm();
+            infoForm.UpdateInfo(mp.FileInfo, mp.CurrentStatus.TotalLength);
             infoForm.Show();
         }
 
@@ -1877,7 +1878,7 @@ namespace Baka_MPlayer.Forms
                     blackForm.SetTitle(Functions.Url.DecodeUrl(mp.FileInfo.MovieName));
 
                 if (infoForm != null && !infoForm.IsDisposed)
-                    infoForm.RefreshInfo();
+                    infoForm.UpdateInfo(mp.FileInfo, mp.CurrentStatus.TotalLength);
 
                 // set menu strips
 
