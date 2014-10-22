@@ -1222,7 +1222,9 @@ namespace Baka_MPlayer.Forms
             if (item != null)
             {
                 int index = (item.OwnerItem as ToolStripMenuItem).DropDownItems.IndexOf(item);
-                mp.SetSubtitleTrack(index + 1);
+                // (1) audio track index starts from 1
+                // (2) two menuitems precede the first audio track menuitem
+                mp.SetSubtitleTrack(index - 1);
             }
         }
 
