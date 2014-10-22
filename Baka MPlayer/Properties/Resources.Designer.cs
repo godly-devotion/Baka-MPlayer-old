@@ -441,9 +441,9 @@ namespace Baka_MPlayer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap warning_blue_48 {
+        internal static System.Drawing.Bitmap warning_48px {
             get {
-                object obj = ResourceManager.GetObject("warning_blue_48", resourceCulture);
+                object obj = ResourceManager.GetObject("warning_48px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

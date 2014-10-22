@@ -39,11 +39,11 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::Baka_MPlayer.Properties.Resources.warning_blue_48;
+            this.pictureBox1.Image = global::Baka_MPlayer.Properties.Resources.warning_48px;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(40, 40);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.Size = new System.Drawing.Size(48, 48);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -51,9 +51,9 @@
             // 
             this.messageLabel.AutoEllipsis = true;
             this.messageLabel.BackColor = System.Drawing.Color.Transparent;
-            this.messageLabel.Location = new System.Drawing.Point(58, 12);
+            this.messageLabel.Location = new System.Drawing.Point(66, 12);
             this.messageLabel.Name = "messageLabel";
-            this.messageLabel.Size = new System.Drawing.Size(408, 47);
+            this.messageLabel.Size = new System.Drawing.Size(400, 47);
             this.messageLabel.TabIndex = 0;
             this.messageLabel.Text = "Please enter a value:";
             // 
@@ -63,9 +63,9 @@
             this.inputTextbox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inputTextbox.CueText = "";
             this.inputTextbox.ForeColor = System.Drawing.Color.White;
-            this.inputTextbox.Location = new System.Drawing.Point(62, 65);
+            this.inputTextbox.Location = new System.Drawing.Point(70, 65);
             this.inputTextbox.Name = "inputTextbox";
-            this.inputTextbox.Size = new System.Drawing.Size(219, 27);
+            this.inputTextbox.Size = new System.Drawing.Size(211, 27);
             this.inputTextbox.TabIndex = 1;
             this.inputTextbox.TextChanged += new System.EventHandler(this.inputTextbox_TextChanged);
             // 

@@ -74,7 +74,7 @@
             this.creditsTextBox.Location = new System.Drawing.Point(3, 3);
             this.creditsTextBox.Name = "creditsTextBox";
             this.creditsTextBox.ReadOnly = true;
-            this.creditsTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.creditsTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.creditsTextBox.Size = new System.Drawing.Size(356, 341);
             this.creditsTextBox.TabIndex = 0;
             this.creditsTextBox.Text = resources.GetString("creditsTextBox.Text");
@@ -192,7 +192,7 @@
             this.richTextBox1.Location = new System.Drawing.Point(3, 3);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
+            this.richTextBox1.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.richTextBox1.Size = new System.Drawing.Size(356, 341);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");

@@ -587,7 +587,7 @@ namespace Baka_MPlayer.Forms
             this.playToolStripMenuItem.Enabled = false;
             this.playToolStripMenuItem.Name = "playToolStripMenuItem";
             this.playToolStripMenuItem.ShortcutKeyDisplayString = "Space";
-            this.playToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
             this.playToolStripMenuItem.Text = "&Play";
             this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
             // 
@@ -596,7 +596,7 @@ namespace Baka_MPlayer.Forms
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
             this.stopToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
             this.stopToolStripMenuItem.Text = "&Stop";
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
             // 
@@ -605,7 +605,7 @@ namespace Baka_MPlayer.Forms
             this.rewindToolStripMenuItem.Enabled = false;
             this.rewindToolStripMenuItem.Name = "rewindToolStripMenuItem";
             this.rewindToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
-            this.rewindToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.rewindToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
             this.rewindToolStripMenuItem.Text = "&Rewind";
             this.rewindToolStripMenuItem.Click += new System.EventHandler(this.rewindToolStripMenuItem_Click);
             // 
@@ -615,7 +615,7 @@ namespace Baka_MPlayer.Forms
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
             this.restartToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.R)));
-            this.restartToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
             this.restartToolStripMenuItem.Text = "R&estart";
             this.restartToolStripMenuItem.Click += new System.EventHandler(this.restartToolStripMenuItem_Click);
             // 
@@ -630,7 +630,7 @@ namespace Baka_MPlayer.Forms
             this.shuffleToolStripMenuItem.Image = global::Baka_MPlayer.Properties.Resources.shuffle;
             this.shuffleToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.shuffleToolStripMenuItem.Name = "shuffleToolStripMenuItem";
-            this.shuffleToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.shuffleToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
             this.shuffleToolStripMenuItem.Text = "Shuff&le";
             this.shuffleToolStripMenuItem.Click += new System.EventHandler(this.shuffleToolStripMenuItem_Click);
             // 
@@ -644,7 +644,7 @@ namespace Baka_MPlayer.Forms
             this.repeatToolStripMenuItem.Image = global::Baka_MPlayer.Properties.Resources.repeat;
             this.repeatToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.repeatToolStripMenuItem.Name = "repeatToolStripMenuItem";
-            this.repeatToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.repeatToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
             this.repeatToolStripMenuItem.Text = "Repea&t";
             // 
             // offToolStripMenuItem
@@ -652,26 +652,26 @@ namespace Baka_MPlayer.Forms
             this.offToolStripMenuItem.Checked = true;
             this.offToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.offToolStripMenuItem.Name = "offToolStripMenuItem";
-            this.offToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.offToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.offToolStripMenuItem.Text = "&Off";
             this.offToolStripMenuItem.Click += new System.EventHandler(this.offToolStripMenuItem_Click);
             // 
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(112, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
             // 
             // playlistToolStripMenuItem
             // 
             this.playlistToolStripMenuItem.Name = "playlistToolStripMenuItem";
-            this.playlistToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.playlistToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.playlistToolStripMenuItem.Text = "&Playlist";
             this.playlistToolStripMenuItem.Click += new System.EventHandler(this.playlistToolStripMenuItem_Click);
             // 
             // thisFileToolStripMenuItem
             // 
             this.thisFileToolStripMenuItem.Name = "thisFileToolStripMenuItem";
-            this.thisFileToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.thisFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.thisFileToolStripMenuItem.Text = "&This File";
             this.thisFileToolStripMenuItem.Click += new System.EventHandler(this.thisFileToolStripMenuItem_Click);
             // 
@@ -679,7 +679,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.stopAftercurrentToolStripMenuItem.CheckOnClick = true;
             this.stopAftercurrentToolStripMenuItem.Name = "stopAftercurrentToolStripMenuItem";
-            this.stopAftercurrentToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.stopAftercurrentToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
             this.stopAftercurrentToolStripMenuItem.Text = "Stop after &current";
             // 
             // toolStripSeparator6
@@ -692,7 +692,7 @@ namespace Baka_MPlayer.Forms
             this.audioTracksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mainToolStripMenuItem});
             this.audioTracksToolStripMenuItem.Name = "audioTracksToolStripMenuItem";
-            this.audioTracksToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.audioTracksToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
             this.audioTracksToolStripMenuItem.Text = "Audio &Tracks";
             // 
             // mainToolStripMenuItem
@@ -708,7 +708,7 @@ namespace Baka_MPlayer.Forms
             this.increaseToolStripMenuItem,
             this.decreaseToolStripMenuItem});
             this.volumeToolStripMenuItem.Name = "volumeToolStripMenuItem";
-            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.volumeToolStripMenuItem.Size = new System.Drawing.Size(184, 24);
             this.volumeToolStripMenuItem.Text = "&Volume:";
             // 
             // increaseToolStripMenuItem
