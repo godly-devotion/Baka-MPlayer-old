@@ -121,6 +121,7 @@ namespace Baka_MPlayer.Forms
             this.hidePopupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bakaMPlayerHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.voiceCommandHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutBakaMPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -165,7 +166,6 @@ namespace Baka_MPlayer.Forms
             this.xToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.statusTimer = new System.Windows.Forms.Timer(this.components);
             this.cursorTimer = new System.Windows.Forms.Timer(this.components);
-            this.voiceCommandHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             this.controlPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.quickButton)).BeginInit();
@@ -972,6 +972,13 @@ namespace Baka_MPlayer.Forms
             this.bakaMPlayerHelpToolStripMenuItem.Text = "Online &Help";
             this.bakaMPlayerHelpToolStripMenuItem.Click += new System.EventHandler(this.bakaMPlayerHelpToolStripMenuItem_Click);
             // 
+            // voiceCommandHelpToolStripMenuItem
+            // 
+            this.voiceCommandHelpToolStripMenuItem.Name = "voiceCommandHelpToolStripMenuItem";
+            this.voiceCommandHelpToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.voiceCommandHelpToolStripMenuItem.Text = "&Voice Command Help";
+            this.voiceCommandHelpToolStripMenuItem.Click += new System.EventHandler(this.voiceCommandHelpToolStripMenuItem_Click);
+            // 
             // checkForUpdatesToolStripMenuItem
             // 
             this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
@@ -1265,7 +1272,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.bodySplitContainer.Panel2.Controls.Add(this.playlist);
             this.bodySplitContainer.Size = new System.Drawing.Size(584, 312);
-            this.bodySplitContainer.SplitterDistance = 410;
+            this.bodySplitContainer.SplitterDistance = 400;
             this.bodySplitContainer.TabIndex = 3;
             this.bodySplitContainer.TabStop = false;
             this.bodySplitContainer.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.bodySplitContainer_SplitterMoved);
@@ -1292,7 +1299,7 @@ namespace Baka_MPlayer.Forms
             // 
             this.mplayerSplitContainer.Panel2.Controls.Add(this.outputTextbox);
             this.mplayerSplitContainer.Panel2.Controls.Add(this.inputTextbox);
-            this.mplayerSplitContainer.Size = new System.Drawing.Size(410, 312);
+            this.mplayerSplitContainer.Size = new System.Drawing.Size(400, 312);
             this.mplayerSplitContainer.SplitterDistance = 213;
             this.mplayerSplitContainer.TabIndex = 0;
             this.mplayerSplitContainer.TabStop = false;
@@ -1319,7 +1326,7 @@ namespace Baka_MPlayer.Forms
             this.albumArtPicbox.Image = global::Baka_MPlayer.Properties.Resources.music_128;
             this.albumArtPicbox.Location = new System.Drawing.Point(0, 0);
             this.albumArtPicbox.Name = "albumArtPicbox";
-            this.albumArtPicbox.Size = new System.Drawing.Size(410, 213);
+            this.albumArtPicbox.Size = new System.Drawing.Size(400, 213);
             this.albumArtPicbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.albumArtPicbox.TabIndex = 1;
             this.albumArtPicbox.TabStop = false;
@@ -1351,7 +1358,7 @@ namespace Baka_MPlayer.Forms
             this.outputTextbox.Name = "outputTextbox";
             this.outputTextbox.ReadOnly = true;
             this.outputTextbox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.outputTextbox.Size = new System.Drawing.Size(410, 72);
+            this.outputTextbox.Size = new System.Drawing.Size(400, 72);
             this.outputTextbox.TabIndex = 0;
             this.outputTextbox.TabStop = false;
             this.outputTextbox.Text = "Baka MPlayer Loaded...";
@@ -1366,7 +1373,7 @@ namespace Baka_MPlayer.Forms
             this.inputTextbox.ForeColor = System.Drawing.Color.White;
             this.inputTextbox.Location = new System.Drawing.Point(0, 72);
             this.inputTextbox.Name = "inputTextbox";
-            this.inputTextbox.Size = new System.Drawing.Size(410, 23);
+            this.inputTextbox.Size = new System.Drawing.Size(400, 23);
             this.inputTextbox.TabIndex = 1;
             this.inputTextbox.TabStop = false;
             this.inputTextbox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputTextbox_KeyDown);
@@ -1381,7 +1388,7 @@ namespace Baka_MPlayer.Forms
             this.playlist.Margin = new System.Windows.Forms.Padding(4);
             this.playlist.Name = "playlist";
             this.playlist.SelectedIndex = -1;
-            this.playlist.Size = new System.Drawing.Size(170, 312);
+            this.playlist.Size = new System.Drawing.Size(180, 312);
             this.playlist.TabIndex = 0;
             this.playlist.TabStop = false;
             // 
@@ -1501,13 +1508,6 @@ namespace Baka_MPlayer.Forms
             // 
             this.cursorTimer.Interval = 2500;
             this.cursorTimer.Tick += new System.EventHandler(this.cursorTimer_Tick);
-            // 
-            // voiceCommandHelpToolStripMenuItem
-            // 
-            this.voiceCommandHelpToolStripMenuItem.Name = "voiceCommandHelpToolStripMenuItem";
-            this.voiceCommandHelpToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.voiceCommandHelpToolStripMenuItem.Text = "&Voice Command Help";
-            this.voiceCommandHelpToolStripMenuItem.Click += new System.EventHandler(this.voiceCommandHelpToolStripMenuItem_Click);
             // 
             // MainForm
             // 
