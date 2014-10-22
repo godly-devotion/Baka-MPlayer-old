@@ -1485,8 +1485,8 @@ namespace Baka_MPlayer.Forms
         {
             if (blackForm == null)
             {
-                blackForm = new BlackForm(this, Functions.Url.DecodeUrl(mp.FileInfo.MovieName));
-                blackForm.RefreshTitle();
+                blackForm = new BlackForm(this);
+                blackForm.SetTitle(Functions.Url.DecodeUrl(mp.FileInfo.MovieName));
             }
 
             if (dimDesktopToolStripMenuItem.Checked)
@@ -1874,7 +1874,7 @@ namespace Baka_MPlayer.Forms
                     folderToolStripMenuItem.Text = Functions.String.AutoEllipsis(32, Functions.IO.GetFolderName(mp.FileInfo.Url));
 
                 if (blackForm != null)
-                    blackForm.RefreshTitle();
+                    blackForm.SetTitle(Functions.Url.DecodeUrl(mp.FileInfo.MovieName));
 
                 if (infoForm != null && !infoForm.IsDisposed)
                     infoForm.RefreshInfo();

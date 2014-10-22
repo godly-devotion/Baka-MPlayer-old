@@ -7,23 +7,21 @@ namespace Baka_MPlayer.Forms
     public partial class BlackForm : Form
     {
         private readonly Form _parentForm;
-        private readonly string _title;
 
-        public BlackForm(Form parentForm, string title)
+        public BlackForm(Form parentForm)
         {
             InitializeComponent();
 
             _parentForm = parentForm;
-            _title = title;
 
             // set location & size to primary screen to reduce flicker while starting
             this.Location = new Point(Screen.PrimaryScreen.Bounds.X, Screen.PrimaryScreen.Bounds.Y);
             this.Size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
         }
 
-        public void RefreshTitle()
+        public void SetTitle(string title)
         {
-            titleLabel.Text = _title;
+            titleLabel.Text = title;
         }
 
         #region Events
