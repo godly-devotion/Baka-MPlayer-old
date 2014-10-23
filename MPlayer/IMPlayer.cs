@@ -21,7 +21,7 @@ namespace MPlayer
         bool SendCommand(string command);
         bool SendCommand(string command, object value);
         bool PlayerIsRunning();
-        string GetProcessState();
+        int GetProcessId();
         bool Quit();
 
         bool Play();

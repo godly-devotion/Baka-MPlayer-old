@@ -18,9 +18,11 @@ namespace Baka_MPlayer.Forms
             get { return albumArtPicbox.Image; }
         }
 
-        public InfoForm()
+        public InfoForm(int mpvProcessId)
         {
             InitializeComponent();
+
+            mpvProcessLabel.Text = "mpv's process ID:" + mpvProcessId;
         }
 
         public void UpdateInfo(IFileInfo fileInfo, double fileTotalLength)

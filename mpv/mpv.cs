@@ -91,10 +91,9 @@ namespace mpv
         {
             return mpvProcess != null && !mpvProcess.HasExited;
         }
-        public string GetProcessState()
+        public int GetProcessId()
         {
-            string strResp = mpvProcess.Responding ? "" : " - not responding";
-            return string.Format("mpv's process ID: {0}{1}", mpvProcess.Id, strResp);
+            return mpvProcess.Id;
         }
         public bool Quit()
         {

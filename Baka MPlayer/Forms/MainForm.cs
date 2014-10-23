@@ -1271,7 +1271,7 @@ namespace Baka_MPlayer.Forms
         private void mediaInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (infoForm == null || infoForm.IsDisposed)
-                infoForm = new InfoForm();
+                infoForm = new InfoForm(mp.GetProcessId());
             infoForm.UpdateInfo(mp.FileInfo, mp.CurrentStatus.TotalLength);
             infoForm.Show();
         }

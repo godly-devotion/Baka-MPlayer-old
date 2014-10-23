@@ -38,7 +38,7 @@
             this.infoColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.valueColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.seperatorBox = new System.Windows.Forms.PictureBox();
-            this.mplayerProcessLabel = new System.Windows.Forms.Label();
+            this.mpvProcessLabel = new System.Windows.Forms.Label();
             this.searchTextbox = new Baka_MPlayer.Controls.CustomTextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tagList = new System.Windows.Forms.ListView();
@@ -88,7 +88,7 @@
             this.tabPage1.BackColor = System.Drawing.Color.Black;
             this.tabPage1.Controls.Add(this.infoList);
             this.tabPage1.Controls.Add(this.seperatorBox);
-            this.tabPage1.Controls.Add(this.mplayerProcessLabel);
+            this.tabPage1.Controls.Add(this.mpvProcessLabel);
             this.tabPage1.Controls.Add(this.searchTextbox);
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
@@ -144,17 +144,17 @@
             this.seperatorBox.TabIndex = 5;
             this.seperatorBox.TabStop = false;
             // 
-            // mplayerProcessLabel
+            // mpvProcessLabel
             // 
-            this.mplayerProcessLabel.BackColor = System.Drawing.Color.White;
-            this.mplayerProcessLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.mplayerProcessLabel.ForeColor = System.Drawing.Color.Black;
-            this.mplayerProcessLabel.Location = new System.Drawing.Point(0, 298);
-            this.mplayerProcessLabel.Name = "mplayerProcessLabel";
-            this.mplayerProcessLabel.Size = new System.Drawing.Size(402, 22);
-            this.mplayerProcessLabel.TabIndex = 1;
-            this.mplayerProcessLabel.Text = "Baka MPlayer";
-            this.mplayerProcessLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.mpvProcessLabel.BackColor = System.Drawing.Color.White;
+            this.mpvProcessLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.mpvProcessLabel.ForeColor = System.Drawing.Color.Black;
+            this.mpvProcessLabel.Location = new System.Drawing.Point(0, 298);
+            this.mpvProcessLabel.Name = "mpvProcessLabel";
+            this.mpvProcessLabel.Size = new System.Drawing.Size(402, 22);
+            this.mpvProcessLabel.TabIndex = 1;
+            this.mpvProcessLabel.Text = "Baka MPlayer";
+            this.mpvProcessLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // searchTextbox
             // 
@@ -424,7 +424,7 @@
         private System.Windows.Forms.ListView infoList;
         private System.Windows.Forms.ColumnHeader infoColumnHeader;
         private System.Windows.Forms.ColumnHeader valueColumnHeader;
-        private System.Windows.Forms.Label mplayerProcessLabel;
+        private System.Windows.Forms.Label mpvProcessLabel;
         private Baka_MPlayer.Controls.SimpleButton closeButton;
         private System.Windows.Forms.TextBox imgTypeTextBox;
         private System.Windows.Forms.Label imgLabel;
