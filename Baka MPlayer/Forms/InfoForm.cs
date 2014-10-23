@@ -22,7 +22,7 @@ namespace Baka_MPlayer.Forms
         {
             InitializeComponent();
 
-            mpvProcessLabel.Text = "mpv's process ID:" + mpvProcessId;
+            mpvProcessLabel.Text = "mpv's process ID: " + mpvProcessId;
         }
 
         public void UpdateInfo(IFileInfo fileInfo, double fileTotalLength)
