@@ -1,8 +1,19 @@
 Baka MPlayer Changelog
 ======================
 
-Latest Version 1.4.5 (2014-03-24)
+Latest Version 1.5.0 (2014-10-23)
 ---------------------------------
+
+- New Logo :)
+- Fixed: Better memory usage
+- Fixed: Incorrect snapshot file type
+- Changed: Menu items have been simplified (same features)
+- Changed: Frame step keys changed to Ctrl+Shift+Left/Right
+- Changed: Default video output set to opengl-hq
+- Added: Ability to change voice command call name easily
+
+Version 1.4.5 (2014-03-24)
+--------------------------
 
 - Fixed: Small bugs
 - Fixed: Small visual tweaks
