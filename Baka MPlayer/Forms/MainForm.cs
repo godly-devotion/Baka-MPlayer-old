@@ -406,46 +406,6 @@ namespace Baka_MPlayer.Forms
 
         #region Accessors
 
-        private bool _voiceEnabled;
-        private bool EnableVoiceCommand
-        {
-            get { return _voiceEnabled; }
-            set
-            {
-                try
-                {
-                    if (value)
-                    {
-                        if (voice == null)
-                        {
-                            var name = Properties.Settings.Default.CallName.Trim();
-                            voice = new VoiceCommandEngine(this, name);
-                        }
-                        voice.StartListening();
-                        speechButton.Image = Properties.Resources.enabled_mic;
-                        _voiceEnabled = true;
-                    }
-                    else
-                    {
-                        voice.StopListening();
-                        speechButton.Image = Properties.Resources.disabled_mic;
-                        _voiceEnabled = false;
-                    }
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show(
-                        "There was a problem while starting voice command.\nPlease make sure your mic is plugged in.",
-                        "Voice Command", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                    speechButton.Image = Properties.Resources.disabled_mic;
-   
-                    if (voice != null)
-                        voice.StopListening();
-                    _voiceEnabled = false;
-                }
-            }
-        }
-
         public bool ShowPlaylist
         {
             get { return !bodySplitContainer.Panel2Collapsed; }
@@ -512,26 +472,78 @@ namespace Baka_MPlayer.Forms
         }
 
         #endregion
-        #region Speech Code
+        #region Voice Command
 
-        public void CallUpdateAudioLevel(int audioLevel)
+        private bool IsVoiceCommandEnabled;
+
+        private void EnableVoiceCommand()
         {
-            Invoke((MethodInvoker)(() => UpdateAudioLevel(audioLevel)));
+            try
+            {
+                if (IsVoiceCommandEnabled) return;
+
+                // if call name isn't set, ask for one
+                if (string.IsNullOrEmpty(Properties.Settings.Default.CallName.Trim()))
+                {
+                    var voiceForm = new VoiceForm();
+                    if (voiceForm.ShowDialog() == DialogResult.OK)
+                    {
+                        if (voiceForm.GetName != Properties.Settings.Default.CallName)
+                        {
+                            Properties.Settings.Default.CallName = voiceForm.GetName;
+                            Properties.Settings.Default.Save();
+
+                            // if voice command is running, restart it
+                            if (voice != null)
+                            {
+                                IsVoiceCommandEnabled = false;
+                                voice.SpeechRecognizedEvent += voice_SpeechRecognizedEvent;
+                                voice.AudioLevelUpdatedEvent += voice_AudioLevelUpdatedEvent;
+                                voice.Dispose();
+                                voice = null;
+                            }
+                            SetStatusMsg("Voice Command: Name changed to " + Properties.Settings.Default.CallName, true);
+                        }
+                    }
+                    voiceForm.Dispose();
+                }
+
+                if (voice == null)
+                {
+                    voice = new VoiceCommandEngine(Properties.Settings.Default.CallName);
+                    voice.SpeechRecognizedEvent += voice_SpeechRecognizedEvent;
+                    voice.AudioLevelUpdatedEvent += voice_AudioLevelUpdatedEvent;
+                }
+                voice.StartListening();
+                speechButton.Image = Properties.Resources.enabled_mic;
+                IsVoiceCommandEnabled = true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(
+                    "There was a problem while starting voice command.\nPlease make sure your mic is plugged in.",
+                    "Voice Command", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                speechButton.Image = Properties.Resources.disabled_mic;
+
+                if (voice != null)
+                    voice.StopListening();
+                IsVoiceCommandEnabled = false;
+            }
         }
-        private void UpdateAudioLevel(int audioLevel)
+        private void DisableVoiceCommand()
         {
-            audioLevelBar.Value = audioLevel;
+            if (!IsVoiceCommandEnabled) return;
+
+            voice.StopListening();
+            speechButton.Image = Properties.Resources.disabled_mic;
+            IsVoiceCommandEnabled = false;
         }
 
-        public void CallTakeAction(string speechCommand)
+        private void voice_SpeechRecognizedEvent(object sender, VoiceCommandEvents.SpeechRecognizedEventArgs e)
         {
-            Invoke((MethodInvoker)(() => TakeAction(speechCommand)));
-        }
-        private void TakeAction(string speechCommand)
-        {
-            SetStatusMsg("Voice Command: " + Functions.String.ToTitleCase(speechCommand), true);
+            SetStatusMsg("Voice Command: " + Functions.String.ToTitleCase(e.Command), true);
 
-            switch (speechCommand)
+            switch (e.Command)
             {
                 case "open":
                 case "open file":
@@ -546,18 +558,18 @@ namespace Baka_MPlayer.Forms
                 case "increase volume":
                 case "raise volume":
                 case "volume up":
-                    if (mp.Volume >= 95)
+                    if (mp.Volume >= 90)
                         SetVolume(100);
                     else
-                        SetVolume(mp.Volume + 5);
+                        SetVolume(mp.Volume + 10);
                     break;
                 case "decrease volume":
                 case "lower volume":
                 case "volume down":
-                    if (mp.Volume <= 5)
+                    if (mp.Volume <= 10)
                         SetVolume(0);
                     else
-                        SetVolume(mp.Volume - 5);
+                        SetVolume(mp.Volume - 10);
                     break;
                 case "hide":
                     HidePlayer();
@@ -567,20 +579,21 @@ namespace Baka_MPlayer.Forms
                     this.Focus();
                     break;
                 case "help":
-                    Process.Start("http://bakamplayer.u8sand.net/help.php");
+                    voiceCommandHelpToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
                 case "stop listening":
-                    EnableVoiceCommand = false;
+                    DisableVoiceCommand();
                     break;
                 case "close":
                     Application.Exit();
                     break;
             }
 
+            // check if a file is opened before allowing playback commands
             if (!mp.PlayerIsRunning() || string.IsNullOrEmpty(mp.FileInfo.Url))
                 return;
 
-            switch (speechCommand)
+            switch (e.Command)
             {
                 case "play":
                     mp.Play();
@@ -624,6 +637,11 @@ namespace Baka_MPlayer.Forms
                     speech.SayMedia();
                     break;
             }
+        }
+
+        private void voice_AudioLevelUpdatedEvent(object sender, VoiceCommandEvents.AudioLevelUpdatedEventArgs e)
+        {
+            audioLevelBar.Value = e.AudioLevel;
         }
 
         #endregion
@@ -701,23 +719,13 @@ namespace Baka_MPlayer.Forms
             }
         }
 
-        // Speech Button
+        // Voice Command Button
         private void speechButton_MouseClick(object sender, MouseEventArgs e)
         {
-            if (EnableVoiceCommand == false && string.IsNullOrEmpty(Properties.Settings.Default.CallName.Trim()))
-            {
-                var voiceForm = new VoiceForm();
-                if (voiceForm.ShowDialog() == DialogResult.OK)
-                {
-                    Properties.Settings.Default.CallName = voiceForm.GetName;
-                    Properties.Settings.Default.Save();
-
-                    EnableVoiceCommand = true;
-                }
-                voiceForm.Dispose();
-                return;
-            }
-            EnableVoiceCommand = !EnableVoiceCommand;
+            if (IsVoiceCommandEnabled)
+                DisableVoiceCommand();
+            else
+                EnableVoiceCommand();
         }
         private void speechButton_MouseDown(object sender, MouseEventArgs e)
         {
@@ -725,7 +733,7 @@ namespace Baka_MPlayer.Forms
         }
         private void speechButton_MouseUp(object sender, MouseEventArgs e)
         {
-            if (EnableVoiceCommand)
+            if (IsVoiceCommandEnabled)
                 speechButton.Image = Properties.Resources.enabled_mic;
             else
                 speechButton.Image = Properties.Resources.disabled_mic;
@@ -1571,8 +1579,28 @@ namespace Baka_MPlayer.Forms
             var voiceForm = new VoiceForm();
             if (voiceForm.ShowDialog() == DialogResult.OK)
             {
-                Properties.Settings.Default.CallName = voiceForm.GetName;
-                Properties.Settings.Default.Save();
+                if (voiceForm.GetName != Properties.Settings.Default.CallName)
+                {
+                    Properties.Settings.Default.CallName = voiceForm.GetName;
+                    Properties.Settings.Default.Save();
+
+                    // if voice command is running, restart it
+                    if (voice != null)
+                    {
+                        var voiceCommandState = IsVoiceCommandEnabled;
+
+                        IsVoiceCommandEnabled = false;
+                        voice.SpeechRecognizedEvent += voice_SpeechRecognizedEvent;
+                        voice.AudioLevelUpdatedEvent += voice_AudioLevelUpdatedEvent;
+                        voice.Dispose();
+                        voice = null;
+
+                        // if voice command was enabled, re-enable it
+                        if (voiceCommandState)
+                            EnableVoiceCommand();
+                    }
+                    SetStatusMsg("Voice Command: Name changed to " + Properties.Settings.Default.CallName, true);
+                }
             }
             voiceForm.Dispose();
         }
@@ -1769,7 +1797,12 @@ namespace Baka_MPlayer.Forms
             Properties.Settings.Default.Save();
 
             if (voice != null)
+            {
+                IsVoiceCommandEnabled = false;
+                voice.SpeechRecognizedEvent -= voice_SpeechRecognizedEvent;
+                voice.AudioLevelUpdatedEvent -= voice_AudioLevelUpdatedEvent;
                 voice.Dispose();
+            }
             globalKeyHook.Dispose();
             UnloadTray();
         }

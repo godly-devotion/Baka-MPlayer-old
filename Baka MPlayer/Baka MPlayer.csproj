@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\CursorPosition.cs" />
+    <Compile Include="Classes\VoiceCommandEvents.cs" />
     <Compile Include="Forms\VoiceForm.cs">
       <SubType>Form</SubType>
     </Compile>

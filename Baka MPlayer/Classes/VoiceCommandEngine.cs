@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Media;
 using System.Speech.Recognition;
-using Baka_MPlayer.Forms;
 
 public class VoiceCommandEngine : IDisposable
 {
+    public event EventHandler<VoiceCommandEvents.SpeechRecognizedEventArgs> SpeechRecognizedEvent;
+    public event EventHandler<VoiceCommandEvents.AudioLevelUpdatedEventArgs> AudioLevelUpdatedEvent;
+
     private readonly SpeechRecognitionEngine engine;
     private readonly SoundPlayer sfx = new SoundPlayer();
-    private readonly MainForm mainForm;
     private readonly string callName;
 
-    public VoiceCommandEngine(MainForm mainForm, string callName)
+    public VoiceCommandEngine(string callName)
     {
-        this.mainForm = mainForm;
         this.callName = callName;
 
         engine = new SpeechRecognitionEngine();
@@ -75,7 +75,7 @@ public class VoiceCommandEngine : IDisposable
     public void StopListening()
     {
         engine.RecognizeAsyncStop();
-        mainForm.CallUpdateAudioLevel(0);
+        OnAudioLevelUpdated(new VoiceCommandEvents.AudioLevelUpdatedEventArgs(0));
 
         sfx.SoundLocation = @"C:\Windows\Media\Speech Sleep.wav";
         sfx.Play();
@@ -92,14 +92,29 @@ public class VoiceCommandEngine : IDisposable
         if (e.Result.Confidence > 0.8F)
         {
             PlayRecognizedCommandSound();
-            mainForm.CallTakeAction(e.Result.Text.ToLowerInvariant().Substring(callName.Length + 1));
+
+            var command = e.Result.Text.ToLowerInvariant().Substring(callName.Length + 1);
+            OnSpeechRecognized(new VoiceCommandEvents.SpeechRecognizedEventArgs(command));
+        }
+    }
+    protected virtual void OnSpeechRecognized(VoiceCommandEvents.SpeechRecognizedEventArgs e)
+    {
+        if (SpeechRecognizedEvent != null)
+        {
+            SpeechRecognizedEvent(this, e);
         }
     }
 
     public void engine_AudioLevelUpdated(object sender, AudioLevelUpdatedEventArgs e)
     {
-        if (!mainForm.IsDisposed)
-            mainForm.CallUpdateAudioLevel(e.AudioLevel);
+        OnAudioLevelUpdated(new VoiceCommandEvents.AudioLevelUpdatedEventArgs(e.AudioLevel));
+    }
+    protected virtual void OnAudioLevelUpdated(VoiceCommandEvents.AudioLevelUpdatedEventArgs e)
+    {
+        if (AudioLevelUpdatedEvent != null)
+        {
+            AudioLevelUpdatedEvent(this, e);
+        }
     }
 
     protected virtual void Dispose(bool disposing)
